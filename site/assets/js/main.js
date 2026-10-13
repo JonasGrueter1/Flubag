@@ -182,7 +182,7 @@
         burger.addEventListener('click', function () { toggleMobile(); });
         F.$$('a', menu).forEach(function (a) { a.addEventListener('click', function () { toggleMobile(false); }); });
         F.$$('.mm-group[data-current]', menu).forEach(function (d) { d.open = true; });
-        window.addEventListener('resize', function () { if (window.innerWidth > 1180 && !menu.hidden) toggleMobile(false); });
+        window.addEventListener('resize', function () { if (window.innerWidth > 1360 && !menu.hidden) toggleMobile(false); });
       }
     }
   };
@@ -233,10 +233,17 @@
     if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('is-in'); }); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        if (!en.isIntersecting) return;
+        (en.target._rv || [en.target]).forEach(function (x) { x.classList.add('is-in'); });
+        io.unobserve(en.target);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    els.forEach(function (el) { io.observe(el); });
+    // clip-path inset(100%) macht die Schnittfläche 0: bei "clip" den Elternknoten beobachten
+    els.forEach(function (el) {
+      var t = el.getAttribute('data-reveal') === 'clip' && el.parentElement ? el.parentElement : el;
+      (t._rv = t._rv || []).push(el);
+      io.observe(t);
+    });
   }
 
   function splitHeadings() {
@@ -734,6 +741,8 @@
     var btn = form.querySelector('[type="submit"]');
     if (form.querySelector('.honeypot input') && form.querySelector('.honeypot input').value) { success(form, false); return; }
     var data = values(form);
+    var tEl = form.querySelector('input[name="_t"]');
+    if (tEl) data._t = tEl.value;
     data._form = form.dataset.formName || form.id || 'Kontakt';
     data._page = location.href;
     var cfg = F.config.form;

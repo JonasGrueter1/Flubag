@@ -113,7 +113,7 @@
 .fleet-switch__info { padding: clamp(22px, 3vw, 40px); display: grid; gap: 18px; align-content: center; justify-items: start; }
 .fleet-switch__info h3 { font-size: var(--fs-h3); }
 .fleet-switch__info .specs { width: 100%; grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 1024px) { .fleet-switch { grid-template-columns: 1fr; } .fleet-switch__list { grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); overflow-x: auto; padding-bottom: 6px; } .fleet-switch__tab:hover { transform: none; } }
+@media (max-width: 1024px) { .fleet-switch { grid-template-columns: 1fr; } .fleet-switch__list { grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; } .fleet-switch__list::-webkit-scrollbar { display: none; } .fleet-switch__tab { grid-template-columns: 1fr; } .fleet-switch__reg { grid-row: auto; } .fleet-switch__tab:hover { transform: none; } }
 @media (max-width: 760px) { .fleet-switch__panel { grid-template-columns: 1fr; } .fleet-switch__media { min-height: 240px; } .fleet-switch__info .specs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .spec { padding: 12px; } .spec__value { font-size: 1.1rem; } }
 
 /* ---------- Ausbildung ---------- */
