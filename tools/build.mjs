@@ -144,7 +144,9 @@ function iconSvg(name, cls = '') {
     const lucide = path.join(NM, 'lucide-static/icons', `${name}.svg`);
     const file = fs.existsSync(own) ? own : fs.existsSync(lucide) ? lucide : null;
     if (!file) { warn(`Icon fehlt: ${name}`); return ''; }
-    iconCache[name] = read(file).replace(/<!--[\s\S]*?-->/g, '').replace(/\s*\n\s*/g, ' ').replace(/\s(width|height|class)="[^"]*"/g, '').trim();
+    const svg = read(file).replace(/<!--[\s\S]*?-->/g, '').replace(/\s*\n\s*/g, ' ').trim();
+    // width/height/class nur am <svg>-Tag entfernen (nicht an <rect> usw.)
+    iconCache[name] = svg.replace(/<svg\b[^>]*>/, (tag) => tag.replace(/\s(width|height|class)="[^"]*"/g, ''));
   }
   return iconCache[name].replace('<svg', `<svg class="icon icon-${name}${cls ? ' ' + cls : ''}" aria-hidden="true" focusable="false"`);
 }
@@ -157,6 +159,79 @@ const parseAttrs = (s) => {
 };
 function get(obj, p) { return p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj); }
 
+// Mini-Templates:  <!-- @each data.flotte as a --> ... <!-- @end -->
+//                  <!-- @if a.lead --> ... <!-- @else --> ... <!-- @endif -->
+//                  (Bedingungen: pfad, !pfad, pfad == "wert", pfad != "wert")
+//                  {{ a.price1 | chf }}   Filter: chf, num, upper, lower, json, slug, esc
+//                  In Schleifen gibt es zusätzlich loop.index, loop.number, loop.first, loop.last, loop.count
+const FILTERS = {
+  chf: (v) => 'CHF ' + Number(v).toLocaleString('de-CH', { minimumFractionDigits: Number(v) % 1 ? 2 : 0, maximumFractionDigits: 2 }),
+  num: (v) => Number(v).toLocaleString('de-CH'),
+  upper: (v) => String(v).toUpperCase(),
+  lower: (v) => String(v).toLowerCase(),
+  json: (v) => esc(JSON.stringify(v)),
+  slug: (v) => String(v).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+  esc: (v) => esc(v),
+};
+function evalCond(expr, ctx) {
+  expr = expr.trim();
+  if (expr.startsWith('!')) return !evalCond(expr.slice(1), ctx);
+  const m = expr.match(/^([\w.]+)\s*(==|!=)\s*"([^"]*)"$/);
+  if (m) { const v = String(get(ctx, m[1]) ?? ''); return m[2] === '==' ? v === m[3] : v !== m[3]; }
+  const v = get(ctx, expr);
+  return Array.isArray(v) ? v.length > 0 : !!v;
+}
+// passendes Schluss-Tag finden (verschachtelte Blöcke berücksichtigen)
+function findClose(html, from, kind) {
+  const re = kind === 'each' ? /<!--\s*@(each\s[^>]*?|end)\s*-->/g : /<!--\s*@(if\s[^>]*?|endif)\s*-->/g;
+  re.lastIndex = from;
+  let depth = 1, m;
+  while ((m = re.exec(html))) {
+    if (m[1] === 'end' || m[1] === 'endif') { if (--depth === 0) return m; } else depth++;
+  }
+  throw new Error(`Schluss-Tag für @${kind} fehlt`);
+}
+function blocks(html, ctx) {
+  const open = /<!--\s*@(each|if)\s+([^>]*?)\s*-->/;
+  let out = '', rest = html;
+  for (;;) {
+    const m = rest.match(open);
+    if (!m) return out + rest;
+    out += rest.slice(0, m.index);
+    const after = m.index + m[0].length;
+    const close = findClose(rest, after, m[1]);
+    const inner = rest.slice(after, close.index);
+    if (m[1] === 'each') {
+      const [, listPath, name] = m[2].match(/^([\w.]+)\s+as\s+(\w+)$/) || [];
+      const list = get(ctx, listPath);
+      if (!Array.isArray(list)) warn(`@each ohne Liste: ${listPath} (${ctx.page?.file})`);
+      (Array.isArray(list) ? list : []).forEach((item, i, arr) => {
+        const c = { ...ctx, [name]: item, loop: { index: i, number: i + 1, first: i === 0, last: i === arr.length - 1, count: arr.length } };
+        out += substitute(blocks(inner, c), c);
+      });
+    } else {
+      let elseIdx = -1, depth = 0;
+      for (const t of inner.matchAll(/<!--\s*@(if\s[^>]*?|endif|else)\s*-->/g)) {
+        if (t[1] === 'endif') depth--; else if (t[1] === 'else') { if (depth === 0) { elseIdx = t.index; break; } } else depth++;
+      }
+      const yes = elseIdx >= 0 ? inner.slice(0, elseIdx) : inner;
+      const no = elseIdx >= 0 ? inner.slice(inner.indexOf('-->', elseIdx) + 3) : '';
+      out += blocks(evalCond(m[2], ctx) ? yes : no, ctx);
+    }
+    rest = rest.slice(close.index + close[0].length);
+  }
+}
+function substitute(html, ctx) {
+  return html.replace(/\{\{\s*([\w.]+)\s*(?:\|\s*(\w+)\s*)?\}\}/g, (m, p, filter) => {
+    const v = get(ctx, p);
+    if (v === undefined) { warn(`Variable fehlt: ${p} (${ctx.page?.file})`); return ''; }
+    if (v === null) return '';
+    if (!filter) return String(v);
+    if (!FILTERS[filter]) { warn(`Filter fehlt: ${filter}`); return String(v); }
+    return FILTERS[filter](v);
+  });
+}
+
 function expand(html, ctx, depth = 0) {
   if (depth > 8) throw new Error('Include zu tief verschachtelt');
   html = html.replace(/<!--\s*@include\s+([\w/-]+)\s*-->/g, (_, name) => {
@@ -164,11 +239,9 @@ function expand(html, ctx, depth = 0) {
     if (!fs.existsSync(f)) { warn(`Partial fehlt: ${name}`); return ''; }
     return expand(read(f), ctx, depth + 1);
   });
-  html = html.replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, p) => {
-    const v = get(ctx, p);
-    if (v === undefined) { warn(`Variable fehlt: ${p} (${ctx.page?.file})`); return m; }
-    return String(v);
-  });
+  if (depth > 0) return html;
+  html = blocks(html, ctx);
+  html = substitute(html, ctx);
   html = html.replace(/<x-img\s([^>]*?)\/?>/g, (_, a) => imgTag(parseAttrs(a)));
   html = html.replace(/<x-icon\s([^>]*?)\/?>(<\/x-icon>)?/g, (_, a) => { const at = parseAttrs(a); return iconSvg(at.name, at.class || ''); });
   return html;

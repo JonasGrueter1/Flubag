@@ -62,7 +62,7 @@
       if (w[k] != null) el.textContent = w[k];
     });
     F.$$('[data-wx]').forEach(function (el) { el.hidden = false; el.classList.add('is-loaded'); });
-    F.$$('[data-wx-arrow]').forEach(function (el) { el.style.transform = 'rotate(' + (w.dir + 180) + 'deg)'; });
+    F.$$('[data-wx-arrow]').forEach(function (el) { el.style.transform = 'rotate(' + w.dir + 'deg)'; });
     F.$$('[data-wx-hazard]').forEach(function (el) {
       var t = el.getAttribute('data-wx-hazard');
       el.hidden = !((t === 'west' && w.westHazard) || (t === 'bise' && w.biseHazard) || (t === 'tail33' && w.tailwind33));
@@ -80,7 +80,8 @@
         '&current=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation,weather_code,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,wind_gusts_10m,visibility,is_day' +
         '&daily=sunrise,sunset&wind_speed_unit=kn&timezone=Europe%2FZurich&forecast_days=1';
       var self = this;
-      fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      var get = function () { return fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); };
+      get().catch(function () { return new Promise(function (res) { setTimeout(res, 2500); }).then(get); })
         .then(function (raw) { F.store.set(KEY, { t: Date.now(), raw: raw }, true); self.set(raw); })
         .catch(function () {
           F.$$('[data-wx-field]').forEach(function (el) { if (el.textContent === '--') el.textContent = 'nicht verfügbar'; });

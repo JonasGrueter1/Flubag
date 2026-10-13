@@ -63,7 +63,8 @@
   };
   F.minToTime = function (m) { m = Math.round(m); return F.pad(Math.floor(m / 60) % 24) + ':' + F.pad(m % 60); };
 
-  var readyFns = [];
-  F.ready = function (fn) { readyFns.push(fn); };
-  F._runReady = function () { readyFns.forEach(function (fn) { try { fn(); } catch (e) { console.error(e); } }); };
+  // F.ready(fn): läuft, sobald alle Module gestartet sind (auch wenn später registriert)
+  var readyFns = [], booted = false;
+  F.ready = function (fn) { if (booted) { try { fn(); } catch (e) { console.error(e); } } else readyFns.push(fn); };
+  F._runReady = function () { booted = true; readyFns.forEach(function (fn) { try { fn(); } catch (e) { console.error(e); } }); };
 })();
