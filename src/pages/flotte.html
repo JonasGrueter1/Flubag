@@ -1,0 +1,295 @@
+<!--meta {
+  "title": "Flotte",
+  "description": "Die Flotte der FLUBAG in Luzern-Beromünster: Cessna 150, 172 und 182, Piper L-4 und Lightwing AC4. Technische Daten, Mietpreise, Vergleich und Handbücher.",
+  "nav": "flotte",
+  "ogImage": "hero/slide-02"
+} -->
+
+<section class="page-hero fl-hero" aria-labelledby="fl-title">
+  <div class="page-hero__media"><x-img src="hero/slide-02" alt="Cessna der FLUBAG im Flug über dem Nebelmeer" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Flotte</li></ol>
+    <p class="eyebrow">Unsere Flotte</p>
+    <h1 id="fl-title" data-split data-split-now>Vom Schulflugzeug bis zur Legende.</h1>
+    <p class="lead">Für Charter-, Schulungs- und Rundflüge stehen fünf Flugzeuge bereit: zwei- und vierplätzig, klassisch und modern, mit Bugrad oder Heckrad. Hier findest du alle Daten, Mietpreise, Handbücher und Checklisten.</p>
+    <div class="page-hero__meta">
+      <span class="chip"><x-icon name="plane"></x-icon>5 Flugzeuge</span>
+      <span class="chip"><x-icon name="users"></x-icon>2 bis 4 Plätze</span>
+      <span class="chip chip--brand"><x-icon name="route"></x-icon>Charter, Schulung, Rundflüge</span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#flugzeuge" data-magnetic><x-icon name="plane"></x-icon>Flugzeuge ansehen</a>
+      <a class="btn btn--ghost btn--lg" href="#vergleich"><x-icon name="arrow-left-right"></x-icon>Vergleichen</a>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#flugzeuge" aria-label="Weiter zu den Flugzeugen"><span></span></a>
+</section>
+
+<div class="marquee marquee--big fl-marquee" aria-label="Kennzeichen der FLUBAG Flugzeuge">
+  <div class="marquee__track">
+    <!-- @each data.flotte as a -->
+    <span class="marquee__item">{{a.reg}}</span>
+    <!-- @end -->
+  </div>
+</div>
+
+<section class="section" id="flugzeuge" aria-labelledby="flugzeuge-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Die Flugzeuge</p>
+        <h2 id="flugzeuge-title" data-split>Fünf Maschinen, fünf Charaktere.</h2>
+      </div>
+      <p class="lead" data-reveal>Vom gutmütigen Zweisitzer für die ersten Flugstunden über die Skylane mit Autopilot bis zur gelben Piper mit Heckrad. Jede Maschine hat ihre eigene Seite mit allen Daten, Preisen und Handbüchern.</p>
+    </div>
+
+    <div class="fl-filter" data-fleet-filter hidden>
+      <p class="fl-filter__label mono" id="fl-filter-label">Einsatz</p>
+      <div class="fl-filter__list" role="group" aria-labelledby="fl-filter-label" data-fleet-filter-list></div>
+      <p class="fl-filter__count mono subtle" data-fleet-filter-count aria-live="polite"></p>
+    </div>
+
+    <div class="fl-grid" data-reveal-group="0.1">
+      <!-- @each data.flotte as a -->
+      <a class="fl-card card card--glow" href="flugzeug-{{a.id}}.html" data-reveal data-fleet-card="{{a.id}}">
+        <span class="fl-card__head">
+          <span class="fl-card__num mono">0{{loop.number}} / 0{{loop.count}}</span>
+          <span class="fl-card__nick">{{a.nickname}}</span>
+        </span>
+        <span class="fl-card__reg mono">{{a.reg}}</span>
+        <span class="fl-card__media">
+          <x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"></x-img>
+          <span class="fl-card__seats chip"><x-icon name="users"></x-icon>{{a.seats}} Plätze</span>
+        </span>
+        <span class="fl-card__body">
+          <span class="fl-card__type">{{a.type}}</span>
+          <span class="fl-card__variant">{{a.variant}}</span>
+          <span class="fl-card__roles"><!-- @each a.role as r --><span class="chip">{{r}}</span><!-- @end --></span>
+          <span class="fl-card__foot">
+            <span class="fl-card__price"><span class="fl-card__price-label mono">Miete ab</span><span class="fl-card__price-value">{{a.price2 | chf}}<small> / h</small></span></span>
+            <span class="fl-card__speed mono"><x-icon name="gauge"></x-icon>{{a.specs.cruiseKt}} kt</span>
+            <span class="fl-card__go" aria-hidden="true"><x-icon name="arrow-up-right"></x-icon></span>
+          </span>
+        </span>
+      </a>
+      <!-- @end -->
+    </div>
+    <p class="fl-footnote subtle" data-reveal>Miete ab: Preis 2 pro Flugstunde, gilt nach Erreichen der 25. Flugstunde oder ab einem Umsatz von CHF 5000 pro Kalenderjahr. Alle Preise exkl. MwSt. <a href="#preise">Alle Mietpreise</a></p>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="vergleich" aria-labelledby="vergleich-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Vergleich</p>
+        <h2 id="vergleich-title" data-split>Zwei Flugzeuge im direkten Duell.</h2>
+      </div>
+      <p class="lead" data-reveal>Wähle links und rechts ein Flugzeug. Die Balken zeigen Reisegeschwindigkeit, Abfluggewicht, Reichweite, Plätze und Mietpreis im Verhältnis zur ganzen Flotte.</p>
+    </div>
+
+    <div class="fl-compare" data-tabs data-reveal>
+      <div class="tabs__list" aria-label="Ansicht wählen">
+        <button class="tabs__btn" type="button" data-tab="duell" aria-selected="true">Duell</button>
+        <button class="tabs__btn" type="button" data-tab="datenblatt">Datenblatt aller Flugzeuge</button>
+      </div>
+
+      <div class="tabs__panel" data-tab-panel="duell">
+        <div class="duel" data-duel>
+          <fieldset class="duel__side duel__side--a">
+            <legend class="duel__legend mono"><span class="duel__dot"></span>Flugzeug A</legend>
+            <div class="duel__chips">
+              <!-- @each data.flotte as a -->
+              <label class="duel__chip"><input type="radio" name="duel-a" value="{{a.id}}"<!-- @if loop.first --> checked<!-- @endif -->><span class="mono">{{a.reg}}</span></label>
+              <!-- @end -->
+            </div>
+            <div class="duel__plane" data-duel-plane="a"></div>
+          </fieldset>
+          <button class="duel__swap icon-btn" type="button" data-duel-swap aria-label="Flugzeug A und B tauschen"><x-icon name="arrow-left-right"></x-icon></button>
+          <fieldset class="duel__side duel__side--b">
+            <legend class="duel__legend mono"><span class="duel__dot"></span>Flugzeug B</legend>
+            <div class="duel__chips">
+              <!-- @each data.flotte as a -->
+              <label class="duel__chip"><input type="radio" name="duel-b" value="{{a.id}}"<!-- @if a.id == "hb-czu" --> checked<!-- @endif -->><span class="mono">{{a.reg}}</span></label>
+              <!-- @end -->
+            </div>
+            <div class="duel__plane" data-duel-plane="b"></div>
+          </fieldset>
+          <div class="duel__rows" data-duel-rows aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="tabs__panel" data-tab-panel="datenblatt" hidden>
+        <div class="table-wrap fl-sheet">
+          <table class="table">
+            <caption class="visually-hidden">Technische Daten und Mietpreise aller FLUBAG Flugzeuge</caption>
+            <thead>
+              <tr><th scope="col">Kennzeichen</th><!-- @each data.flotte as a --><th scope="col"><a href="flugzeug-{{a.id}}.html">{{a.reg}}</a></th><!-- @end --></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Typ</th><!-- @each data.flotte as a --><td>{{a.type}}</td><!-- @end --></tr>
+              <tr><th scope="row">Muster</th><!-- @each data.flotte as a --><td>{{a.variant}}</td><!-- @end --></tr>
+              <tr><th scope="row">Baujahr</th><!-- @each data.flotte as a --><td><!-- @if a.built -->{{a.built}}<!-- @else --><span class="subtle">k. A.</span><!-- @endif --></td><!-- @end --></tr>
+              <tr><th scope="row">Plätze</th><!-- @each data.flotte as a --><td>{{a.seats}}</td><!-- @end --></tr>
+              <tr><th scope="row">Motor</th><!-- @each data.flotte as a --><td>{{a.specs.engine}}</td><!-- @end --></tr>
+              <tr><th scope="row">Reisegeschwindigkeit</th><!-- @each data.flotte as a --><td class="nowrap">{{a.specs.cruiseKt}} kt · {{a.specs.cruiseKmh}} km/h</td><!-- @end --></tr>
+              <tr><th scope="row">Max. Abfluggewicht</th><!-- @each data.flotte as a --><td class="nowrap">{{a.specs.mtowKg | num}} kg</td><!-- @end --></tr>
+              <tr><th scope="row">Spannweite</th><!-- @each data.flotte as a --><td class="nowrap"><!-- @if a.specs.spanM -->{{a.specs.spanM | num}} m<!-- @else --><span class="subtle">k. A.</span><!-- @endif --></td><!-- @end --></tr>
+              <tr><th scope="row">Länge</th><!-- @each data.flotte as a --><td class="nowrap"><!-- @if a.specs.lengthM -->{{a.specs.lengthM | num}} m<!-- @else --><span class="subtle">k. A.</span><!-- @endif --></td><!-- @end --></tr>
+              <tr><th scope="row">Reichweite</th><!-- @each data.flotte as a --><td class="nowrap"><!-- @if a.specs.rangeKm -->{{a.specs.rangeKm | num}} km<!-- @else --><span class="subtle">k. A.</span><!-- @endif --></td><!-- @end --></tr>
+              <tr><th scope="row">Dienstgipfelhöhe</th><!-- @each data.flotte as a --><td class="nowrap"><!-- @if a.specs.ceilingFt -->{{a.specs.ceilingFt | num}} ft<!-- @else --><span class="subtle">k. A.</span><!-- @endif --></td><!-- @end --></tr>
+              <tr><th scope="row">Preis 1 pro Stunde</th><!-- @each data.flotte as a --><td class="nowrap">{{a.price1 | chf}}</td><!-- @end --></tr>
+              <tr><th scope="row">Preis 2 pro Stunde</th><!-- @each data.flotte as a --><td class="nowrap">{{a.price2 | chf}}</td><!-- @end --></tr>
+              <tr><th scope="row">Benzinzuschlag</th><!-- @each data.flotte as a --><td>{{a.fuel}} %</td><!-- @end --></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice mt-m" data-reveal>
+      <x-icon name="info"></x-icon>
+      <div><p><strong>Technische Daten sind typische Werte des Flugzeugmusters, massgebend ist das Flughandbuch.</strong></p><p>Reichweite und Reisegeschwindigkeit hängen von Beladung, Höhe, Leistungseinstellung und Wetter ab. Die Handbücher findest du auf der Seite des jeweiligen Flugzeugs.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="preise" aria-labelledby="preise-title">
+  <div class="container split split--top fl-prices">
+    <div class="stack-l sticky">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Mietpreise</p>
+        <h2 id="preise-title" data-split>Abgerechnet wird pro Minute.</h2>
+        <p class="lead" data-reveal>Alle Flugzeuge haben zwei Tarife. Preis 1 gilt für alle, Preis 2 nach Erreichen der 25. Flugstunde oder ab einem Umsatz von CHF 5000 pro Kalenderjahr.</p>
+      </div>
+      <ul class="checklist" data-reveal-group>
+        <li data-reveal><x-icon name="check"></x-icon><span>Fluglehrer auf Flubag-Flugzeugen: CHF 1.50 pro Minute (CHF 90 pro Stunde)</span></li>
+        <li data-reveal><x-icon name="check"></x-icon><span>Zum Mietpreis kommt der Benzinzuschlag des jeweiligen Flugzeugs</span></li>
+        <li data-reveal><x-icon name="check"></x-icon><span>Alle Preise in CHF exkl. MwSt.</span></li>
+      </ul>
+      <div class="row" data-reveal>
+        <a class="btn btn--primary" href="preise.html"><x-icon name="receipt"></x-icon>Alle Preise und Landetaxen</a>
+      </div>
+    </div>
+    <div class="fl-rates" data-reveal-group="0.08">
+      <!-- @each data.flotte as a -->
+      <a class="fl-rate" href="flugzeug-{{a.id}}.html#preise" data-reveal>
+        <span class="fl-rate__id">
+          <span class="fl-rate__reg mono">{{a.reg}}</span>
+          <span class="fl-rate__type">{{a.type}}</span>
+        </span>
+        <span class="fl-rate__col">
+          <span class="fl-rate__label mono">Preis 1</span>
+          <span class="fl-rate__value">{{a.price1 | chf}}<small> / h</small></span>
+          <span class="fl-rate__min mono">{{a.priceMin1 | chf}} / Min.</span>
+        </span>
+        <span class="fl-rate__col">
+          <span class="fl-rate__label mono">Preis 2</span>
+          <span class="fl-rate__value">{{a.price2 | chf}}<small> / h</small></span>
+          <span class="fl-rate__min mono">{{a.priceMin2 | chf}} / Min.</span>
+        </span>
+        <span class="fl-rate__fuel"><x-icon name="fuel"></x-icon><span class="mono">{{a.fuel}} %</span></span>
+      </a>
+      <!-- @end -->
+      <p class="subtle fl-rates__note" data-reveal>Benzinzuschlag in Prozent. Bei Auswärtsbetankungen werden gegen Vorlage der Quittungen die aktuellen Einstandspreise der FLUBAG zurückvergütet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--chart" id="piloten" aria-labelledby="piloten-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Für Piloten</p>
+        <h2 id="piloten-title" data-split>Reservieren, einweisen, abheben.</h2>
+      </div>
+      <p class="lead" data-reveal>Du hast eine Lizenz und möchtest mit einem Flugzeug der FLUBAG fliegen? Reservation, Einweisung auf das Muster und der jährliche Checkflug: hier ist alles beisammen.</p>
+    </div>
+
+    <div class="fl-pilot" data-reveal-group="0.1">
+      <article class="fl-pilot__card card card--pad" data-reveal>
+        <span class="fl-pilot__num mono">01</span>
+        <x-icon name="calendar-check" class="card__icon"></x-icon>
+        <h3 class="card__title">Reservation</h3>
+        <p class="card__text">Alle Flugzeuge der FLUBAG reservierst du online im Reservationssystem. Dort siehst du auch, wann welches Flugzeug frei ist.</p>
+        <div class="card__foot">
+          <a class="btn btn--primary btn--sm" href="{{site.reservation}}" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>Flugzeug reservieren</a>
+        </div>
+      </article>
+
+      <article class="fl-pilot__card card card--pad" data-reveal>
+        <span class="fl-pilot__num mono">02</span>
+        <x-icon name="clipboard-check" class="card__icon"></x-icon>
+        <h3 class="card__title">Familiarization</h3>
+        <p class="card__text">Für die Einweisung auf die einzelnen Muster gibt es je einen Fragebogen (Student Questionnaire), dazu einen für FLARM.</p>
+        <ul class="doc-list fl-pilot__docs">
+          <!-- @each data.dokumente as d --><!-- @if d.group == "familiarization" -->
+          <li><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="file-text" class="doc__icon"></x-icon><span><span class="doc__title">{{d.title}}</span><span class="doc__meta">PDF · Fragebogen</span></span><x-icon name="arrow-up-right" class="doc__go"></x-icon></a></li>
+          <!-- @endif --><!-- @end -->
+        </ul>
+      </article>
+
+      <article class="fl-pilot__card card card--pad" data-reveal>
+        <span class="fl-pilot__num mono">03</span>
+        <x-icon name="shield-check" class="card__icon"></x-icon>
+        <h3 class="card__title">Checkflug &amp; FLARM</h3>
+        <p class="card__text">Das Kontrollformular für den jährlichen Checkflug sowie die Theorie zu den FLARM Geräten.</p>
+        <ul class="doc-list fl-pilot__docs">
+          <!-- @each data.dokumente as d --><!-- @if d.section == "Checkflug & FLARM" -->
+          <li><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="file-text" class="doc__icon"></x-icon><span><span class="doc__title">{{d.title}}</span><span class="doc__meta">PDF</span></span><x-icon name="arrow-up-right" class="doc__go"></x-icon></a></li>
+          <!-- @endif --><!-- @end -->
+        </ul>
+        <div class="card__foot">
+          <a class="btn btn--text" href="checkflug-flarm.html">Checkflug 2026 &amp; FLARM <x-icon name="arrow-right"></x-icon></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="fl-portal instrument hud-corners force-dark" data-reveal>
+      <div class="fl-portal__text">
+        <p class="mono fl-portal__kicker">PILOTS.FLUBAG.CH</p>
+        <p class="fl-portal__title">Handbücher und Checklisten pro Flugzeug</p>
+        <p class="fl-portal__sub">Flughandbuch, Checklisten, Mass &amp; Balance und Avionik-Handbücher findest du auf der Seite jedes Flugzeugs. Mit Login auch im Pilotenportal.</p>
+      </div>
+      <div class="fl-portal__links">
+        <!-- @each data.flotte as a -->
+        <a class="fl-portal__link" href="flugzeug-{{a.id}}.html#dokumente"><span class="mono">{{a.reg}}</span><x-icon name="arrow-right"></x-icon></a>
+        <!-- @end -->
+        <a class="btn btn--ghost btn--sm fl-portal__btn" href="{{site.pilotsPortal}}" target="_blank" rel="noopener"><x-icon name="key-round"></x-icon>Pilotenportal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="hangar" aria-labelledby="hangar-title">
+  <div class="container split split--wide-right">
+    <div class="fl-hangar__media">
+      <div class="media-frame media-frame--tall" data-reveal="clip"><x-img src="news/hangarierung" alt="Flugzeug vor dem Hangar der FLUBAG im Morgennebel" sizes="(max-width: 860px) 100vw, 42vw" data-parallax="0.1"></x-img></div>
+    </div>
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Hangar &amp; Unterhalt</p>
+        <h2 id="hangar-title" data-split>Ein Dach über den Flügeln.</h2>
+        <p class="lead" data-reveal>Die Flugzeuge der FLUBAG stehen in Beromünster im Hangar. Für ihren Unterhalt sorgt ein spezialisierter Betrieb.</p>
+      </div>
+      <div class="fl-hangar__cards" data-reveal-group="0.1">
+        <div class="card card--pad" data-reveal>
+          <x-icon name="warehouse" class="card__icon"></x-icon>
+          <h3 class="card__title mt-s">Hangarvermietung</h3>
+          <p class="card__text">Die FLUBAG vermietet Hangarplätze, und zwar nur Innenplätze.</p>
+          <div class="card__foot"><a class="btn btn--ghost btn--sm" href="kontakt.html?thema=Hangar"><x-icon name="mail"></x-icon>Hangarplatz anfragen</a></div>
+        </div>
+        <div class="card card--pad" data-reveal>
+          <x-icon name="wrench" class="card__icon"></x-icon>
+          <h3 class="card__title mt-s">Unterhaltsbetrieb</h3>
+          <p class="card__text">Skyparts GmbH, Hausen am Albis</p>
+          <div class="card__foot"><a class="btn btn--ghost btn--sm" href="https://skyparts.ch/" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>skyparts.ch</a></div>
+        </div>
+      </div>
+      <div class="notice notice--warn" data-reveal>
+        <x-icon name="triangle-alert"></x-icon>
+        <div><p><strong>Helft mit, Hangarierungsschäden zu vermeiden.</strong></p><p>Bitte stellt sicher, dass die Flugzeuge immer vollständig aus dem Bereich der Schiebetüren gezogen werden. Meistens reicht es, das Flugzeug noch zwei Meter weiter zu schieben oder zu ziehen. <a class="brand-text" href="news-hangarierung.html">Zur Meldung</a></p></div>
+      </div>
+    </div>
+  </div>
+</section>

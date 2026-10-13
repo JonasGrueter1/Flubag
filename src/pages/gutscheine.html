@@ -1,0 +1,493 @@
+<!--meta {
+  "title": "Gutscheine",
+  "description": "Rundflug, Schnupperflug oder Wertgutschein ab Luzern-Beromünster verschenken: online gestalten, sofort als PDF ausdrucken oder per Post erhalten.",
+  "nav": "erleben",
+  "ogImage": "rundflug/eiger-moench-jungfrau"
+} -->
+
+<section class="page-hero gift-hero">
+  <div class="page-hero__media"><x-img src="hero/slide-02" alt="Cessna im Flug über dem Nebelmeer im Morgenlicht" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="rundfluege.html">Rundflüge</a></li><li>Gutscheine</li></ol>
+    <p class="eyebrow">Gutscheine</p>
+    <h1 class="gift-hero__title" data-split data-split-now>Schenken. <span class="gift-hero__accent">Abheben.</span> Erleben.</h1>
+    <p class="lead">Fluggutscheine ab Luzern-Beromünster: Verschenk einen Rundflug über Luzern und die Alpen, einen Schnupperflug am Steuer oder einen Wertgutschein mit freier Wahl. Jederzeit online bestellen und direkt ausdrucken.</p>
+    <div class="page-hero__meta">
+      <span class="chip"><x-icon name="printer"></x-icon>print@home: PDF sofort</span>
+      <span class="chip"><x-icon name="mail"></x-icon>oder Postversand</span>
+      <span class="chip"><x-icon name="pen-line"></x-icon>Widmung bis 160 Zeichen</span>
+      <span class="chip chip--brand"><x-icon name="tag"></x-icon>ab CHF 20</span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#gestalten" data-magnetic><x-icon name="gift"></x-icon>Gutschein gestalten</a>
+      <a class="btn btn--ghost btn--lg" href="{{site.shop}}" target="_blank" rel="noopener">Direkt zum Shop <x-icon name="arrow-up-right"></x-icon></a>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#gestalten" aria-label="Weiter zum Gutschein-Konfigurator"><span></span></a>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Auf dieser Seite">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#gestalten">Gestalten</a></li>
+      <li><a href="#so-gehts">So geht's</a></li>
+      <li><a href="#alle">Alle Gutscheine</a></li>
+      <li><a href="#einloesen">Einlösen</a></li>
+      <li><a href="#fragen">Fragen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="gift-occasions" aria-label="Anlässe für einen Fluggutschein">
+  <p class="gift-occasions__label mono">Perfekt für</p>
+  <div class="marquee marquee--big gift-marquee">
+    <div class="marquee__track">
+      <span class="marquee__item">Neues Zuhause</span>
+      <span class="marquee__item">Geburtstag</span>
+      <span class="marquee__item">Weihnachten</span>
+      <span class="marquee__item">Hochzeit</span>
+      <span class="marquee__item">Einfach so</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Konfigurator ================= -->
+<section class="section gift-config-section" id="gestalten" aria-labelledby="config-title" data-gift>
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Gutschein gestalten</p>
+        <h2 id="config-title" data-split>Deine Bordkarte ins Abenteuer.</h2>
+      </div>
+      <p class="lead" data-reveal>Wähle ein Erlebnis, schreib eine Widmung und schau zu, wie dein Geschenk live entsteht. Bestellt und bezahlt wird danach im Gutschein-Shop.</p>
+    </div>
+
+    <div class="gift-config">
+      <form class="gift-form" data-gift-form aria-label="Gutschein-Konfigurator" novalidate>
+
+        <fieldset class="gift-step">
+          <legend class="gift-step__legend"><span class="gift-step__num">01</span>Was möchtest du verschenken?</legend>
+          <div class="gift-picks">
+            <!-- @each data.rundfluege as r -->
+            <label class="gift-pick">
+              <input type="radio" name="gutschein" value="{{r.id}}"<!-- @if r.id == "eiger-moench-jungfrau" --> checked<!-- @endif -->>
+              <span class="gift-pick__card">
+                <x-img src="{{r.image}}" alt="" sizes="(max-width: 640px) 46vw, 200px"></x-img>
+                <span class="gift-pick__check" aria-hidden="true"><x-icon name="check"></x-icon></span>
+                <span class="gift-pick__meta mono">Rundflug · {{r.duration}} min</span>
+                <span class="gift-pick__name">{{r.name}}</span>
+                <span class="gift-pick__price">{{r.price | chf}} p.P.</span>
+              </span>
+            </label>
+            <!-- @end -->
+            <label class="gift-pick">
+              <input type="radio" name="gutschein" value="schnupperflug">
+              <span class="gift-pick__card">
+                <x-img src="rundflug/schnupperflug-gutschein" alt="" sizes="(max-width: 640px) 46vw, 200px"></x-img>
+                <span class="gift-pick__check" aria-hidden="true"><x-icon name="check"></x-icon></span>
+                <span class="gift-pick__meta mono">Selber fliegen</span>
+                <span class="gift-pick__name">Schnupperflug</span>
+                <span class="gift-pick__price">ab CHF 420</span>
+              </span>
+            </label>
+            <label class="gift-pick gift-pick--wide">
+              <input type="radio" name="gutschein" value="wertgutschein">
+              <span class="gift-pick__card">
+                <x-img src="rundflug/wertgutschein" alt="" sizes="(max-width: 640px) 92vw, 600px"></x-img>
+                <span class="gift-pick__check" aria-hidden="true"><x-icon name="check"></x-icon></span>
+                <span class="gift-pick__meta mono">Freie Wahl · alle Flüge</span>
+                <span class="gift-pick__name">Wertgutschein</span>
+                <span class="gift-pick__price">CHF 20 bis 3000</span>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="gift-step" data-gift-panel="rundflug">
+          <legend class="gift-step__legend"><span class="gift-step__num">02</span>Wie viele Personen fliegen mit?</legend>
+          <div class="segmented gift-seg" role="radiogroup" aria-label="Anzahl Personen">
+            <label><input type="radio" name="personen" value="1" checked><span><x-icon name="user"></x-icon>1 Person</span></label>
+            <label><input type="radio" name="personen" value="2"><span><x-icon name="users"></x-icon>2 Personen</span></label>
+            <label><input type="radio" name="personen" value="3"><span><x-icon name="users"></x-icon>3 Personen</span></label>
+          </div>
+          <p class="field__help">Der Preis gilt pro Person. In der Cessna haben bis zu drei Passagiere Platz.</p>
+        </fieldset>
+
+        <fieldset class="gift-step" data-gift-panel="schnupperflug" hidden>
+          <legend class="gift-step__legend"><span class="gift-step__num">02</span>Welches Flugzeug, wie lange?</legend>
+          <div class="choice-grid gift-schnupper">
+            <!-- @each data.preise.schnupperflug as o -->
+            <label class="choice">
+              <input type="radio" name="schnupper" value="{{o.shop}}"<!-- @if loop.first --> checked<!-- @endif -->>
+              <span class="choice__card">
+                <span class="choice__title">{{o.aircraft}}</span>
+                <span class="choice__meta">{{o.minutes}} min inkl. Fluglehrer</span>
+                <span class="choice__price">{{o.price | chf}}</span>
+              </span>
+            </label>
+            <!-- @end -->
+          </div>
+          <p class="field__help">Die Cessna 150 ist das zweiplätzige Schulflugzeug. In der vierplätzigen Cessna 172 können Freunde oder Familie hinten mitfliegen.</p>
+        </fieldset>
+
+        <fieldset class="gift-step" data-gift-panel="wertgutschein" hidden>
+          <legend class="gift-step__legend"><span class="gift-step__num">02</span>Welcher Betrag?</legend>
+          <div class="gift-amounts" role="radiogroup" aria-label="Betrag in CHF">
+            <label><input type="radio" name="betrag" value="50"><span>50</span></label>
+            <label><input type="radio" name="betrag" value="100" checked><span>100</span></label>
+            <label><input type="radio" name="betrag" value="150"><span>150</span></label>
+            <label><input type="radio" name="betrag" value="200"><span>200</span></label>
+            <label><input type="radio" name="betrag" value="250"><span>250</span></label>
+            <label><input type="radio" name="betrag" value="300"><span>300</span></label>
+            <label><input type="radio" name="betrag" value="500"><span>500</span></label>
+            <label><input type="radio" name="betrag" value="eigen"><span><x-icon name="pen-line"></x-icon>Eigener Betrag</span></label>
+          </div>
+          <div class="field gift-own" data-gift-own hidden>
+            <label class="field__label" for="g-eigen">Eigener Betrag in CHF (20 bis 3000)</label>
+            <div class="gift-own__input">
+              <span class="gift-own__prefix mono" aria-hidden="true">CHF</span>
+              <input class="input" type="number" id="g-eigen" name="eigen" min="20" max="3000" step="1" inputmode="numeric" placeholder="z.B. 400" aria-describedby="g-eigen-help">
+            </div>
+            <p class="field__help" id="g-eigen-help">Beliebiger Betrag zwischen CHF 20 und CHF 3000.</p>
+            <p class="field__error" data-gift-own-error>Bitte gib einen Betrag zwischen CHF 20 und 3000 ein.</p>
+          </div>
+          <p class="field__help">Die Beschenkten haben die freie Wahl und können den Wertgutschein für alle unsere Rundflüge und Schnupperflüge einlösen.</p>
+        </fieldset>
+
+        <fieldset class="gift-step">
+          <legend class="gift-step__legend"><span class="gift-step__num">03</span>Deine persönliche Note</legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="g-fuer">Gutschein für</label>
+              <input class="input" id="g-fuer" name="fuer" maxlength="40" autocomplete="off" placeholder="z.B. Anna">
+            </div>
+            <div class="field">
+              <label class="field__label" for="g-von">Gutschein von</label>
+              <input class="input" id="g-von" name="von" maxlength="40" autocomplete="off" placeholder="z.B. Lukas und Mia">
+            </div>
+            <div class="field span-2">
+              <div class="gift-msg-head">
+                <label class="field__label" for="g-widmung">Widmung</label>
+                <span class="gift-count" aria-hidden="true">
+                  <svg class="gift-count__ring" viewBox="0 0 24 24"><circle class="gift-count__bg" cx="12" cy="12" r="9"/><circle class="gift-count__bar" cx="12" cy="12" r="9" data-gift-ring/></svg>
+                  <span class="mono"><span data-gift-count>0</span> / 160</span>
+                </span>
+              </div>
+              <textarea class="textarea gift-textarea" id="g-widmung" name="widmung" maxlength="160" rows="3" placeholder="Deine persönliche Nachricht, maximal 160 Zeichen" aria-describedby="g-widmung-help"></textarea>
+              <p class="field__help" id="g-widmung-help">Maximal 160 Zeichen, genau wie im Shop. <span class="visually-hidden" data-gift-count-sr></span></p>
+              <div class="gift-ideas" role="group" aria-label="Ideen für die Widmung">
+                <span class="gift-ideas__label mono">Ideen:</span>
+                <button class="gift-idea" type="button" data-idea="Happy Birthday! Heb ab und geniess die Welt von oben. Guten Flug!"><x-icon name="cake"></x-icon>Geburtstag</button>
+                <button class="gift-idea" type="button" data-idea="Frohe Weihnachten! Dieses Geschenk bringt dich hoch hinaus."><x-icon name="tree-pine"></x-icon>Weihnachten</button>
+                <button class="gift-idea" type="button" data-idea="Alles Gute zur Hochzeit! Auf euren gemeinsamen Höhenflug."><x-icon name="gem"></x-icon>Hochzeit</button>
+                <button class="gift-idea" type="button" data-idea="Willkommen im neuen Zuhause! Jetzt schaust du es dir einmal von oben an."><x-icon name="house"></x-icon>Neues Zuhause</button>
+                <button class="gift-idea" type="button" data-idea="Einfach so, weil du es verdienst. Guten Flug!"><x-icon name="heart"></x-icon>Einfach so</button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="gift-step">
+          <legend class="gift-step__legend"><span class="gift-step__num">04</span>Wie soll der Gutschein ankommen?</legend>
+          <div class="choice-grid gift-ship">
+            <label class="choice">
+              <input type="radio" name="versand" value="print" checked>
+              <span class="choice__card">
+                <x-icon name="printer"></x-icon>
+                <span class="choice__title">print@home</span>
+                <span class="choice__meta">PDF sofort, direkt ausdrucken</span>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="versand" value="post">
+              <span class="choice__card">
+                <x-icon name="mail"></x-icon>
+                <span class="choice__title">Postversand</span>
+                <span class="choice__meta">Gedruckt per Post</span>
+              </span>
+            </label>
+          </div>
+          <p class="field__help gift-mobile-note"><x-icon name="smartphone"></x-icon>Gutscheine lassen sich ausserdem aufs Smartphone laden (voucher2mobile).</p>
+        </fieldset>
+
+        <div class="gift-form__foot">
+          <button class="btn btn--text btn--sm" type="button" data-gift-reset><x-icon name="rotate-ccw"></x-icon>Zurücksetzen</button>
+          <a class="btn btn--ghost btn--sm show-860" href="#vorschau"><x-icon name="eye"></x-icon>Zur Vorschau</a>
+        </div>
+      </form>
+
+      <div class="gift-preview" id="vorschau">
+        <h3 class="visually-hidden">Live-Vorschau deines Gutscheins</h3>
+        <div class="gift-stage">
+          <div class="pass gift-pass" data-tilt="6" data-gift-pass>
+            <div class="pass__main">
+              <div class="gift-pass__photo">
+                <x-img src="rundflug/eiger-moench-jungfrau" alt="" class="is-on" data-photo sizes="(max-width: 640px) 92vw, 460px"></x-img>
+                <img alt="" data-photo decoding="async">
+                <span class="gift-pass__brand"><span class="gift-pass__logo" aria-hidden="true"><!-- @include logo --></span>FLUBAG</span>
+                <span class="gift-pass__tag mono">Boarding Pass · Vorschau</span>
+              </div>
+              <div class="pass__route">
+                <span class="gift-pass__end"><span class="pass__code">LSZO</span><span class="gift-pass__place">Beromünster</span></span>
+                <span class="pass__line"><x-icon name="plane"></x-icon></span>
+                <span class="gift-pass__end gift-pass__end--to"><span class="pass__code gift-pass__dest" data-p="code">JFJ</span><span class="gift-pass__place" data-p="place">Jungfraujoch</span></span>
+              </div>
+              <div class="pass__grid gift-pass__grid">
+                <div><p class="pass__label">Passagier</p><p class="pass__value is-placeholder" data-p="fuer">Dein Lieblingsmensch</p></div>
+                <div><p class="pass__label">Von</p><p class="pass__value is-placeholder" data-p="von">Dein Name</p></div>
+                <div><p class="pass__label" data-p="kindLabel">Rundflug</p><p class="pass__value" data-p="flug">Eiger, Mönch &amp; Jungfrau</p></div>
+                <div><p class="pass__label">Dauer</p><p class="pass__value" data-p="dauer">60 min</p></div>
+                <div><p class="pass__label" data-p="xLabel">Personen</p><p class="pass__value" data-p="x">1 Person</p></div>
+                <div><p class="pass__label">Datum</p><p class="pass__value">Nach Vereinbarung</p></div>
+              </div>
+              <p class="pass__msg is-placeholder" data-p="msg">Hier erscheint deine Widmung.</p>
+            </div>
+            <div class="pass__stub">
+              <div class="gift-pass__stub-row">
+                <div><p class="pass__label">Gate</p><p class="pass__value">Piste 15/33</p></div>
+                <div><p class="pass__label">Zustellung</p><p class="pass__value" data-p="versand">print@home</p></div>
+              </div>
+              <div class="gift-pass__stub-price">
+                <p class="pass__label" data-p="priceLabel">1 × CHF 290</p>
+                <p class="pass__price" data-p="price">CHF 290</p>
+              </div>
+              <div class="gift-pass__code-wrap">
+                <div class="gift-pass__barcode" data-p="barcode"></div>
+                <p class="gift-pass__nr mono">Nr. folgt im Shop</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-actions">
+          <div class="gift-total">
+            <span class="gift-total__label"><span class="mono subtle">Total</span><span class="gift-total__what" data-gift-what>Rundflug Eiger, Mönch und Jungfrau · 1 Person</span></span>
+            <strong data-gift-total>CHF 290</strong>
+          </div>
+          <div class="gift-actions__row">
+            <a class="btn btn--primary btn--lg gift-actions__shop" href="https://shop.e-guma.ch/flubag/de/gutscheine/45095/gutschein-rundflug-eiger-moench-jungfrau" target="_blank" rel="noopener" data-gift-shop data-magnetic><x-icon name="shopping-bag"></x-icon>Weiter zum Shop <x-icon name="arrow-up-right"></x-icon></a>
+            <button class="btn btn--ghost btn--lg gift-actions__print" type="button" data-gift-print aria-label="Vorschau drucken"><x-icon name="printer"></x-icon><span>Vorschau drucken</span></button>
+          </div>
+          <p class="gift-note"><x-icon name="info"></x-icon><span><span data-gift-shopnote>Der Shop öffnet sich in einem neuen Tab.</span> Name, Widmung und Versandart gibst du dort ein. Deine Widmung kopieren wir dir dabei in die Zwischenablage.</span></p>
+          <p class="gift-note gift-note--small">Die Bordkarte ist nur eine Vorschau. Den gültigen Gutschein mit Gutscheinnummer erhältst du nach der Bestellung im Shop.</p>
+        </div>
+        <p class="visually-hidden" aria-live="polite" data-gift-live></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gift-dock" data-gift-dock aria-hidden="true" inert>
+    <span class="gift-dock__code mono"><span class="gift-dock__from">LSZO</span><x-icon name="plane"></x-icon><span data-d="code">JFJ</span></span>
+    <span class="gift-dock__info"><strong data-d="title">Eiger, Mönch &amp; Jungfrau</strong><span data-d="price">CHF 290</span></span>
+    <a class="btn btn--primary btn--sm" href="#vorschau"><x-icon name="eye"></x-icon>Vorschau</a>
+  </div>
+</section>
+
+<!-- ================= So funktioniert's ================= -->
+<section class="section section--alt section--glow gift-how" id="so-gehts" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow" data-reveal>So funktioniert's</p>
+      <h2 id="how-title" data-split>In drei Schritten zum Geschenk.</h2>
+      <p class="lead" data-reveal>Gutscheine kaufst du einfach und bequem jederzeit online und druckst sie zuhause aus. Oder du lässt sie dir per Post schicken.</p>
+    </div>
+    <ol class="gift-how__list" data-gift-how>
+      <li class="gift-how__track" aria-hidden="true"><span class="gift-how__fill"></span><span class="gift-how__plane"><x-icon name="plane"></x-icon></span></li>
+      <li class="gift-how__step" data-reveal>
+        <span class="gift-how__num">01</span>
+        <div class="gift-how__card">
+          <span class="gift-how__icon"><x-icon name="gift"></x-icon></span>
+          <h3 class="gift-how__title">Auswählen und persönlich machen</h3>
+          <p>Wähle im Gutschein-Shop einen Rundflug für 1 bis 3 Personen, einen Schnupperflug oder einen Wertgutschein. Dann trägst du ein, für wen der Gutschein ist, von wem er kommt, und schreibst eine Widmung mit bis zu 160 Zeichen.</p>
+        </div>
+      </li>
+      <li class="gift-how__step" data-reveal>
+        <span class="gift-how__num">02</span>
+        <div class="gift-how__card">
+          <span class="gift-how__icon"><x-icon name="printer"></x-icon></span>
+          <h3 class="gift-how__title">Bestellen und erhalten</h3>
+          <p>Mit print@home erhältst du den Gutschein sofort als PDF und druckst ihn direkt aus. Oder du wählst den Postversand. Gutscheine lassen sich ausserdem aufs Smartphone laden (voucher2mobile).</p>
+          <figure class="gift-how__sample">
+            <x-img src="misc/voucher-icon" alt="Muster eines FLUBAG PDF-Gutscheins mit Fotos, Titel und Text" sizes="88px"></x-img>
+            <figcaption class="mono">Muster PDF-Gutschein</figcaption>
+          </figure>
+        </div>
+      </li>
+      <li class="gift-how__step" data-reveal>
+        <span class="gift-how__num">03</span>
+        <div class="gift-how__card">
+          <span class="gift-how__icon"><x-icon name="plane-takeoff"></x-icon></span>
+          <h3 class="gift-how__title">Einlösen und abheben</h3>
+          <p>Die Beschenkten melden sich bei uns und geben bei der Anfrage die Gutscheinnummer an, zum Beispiel im <a href="schnupperflug.html#anfrage">Schnupperflug-Formular</a>. Den Termin vereinbaren wir persönlich, geflogen wird, wenn das Wetter passt.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= Alle Gutscheine ================= -->
+<section class="section gift-catalog" id="alle" aria-labelledby="alle-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Alle Gutscheine</p>
+        <h2 id="alle-title" data-split>Sieben Arten, Freude zu verschenken.</h2>
+      </div>
+      <p class="lead" data-reveal>Fünf Rundflüge, der Schnupperflug am Steuer und der Wertgutschein mit freier Wahl. Jeder Gutschein führt dich direkt zur passenden Seite im Shop.</p>
+    </div>
+
+    <div class="gift-cards" data-reveal-group="0.08">
+      <!-- @each data.rundfluege as r -->
+      <article class="gift-card card card--glow" id="gutschein-{{r.id}}" data-reveal>
+        <div class="gift-card__media">
+          <x-img src="{{r.image}}" alt="Ausblick beim Rundflug {{r.name}}" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img>
+          <span class="card__badge chip"><x-icon name="timer"></x-icon>{{r.duration}} min</span>
+          <span class="gift-card__price-tag"><small>pro Person</small>{{r.price | chf}}</span>
+        </div>
+        <div class="card__body">
+          <p class="gift-card__kind mono">Rundflug-Gutschein · 0{{loop.number}}</p>
+          <h3 class="card__title gift-card__title">{{r.title}}</h3>
+          <!-- @if r.id == "luzern" -->
+          <p class="card__text">Verschenke einen Rundflug über Luzern. Die Cessna mit 3 Passagierplätzen hebt in Luzern-Beromünster ab. Die Beschenkten überfliegen das Seetal mit Sicht auf Hallwiler-, Baldegger- und Sempachersee, vor sich das wunderschöne Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.</p>
+          <!-- @endif -->
+          <!-- @if r.id == "pilatus-rigi" -->
+          <p class="card__text">Ab dem gut zugänglichen Flugplatz Luzern-Beromünster startet der Flug Richtung Luzerner Seebecken. Dabei geht es über das glitzernde Wasser des Sempachersees und das satte Grün der Innerschweiz. Die Sicht schweift zu Rigi und Pilatus: Die beiden Hausberge Luzerns überraschen mit Grösse und Schönheit. Nach 30 Minuten Flugzeit endet der Flug wieder in Luzern-Beromünster.</p>
+          <!-- @endif -->
+          <!-- @if r.id == "titlis" -->
+          <p class="card__text">Der Flug startet im höher gelegenen Beromünster. Dem Nebel hoffentlich entflohen, geht es Richtung Innerschweiz. Die glitzernden Seen und grünen Landschaften werden von den Luzerner Hausbergen Rigi und Pilatus zusätzlich verschönert. Zurück geht es entweder an den Mythen vorbei, mit Sicht auf Zuger-, Hallwiler- und Baldeggersee, oder zum schneebestäubten Titlis. Beide Steinmassive sind sehr sehenswert. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst.</p>
+          <!-- @endif -->
+          <!-- @if r.id == "eiger-moench-jungfrau" -->
+          <p class="card__text">Top of Europe: das UNESCO Welterbe von oben sehen, ein Traum, der in Erfüllung gehen kann. In der vierplätzigen Cessna sind das Jungfraujoch und der Konkordiaplatz zu sehen, dazu geht es über Eiger und Mönch. Das Dreigestirn wird umrahmt von weiteren Zwei- und Dreitausendern wie der Scheidegg, dem Engelhorn oder dem Stanserhorn. Bei diesem Flug halten die Beschenkten Mund und Augen offen: Berge, Seen und Landschaften, die verzaubern.</p>
+          <!-- @endif -->
+          <!-- @if r.id == "matterhorn" -->
+          <p class="card__text">Der Start in Beromünster erfolgt stressfrei und unkompliziert. Mit der vierplätzigen Cessna zeigt sich die Welt von oben, mit beliebten Skigebieten und verschiedenen Städten. Das mediterrane Flair von Thuner- und Brienzersee kommt mit auf die Reise zum Matterhorn. Abgerundet wird der Flug über das Gomsertal, den Grimselpass und die Melchsee-Frutt. Der verwinkelte Vierwaldstättersee mit dem emporsteigenden Pilatus und der Rigi macht den Abschluss zu einem Erlebnis, das keine Wünsche offen lässt.</p>
+          <!-- @endif -->
+          <ul class="gift-card__tags" aria-label="Höhepunkte">
+            <!-- @each r.highlights as h --><li>{{h}}</li><!-- @end -->
+          </ul>
+          <div class="gift-card__foot">
+            <p class="gift-card__price"><strong>{{r.price | chf}}</strong><span>pro Person, 1 bis 3 Personen</span></p>
+            <div class="gift-card__actions">
+              <a class="btn btn--primary btn--sm" href="{{r.shop}}" target="_blank" rel="noopener">Im Shop bestellen <x-icon name="arrow-up-right"></x-icon></a>
+              <a class="btn btn--text btn--sm" href="#gestalten" data-gift-pick="{{r.id}}">Vorschau gestalten <x-icon name="arrow-right"></x-icon></a>
+            </div>
+          </div>
+        </div>
+      </article>
+      <!-- @end -->
+
+      <article class="gift-card card card--glow" id="gutschein-schnupperflug" data-reveal>
+        <div class="gift-card__media">
+          <x-img src="rundflug/schnupperflug-gutschein" alt="Flugschülerin am Steuer einer Cessna, daneben der Fluglehrer" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img>
+          <span class="card__badge chip"><x-icon name="timer"></x-icon>60 oder 90 min</span>
+          <span class="gift-card__price-tag"><small>ab</small>CHF 420</span>
+        </div>
+        <div class="card__body">
+          <p class="gift-card__kind mono">Selber fliegen · 06</p>
+          <h3 class="card__title gift-card__title">Schnupperflug verschenken</h3>
+          <p class="card__text">Du möchtest einen Schnupperflug verschenken? An jemanden, der schon lange davon träumt, einmal selbst ein Flugzeug zu steuern, abzuheben und auf die Welt hinunterzuschauen? Dann ist dieser Gutschein genau das Richtige. Mit einem erfahrenen Fluglehrer am Doppelsteuer, im zweiplätzigen Schulflugzeug Cessna 150 oder in der vierplätzigen Cessna 172. Vorkenntnisse sind keine nötig. <a class="brand-text" href="schnupperflug.html">Alles zum Schnupperflug</a></p>
+          <ul class="gift-card__options" aria-label="Varianten und Preise inklusive Fluglehrer">
+            <!-- @each data.preise.schnupperflug as o -->
+            <li><a class="gift-option" href="#gestalten" data-gift-pick="schnupperflug" data-schnupper="{{o.shop}}"><span class="gift-option__what">{{o.aircraft}} · {{o.minutes}} min</span><span class="gift-option__price">{{o.price | chf}}</span></a></li>
+            <!-- @end -->
+          </ul>
+          <div class="gift-card__foot">
+            <p class="gift-card__price"><strong>ab CHF 420</strong><span>inkl. Fluglehrer</span></p>
+            <div class="gift-card__actions">
+              <a class="btn btn--primary btn--sm" href="{{data.preise.schnupperflugShop}}" target="_blank" rel="noopener">Im Shop bestellen <x-icon name="arrow-up-right"></x-icon></a>
+              <a class="btn btn--text btn--sm" href="#gestalten" data-gift-pick="schnupperflug">Vorschau gestalten <x-icon name="arrow-right"></x-icon></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="gift-card gift-card--wide card card--glow" id="gutschein-wertgutschein" data-reveal>
+        <div class="gift-card__media">
+          <x-img src="rundflug/wertgutschein" alt="Blick aus dem Flugzeug auf den Pilatus über dem Nebelmeer" sizes="(max-width: 860px) 100vw, 640px"></x-img>
+          <span class="card__badge chip"><x-icon name="sparkles"></x-icon>Freie Wahl</span>
+          <span class="gift-card__price-tag"><small>von</small>CHF 20 bis 3000</span>
+        </div>
+        <div class="card__body">
+          <p class="gift-card__kind mono">Wertgutschein · 07</p>
+          <h3 class="card__title gift-card__title">Wertgutschein</h3>
+          <p class="card__text">Abheben und erleben! Verschenke unseren Wertgutschein. Die Beschenkten haben die freie Wahl und können ihn für alle unsere Rundflüge und Schnupperflüge einlösen.</p>
+          <ul class="gift-card__amounts" aria-label="Beträge">
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="50">CHF 50</a></li>
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="100">CHF 100</a></li>
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="150">CHF 150</a></li>
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="200">CHF 200</a></li>
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="250">CHF 250</a></li>
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="300">CHF 300</a></li>
+            <li><a class="gift-amount" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="500">CHF 500</a></li>
+            <li><a class="gift-amount gift-amount--own" href="#gestalten" data-gift-pick="wertgutschein" data-betrag="eigen">Eigener Betrag CHF 20 bis 3000</a></li>
+          </ul>
+          <div class="gift-card__foot">
+            <p class="gift-card__price"><strong>CHF 20 bis 3000</strong><span>für alle Rund- und Schnupperflüge</span></p>
+            <div class="gift-card__actions">
+              <a class="btn btn--primary btn--sm" href="{{data.preise.wertgutscheinShop}}" target="_blank" rel="noopener">Im Shop bestellen <x-icon name="arrow-up-right"></x-icon></a>
+              <a class="btn btn--text btn--sm" href="#gestalten" data-gift-pick="wertgutschein">Vorschau gestalten <x-icon name="arrow-right"></x-icon></a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="gift-shopbar" data-reveal>
+      <div class="gift-shopbar__text">
+        <x-icon name="shopping-bag"></x-icon>
+        <p><strong>Alle Gutscheine auf einen Blick:</strong> Im Gutschein-Shop bestellst du jederzeit online, mit print@home oder Postversand.</p>
+      </div>
+      <a class="btn btn--ghost" href="{{site.shop}}" target="_blank" rel="noopener">Zum Gutschein-Shop <x-icon name="arrow-up-right"></x-icon></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Einlösen, FAQ, Kontakt ================= -->
+<section class="section section--chart gift-redeem-section" id="einloesen" aria-labelledby="redeem-title">
+  <div class="container split split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Gutschein einlösen</p>
+        <h2 id="redeem-title" data-split>Gutschein bekommen? Ab in die Luft.</h2>
+        <p class="lead" data-reveal>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Für einen Schnupperflug geht das direkt im Anfrageformular.</p>
+      </div>
+
+      <div class="gift-redeem instrument hud-corners force-dark" data-reveal>
+        <div class="gift-redeem__head"><span class="mono">VOUCHER CHECK-IN</span><x-icon name="ticket"></x-icon></div>
+        <div class="field">
+          <label class="field__label" for="redeem-nr">Deine Gutscheinnummer</label>
+          <input class="input mono" id="redeem-nr" name="redeem" autocomplete="off" spellcheck="false" placeholder="Nummer eingeben" data-redeem-nr>
+          <p class="field__help">Wir übernehmen die Nummer ins Schnupperflug-Formular oder in deine E-Mail.</p>
+        </div>
+        <div class="gift-redeem__actions">
+          <a class="btn btn--primary" href="schnupperflug.html#anfrage" data-redeem="schnupper"><x-icon name="plane-takeoff"></x-icon>Schnupperflug anfragen</a>
+          <a class="btn btn--ghost" href="mailto:{{site.email}}?subject=Gutschein%20einl%C3%B6sen" data-redeem="mail" data-email="{{site.email}}"><x-icon name="mail"></x-icon>Anfrage per E-Mail</a>
+        </div>
+      </div>
+
+      <div class="gift-contact card card--pad" data-reveal>
+        <p class="eyebrow eyebrow--plain">Fragen zum Gutschein?</p>
+        <p class="muted">Wir helfen dir gerne weiter, ob beim Aussuchen, Bestellen oder Einlösen.</p>
+        <div class="row">
+          <a class="btn btn--primary" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
+          <a class="btn btn--ghost" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack" id="fragen">
+      <p class="eyebrow" data-reveal>Häufige Fragen</p>
+      <h2 class="gift-faq__title" data-split>Gut zu wissen.</h2>
+      <div class="accordion mt-m" data-reveal>
+        <details class="acc" open><summary>Wie löse ich meinen Gutschein ein?</summary><div class="acc__body"><p>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Für einen Schnupperflug trägst du die Nummer direkt im <a class="brand-text" href="schnupperflug.html#anfrage">Schnupperflug-Formular</a> ein. Für einen Rundflug oder einen Wertgutschein erreichst du uns unter <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a> oder per E-Mail an <a class="brand-text" href="mailto:{{site.email}}">{{site.email}}</a>. Den Termin vereinbaren wir persönlich mit dir.</p></div></details>
+        <details class="acc"><summary>Wie erhalte ich den Gutschein?</summary><div class="acc__body"><p>Du hast die Wahl: Mit print@home bekommst du den Gutschein sofort als PDF und druckst ihn direkt aus. Oder du lässt ihn per Post schicken. Gutscheine lassen sich ausserdem aufs Smartphone laden (voucher2mobile).</p></div></details>
+        <details class="acc"><summary>Kann ich den Gutschein personalisieren?</summary><div class="acc__body"><p>Ja. Im Shop gibst du an, für wen der Gutschein ist und von wem er kommt, und schreibst eine persönliche Widmung mit maximal 160 Zeichen. Im <a class="brand-text" href="#gestalten">Gutschein-Konfigurator</a> kannst du vorher in Ruhe ausprobieren, wie das wirkt.</p></div></details>
+        <details class="acc"><summary>Wie viele Personen können beim Rundflug mitfliegen?</summary><div class="acc__body"><p>Bis zu drei. Die Cessna hat drei Passagierplätze, der Preis gilt pro Person. Im Shop wählst du 1 bis 3 Personen.</p></div></details>
+        <details class="acc"><summary>Wofür kann der Wertgutschein eingelöst werden?</summary><div class="acc__body"><p>Für alle unsere Rundflüge und Schnupperflüge. Du wählst CHF 50, 100, 150, 200, 250, 300 oder 500 oder einen eigenen Betrag zwischen CHF 20 und 3000.</p></div></details>
+        <details class="acc"><summary>Cessna 150 oder Cessna 172 beim Schnupperflug?</summary><div class="acc__body"><p>Die Cessna 150 ist das zweiplätzige Schulflugzeug: die beschenkte Person und der Fluglehrer, ganz konzentriert aufs Fliegen. In der vierplätzigen Cessna 172 können Freunde oder Familie hinten mitfliegen. Beide gibt es für 60 oder 90 Minuten, immer inklusive Fluglehrer.</p><div class="table-wrap gift-table"><table class="table"><thead><tr><th>Flugzeug</th><th>Dauer</th><th class="num">Preis</th></tr></thead><tbody><!-- @each data.preise.schnupperflug as o --><tr><td>{{o.aircraft}}</td><td>{{o.minutes}} min</td><td class="num">{{o.price | chf}}</td></tr><!-- @end --></tbody></table></div></div></details>
+        <details class="acc"><summary>Was passiert bei schlechtem Wetter?</summary><div class="acc__body"><p>Geflogen wird nur, wenn das Wetter passt. Sonst suchen wir zusammen einen neuen Termin. Bei Rundflügen wird die Route vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst.</p></div></details>
+        <details class="acc"><summary>Ich habe eine andere Frage zum Gutschein.</summary><div class="acc__body"><p>Ruf uns an unter <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a> oder schreib an <a class="brand-text" href="mailto:{{site.email}}">{{site.email}}</a>. Alle weiteren Wege findest du auf der <a class="brand-text" href="kontakt.html">Kontaktseite</a>.</p></div></details>
+      </div>
+    </div>
+  </div>
+</section>
