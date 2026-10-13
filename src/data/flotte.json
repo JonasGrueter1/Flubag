@@ -1,0 +1,216 @@
+[
+  {
+    "id": "hb-cvz",
+    "reg": "HB-CVZ",
+    "type": "Cessna 150",
+    "variant": "Reims-Cessna F150J",
+    "nickname": "Das Schulflugzeug",
+    "seats": 2,
+    "built": 1968,
+    "builtNote": "gebaut von Reims Aviation in Frankreich",
+    "role": [
+      "Schulung",
+      "Schnupperflug"
+    ],
+    "image": "flotte/hb-cvz",
+    "price1": 198,
+    "price2": 159,
+    "priceMin1": 3.3,
+    "priceMin2": 2.65,
+    "fuel": 8,
+    "intro": "Die klassische Zweisitzer-Cessna ist das Arbeitspferd der Flugschule. Hier sitzen die meisten Flubag Pilotinnen und Piloten zum allerersten Mal am Steuer: gutmütig, übersichtlich und ideal, um das Fliegen von Grund auf zu lernen.",
+    "specs": {
+      "engine": "Continental O-200, 100 PS",
+      "cruiseKt": 100,
+      "cruiseKmh": 185,
+      "mtowKg": 726,
+      "spanM": 10.0,
+      "lengthM": 7.3,
+      "rangeKm": 600,
+      "ceilingFt": 12650
+    },
+    "avionics": [
+      "Garmin GTR 225 Funk",
+      "Garmin GTX 328 Transponder"
+    ],
+    "facts": [
+      "Von 1958 bis 1977 wurden rund 23 000 Cessna 150 gebaut. Sie gehört zu den erfolgreichsten Schulflugzeugen überhaupt.",
+      "Das F im Typ steht für die Lizenzfertigung bei Reims Aviation in Frankreich.",
+      "Auf der Cessna 150 kostet die Schnupperstunde mit Fluglehrer CHF 420."
+    ],
+    "portal": "https://pilots.flubag.ch/node/6"
+  },
+  {
+    "id": "hb-cql",
+    "reg": "HB-CQL",
+    "type": "Cessna 172",
+    "variant": "Cessna 172P Skyhawk II",
+    "nickname": "Der Allrounder",
+    "seats": 4,
+    "built": 1981,
+    "builtNote": "Serie 172P",
+    "role": [
+      "Schulung",
+      "Rundflüge",
+      "Charter"
+    ],
+    "image": "flotte/hb-cql",
+    "price1": 312,
+    "price2": 246,
+    "priceMin1": 5.2,
+    "priceMin2": 4.1,
+    "fuel": 7,
+    "intro": "Vier Plätze, viel Übersicht und eine Motorleistung, die auch auf der kurzen Graspiste in Beromünster souverän wirkt. Die Skyhawk ist für Rundflüge mit Familie oder Freunden genauso gemacht wie für die Ausbildung und die ersten Ausflüge nach der Prüfung.",
+    "specs": {
+      "engine": "Lycoming O-360, 180 PS (Umbau per STC)",
+      "cruiseKt": 120,
+      "cruiseKmh": 222,
+      "mtowKg": 1089,
+      "spanM": 11.0,
+      "lengthM": 8.2,
+      "rangeKm": 900,
+      "ceilingFt": 13000
+    },
+    "avionics": [
+      "Garmin GNC 215A Com/Nav",
+      "Garmin GTR 225 Funk",
+      "Garmin GTX 328 Transponder"
+    ],
+    "facts": [
+      "Die Cessna 172 ist das meistgebaute Flugzeug der Geschichte: über 45 000 Exemplare seit 1956.",
+      "HB-CQL fliegt laut Flughandbuch mit einer 180 PS Motorisierung statt den serienmässigen 160 PS.",
+      "Mit der C172 kannst du bis zu 3 Personen mitnehmen, perfekt für Rundflüge."
+    ],
+    "portal": "https://pilots.flubag.ch/node/2"
+  },
+  {
+    "id": "hb-czu",
+    "reg": "HB-CZU",
+    "type": "Cessna 182",
+    "variant": "Cessna 182S Skylane",
+    "nickname": "Die Reisemaschine",
+    "seats": 4,
+    "built": 1997,
+    "builtNote": "Seriennummer 182-80047",
+    "role": [
+      "Reise",
+      "Alpenflüge",
+      "Rundflüge"
+    ],
+    "image": "flotte/hb-czu",
+    "price1": 378,
+    "price2": 297,
+    "priceMin1": 6.3,
+    "priceMin2": 4.95,
+    "fuel": 8,
+    "intro": "Einspritzmotor, Verstellpropeller und Autopilot: Die Skylane ist das stärkste Flugzeug der Flotte und gemacht für längere Reisen und anspruchsvolle Alpenflüge wie den Matterhorn Rundflug.",
+    "specs": {
+      "engine": "Lycoming IO-540, 230 PS, Einspritzer",
+      "cruiseKt": 140,
+      "cruiseKmh": 260,
+      "mtowKg": 1406,
+      "spanM": 11.0,
+      "lengthM": 8.8,
+      "rangeKm": 1500,
+      "ceilingFt": 18100
+    },
+    "avionics": [
+      "Bendix/King KLN 89 GPS",
+      "Honeywell KAP 140 Autopilot",
+      "Bendix/King KX 155 Nav/Com",
+      "Garmin GTX 330 Mode S",
+      "Garmin GTR 225 Funk"
+    ],
+    "facts": [
+      "Die 182S kam 1997 auf den Markt, als Cessna nach über zehn Jahren Pause wieder einmotorige Kolbenflugzeuge baute.",
+      "Der Verstellpropeller passt den Anstellwinkel der Blätter automatisch an. Das gibt Leistung beim Start und spart Treibstoff im Reiseflug.",
+      "Für die Skylane brauchst du eine eigene Einweisung (Familiarization)."
+    ],
+    "portal": "https://pilots.flubag.ch/node/5"
+  },
+  {
+    "id": "hb-oen",
+    "reg": "HB-OEN",
+    "type": "Piper L-4",
+    "variant": "Piper L-4 Grasshopper (J-3 Cub)",
+    "nickname": "Die Legende",
+    "seats": 2,
+    "built": null,
+    "builtNote": "Militärversion der Piper J-3 Cub",
+    "role": [
+      "Heckrad",
+      "Oldtimer",
+      "Genussflug"
+    ],
+    "image": "flotte/hb-oen",
+    "price1": 198,
+    "price2": 198,
+    "priceMin1": 3.3,
+    "priceMin2": 3.3,
+    "fuel": 5,
+    "intro": "Gelb, leicht und mit Heckrad: Die Piper L-4 ist Fliegen in seiner ursprünglichsten Form. Tandem sitzen, Fenster auf, tief und langsam über das Seetal. Wer Heckradfliegen lernen will, ist hier genau richtig.",
+    "specs": {
+      "engine": "Continental Boxermotor, 65 PS (Serie)",
+      "cruiseKt": 65,
+      "cruiseKmh": 120,
+      "mtowKg": 553,
+      "spanM": 10.7,
+      "lengthM": 6.8,
+      "rangeKm": 350,
+      "ceilingFt": 11500
+    },
+    "avionics": [
+      "Funk und Transponder",
+      "Tandem-Sitzanordnung"
+    ],
+    "facts": [
+      "Die L-4 Grasshopper war im Zweiten Weltkrieg als Beobachtungs- und Verbindungsflugzeug im Einsatz.",
+      "Von der J-3 Cub wurden rund 20 000 Exemplare gebaut. Das typische Cub Gelb ist bis heute Kult.",
+      "Heckradflugzeuge brauchen eine eigene Ausbildung: Start und Landung verlangen mehr Gefühl mit den Füssen."
+    ],
+    "portal": "https://pilots.flubag.ch/node/4"
+  },
+  {
+    "id": "hb-wec",
+    "reg": "HB-WEC",
+    "type": "Lightwing AC4",
+    "variant": "Lightwing AC4 (CS-LSA)",
+    "nickname": "Swiss Made",
+    "seats": 2,
+    "built": null,
+    "builtNote": "gebaut von Lightwing AG in Stans NW",
+    "role": [
+      "Schulung",
+      "Reise",
+      "Modern"
+    ],
+    "image": "flotte/hb-wec",
+    "price1": 180,
+    "price2": 159,
+    "priceMin1": 3.0,
+    "priceMin2": 2.65,
+    "fuel": 5,
+    "intro": "Entwickelt und gebaut in der Zentralschweiz, knapp 30 Kilometer Luftlinie von Beromünster entfernt. Die AC4 kombiniert einen sparsamen Rotax Einspritzmotor mit einem modernen Glascockpit und ist damit das effizienteste Flugzeug der Flotte.",
+    "specs": {
+      "engine": "Rotax 912 iS, 100 PS, Einspritzer",
+      "cruiseKt": 95,
+      "cruiseKmh": 176,
+      "mtowKg": 600,
+      "spanM": 9.45,
+      "lengthM": null,
+      "rangeKm": 1100,
+      "ceilingFt": null
+    },
+    "avionics": [
+      "Dynon SkyView Glascockpit",
+      "Becker AR620X Funk",
+      "FLARM"
+    ],
+    "facts": [
+      "Die AC4 ist nach dem europäischen Standard CS-LSA zugelassen und wird in Stans gebaut.",
+      "Der Rotax 912 iS verbraucht nur rund 14 Liter pro Stunde.",
+      "Mit CHF 180 pro Stunde (Preis 1) ist die AC4 das günstigste Flugzeug der Flotte."
+    ],
+    "portal": "https://pilots.flubag.ch/node/3"
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "name": "FLUBAG Flugbetriebs AG",
+  "shortName": "FLUBAG",
+  "tagline": "Flugplatz Luzern-Beromünster",
+  "url": "https://www.flubag.ch",
+  "address": { "street": "Moos 3", "zip": "6025", "city": "Neudorf", "country": "CH" },
+  "phone": "+41 41 930 18 66",
+  "phoneHref": "+41419301866",
+  "phoneMobile": "+41 79 325 41 29",
+  "phoneMobileHref": "+41793254129",
+  "fax": "+41 41 930 33 57",
+  "email": "flubag@flubag.ch",
+  "restaurant": { "name": "Restaurant Flüüger", "phone": "+41 41 930 12 98", "phoneHref": "+41419301298", "url": "https://www.xn--flger-lvaa.ch/" },
+  "social": {
+    "facebook": "https://www.facebook.com/flubagluzernberomuenster/",
+    "instagram": "https://www.instagram.com/flugplatzberomuenster/"
+  },
+  "shop": "https://shop.e-guma.ch/flubag/de/gutscheine",
+  "reservation": "https://res.airportheli.ch/flubag/",
+  "reservationHeli": "http://res.airportheli.ch/res/index.html",
+  "customs": "https://customsmanager.ch/lszo",
+  "pilotsPortal": "https://pilots.flubag.ch/",
+  "gletscherpiloten": "http://www.gletscherpiloten.ch/",
+  "safetyWings": "https://www.safetywings.ch/",
+  "airfield": {
+    "icao": "LSZO",
+    "lat": 47.19,
+    "lon": 8.2047,
+    "elevationFt": 2146,
+    "elevationM": 654,
+    "runway": "15/33",
+    "runwayLength": 510,
+    "runwayWidth": 30,
+    "surface": "Gras",
+    "rwy33": 334,
+    "rwy15": 154,
+    "paraFrequency": "122.455",
+    "founded": "14.02.1966"
+  },
+  "partners": [
+    { "name": "Airport Helicopter", "url": "http://www.airportheli.ch/", "logo": "partner/airportheli", "info": "Helikopterflüge und Ausbildung" },
+    { "name": "Paraclub Beromünster", "url": "https://www.paraclub.ch/", "logo": "partner/paraclub", "info": "Fallschirmspringen, Skydive Luzern" },
+    { "name": "SG Pilatus", "url": "http://sgpilatus.ch/", "logo": "partner/sg-pilatus", "info": "Segelfluggruppe Pilatus" },
+    { "name": "Motorfluggruppe Beromünster", "url": "http://www.mfgb.ch/", "logo": "partner/mfgb", "info": "Motorfluggruppe" },
+    { "name": "AXA Winterthur", "url": "https://www.axa.ch/de/ueber-axa/standorte/agenturen/sempach_20176.html", "logo": "partner/axa", "info": "Agentur Sempach" },
+    { "name": "flugzeugflug.ch", "url": "https://www.helikopterflug.ch/collections/flugzeugflug", "logo": "partner/flugzeugflug", "info": "Rundflüge buchen" }
+  ]
+}

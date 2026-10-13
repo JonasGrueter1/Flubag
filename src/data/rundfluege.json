@@ -1,0 +1,67 @@
+[
+  {
+    "id": "luzern",
+    "name": "Luzern",
+    "title": "Rundflug Luzern",
+    "duration": 20,
+    "price": 120,
+    "shop": "https://shop.e-guma.ch/flubag/de/gutscheine/45061/gutschein-rundflug-luzern",
+    "image": "rundflug/luzern",
+    "teaser": "Seetal, drei Seen und die Kapellbrücke von oben.",
+    "text": "Die Cessna mit 3 Passagierplätzen hebt in Luzern-Beromünster ab. Ihr überfliegt das Seetal mit Sicht auf Hallwiler-, Baldegger- und Sempachersee, voraus das wunderschöne Luzerner Seebecken. Die Kapellbrücke und die anderen Sehenswürdigkeiten aus der Luft zu sehen, begeistert garantiert.",
+    "highlights": ["Hallwilersee", "Baldeggersee", "Luzern & Kapellbrücke", "Sempachersee"],
+    "path": [[47.19, 8.2047], [47.255, 8.215], [47.288, 8.222], [47.205, 8.262], [47.12, 8.29], [47.0517, 8.3075], [47.045, 8.33], [47.075, 8.26], [47.145, 8.155], [47.19, 8.2047]]
+  },
+  {
+    "id": "pilatus-rigi",
+    "name": "Pilatus & Rigi",
+    "title": "Rundflug Pilatus / Rigi",
+    "duration": 30,
+    "price": 160,
+    "shop": "https://shop.e-guma.ch/flubag/de/gutscheine/45093/gutschein-rundflug-pilatus-rigi",
+    "image": "rundflug/pilatus-rigi",
+    "teaser": "Die beiden Hausberge Luzerns aus nächster Nähe.",
+    "text": "Ab dem gut zugänglichen Flugplatz Luzern-Beromünster geht es Richtung Luzerner Seebecken. Dabei überfliegt ihr das glitzernde Wasser des Sempachersees und das satte Grün der Innerschweiz. Die Sicht schweift zu Rigi und Pilatus, die beiden Hausberge Luzerns überraschen mit Grösse und Schönheit. Nach 30 Minuten Flugzeit landet ihr wieder in Beromünster.",
+    "highlights": ["Sempachersee", "Pilatus 2128 m", "Vierwaldstättersee", "Rigi 1797 m"],
+    "path": [[47.19, 8.2047], [47.14, 8.16], [47.04, 8.2], [46.979, 8.2547], [47.0, 8.33], [47.03, 8.42], [47.0567, 8.4853], [47.1, 8.42], [47.16, 8.3], [47.19, 8.2047]]
+  },
+  {
+    "id": "titlis",
+    "name": "Titlis",
+    "title": "Rundflug Titlis",
+    "duration": 45,
+    "price": 220,
+    "shop": "https://shop.e-guma.ch/flubag/de/gutscheine/45094/gutschein-rundflug-titlis",
+    "image": "rundflug/titlis",
+    "teaser": "Raus aus dem Nebel, rein ins Gletscherweiss.",
+    "text": "Der Flug startet im höher gelegenen Beromünster. Dem Nebel hoffentlich entflohen, hebt ihr ab Richtung Innerschweiz. Die glitzernden Seen und grünen Landschaften werden umrahmt von Rigi und Pilatus. Zurück geht es entweder an den Mythen vorbei mit Sicht auf Zuger-, Hallwiler- und Baldeggersee, oder ihr bestaunt den schneebestäubten Titlis. Die Route wird vorher mit dem Piloten besprochen oder der Wetterlage angepasst.",
+    "highlights": ["Pilatus", "Titlis 3238 m", "Mythen", "Zugersee"],
+    "path": [[47.19, 8.2047], [47.08, 8.22], [46.979, 8.2547], [46.88, 8.33], [46.772, 8.437], [46.86, 8.55], [47.0, 8.66], [47.03, 8.68], [47.12, 8.5], [47.2, 8.33], [47.19, 8.2047]]
+  },
+  {
+    "id": "eiger-moench-jungfrau",
+    "name": "Eiger, Mönch & Jungfrau",
+    "title": "Rundflug Eiger, Mönch und Jungfrau",
+    "duration": 60,
+    "price": 290,
+    "shop": "https://shop.e-guma.ch/flubag/de/gutscheine/45095/gutschein-rundflug-eiger-moench-jungfrau",
+    "image": "rundflug/eiger-moench-jungfrau",
+    "teaser": "Top of Europe und das UNESCO Welterbe von oben.",
+    "text": "Top of Europe, das UNESCO Welterbe von oben sehen: ein Traum, der in Erfüllung geht. In der vierplätzigen Cessna seht ihr das Jungfraujoch mit dem Konkordiaplatz und überfliegt Eiger und Mönch. Das Dreigestirn wird umrahmt von weiteren Zwei- und Dreitausendern wie der Scheidegg, dem Engelhorn oder dem Stanserhorn. Berge, Seen und Landschaften, die verzaubern.",
+    "highlights": ["Stanserhorn", "Eiger 3967 m", "Jungfraujoch", "Konkordiaplatz"],
+    "path": [[47.19, 8.2047], [47.05, 8.25], [46.93, 8.34], [46.8, 8.2], [46.66, 8.13], [46.5775, 8.0053], [46.5586, 7.9975], [46.5367, 7.9625], [46.5, 8.03], [46.6, 8.2], [46.8, 8.3], [47.0, 8.25], [47.19, 8.2047]]
+  },
+  {
+    "id": "matterhorn",
+    "name": "Matterhorn",
+    "title": "Rundflug Matterhorn",
+    "duration": 90,
+    "price": 430,
+    "shop": "https://shop.e-guma.ch/flubag/de/gutscheine/45096/gutschein-rundflug-matterhorn",
+    "image": "rundflug/matterhorn",
+    "teaser": "Der grosse Alpenflug zum berühmtesten Berg der Welt.",
+    "text": "Der Start in Beromünster erfolgt stressfrei und unkompliziert. Mit der vierplätzigen Cessna seht ihr die Welt von oben, beliebte Skigebiete und verschiedene Städte. Das mediterrane Flair von Thuner- und Brienzersee nehmt ihr mit auf die Reise zum Matterhorn. Zurück geht es über das Goms, den Grimselpass und die Melchsee-Frutt. Der verwinkelte Vierwaldstättersee mit Pilatus und Rigi macht den Abschluss zu einem Erlebnis, das keine Wünsche offen lässt.",
+    "highlights": ["Thunersee", "Matterhorn 4478 m", "Grimselpass", "Vierwaldstättersee"],
+    "path": [[47.19, 8.2047], [47.0, 8.0], [46.75, 7.75], [46.69, 7.71], [46.5, 7.75], [46.2, 7.7], [45.9763, 7.6586], [46.15, 7.95], [46.45, 8.25], [46.5617, 8.3372], [46.775, 8.27], [46.98, 8.4], [47.0567, 8.4853], [46.979, 8.2547], [47.19, 8.2047]]
+  }
+]
