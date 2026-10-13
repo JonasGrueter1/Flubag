@@ -27,10 +27,26 @@ if (args.includes('--full')) {
   for (let y = 0; y < h; y += Math.round(height * 0.7)) { await p.evaluate((yy) => window.scrollTo(0, yy), y); await p.waitForTimeout(160); }
   await p.evaluate(() => window.scrollTo(0, 0));
   await p.waitForTimeout(800);
+  const hidden = await p.evaluate(() => [...document.querySelectorAll('[data-reveal]:not(.is-in)')].map((e) => e.tagName.toLowerCase() + (e.className ? '.' + String(e.className).split(' ')[0] : '')));
+  if (hidden.length) errors.push('Nach dem Durchscrollen nicht eingeblendet (data-reveal ohne .is-in): ' + [...new Set(hidden)].join(', '));
   await p.evaluate(() => document.querySelectorAll('[data-reveal]').forEach((e) => e.classList.add('is-in')));
 }
 if (scrollTo) { await p.evaluate((y) => window.scrollTo(0, y), scrollTo); await p.waitForTimeout(1200); }
-await p.screenshot({ path: out, fullPage: args.includes('--full') });
-console.log(out);
+const total = await p.evaluate(() => document.documentElement.scrollHeight);
+if (args.includes('--full') && total > 14000) {
+  // Chromium kann sehr lange Seiten nicht am Stück fotografieren: in Teile schneiden
+  const parts = [];
+  for (let y = 0, i = 0; y < total; y += 6000, i++) {
+    const file = out.replace(/\.png$/, `-teil${i}.png`);
+    await p.screenshot({ path: file, fullPage: true, clip: { x: 0, y, width, height: Math.min(6000, total - y) } });
+    parts.push(file);
+  }
+  console.log(parts.join('\n'));
+} else {
+  await p.screenshot({ path: out, fullPage: args.includes('--full') });
+  console.log(out);
+}
+const overflow = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+if (overflow > 1) errors.push(`Horizontales Scrollen: Seite ist ${overflow}px breiter als der Bildschirm`);
 if (errors.length) console.log([...new Set(errors)].join('\n'));
 await browser.close();

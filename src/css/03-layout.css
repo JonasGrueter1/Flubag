@@ -42,6 +42,7 @@
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .row--between { justify-content: space-between; }
 .sticky { position: sticky; top: calc(var(--header-h) + 24px); }
+body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -327,3 +328,8 @@
   .nav-wrap { gap: 16px; }
 }
 .nav-cta .icon { width: 20px; height: 20px; }
+
+/* Maus-Scrollhinweis (Hero) */
+.scroll-cue { position: absolute; left: 50%; bottom: 26px; width: 26px; height: 44px; translate: -50% 0; border: 1.5px solid rgba(255, 255, 255, 0.5); border-radius: 14px; overflow: hidden; }
+.scroll-cue span { position: absolute; left: 50%; top: 8px; width: 3px; height: 10px; translate: -50% 0; border-radius: 3px; background: #fff; animation: scroll-cue 1.8s var(--ease-in-out) infinite; }
+@media (max-width: 900px) { .scroll-cue { display: none; } }

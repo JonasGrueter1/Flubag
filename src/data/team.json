@@ -1,8 +1,8 @@
 {
   "fluglehrer": [
-    { "name": "Urs Reber", "role": "Cheffluglehrer / Representative", "image": "team/urs-reber", "lead": true },
-    { "name": "Philipp Huwyler", "role": "Fluglehrer / Head of Training", "image": "team/philipp-huwyler", "lead": true },
-    { "name": "Marc Michel", "role": "Fluglehrer / Experte", "image": "team/marc-michel" },
+    { "name": "Urs Reber", "role": "Cheffluglehrer/Representative", "image": "team/urs-reber", "lead": true },
+    { "name": "Philipp Huwyler", "role": "Fluglehrer/Head of Training", "image": "team/philipp-huwyler", "lead": true },
+    { "name": "Marc Michel", "role": "Fluglehrer/Experte", "image": "team/marc-michel" },
     { "name": "Michael Estermann", "role": "Fluglehrer MOU", "image": "team/michael-estermann" },
     { "name": "Daniel Urech", "role": "Fluglehrer", "image": "team/daniel-urech" },
     { "name": "Felix Egolf", "role": "Fluglehrer", "image": "team/felix-egolf" },

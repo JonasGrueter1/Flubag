@@ -313,7 +313,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 
 /* ---------- HUD / Instrumente ---------- */
 .instrument { position: relative; border-radius: var(--radius-l); padding: 22px; background: linear-gradient(180deg, rgba(14, 24, 41, 0.86), rgba(9, 15, 29, 0.9)); border: 1px solid rgba(160, 190, 230, 0.16); color: #edf2fa; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
-[data-theme="light"] .instrument:not(.force-dark *) { background: linear-gradient(180deg, #ffffff, #f7f4ee); color: var(--text); border-color: var(--line); }
+[data-theme="light"] .instrument:not(.force-dark):not(.force-dark *) { background: linear-gradient(180deg, #ffffff, #f7f4ee); color: var(--text); border-color: var(--line); }
 .hud-corners { position: relative; }
 .hud-corners::before, .hud-corners::after { content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--brand-hi); pointer-events: none; }
 .hud-corners::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; border-top-left-radius: 10px; }
@@ -346,7 +346,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .xwind__ring { fill: none; stroke: rgba(160, 190, 230, 0.25); stroke-width: 1; }
 .xwind__tick { stroke: rgba(160, 190, 230, 0.4); stroke-width: 1.5; }
 .xwind__card { font-family: var(--font-mono); font-size: 10px; fill: rgba(237, 242, 250, 0.7); text-anchor: middle; dominant-baseline: middle; }
-[data-theme="light"] .xwind__card:not(.force-dark *) { fill: var(--text-2); }
+[data-theme="light"] .xwind__card:not(.force-dark .xwind__card) { fill: var(--text-2); }
 .xwind__runway { fill: #2a3346; stroke: rgba(255, 255, 255, 0.4); stroke-width: 1; }
 .xwind__runway-line { stroke: #fff; stroke-width: 1.5; stroke-dasharray: 6 6; }
 .xwind__rwy-label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; fill: #fff; text-anchor: middle; dominant-baseline: middle; }
@@ -446,6 +446,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .figure figcaption { font-size: 0.85rem; color: var(--text-3); }
 .media-frame { position: relative; border-radius: var(--radius-l); overflow: hidden; background: var(--surface-3); }
 .media-frame img { width: 100%; height: 100%; object-fit: cover; }
+.media-frame > img[data-parallax] { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; }
 .media-frame--tall { aspect-ratio: 4 / 5; }
 .media-frame--wide { aspect-ratio: 16 / 10; }
 

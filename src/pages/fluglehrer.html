@@ -1,0 +1,218 @@
+<!--meta {
+  "title": "Unsere Fluglehrer",
+  "description": "Lerne das Team kennen: 10 nebenamtliche Fluglehrer der FLUBAG begleiten dich am Flugplatz Luzern-Beromünster vom Schnupperflug bis zur PPL oder LAPL.",
+  "nav": "fliegen",
+  "ogImage": "hero/slide-03"
+} -->
+
+<section class="page-hero fi-hero">
+  <div class="page-hero__media"><x-img src="hero/slide-03" alt="Fluglehrer mit Gästen vor einer Cessna auf dem Flugplatz Luzern-Beromünster" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="ausbildung.html">Fliegen lernen</a></li><li>Fluglehrer</li></ol>
+    <p class="eyebrow">Unsere Fluglehrer</p>
+    <h1 data-split data-split-now>Dein Team im Cockpit.</h1>
+    <p class="lead">Zehn Fluglehrer begleiten dich am Flugplatz Luzern-Beromünster: vom ersten Schnupperflug über den ersten Alleinflug bis zur Prüfung. Ein nebenamtliches Team, das seine Freude am Fliegen gerne weitergibt.</p>
+    <a class="fi-avatars" href="#team" aria-label="Zum Team: alle 10 Fluglehrer">
+      <span class="fi-avatars__stack" aria-hidden="true">
+        <!-- @each data.team.fluglehrer as p -->
+        <span class="fi-avatars__item" style="--i: {{loop.index}}"><x-img src="{{p.image}}" alt="" sizes="56px"></x-img></span>
+        <!-- @end -->
+      </span>
+      <span class="fi-avatars__label">10 Fluglehrer · nebenamtlich</span>
+    </a>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="schnupperflug.html" data-magnetic><x-icon name="plane-takeoff"></x-icon>Schnupperflug buchen</a>
+      <a class="btn btn--ghost btn--lg" href="ausbildung.html"><x-icon name="graduation-cap"></x-icon>Zur Ausbildung</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="nebenamt-title">
+  <div class="container split split--wide-left">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Das Team</p>
+      <h2 id="nebenamt-title" data-split>Fliegen aus Leidenschaft, unterrichten im Nebenamt.</h2>
+      <p class="lead" data-reveal>Die FLUBAG setzt auf ein nebenamtliches Team von Fluglehrern. Sie geben ihr Können neben ihrem Beruf weiter, auf der Graspiste in Beromünster und auf den Schulflugzeugen Cessna 150 und Cessna 172.</p>
+      <p class="muted" data-reveal>Auch die Rundflüge der FLUBAG werden von Privat- und Berufspiloten im Nebenamt geflogen. So sitzen bei uns Menschen im Cockpit, die das Fliegen nicht nur können, sondern lieben.</p>
+      <div class="fi-structure" data-reveal-group="0.1">
+        <div class="fi-structure__item" data-reveal><x-icon name="graduation-cap"></x-icon><div><p class="fi-structure__label">Fluglehrer</p><p>Nebenamtliches Team von Fluglehrern</p></div></div>
+        <div class="fi-structure__item" data-reveal><x-icon name="route"></x-icon><div><p class="fi-structure__label">Rundflüge</p><p>Privat- und Berufspiloten im Nebenamt</p></div></div>
+      </div>
+    </div>
+    <div class="stats stats--2 fi-stats" data-reveal="scale">
+      <div class="stat"><span class="stat__value" data-count="10">10</span><span class="stat__label">Fluglehrer</span></div>
+      <div class="stat"><span class="stat__value" data-count="5">5</span><span class="stat__label">Flugzeuge</span></div>
+      <div class="stat"><span class="stat__value" data-count="1966" data-count-from="1900" data-count-nosep>1966</span><span class="stat__label">Gegründet</span></div>
+      <div class="stat"><span class="stat__value"><span data-count="{{site.airfield.runwayLength}}">{{site.airfield.runwayLength}}</span><small>m</small></span><span class="stat__label">Graspiste {{site.airfield.runway}}</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="team" aria-labelledby="leitung-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Leitung</p>
+        <h2 id="leitung-title" data-split>Am Steuer der Flugschule.</h2>
+      </div>
+      <p class="lead" data-reveal>Zwei Namen, die du in der Ausbildung oft hören wirst: der Cheffluglehrer und der Head of Training.</p>
+    </div>
+    <div class="fi-leads" data-reveal-group="0.15">
+      <!-- @each data.team.fluglehrer as p --><!-- @if p.lead -->
+      <article class="fi-lead person person--lead card card--glow" data-reveal>
+        <div class="fi-lead__photo person__photo">
+          <x-img src="{{p.image}}" alt="Porträt von {{p.name}}" sizes="(max-width: 560px) 100vw, (max-width: 1100px) 45vw, 300px"></x-img>
+          <span class="fi-lead__badge chip"><x-icon name="badge-check"></x-icon>Leitung</span>
+        </div>
+        <div class="fi-lead__body">
+          <span class="fi-lead__num" aria-hidden="true">0{{loop.number}}</span>
+          <h3 class="fi-lead__name">{{p.name}}</h3>
+          <p class="person__role"><!-- @if p.role == "Cheffluglehrer / Representative" -->Cheffluglehrer/<wbr>Representative<!-- @else --><!-- @if p.role == "Fluglehrer / Head of Training" -->Fluglehrer/<wbr>Head of Training<!-- @else -->{{p.role}}<!-- @endif --><!-- @endif --></p>
+          <!-- @if p.name == "Urs Reber" -->
+          <p class="muted">Leitet als Cheffluglehrer das Team und vertritt als Representative die Flugschule. Urs Reber ist zudem Mitglied des Verwaltungsrats der FLUBAG Flugbetriebs AG.</p>
+          <!-- @else -->
+          <p class="muted">Verantwortet als Head of Training die Ausbildung an der Flugschule und fliegt selbst als Fluglehrer mit den Flugschülerinnen und Flugschülern.</p>
+          <!-- @endif -->
+        </div>
+      </article>
+      <!-- @endif --><!-- @end -->
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="team-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Fluglehrer</p>
+        <h2 id="team-title" data-split>Neben dir am Doppelsteuer.</h2>
+      </div>
+      <p class="lead" data-reveal>Sie sitzen beim Schnupperflug neben dir, autorisieren jeden deiner Soloflüge und empfehlen dich am Ende für die praktische Prüfung.</p>
+    </div>
+    <div class="fi-grid" data-reveal-group="0.07">
+      <!-- @each data.team.fluglehrer as p --><!-- @if !p.lead -->
+      <article class="person fi-card" data-reveal>
+        <div class="person__photo fi-card__photo">
+          <x-img src="{{p.image}}" alt="Porträt von {{p.name}}" sizes="(max-width: 860px) 50vw, 25vw"></x-img>
+          <span class="fi-card__num" aria-hidden="true"><!-- @if loop.number == "10" -->10<!-- @else -->0{{loop.number}}<!-- @endif --></span>
+          <span class="fi-card__icon" aria-hidden="true"><!-- @if p.role == "Fluglehrer / Experte" --><x-icon name="clipboard-check"></x-icon><!-- @else --><!-- @if p.role == "Fluglehrer MOU" --><x-icon name="mountain-snow"></x-icon><!-- @else --><x-icon name="plane"></x-icon><!-- @endif --><!-- @endif --></span>
+        </div>
+        <div class="fi-card__info">
+          <h3 class="person__name">{{p.name}}</h3>
+          <p class="person__role"><!-- @if p.role == "Fluglehrer / Experte" -->Fluglehrer/<wbr>Experte<!-- @else -->{{p.role}}<!-- @endif --></p>
+        </div>
+      </article>
+      <!-- @endif --><!-- @end -->
+    </div>
+  </div>
+</section>
+
+<div class="marquee marquee--big fi-marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <!-- @each data.team.fluglehrer as p -->
+    <span class="marquee__item">{{p.name}}<x-icon name="plane"></x-icon></span>
+    <!-- @end -->
+  </div>
+</div>
+
+<section class="section section--chart" aria-labelledby="rollen-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Kurz erklärt</p>
+        <h2 id="rollen-title" data-split>Wer macht was?</h2>
+      </div>
+      <p class="lead" data-reveal>Cheffluglehrer, Head of Training, Experte, MOU: Hinter den Titeln stecken klare Aufgaben in der Ausbildung.</p>
+    </div>
+    <div class="grid grid-3 fi-roles" data-reveal-group="0.08">
+      <article class="card card--pad card--glow fi-role" data-reveal>
+        <x-icon name="users" class="card__icon"></x-icon>
+        <h3 class="card__title">Cheffluglehrer</h3>
+        <p class="card__text">Leitet das Team der Fluglehrer und ist zugleich selbst als Fluglehrer in der Luft.</p>
+        <p class="fi-role__who"><x-icon name="user-round"></x-icon>Urs Reber</p>
+      </article>
+      <article class="card card--pad card--glow fi-role" data-reveal>
+        <x-icon name="shield-check" class="card__icon"></x-icon>
+        <h3 class="card__title">Representative</h3>
+        <p class="card__text">Vertritt die Flugschule gegenüber der Aufsichtsbehörde, in der Schweiz dem BAZL, und sorgt dafür, dass die Ausbildung den EASA-Vorgaben entspricht.</p>
+        <p class="fi-role__who"><x-icon name="user-round"></x-icon>Urs Reber</p>
+      </article>
+      <article class="card card--pad card--glow fi-role" data-reveal>
+        <x-icon name="graduation-cap" class="card__icon"></x-icon>
+        <h3 class="card__title">Head of Training</h3>
+        <p class="card__text">Verantwortet die Ausbildung: Ausbildungsprogramme, Qualität und den Fortschritt der Flugschülerinnen und Flugschüler.</p>
+        <p class="fi-role__who"><x-icon name="user-round"></x-icon>Philipp Huwyler</p>
+      </article>
+      <article class="card card--pad card--glow fi-role" data-reveal>
+        <x-icon name="clipboard-check" class="card__icon"></x-icon>
+        <h3 class="card__title">Experte</h3>
+        <p class="card__text">So heissen in der Schweiz die Flugprüfer. Ein Experte nimmt praktische Prüfungen ab, zum Beispiel den Prüfungsflug zur PPL.</p>
+        <p class="fi-role__who"><x-icon name="user-round"></x-icon>Marc Michel</p>
+      </article>
+      <article class="card card--pad card--glow fi-role" data-reveal>
+        <x-icon name="mountain-snow" class="card__icon"></x-icon>
+        <h3 class="card__title">MOU</h3>
+        <p class="card__text">Kurz für Mountain Rating, die Gebirgsflugberechtigung für Starts und Landungen auf Gebirgslandeplätzen und Gletschern. Ein Fluglehrer MOU bildet dafür aus.</p>
+        <p class="fi-role__who"><x-icon name="user-round"></x-icon>Michael Estermann</p>
+      </article>
+      <article class="card card--pad card--glow fi-role" data-reveal>
+        <x-icon name="plane" class="card__icon"></x-icon>
+        <h3 class="card__title">Fluglehrer</h3>
+        <p class="card__text">Bildet dich in der Luft aus: Basismanöver, Start und Landung, Notverfahren und Navigation, bis du bereit für die Prüfung bist.</p>
+        <p class="fi-role__who"><x-icon name="users-round"></x-icon>Das ganze Team</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="treffen-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Mit uns in die Luft</p>
+        <h2 id="treffen-title" data-split>Hier lernst du uns kennen.</h2>
+      </div>
+      <p class="lead" data-reveal>Ob erster Flug, ganze Ausbildung oder zuerst einmal alle Fragen klären: Unsere Fluglehrer freuen sich auf dich.</p>
+    </div>
+    <div class="grid grid-3 tiles fi-tiles" data-reveal-group="0.12">
+      <a class="tile" href="schnupperflug.html" data-reveal>
+        <x-img src="schnupperflug/discovery-5" alt="Flugschülerin und Fluglehrer im Cockpit über dem Nebelmeer" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
+        <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
+        <span class="tile__eyebrow">01 · ab CHF 420</span>
+        <span class="tile__title">Schnupperflug</span>
+        <span class="tile__text">Du steuerst, dein Fluglehrer sitzt neben dir am Doppelsteuer. Keine Vorkenntnisse nötig.</span>
+      </a>
+      <a class="tile" href="ausbildung.html" data-reveal>
+        <x-img src="schnupperflug/discovery-3" alt="Fluglehrer und Flugschülerin gehen im Cockpit die Checkliste durch" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
+        <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
+        <span class="tile__eyebrow">02 · PPL &amp; LAPL</span>
+        <span class="tile__title">Ausbildung</span>
+        <span class="tile__text">Vom ersten Alleinflug bis zur Prüfung: In 9 Schritten zur eigenen Lizenz.</span>
+      </a>
+      <a class="tile" href="infoabende.html" data-reveal>
+        <x-img src="schnupperflug/discovery-0" alt="Fluglehrer erklärt einer Interessentin das Flugzeug" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
+        <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
+        <span class="tile__eyebrow">03 · Wie werde ich Pilot?</span>
+        <span class="tile__title">Infoabend</span>
+        <span class="tile__text">Alles zur Pilotenausbildung an einem Abend, mit Apéro und Verlosung eines Schnupperflugs.</span>
+      </a>
+    </div>
+
+    <div class="fi-rates" data-reveal>
+      <div class="stack">
+        <p class="eyebrow eyebrow--plain">Fluglehrer-Tarife</p>
+        <h3 class="h3">Fluglehrer buchen</h3>
+        <p class="muted">Auch auf einem Fremd-Flugzeug kannst du mit einem FLUBAG Fluglehrer fliegen. Alle weiteren Preise findest du in der <a class="brand-text" href="preise.html">Preisliste</a>.</p>
+      </div>
+      <div class="fi-rates__grid">
+        <!-- @each data.preise.fluglehrer as f -->
+        <div class="rate">
+          <p class="rate__label">{{f.label}}</p>
+          <p class="rate__hour">{{f.perHour | chf}} <small>/ Std.</small></p>
+          <p class="rate__min">{{f.perMin | chf}} pro Minute</p>
+        </div>
+        <!-- @end -->
+      </div>
+    </div>
+  </div>
+</section>
