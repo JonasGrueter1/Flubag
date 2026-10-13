@@ -100,6 +100,8 @@
     var btn = form.querySelector('[type="submit"]');
     if (form.querySelector('.honeypot input') && form.querySelector('.honeypot input').value) { success(form, false); return; }
     var data = values(form);
+    var tEl = form.querySelector('input[name="_t"]');
+    if (tEl) data._t = tEl.value;
     data._form = form.dataset.formName || form.id || 'Kontakt';
     data._page = location.href;
     var cfg = F.config.form;

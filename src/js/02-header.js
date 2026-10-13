@@ -72,7 +72,7 @@
         burger.addEventListener('click', function () { toggleMobile(); });
         F.$$('a', menu).forEach(function (a) { a.addEventListener('click', function () { toggleMobile(false); }); });
         F.$$('.mm-group[data-current]', menu).forEach(function (d) { d.open = true; });
-        window.addEventListener('resize', function () { if (window.innerWidth > 1180 && !menu.hidden) toggleMobile(false); });
+        window.addEventListener('resize', function () { if (window.innerWidth > 1360 && !menu.hidden) toggleMobile(false); });
       }
     }
   };

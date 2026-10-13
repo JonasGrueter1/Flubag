@@ -22,43 +22,6 @@
 
     <nav class="mainnav" aria-label="Hauptnavigation">
       <ul class="mainnav__list">
-        <li class="mainnav__item has-menu" data-nav-group="fliegen">
-          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-fliegen">Fliegen lernen <x-icon name="chevron-down"></x-icon></button>
-          <div class="megamenu" id="menu-fliegen">
-            <div class="megamenu__inner">
-              <ul class="megamenu__links">
-                <li><a href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon><span><strong>Schnupperflug</strong><small>Selbst am Steuer, ab CHF 420</small></span></a></li>
-                <li><a href="ausbildung.html"><x-icon name="graduation-cap"></x-icon><span><strong>Ausbildung PPL &amp; LAPL</strong><small>In 9 Schritten zur Lizenz</small></span></a></li>
-                <li><a href="fluglehrer.html"><x-icon name="users"></x-icon><span><strong>Unsere Fluglehrer</strong><small>10 Profis im Cockpit</small></span></a></li>
-                <li><a href="infoabende.html"><x-icon name="calendar"></x-icon><span><strong>Infoabende</strong><small>"Wie werde ich Pilot?"</small></span></a></li>
-                <li><a href="dokumente.html#syllabi"><x-icon name="book-open"></x-icon><span><strong>Syllabi &amp; Familiarization</strong><small>Ausbildungsunterlagen</small></span></a></li>
-                <li><a href="{{site.gletscherpiloten}}" target="_blank" rel="noopener"><x-icon name="mountain-snow"></x-icon><span><strong>Gletscherpiloten</strong><small>Externe Seite</small></span></a></li>
-              </ul>
-              <a class="megamenu__feature" href="schnupperflug.html">
-                <x-img src="schnupperflug/discovery-4" alt="" sizes="320px"></x-img>
-                <span class="megamenu__feature-text"><span class="eyebrow">Dein erster Flug</span><strong>Übernimm das Steuer</strong></span>
-              </a>
-            </div>
-          </div>
-        </li>
-        <li class="mainnav__item has-menu" data-nav-group="erleben">
-          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-erleben">Erleben <x-icon name="chevron-down"></x-icon></button>
-          <div class="megamenu" id="menu-erleben">
-            <div class="megamenu__inner">
-              <ul class="megamenu__links">
-                <li><a href="rundfluege.html"><x-icon name="route"></x-icon><span><strong>Rundflüge</strong><small>Luzern bis Matterhorn</small></span></a></li>
-                <li><a href="gutscheine.html"><x-icon name="gift"></x-icon><span><strong>Gutscheine</strong><small>Verschenke ein Abenteuer</small></span></a></li>
-                <li><a href="schnupperflug.html"><x-icon name="plane"></x-icon><span><strong>Schnupperflug</strong><small>Einmal Pilot sein</small></span></a></li>
-                <li><a href="{{site.restaurant.url}}" target="_blank" rel="noopener"><x-icon name="utensils"></x-icon><span><strong>Restaurant Flüüger</strong><small>Direkt am Flugplatz</small></span></a></li>
-              </ul>
-              <a class="megamenu__feature" href="rundfluege.html">
-                <x-img src="rundflug/eiger-moench-jungfrau" alt="" sizes="320px"></x-img>
-                <span class="megamenu__feature-text"><span class="eyebrow">Ab CHF 120</span><strong>Die Alpen von oben</strong></span>
-              </a>
-            </div>
-          </div>
-        </li>
-        <li class="mainnav__item" data-nav-group="flotte"><a class="mainnav__link" href="flotte.html">Flotte</a></li>
         <li class="mainnav__item has-menu" data-nav-group="flugplatz">
           <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-flugplatz">Flugplatz <x-icon name="chevron-down"></x-icon></button>
           <div class="megamenu" id="menu-flugplatz">
@@ -77,6 +40,43 @@
             </div>
           </div>
         </li>
+        <li class="mainnav__item has-menu" data-nav-group="fliegen">
+          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-fliegen">Flugschule <x-icon name="chevron-down"></x-icon></button>
+          <div class="megamenu" id="menu-fliegen">
+            <div class="megamenu__inner">
+              <ul class="megamenu__links">
+                <li><a href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon><span><strong>Schnupperflug</strong><small>Selbst am Steuer, ab CHF 420</small></span></a></li>
+                <li><a href="ausbildung.html"><x-icon name="graduation-cap"></x-icon><span><strong>Ausbildung PPL &amp; LAPL</strong><small>In 9 Schritten zur Lizenz</small></span></a></li>
+                <li><a href="fluglehrer.html"><x-icon name="users"></x-icon><span><strong>Unsere Fluglehrer</strong><small>10 Profis im Cockpit</small></span></a></li>
+                <li><a href="infoabende.html"><x-icon name="calendar"></x-icon><span><strong>Infoabende</strong><small>"Wie werde ich Pilot?"</small></span></a></li>
+                <li><a href="dokumente.html#syllabi"><x-icon name="book-open"></x-icon><span><strong>Syllabi &amp; Familiarization</strong><small>Ausbildungsunterlagen</small></span></a></li>
+                <li><a href="{{site.gletscherpiloten}}" target="_blank" rel="noopener"><x-icon name="mountain-snow"></x-icon><span><strong>Gletscherpiloten</strong><small>Externe Seite</small></span></a></li>
+              </ul>
+              <a class="megamenu__feature" href="schnupperflug.html">
+                <x-img src="schnupperflug/discovery-4" alt="" sizes="320px"></x-img>
+                <span class="megamenu__feature-text"><span class="eyebrow">Dein erster Flug</span><strong>Übernimm das Steuer</strong></span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="mainnav__item has-menu" data-nav-group="erleben">
+          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-erleben">Rundflüge &amp; Gutscheine <x-icon name="chevron-down"></x-icon></button>
+          <div class="megamenu" id="menu-erleben">
+            <div class="megamenu__inner">
+              <ul class="megamenu__links">
+                <li><a href="rundfluege.html"><x-icon name="route"></x-icon><span><strong>Rundflüge</strong><small>Luzern bis Matterhorn</small></span></a></li>
+                <li><a href="gutscheine.html"><x-icon name="gift"></x-icon><span><strong>Gutscheine</strong><small>Verschenke ein Abenteuer</small></span></a></li>
+                <li><a href="schnupperflug.html"><x-icon name="plane"></x-icon><span><strong>Schnupperflug</strong><small>Einmal Pilot sein</small></span></a></li>
+                <li><a href="{{site.restaurant.url}}" target="_blank" rel="noopener"><x-icon name="utensils"></x-icon><span><strong>Restaurant Flüüger</strong><small>Direkt am Flugplatz</small></span></a></li>
+              </ul>
+              <a class="megamenu__feature" href="rundfluege.html">
+                <x-img src="rundflug/eiger-moench-jungfrau" alt="" sizes="320px"></x-img>
+                <span class="megamenu__feature-text"><span class="eyebrow">Ab CHF 120</span><strong>Die Alpen von oben</strong></span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="mainnav__item" data-nav-group="flotte"><a class="mainnav__link" href="flotte.html">Flotte</a></li>
         <li class="mainnav__item has-menu" data-nav-group="piloten">
           <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-piloten">Piloten <x-icon name="chevron-down"></x-icon></button>
           <div class="megamenu megamenu--wide" id="menu-piloten">
@@ -122,6 +122,7 @@
             </div>
           </div>
         </li>
+        <li class="mainnav__item"><a class="mainnav__link" href="{{site.restaurant.url}}" target="_blank" rel="noopener">Restaurant</a></li>
         <li class="mainnav__item" data-nav-group="kontakt"><a class="mainnav__link" href="kontakt.html">Kontakt</a></li>
       </ul>
     </nav>
@@ -143,22 +144,6 @@
   <div class="mobile-menu__inner">
     <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
-      <details class="mm-group" data-nav-group="fliegen">
-        <summary>Fliegen lernen <x-icon name="chevron-down"></x-icon></summary>
-        <a href="schnupperflug.html">Schnupperflug</a>
-        <a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a>
-        <a href="fluglehrer.html">Unsere Fluglehrer</a>
-        <a href="infoabende.html">Infoabende</a>
-        <a href="dokumente.html#syllabi">Syllabi &amp; Familiarization</a>
-        <a href="{{site.gletscherpiloten}}" target="_blank" rel="noopener">Gletscherpiloten <x-icon name="arrow-up-right"></x-icon></a>
-      </details>
-      <details class="mm-group" data-nav-group="erleben">
-        <summary>Erleben <x-icon name="chevron-down"></x-icon></summary>
-        <a href="rundfluege.html">Rundflüge</a>
-        <a href="gutscheine.html">Gutscheine</a>
-        <a href="{{site.restaurant.url}}" target="_blank" rel="noopener">Restaurant Flüüger <x-icon name="arrow-up-right"></x-icon></a>
-      </details>
-      <a class="mm-link" href="flotte.html" data-nav-group="flotte">Flotte</a>
       <details class="mm-group" data-nav-group="flugplatz">
         <summary>Flugplatz <x-icon name="chevron-down"></x-icon></summary>
         <a href="geschichte.html">Geschichte &amp; Team</a>
@@ -167,6 +152,22 @@
         <a href="aktuelles.html">Aktuelles</a>
         <a href="preise.html">Preise</a>
       </details>
+      <details class="mm-group" data-nav-group="fliegen">
+        <summary>Flugschule <x-icon name="chevron-down"></x-icon></summary>
+        <a href="schnupperflug.html">Schnupperflug</a>
+        <a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a>
+        <a href="fluglehrer.html">Unsere Fluglehrer</a>
+        <a href="infoabende.html">Infoabende</a>
+        <a href="dokumente.html#syllabi">Syllabi &amp; Familiarization</a>
+        <a href="{{site.gletscherpiloten}}" target="_blank" rel="noopener">Gletscherpiloten <x-icon name="arrow-up-right"></x-icon></a>
+      </details>
+      <details class="mm-group" data-nav-group="erleben">
+        <summary>Rundflüge &amp; Gutscheine <x-icon name="chevron-down"></x-icon></summary>
+        <a href="rundfluege.html">Rundflüge</a>
+        <a href="gutscheine.html">Gutscheine</a>
+        <a href="{{site.restaurant.url}}" target="_blank" rel="noopener">Restaurant Flüüger <x-icon name="arrow-up-right"></x-icon></a>
+      </details>
+      <a class="mm-link" href="flotte.html" data-nav-group="flotte">Flotte</a>
       <details class="mm-group" data-nav-group="piloten">
         <summary>Piloten <x-icon name="chevron-down"></x-icon></summary>
         <a href="piloten.html">Übersicht &amp; Pilot News</a>
@@ -183,6 +184,7 @@
         <a href="dokumente.html">Dokumente &amp; Newsletter</a>
         <a href="{{site.reservation}}" target="_blank" rel="noopener">Flugzeug Reservation <x-icon name="arrow-up-right"></x-icon></a>
       </details>
+      <a class="mm-link" href="{{site.restaurant.url}}" target="_blank" rel="noopener">Restaurant <x-icon name="arrow-up-right"></x-icon></a>
       <a class="mm-link" href="kontakt.html" data-nav-group="kontakt">Kontakt</a>
     </nav>
     <div class="mobile-menu__foot">
