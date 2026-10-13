@@ -1007,7 +1007,9 @@
   function render(el, w) {
     var c33 = w.rwy33, c15 = w.rwy15;
     var fmt = function (c) {
-      return Math.abs(Math.round(c.head)) + ' kt <small>' + (c.head >= 0 ? 'Gegenw.' : 'Rückenw.') + '</small> · ' + Math.abs(Math.round(c.cross)) + ' kt <small>' + (c.cross >= 0 ? 'von rechts' : 'von links') + '</small>';
+      var h = Math.round(c.head), x = Math.round(c.cross);
+      return (h === 0 ? '0 kt' : Math.abs(h) + ' kt <small>' + (h > 0 ? 'Gegenw.' : 'Rückenw.') + '</small>') + ' · ' +
+        (x === 0 ? '0 kt <small>quer</small>' : Math.abs(x) + ' kt <small>' + (x > 0 ? 'von rechts' : 'von links') + '</small>');
     };
     var rec = w.calm ? 'Windstill: Piste 33 primär (Starts und Landungen).' :
       (w.tailwind33 ? 'Rückenwind auf 33: kein Start auf Piste 33 nahe max. Startgewicht. Landung auf 15 prüfen.' : 'Gegenwind auf Piste 33: Standardbetrieb auf 33.');

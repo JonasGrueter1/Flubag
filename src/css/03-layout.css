@@ -246,7 +246,9 @@
     linear-gradient(180deg, rgba(6, 11, 22, 0.55) 0%, rgba(6, 11, 22, 0.1) 35%, rgba(6, 11, 22, 0.88) 100%),
     linear-gradient(90deg, rgba(6, 11, 22, 0.7) 0%, transparent 60%);
 }
-.page-hero__inner { display: grid; gap: 22px; max-width: 980px; }
+.page-hero__inner { display: grid; gap: 22px; justify-items: start; }
+.page-hero__inner > h1 { max-width: 16ch; }
+.page-hero__inner > .lead { max-width: 62ch; }
 .page-hero h1 { font-size: var(--fs-h1); font-weight: 800; font-stretch: 112%; line-height: 0.98; letter-spacing: -0.025em; }
 .page-hero .lead { color: rgba(255, 255, 255, 0.82); max-width: 62ch; }
 .page-hero__meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }

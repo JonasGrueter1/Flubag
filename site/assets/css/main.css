@@ -489,7 +489,9 @@ main:focus { outline: none; }
     linear-gradient(180deg, rgba(6, 11, 22, 0.55) 0%, rgba(6, 11, 22, 0.1) 35%, rgba(6, 11, 22, 0.88) 100%),
     linear-gradient(90deg, rgba(6, 11, 22, 0.7) 0%, transparent 60%);
 }
-.page-hero__inner { display: grid; gap: 22px; max-width: 980px; }
+.page-hero__inner { display: grid; gap: 22px; justify-items: start; }
+.page-hero__inner > h1 { max-width: 16ch; }
+.page-hero__inner > .lead { max-width: 62ch; }
 .page-hero h1 { font-size: var(--fs-h1); font-weight: 800; font-stretch: 112%; line-height: 0.98; letter-spacing: -0.025em; }
 .page-hero .lead { color: rgba(255, 255, 255, 0.82); max-width: 62ch; }
 .page-hero__meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
@@ -687,6 +689,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 
 /* ---------- Kennzahlen ---------- */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; }
+.stats--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .stat { background: var(--surface); padding: clamp(22px, 2.6vw, 34px); display: grid; gap: 8px; align-content: start; }
 .stat__value { font-family: var(--font-display); font-size: clamp(2.2rem, 1.5rem + 1.8vw, 3.4rem); font-weight: 850; font-stretch: 105%; white-space: nowrap; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .stat__value small { font-size: 0.4em; font-weight: 600; letter-spacing: 0; margin-left: 4px; color: var(--text-2); }
@@ -757,8 +760,10 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .gallery__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out), filter 0.4s; }
 .gallery__item:hover img { transform: scale(1.06); }
 .gallery__item::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
-.gallery--masonry { grid-auto-flow: dense; }
-.gallery--masonry .gallery__item:nth-child(5n + 1) { grid-row: span 2; aspect-ratio: auto; }
+.gallery--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gallery--3 .gallery__item, .gallery--4 .gallery__item { aspect-ratio: 4 / 3; }
+.gallery--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 860px) { .gallery--3, .gallery--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 .lightbox { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: rgba(3, 6, 12, 0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: #fff; padding: 64px 72px; animation: fade-in 0.3s var(--ease-out); }
 .lightbox__figure { display: grid; gap: 14px; justify-items: center; max-width: 100%; max-height: 100%; }
@@ -1072,6 +1077,11 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .checklist { list-style: none; padding: 0; display: grid; gap: 12px; }
 .checklist li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
 .checklist .icon { width: 28px; height: 28px; padding: 6px; border-radius: 50%; background: rgba(230, 50, 1, 0.12); color: var(--brand-text); }
+
+/* Formular-Schritte: Legende als Überschrift */
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+legend.h3, legend.h4 { font-family: var(--font-display); font-weight: 750; padding: 0; margin-bottom: 4px; }
+legend.h3 { font-size: var(--fs-h3); }
 
 /* 05-motion.css */
 /* Startzustände für Animationen. Nur aktiv, wenn das Animations-System läuft
