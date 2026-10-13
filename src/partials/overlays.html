@@ -1,0 +1,14 @@
+<div class="altimeter" aria-hidden="true" data-altimeter>
+  <span class="altimeter__label mono">ALT</span>
+  <span class="altimeter__track"><span class="altimeter__fill" data-altimeter-fill></span><span class="altimeter__plane"><x-icon name="plane"></x-icon></span></span>
+  <span class="altimeter__value mono" data-altimeter-value>0 ft</span>
+</div>
+<button class="to-top" type="button" data-to-top aria-label="Nach oben"><x-icon name="plane-takeoff"></x-icon></button>
+<div class="toast-region" aria-live="polite" aria-atomic="true" data-toasts></div>
+<div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Bildansicht">
+  <button class="lightbox__close icon-btn" type="button" data-lb-close aria-label="Schliessen"><x-icon name="x"></x-icon></button>
+  <button class="lightbox__nav lightbox__nav--prev icon-btn" type="button" data-lb-prev aria-label="Vorheriges Bild"><x-icon name="chevron-left"></x-icon></button>
+  <figure class="lightbox__figure"><img alt="" data-lb-img><figcaption data-lb-caption></figcaption></figure>
+  <button class="lightbox__nav lightbox__nav--next icon-btn" type="button" data-lb-next aria-label="Nächstes Bild"><x-icon name="chevron-right"></x-icon></button>
+  <p class="lightbox__count mono" data-lb-count></p>
+</div>

@@ -1,0 +1,196 @@
+<header class="site-header" data-header>
+  <div class="statusbar" aria-label="Live Status Flugplatz">
+    <div class="container statusbar__inner">
+      <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
+      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+        <x-icon name="wind"></x-icon><span data-wx-field="windText">--</span>
+        <x-icon name="thermometer"></x-icon><span data-wx-field="tempText">--</span>
+      </span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><x-icon name="sunset"></x-icon><span data-sun-field="sunset">--</span></span>
+      <a class="statusbar__item statusbar__link" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
+    </div>
+  </div>
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html" aria-label="FLUBAG Startseite">
+      <span class="brand__logo"><!-- @include logo --></span>
+      <span class="brand__text">
+        <span class="brand__name">FLUBAG</span>
+        <span class="brand__sub">Flugplatz Luzern-Beromünster</span>
+      </span>
+    </a>
+
+    <nav class="mainnav" aria-label="Hauptnavigation">
+      <ul class="mainnav__list">
+        <li class="mainnav__item has-menu" data-nav-group="fliegen">
+          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-fliegen">Fliegen lernen <x-icon name="chevron-down"></x-icon></button>
+          <div class="megamenu" id="menu-fliegen">
+            <div class="megamenu__inner">
+              <ul class="megamenu__links">
+                <li><a href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon><span><strong>Schnupperflug</strong><small>Selbst am Steuer, ab CHF 420</small></span></a></li>
+                <li><a href="ausbildung.html"><x-icon name="graduation-cap"></x-icon><span><strong>Ausbildung PPL &amp; LAPL</strong><small>In 9 Schritten zur Lizenz</small></span></a></li>
+                <li><a href="fluglehrer.html"><x-icon name="users"></x-icon><span><strong>Unsere Fluglehrer</strong><small>10 Profis im Cockpit</small></span></a></li>
+                <li><a href="infoabende.html"><x-icon name="calendar"></x-icon><span><strong>Infoabende</strong><small>"Wie werde ich Pilot?"</small></span></a></li>
+                <li><a href="dokumente.html#syllabi"><x-icon name="book-open"></x-icon><span><strong>Syllabi &amp; Familiarization</strong><small>Ausbildungsunterlagen</small></span></a></li>
+                <li><a href="{{site.gletscherpiloten}}" target="_blank" rel="noopener"><x-icon name="mountain-snow"></x-icon><span><strong>Gletscherpiloten</strong><small>Externe Seite</small></span></a></li>
+              </ul>
+              <a class="megamenu__feature" href="schnupperflug.html">
+                <x-img src="schnupperflug/discovery-4" alt="" sizes="320px"></x-img>
+                <span class="megamenu__feature-text"><span class="eyebrow">Dein erster Flug</span><strong>Übernimm das Steuer</strong></span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="mainnav__item has-menu" data-nav-group="erleben">
+          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-erleben">Erleben <x-icon name="chevron-down"></x-icon></button>
+          <div class="megamenu" id="menu-erleben">
+            <div class="megamenu__inner">
+              <ul class="megamenu__links">
+                <li><a href="rundfluege.html"><x-icon name="route"></x-icon><span><strong>Rundflüge</strong><small>Luzern bis Matterhorn</small></span></a></li>
+                <li><a href="gutscheine.html"><x-icon name="gift"></x-icon><span><strong>Gutscheine</strong><small>Verschenke ein Abenteuer</small></span></a></li>
+                <li><a href="schnupperflug.html"><x-icon name="plane"></x-icon><span><strong>Schnupperflug</strong><small>Einmal Pilot sein</small></span></a></li>
+                <li><a href="{{site.restaurant.url}}" target="_blank" rel="noopener"><x-icon name="utensils"></x-icon><span><strong>Restaurant Flüüger</strong><small>Direkt am Flugplatz</small></span></a></li>
+              </ul>
+              <a class="megamenu__feature" href="rundfluege.html">
+                <x-img src="rundflug/eiger-moench-jungfrau" alt="" sizes="320px"></x-img>
+                <span class="megamenu__feature-text"><span class="eyebrow">Ab CHF 120</span><strong>Die Alpen von oben</strong></span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="mainnav__item" data-nav-group="flotte"><a class="mainnav__link" href="flotte.html">Flotte</a></li>
+        <li class="mainnav__item has-menu" data-nav-group="flugplatz">
+          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-flugplatz">Flugplatz <x-icon name="chevron-down"></x-icon></button>
+          <div class="megamenu" id="menu-flugplatz">
+            <div class="megamenu__inner">
+              <ul class="megamenu__links">
+                <li><a href="geschichte.html"><x-icon name="history"></x-icon><span><strong>Geschichte &amp; Team</strong><small>Seit 1966 in Beromünster</small></span></a></li>
+                <li><a href="webcams.html"><x-icon name="camera"></x-icon><span><strong>Webcams &amp; Wetter</strong><small>Live vom Platz</small></span></a></li>
+                <li><a href="anreise.html"><x-icon name="map-pin"></x-icon><span><strong>Anreise</strong><small>Moos 3, 6025 Neudorf</small></span></a></li>
+                <li><a href="aktuelles.html"><x-icon name="newspaper"></x-icon><span><strong>Aktuelles</strong><small>News und Events</small></span></a></li>
+                <li><a href="preise.html"><x-icon name="receipt"></x-icon><span><strong>Preise</strong><small>Miete, Fluglehrer, Taxen</small></span></a></li>
+              </ul>
+              <a class="megamenu__feature" href="webcams.html">
+                <x-img src="hero/slide-05" alt="" sizes="320px"></x-img>
+                <span class="megamenu__feature-text"><span class="eyebrow">Live</span><strong>Wie ist das Wetter am Platz?</strong></span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="mainnav__item has-menu" data-nav-group="piloten">
+          <button class="mainnav__trigger" aria-expanded="false" aria-controls="menu-piloten">Piloten <x-icon name="chevron-down"></x-icon></button>
+          <div class="megamenu megamenu--wide" id="menu-piloten">
+            <div class="megamenu__inner megamenu__inner--cols">
+              <div class="megamenu__col">
+                <p class="megamenu__title">Regeln &amp; Weisungen</p>
+                <ul>
+                  <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+                  <li><a href="sprungbetrieb.html">Regeln Sprungbetrieb</a></li>
+                  <li><a href="safety-policy.html">Safety Policy</a></li>
+                </ul>
+                <p class="megamenu__title">Verfahren</p>
+                <ul>
+                  <li><a href="piste-33.html">Anflug &amp; Abflug Piste 33</a></li>
+                  <li><a href="checkflug-flarm.html">Checkflug 2026 &amp; FLARM</a></li>
+                  <li><a href="parkordnung.html">Parkordnung</a></li>
+                </ul>
+              </div>
+              <div class="megamenu__col">
+                <p class="megamenu__title">Flugvorbereitung</p>
+                <ul>
+                  <li><a href="airport-briefing.html">Airport Briefing</a></li>
+                  <li><a href="briefing-links.html">Briefing Links</a></li>
+                  <li><a href="flotte.html">Flugzeuge &amp; Handbücher</a></li>
+                  <li><a href="{{site.reservation}}" target="_blank" rel="noopener">Flugzeug Reservation <x-icon name="arrow-up-right"></x-icon></a></li>
+                  <li><a href="zollanmeldung.html">Zollanmeldung</a></li>
+                </ul>
+              </div>
+              <div class="megamenu__col">
+                <p class="megamenu__title">Reporting &amp; Infos</p>
+                <ul>
+                  <li><a href="reporting.html">Reporting &amp; Ereignis melden</a></li>
+                  <li><a href="preise.html">Preise</a></li>
+                  <li><a href="dokumente.html">Dokumente &amp; Newsletter</a></li>
+                  <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
+                </ul>
+              </div>
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+                <span class="eyebrow">Live Seitenwind</span>
+                <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
+                <strong>Zum Pilotenbereich</strong>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="mainnav__item" data-nav-group="kontakt"><a class="mainnav__link" href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Hell oder dunkel umschalten">
+        <x-icon name="sun" class="theme-toggle__sun"></x-icon><x-icon name="moon" class="theme-toggle__moon"></x-icon>
+      </button>
+      <a class="btn btn--primary btn--sm nav-cta" href="schnupperflug.html#anfrage" data-magnetic><x-icon name="plane-takeoff"></x-icon><span>Schnupperflug</span></a>
+      <button class="burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+  <div class="mobile-menu__bg"></div>
+  <div class="mobile-menu__inner">
+    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <nav aria-label="Mobile Navigation">
+      <details class="mm-group" data-nav-group="fliegen">
+        <summary>Fliegen lernen <x-icon name="chevron-down"></x-icon></summary>
+        <a href="schnupperflug.html">Schnupperflug</a>
+        <a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a>
+        <a href="fluglehrer.html">Unsere Fluglehrer</a>
+        <a href="infoabende.html">Infoabende</a>
+        <a href="dokumente.html#syllabi">Syllabi &amp; Familiarization</a>
+        <a href="{{site.gletscherpiloten}}" target="_blank" rel="noopener">Gletscherpiloten <x-icon name="arrow-up-right"></x-icon></a>
+      </details>
+      <details class="mm-group" data-nav-group="erleben">
+        <summary>Erleben <x-icon name="chevron-down"></x-icon></summary>
+        <a href="rundfluege.html">Rundflüge</a>
+        <a href="gutscheine.html">Gutscheine</a>
+        <a href="{{site.restaurant.url}}" target="_blank" rel="noopener">Restaurant Flüüger <x-icon name="arrow-up-right"></x-icon></a>
+      </details>
+      <a class="mm-link" href="flotte.html" data-nav-group="flotte">Flotte</a>
+      <details class="mm-group" data-nav-group="flugplatz">
+        <summary>Flugplatz <x-icon name="chevron-down"></x-icon></summary>
+        <a href="geschichte.html">Geschichte &amp; Team</a>
+        <a href="webcams.html">Webcams &amp; Wetter</a>
+        <a href="anreise.html">Anreise</a>
+        <a href="aktuelles.html">Aktuelles</a>
+        <a href="preise.html">Preise</a>
+      </details>
+      <details class="mm-group" data-nav-group="piloten">
+        <summary>Piloten <x-icon name="chevron-down"></x-icon></summary>
+        <a href="piloten.html">Übersicht &amp; Pilot News</a>
+        <a href="weisungen.html">Weisung Piloten 2026</a>
+        <a href="sprungbetrieb.html">Regeln Sprungbetrieb</a>
+        <a href="piste-33.html">Anflug &amp; Abflug Piste 33</a>
+        <a href="checkflug-flarm.html">Checkflug 2026 &amp; FLARM</a>
+        <a href="parkordnung.html">Parkordnung</a>
+        <a href="airport-briefing.html">Airport Briefing</a>
+        <a href="briefing-links.html">Briefing Links</a>
+        <a href="zollanmeldung.html">Zollanmeldung</a>
+        <a href="safety-policy.html">Safety Policy</a>
+        <a href="reporting.html">Reporting</a>
+        <a href="dokumente.html">Dokumente &amp; Newsletter</a>
+        <a href="{{site.reservation}}" target="_blank" rel="noopener">Flugzeug Reservation <x-icon name="arrow-up-right"></x-icon></a>
+      </details>
+      <a class="mm-link" href="kontakt.html" data-nav-group="kontakt">Kontakt</a>
+    </nav>
+    <div class="mobile-menu__foot">
+      <a class="btn btn--primary btn--block" href="schnupperflug.html#anfrage"><x-icon name="plane-takeoff"></x-icon>Schnupperflug anfragen</a>
+      <div class="mobile-menu__contact">
+        <a href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
+        <a href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
+      </div>
+    </div>
+  </div>
+</div>

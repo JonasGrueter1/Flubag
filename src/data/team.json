@@ -1,0 +1,30 @@
+{
+  "fluglehrer": [
+    { "name": "Urs Reber", "role": "Cheffluglehrer / Representative", "image": "team/urs-reber", "lead": true },
+    { "name": "Philipp Huwyler", "role": "Fluglehrer / Head of Training", "image": "team/philipp-huwyler", "lead": true },
+    { "name": "Marc Michel", "role": "Fluglehrer / Experte", "image": "team/marc-michel" },
+    { "name": "Michael Estermann", "role": "Fluglehrer MOU", "image": "team/michael-estermann" },
+    { "name": "Daniel Urech", "role": "Fluglehrer", "image": "team/daniel-urech" },
+    { "name": "Felix Egolf", "role": "Fluglehrer", "image": "team/felix-egolf" },
+    { "name": "Michael Hartmann", "role": "Fluglehrer", "image": "team/michael-hartmann" },
+    { "name": "Pavel Urbanek", "role": "Fluglehrer", "image": "team/pavel-urbanek" },
+    { "name": "Simon Laub", "role": "Fluglehrer", "image": "team/simon-laub" },
+    { "name": "Tom Kreienbühl", "role": "Fluglehrer", "image": "team/tom-kreienbuehl" }
+  ],
+  "verwaltungsrat": {
+    "since": "1.8.2021",
+    "image": "team/verwaltungsrat",
+    "members": [
+      { "name": "Hans-Rudolf Müller", "role": "Präsident" },
+      { "name": "Jürg Wildi", "role": "Vizepräsident" },
+      { "name": "Urs Reber", "role": "Chef Fluglehrer" },
+      { "name": "Dominik Simmen", "role": "Mitglied" },
+      { "name": "Michael Spanier", "role": "Mitglied" },
+      { "name": "Marc Siegenthaler", "role": "Mitglied" },
+      { "name": "Bruno Ritz", "role": "Mitglied" }
+    ]
+  },
+  "administration": [
+    { "name": "Patrizia Wandeler", "role": "Administration, Buchhaltung, Stv. Flugplatzleitung", "image": "team/patrizia-wandeler" }
+  ]
+}

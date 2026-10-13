@@ -1,0 +1,110 @@
+<section class="cta-final" aria-labelledby="cta-final-title">
+  <div class="cta-final__sky" aria-hidden="true"><span class="cta-final__glow"></span></div>
+  <div class="container cta-final__inner">
+    <p class="eyebrow" data-reveal>Bereit zum Abheben?</p>
+    <h2 class="display cta-final__title" id="cta-final-title" data-split>Dein Platz im Cockpit ist frei.</h2>
+    <div class="cta-final__actions" data-reveal>
+      <a class="btn btn--primary btn--lg" href="schnupperflug.html#anfrage" data-magnetic><x-icon name="plane-takeoff"></x-icon>Schnupperflug anfragen</a>
+      <a class="btn btn--ghost btn--lg" href="rundfluege.html"><x-icon name="route"></x-icon>Rundflug wählen</a>
+      <a class="btn btn--ghost btn--lg" href="gutscheine.html"><x-icon name="gift"></x-icon>Gutschein verschenken</a>
+    </div>
+  </div>
+  <svg class="cta-final__runway" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 140 L520 0 L680 0 L1200 140 Z" class="runway-surface"/>
+    <g class="runway-lights"><circle cx="560" cy="16" r="2"/><circle cx="640" cy="16" r="2"/><circle cx="540" cy="40" r="2.6"/><circle cx="660" cy="40" r="2.6"/><circle cx="510" cy="72" r="3.2"/><circle cx="690" cy="72" r="3.2"/><circle cx="470" cy="112" r="4"/><circle cx="730" cy="112" r="4"/></g>
+    <path d="M600 10 L600 30 M600 48 L600 74 M600 94 L600 128" class="runway-centerline"/>
+  </svg>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand brand--footer" href="index.html" aria-label="FLUBAG Startseite">
+        <img class="brand__logo-img" src="logo.svg" alt="" width="64" height="38" loading="lazy">
+        <span class="brand__text"><span class="brand__name">FLUBAG</span><span class="brand__sub">Flugbetriebs AG · seit 1966</span></span>
+      </a>
+      <address class="footer-address">
+        {{site.name}}<br>{{site.address.street}}<br>{{site.address.zip}} {{site.address.city}}
+      </address>
+      <ul class="footer-contact">
+        <li><a href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a></li>
+        <li><a href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a></li>
+        <li><a href="tel:{{site.restaurant.phoneHref}}"><x-icon name="utensils"></x-icon>Restaurant {{site.restaurant.phone}}</a></li>
+      </ul>
+      <div class="footer-social">
+        <a class="icon-btn" href="{{site.social.facebook}}" target="_blank" rel="noopener" aria-label="FLUBAG auf Facebook"><x-icon name="facebook"></x-icon></a>
+        <a class="icon-btn" href="{{site.social.instagram}}" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><x-icon name="instagram"></x-icon></a>
+      </div>
+    </div>
+    <nav class="footer-col" aria-label="Fliegen lernen">
+      <p class="footer-title">Fliegen lernen</p>
+      <ul>
+        <li><a href="schnupperflug.html">Schnupperflug</a></li>
+        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+        <li><a href="infoabende.html">Infoabende</a></li>
+        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Erleben und Flugplatz">
+      <p class="footer-title">Erleben</p>
+      <ul>
+        <li><a href="rundfluege.html">Rundflüge</a></li>
+        <li><a href="gutscheine.html">Gutscheine</a></li>
+        <li><a href="flotte.html">Unsere Flotte</a></li>
+        <li><a href="{{site.restaurant.url}}" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+      </ul>
+      <p class="footer-title">Flugplatz</p>
+      <ul>
+        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+        <li><a href="anreise.html">Anreise</a></li>
+        <li><a href="aktuelles.html">Aktuelles</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Piloten">
+      <p class="footer-title">Piloten</p>
+      <ul>
+        <li><a href="piloten.html">Pilotenbereich</a></li>
+        <li><a href="airport-briefing.html">Airport Briefing</a></li>
+        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+        <li><a href="piste-33.html">Piste 33</a></li>
+        <li><a href="preise.html">Preise</a></li>
+        <li><a href="reporting.html">Reporting</a></li>
+        <li><a href="{{site.reservation}}" target="_blank" rel="noopener">Reservation</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col footer-airfield">
+      <p class="footer-title">LSZO auf einen Blick</p>
+      <dl class="data-list">
+        <div><dt>ICAO</dt><dd class="mono">{{site.airfield.icao}}</dd></div>
+        <div><dt>Höhe</dt><dd class="mono">{{site.airfield.elevationFt}} ft</dd></div>
+        <div><dt>Piste</dt><dd class="mono">{{site.airfield.runway}} · {{site.airfield.surface}} · {{site.airfield.runwayLength}} m</dd></div>
+        <div><dt>Para</dt><dd class="mono">{{site.airfield.paraFrequency}}</dd></div>
+      </dl>
+      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    </div>
+  </div>
+
+  <div class="container footer-partners">
+    <p class="footer-title">Partner am Flugplatz</p>
+    <ul class="partner-row">
+      <li><a href="http://www.airportheli.ch/" target="_blank" rel="noopener"><x-img src="partner/airportheli" alt="Airport Helicopter" sizes="125px"></x-img></a></li>
+      <li><a href="https://www.paraclub.ch/" target="_blank" rel="noopener"><x-img src="partner/paraclub" alt="Paraclub Beromünster" sizes="69px"></x-img></a></li>
+      <li><a href="http://sgpilatus.ch/" target="_blank" rel="noopener"><x-img src="partner/sg-pilatus" alt="SG Pilatus" sizes="125px"></x-img></a></li>
+      <li><a href="http://www.mfgb.ch/" target="_blank" rel="noopener"><x-img src="partner/mfgb" alt="Motorfluggruppe Beromünster" sizes="125px"></x-img></a></li>
+      <li><a href="https://www.axa.ch/de/ueber-axa/standorte/agenturen/sempach_20176.html" target="_blank" rel="noopener"><x-img src="partner/axa" alt="AXA Winterthur Agentur Sempach" sizes="177px"></x-img></a></li>
+      <li><a href="https://www.helikopterflug.ch/collections/flugzeugflug" target="_blank" rel="noopener"><x-img src="partner/flugzeugflug" alt="flugzeugflug.ch" sizes="146px"></x-img></a></li>
+    </ul>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© {{year}} {{site.name}}</p>
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz &amp; Cookies</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <p class="footer-credit">Konzept &amp; Redesign: Jonas Grüter</p>
+  </div>
+</footer>

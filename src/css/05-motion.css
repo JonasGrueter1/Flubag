@@ -1,0 +1,47 @@
+/* Startzustände für Animationen. Nur aktiv, wenn das Animations-System läuft
+   (Klasse .anim-ready auf <html>), damit ohne JS alles sichtbar bleibt. */
+.anim-ready [data-reveal] { opacity: 0; transform: translate3d(0, 28px, 0); }
+.anim-ready [data-reveal="left"] { transform: translate3d(-40px, 0, 0); }
+.anim-ready [data-reveal="right"] { transform: translate3d(40px, 0, 0); }
+.anim-ready [data-reveal="scale"] { transform: scale(0.94); }
+.anim-ready [data-reveal="fade"] { transform: none; }
+.anim-ready [data-reveal="clip"] { opacity: 1; transform: none; clip-path: inset(100% 0 0 0 round var(--radius-l)); }
+.anim-ready [data-reveal].is-in {
+  opacity: 1; transform: none; clip-path: inset(0 0 0 0 round var(--radius-l));
+  transition: opacity 0.9s var(--ease-out), transform 1.1s var(--ease-out), clip-path 1.3s var(--ease-out);
+  transition-delay: var(--delay, 0s);
+}
+.anim-ready [data-split] { visibility: hidden; }
+.anim-ready [data-split].is-split { visibility: visible; }
+.split-line { overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.split-line > .split-inner { display: inline-block; }
+
+.reduced-motion .anim-ready [data-reveal], .reduced-motion [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+.reduced-motion [data-split] { visibility: visible !important; }
+
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out 0.35s var(--ease-in-out) both; }
+::view-transition-new(root) { animation: vt-in 0.55s var(--ease-out) both; }
+::view-transition-group(site-header) { animation-duration: 0s; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(16px); } }
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blink { 50% { opacity: 0.35; } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes step-in { from { opacity: 0; transform: translateY(16px); } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(20px) scale(0.96); } }
+@keyframes toast-out { to { opacity: 0; transform: translateX(30px); } }
+@keyframes pulse-ok { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); } 70% { box-shadow: 0 0 0 9px rgba(52, 211, 153, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); } }
+@keyframes runway-chase { 0%, 70%, 100% { opacity: 0.25; } 10%, 25% { opacity: 1; filter: drop-shadow(0 0 4px #ffb066); } }
+@keyframes runway-blink { 40% { opacity: 0.4; } }
+@keyframes takeoff { 0% { transform: translate(-60px, 30px) rotate(0deg); opacity: 0; } 30% { opacity: 1; } 100% { transform: translate(40px, -20px) rotate(-12deg); opacity: 1; } }
+@keyframes float { 50% { transform: translateY(-10px); } }
+@keyframes kenburns { from { transform: scale(1.12) translate3d(0, 0, 0); } to { transform: scale(1) translate3d(-1.5%, -1%, 0); } }
+@keyframes scroll-cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(220%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .marquee__track { animation: none; }
+}

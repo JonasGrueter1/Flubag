@@ -1,0 +1,47 @@
+{
+  "note": "Alle Preise in CHF exkl. MwSt.",
+  "price2Note": "Preis 2: nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000.– pro Kalenderjahr.",
+  "fluglehrer": [
+    { "label": "Auf Flubag-Flugzeugen", "perMin": 1.50, "perHour": 90 },
+    { "label": "Auf Fremd-Flugzeugen", "perMin": 1.80, "perHour": 108 }
+  ],
+  "landetaxen": [
+    { "label": "Flugzeuge bis 999 kg", "price": "17" },
+    { "label": "Flugzeuge bis 1999 kg", "price": "19" },
+    { "label": "Flugzeuge über 1999 kg", "price": "30" },
+    { "label": "Grundschulung, Umschulung, Einweisung (auf Flubag-Flugzeugen)", "price": "9" },
+    { "label": "Auswärtige Schüler + Einweisung Piste 33", "price": "12" },
+    { "label": "Pauschal-Landetaxe pro Pilot für 1 Kalenderjahr", "price": "395" },
+    { "label": "Helikopter bis 1000 kg", "price": "50" },
+    { "label": "Helikopter ab 1000 kg", "price": "Gemäss Absprache" },
+    { "label": "Pauschal-Landetaxe Helikopter pro Pilot für 1 Kalenderjahr", "price": "490" }
+  ],
+  "abstellgebuehren": [
+    { "label": "Pro Tag", "price": "30" },
+    { "label": "Pro Monat", "price": "500" }
+  ],
+  "verschiedenes": [
+    { "label": "Zollabfertigung (Eingang oder Ausgang)", "price": "30 pro Flugzeug" },
+    { "label": "Auswärtsbetankungen", "price": "Bei Auswärtsbetankungen werden gegen Vorlage der Quittungen die aktuellen Einstandspreise der FLUBAG zurückvergütet." }
+  ],
+  "schnupperflug": [
+    { "aircraft": "Cessna 150", "minutes": 60, "price": 420, "shop": "Cessna15060" },
+    { "aircraft": "Cessna 150", "minutes": 90, "price": 590, "shop": "Cessna15090" },
+    { "aircraft": "Cessna 172", "minutes": 60, "price": 520, "shop": "Cessna17260" },
+    { "aircraft": "Cessna 172", "minutes": 90, "price": 670, "shop": "Cessna17290" }
+  ],
+  "schnupperflugShop": "https://shop.e-guma.ch/flubag/de/gutscheine/45097/selber-fliegen-schnupperflug-verschenken",
+  "wertgutscheinShop": "https://shop.e-guma.ch/flubag/de/gutscheine/45060/wertgutschein",
+  "ausbildung": {
+    "theorie": 3000,
+    "items": [
+      { "label": "Flugstunden auf C-150 (ca. 55 h)", "price": 7700 },
+      { "label": "Landegebühren (intern und extern)", "price": 1000 },
+      { "label": "Fluglehrerkosten (100 h Instruktionszeit)", "price": 9400 },
+      { "label": "Prüfungsflug / Prüfungsgebühren (BAZL)", "price": 500 },
+      { "label": "Fliegerärztlicher Untersuch", "price": 250 }
+    ],
+    "praxisTotal": 18850,
+    "total": 21850
+  }
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de-CH" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>%%TITLE%%</title>
+<meta name="description" content="%%DESCRIPTION%%">
+<link rel="canonical" href="%%CANONICAL%%">
+<meta name="theme-color" content="#060b16">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_CH">
+<meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
+<meta property="og:title" content="%%TITLE%%">
+<meta property="og:description" content="%%DESCRIPTION%%">
+<meta property="og:image" content="%%OG_IMAGE%%">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  (function () {
+    var d = document.documentElement, t = null;
+    try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
+    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    d.classList.add('js');
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
+  })();
+</script>
+<link rel="stylesheet" href="assets/css/main.css">
+%%HEAD_EXTRA%%
+</head>
+<body class="%%BODY_CLASS%%" data-page="%%PAGE%%">
+<a class="skip-link" href="#main">Direkt zum Inhalt</a>
+<!-- @include header -->
+<main id="main" tabindex="-1">
+%%CONTENT%%
+</main>
+<!-- @include footer -->
+<!-- @include overlays -->
+<script defer src="assets/vendor/gsap/gsap.min.js"></script>
+<script defer src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
+<script defer src="assets/vendor/gsap/SplitText.min.js"></script>
+<script defer src="assets/vendor/gsap/MotionPathPlugin.min.js"></script>
+<script defer src="assets/vendor/gsap/ScrollToPlugin.min.js"></script>
+<script defer src="assets/vendor/lenis/lenis.min.js"></script>
+<script defer src="assets/vendor/suncalc/suncalc.js"></script>
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/main.js"></script>
+%%SCRIPTS_EXTRA%%
+</body>
+</html>

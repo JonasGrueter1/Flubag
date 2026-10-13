@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ziellandekonkurrenz-2026",
+    "file": "news-ziellandekonkurrenz-2026.html",
+    "title": "Impressionen: Ziellandekonkurrenz 2026",
+    "category": "Event",
+    "date": "2026",
+    "image": "news/ziellandekonkurrenz-2026",
+    "teaser": "Am letzten Samstag fand die Ziellandekonkurrenz 2026 statt. Es nahmen ca. 40 Piloten an der Konkurrenz teil.",
+    "gallery": ["news/zlk-01", "news/zlk-02", "news/zlk-03", "news/zlk-04", "news/zlk-05", "news/zlk-06", "news/zlk-07", "news/zlk-08"]
+  },
+  {
+    "id": "gratulation-ppl",
+    "file": "news-gratulation-ppl.html",
+    "title": "Gratulation zur PPL",
+    "category": "Flugschule",
+    "date": "2026",
+    "image": "news/ppl-ronnie-widmer",
+    "teaser": "Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio.",
+    "gallery": []
+  },
+  {
+    "id": "infoabende",
+    "file": "infoabende.html",
+    "title": "Infoabende \"Wie werde ich Pilot\"",
+    "category": "Flugschule",
+    "date": "2026",
+    "image": "news/infoabend",
+    "teaser": "Träumst du davon, zu fliegen wie ein Vogel? Dann lebe deinen Traum und lerne fliegen!",
+    "gallery": []
+  },
+  {
+    "id": "hangarierung",
+    "file": "news-hangarierung.html",
+    "title": "Helft mit, Hangarierungsschäden zu vermeiden",
+    "category": "Piloten",
+    "date": "2026",
+    "image": "news/hangarierung",
+    "teaser": "Wir bitten alle Piloten, aktiv bei der Vermeidung von Hangarierungsschäden mitzuhelfen.",
+    "gallery": []
+  }
+]
