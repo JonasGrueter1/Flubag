@@ -240,6 +240,9 @@ main:focus { outline: none; }
   border-left: 3px solid var(--brand); padding: 0.4em 0 0.4em 1.2em; color: var(--text-2); font-style: italic;
 }
 
+/* Seiten mit Unternavigation: Ankerziele nicht unter der Leiste verstecken */
+html:has(.subnav) { scroll-padding-top: calc(var(--header-h) + 84px); }
+
 /* 03-layout.css */
 /* ---------- Container, Sektionen, Raster ---------- */
 .container { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
@@ -293,7 +296,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
   .section-head--split { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
-  .split, .split--wide-left, .split--wide-right { grid-template-columns: 1fr; }
+  .split, .split--wide-left, .split--wide-right { grid-template-columns: minmax(0, 1fr); }
   .sticky { position: static; }
 }
 @media (max-width: 640px) {
@@ -1095,6 +1098,10 @@ a.card:hover .card__media img { transform: scale(1.06); }
 fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 legend.h3, legend.h4 { font-family: var(--font-display); font-weight: 750; padding: 0; margin-bottom: 4px; }
 legend.h3 { font-size: var(--fs-h3); }
+
+/* Nachträge aus dem Review */
+.doc__title, .doc__meta { display: block; }
+.btn--text.btn--sm, .btn--text.btn--lg { padding-inline: 0; }
 
 /* 05-motion.css */
 /* Startzustände für Animationen. Nur aktiv, wenn das Animations-System läuft

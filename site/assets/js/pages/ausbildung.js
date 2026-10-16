@@ -346,7 +346,7 @@
       if (b) {
         if (calc) calc.setWeek(+b.getAttribute('data-quiz-tocalc'));
         var target = document.getElementById('rechner');
-        if (F.lenis) F.lenis.scrollTo(target, { offset: -90 }); else target.scrollIntoView({ behavior: 'smooth' });
+        if (F.lenis) F.lenis.scrollTo(target); else target.scrollIntoView({ behavior: 'smooth' });
       }
       if (e.target.closest('[data-quiz-reset]')) {
         F.$$('input', quiz).forEach(function (i) { i.checked = false; });

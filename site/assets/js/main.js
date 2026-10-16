@@ -195,8 +195,21 @@
   'use strict';
   var F = window.FLUBAG;
 
+  // Ohne Lenis (Touch, reduzierte Bewegung): Anker nach dem Laden nachkorrigieren,
+  // weil Bilder und Schriften das Layout nach dem ersten Sprung noch verschieben.
+  function fixHashWithoutLenis() {
+    if (location.hash.length < 2) return;
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        var off = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+        if (t && Math.abs(t.getBoundingClientRect().top - off) > 120) t.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }, 80);
+    });
+  }
+
   function initLenis() {
-    if (F.reducedMotion || !window.Lenis || F.isTouch) return;
+    if (F.reducedMotion || !window.Lenis || F.isTouch) { fixHashWithoutLenis(); return; }
     var lenis = new Lenis({ duration: 1.1, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
     F.lenis = lenis;
     if (F.hasGsap()) {
@@ -215,12 +228,12 @@
       var target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -90 });
+      lenis.scrollTo(target); // Lenis rechnet scroll-padding-top (Header, Subnav) selbst ein
       history.pushState(null, '', url.hash);
     });
     if (location.hash) {
       var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-      if (t) setTimeout(function () { lenis.scrollTo(t, { offset: -90, immediate: true }); }, 60);
+      if (t) setTimeout(function () { lenis.scrollTo(t, { immediate: true }); }, 60);
     }
   }
 
@@ -369,6 +382,7 @@
         window.addEventListener('load', function () { ScrollTrigger.refresh(); });
       } else {
         F.$$('[data-split]').forEach(function (el) { el.classList.add('is-split'); });
+        F.$$('[data-reveal]').forEach(function (el) { el.classList.add('is-in'); });
         counters();
         F.$$('[data-steps] .step').forEach(function (s) { s.classList.add('is-active'); });
         F.$$('[data-steps]').forEach(function (l) { l.style.setProperty('--progress', 1); });
@@ -811,7 +825,7 @@
       // Formular über URL vorbelegen, z.B. kontakt.html?thema=Hangar
       var params = new URLSearchParams(location.search);
       params.forEach(function (v, k) {
-        F.$$('form[data-form] [name="' + k + '"]').forEach(function (el) {
+        F.$$('form[data-form] [name="' + (window.CSS && CSS.escape ? CSS.escape(k) : k) + '"]').forEach(function (el) {
           if (el.type === 'radio' || el.type === 'checkbox') el.checked = el.value === v; else el.value = v;
           el.dispatchEvent(new Event('change', { bubbles: true }));
         });
@@ -941,7 +955,12 @@
           if (!en.isIntersecting) return;
           var i = map.indexOf(en.target);
           links.forEach(function (l, k) { l.classList.toggle('is-active', k === i); });
-          if (links[i]) links[i].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+          // nur die Leiste waagrecht scrollen, nie das Fenster (scrollIntoView bricht laufendes Scrollen ab)
+          var a = links[i], list = a && a.closest('.subnav__list');
+          if (list && list.scrollWidth > list.clientWidth) {
+            var ar = a.getBoundingClientRect(), lr = list.getBoundingClientRect();
+            list.scrollBy({ left: ar.left - lr.left - (list.clientWidth - ar.width) / 2, behavior: F.reducedMotion ? 'auto' : 'smooth' });
+          }
         });
       }, { rootMargin: '-35% 0px -60% 0px' });
       map.forEach(function (s) { if (s) io.observe(s); });
@@ -977,8 +996,18 @@
     });
   }
 
+  // Füllbalken für alle Schieberegler (.range nutzt var(--fill))
+  function ranges() {
+    function fill(r) {
+      var min = parseFloat(r.min) || 0, max = parseFloat(r.max) || 100, v = parseFloat(r.value) || 0;
+      r.style.setProperty('--fill', ((v - min) / ((max - min) || 1) * 100).toFixed(2) + '%');
+    }
+    F.$$('input[type="range"]').forEach(fill);
+    document.addEventListener('input', function (e) { if (e.target.matches && e.target.matches('input[type="range"]')) fill(e.target); });
+  }
+
   F.ui = {
-    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); }
+    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); ranges(); }
   };
 })();
 
