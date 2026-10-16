@@ -3,8 +3,21 @@
   'use strict';
   var F = window.FLUBAG;
 
+  // Ohne Lenis (Touch, reduzierte Bewegung): Anker nach dem Laden nachkorrigieren,
+  // weil Bilder und Schriften das Layout nach dem ersten Sprung noch verschieben.
+  function fixHashWithoutLenis() {
+    if (location.hash.length < 2) return;
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        var off = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+        if (t && Math.abs(t.getBoundingClientRect().top - off) > 120) t.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }, 80);
+    });
+  }
+
   function initLenis() {
-    if (F.reducedMotion || !window.Lenis || F.isTouch) return;
+    if (F.reducedMotion || !window.Lenis || F.isTouch) { fixHashWithoutLenis(); return; }
     var lenis = new Lenis({ duration: 1.1, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
     F.lenis = lenis;
     if (F.hasGsap()) {
@@ -23,12 +36,12 @@
       var target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -90 });
+      lenis.scrollTo(target); // Lenis rechnet scroll-padding-top (Header, Subnav) selbst ein
       history.pushState(null, '', url.hash);
     });
     if (location.hash) {
       var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-      if (t) setTimeout(function () { lenis.scrollTo(t, { offset: -90, immediate: true }); }, 60);
+      if (t) setTimeout(function () { lenis.scrollTo(t, { immediate: true }); }, 60);
     }
   }
 
@@ -177,6 +190,7 @@
         window.addEventListener('load', function () { ScrollTrigger.refresh(); });
       } else {
         F.$$('[data-split]').forEach(function (el) { el.classList.add('is-split'); });
+        F.$$('[data-reveal]').forEach(function (el) { el.classList.add('is-in'); });
         counters();
         F.$$('[data-steps] .step').forEach(function (s) { s.classList.add('is-active'); });
         F.$$('[data-steps]').forEach(function (l) { l.style.setProperty('--progress', 1); });

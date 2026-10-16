@@ -117,7 +117,12 @@
           if (!en.isIntersecting) return;
           var i = map.indexOf(en.target);
           links.forEach(function (l, k) { l.classList.toggle('is-active', k === i); });
-          if (links[i]) links[i].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+          // nur die Leiste waagrecht scrollen, nie das Fenster (scrollIntoView bricht laufendes Scrollen ab)
+          var a = links[i], list = a && a.closest('.subnav__list');
+          if (list && list.scrollWidth > list.clientWidth) {
+            var ar = a.getBoundingClientRect(), lr = list.getBoundingClientRect();
+            list.scrollBy({ left: ar.left - lr.left - (list.clientWidth - ar.width) / 2, behavior: F.reducedMotion ? 'auto' : 'smooth' });
+          }
         });
       }, { rootMargin: '-35% 0px -60% 0px' });
       map.forEach(function (s) { if (s) io.observe(s); });
@@ -153,7 +158,17 @@
     });
   }
 
+  // Füllbalken für alle Schieberegler (.range nutzt var(--fill))
+  function ranges() {
+    function fill(r) {
+      var min = parseFloat(r.min) || 0, max = parseFloat(r.max) || 100, v = parseFloat(r.value) || 0;
+      r.style.setProperty('--fill', ((v - min) / ((max - min) || 1) * 100).toFixed(2) + '%');
+    }
+    F.$$('input[type="range"]').forEach(fill);
+    document.addEventListener('input', function (e) { if (e.target.matches && e.target.matches('input[type="range"]')) fill(e.target); });
+  }
+
   F.ui = {
-    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); }
+    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); ranges(); }
   };
 })();

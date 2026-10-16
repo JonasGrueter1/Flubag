@@ -170,7 +170,7 @@
       // Formular über URL vorbelegen, z.B. kontakt.html?thema=Hangar
       var params = new URLSearchParams(location.search);
       params.forEach(function (v, k) {
-        F.$$('form[data-form] [name="' + k + '"]').forEach(function (el) {
+        F.$$('form[data-form] [name="' + (window.CSS && CSS.escape ? CSS.escape(k) : k) + '"]').forEach(function (el) {
           if (el.type === 'radio' || el.type === 'checkbox') el.checked = el.value === v; else el.value = v;
           el.dispatchEvent(new Event('change', { bubbles: true }));
         });

@@ -515,3 +515,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 legend.h3, legend.h4 { font-family: var(--font-display); font-weight: 750; padding: 0; margin-bottom: 4px; }
 legend.h3 { font-size: var(--fs-h3); }
+
+/* Nachträge aus dem Review */
+.doc__title, .doc__meta { display: block; }
+.btn--text.btn--sm, .btn--text.btn--lg { padding-inline: 0; }

@@ -1,6 +1,6 @@
 {
   "note": "Alle Preise in CHF exkl. MwSt.",
-  "price2Note": "Preis 2: nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000.– pro Kalenderjahr.",
+  "price2Note": "Preis 2: nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000 pro Kalenderjahr.",
   "fluglehrer": [
     { "label": "Auf Flubag-Flugzeugen", "perMin": 1.50, "perHour": 90 },
     { "label": "Auf Fremd-Flugzeugen", "perMin": 1.80, "perHour": 108 }

@@ -165,6 +165,7 @@ function get(obj, p) { return p.split('.').reduce((o, k) => (o == null ? undefin
 //                  {{ a.price1 | chf }}   Filter: chf, num, upper, lower, json, slug, esc
 //                  In Schleifen gibt es zusätzlich loop.index, loop.number, loop.first, loop.last, loop.count
 const FILTERS = {
+  chf2: (v) => 'CHF ' + Number(v).toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
   chf: (v) => 'CHF ' + Number(v).toLocaleString('de-CH', { minimumFractionDigits: Number(v) % 1 ? 2 : 0, maximumFractionDigits: 2 }),
   num: (v) => Number(v).toLocaleString('de-CH'),
   upper: (v) => String(v).toUpperCase(),
@@ -307,6 +308,8 @@ function renderPage(p, layout, allFiles) {
     .replace('%%HEAD_EXTRA%%', vendorCss + cssPage + extraCss + (meta.noindex ? '<meta name="robots" content="noindex">' : '') + (meta.jsonld ? `<script type="application/ld+json">${JSON.stringify(meta.jsonld)}</script>` : ''))
     .replace('%%SCRIPTS_EXTRA%%', vendorJs + jsPage + extraJs);
   html = html.replace('%%CONTENT%%', () => content);
+  // Seiten ohne Abschluss-CTA (Impressum, Datenschutz, 404): Block gar nicht ausgeben
+  if (/\bno-cta\b/.test(meta.bodyClass)) html = html.replace(/<section class="cta-final"[\s\S]*?<\/section>\s*/, '');
   // aktive Navigation markieren
   html = html.replace(/<a([^>]*?)href="([^"#?]+\.html)"/g, (m, pre, href) => href === p.file && !/aria-current/.test(pre) ? `<a${pre}href="${href}" aria-current="page"` : m);
   if (meta.nav) html = html.replace(new RegExp(`data-nav-group="${meta.nav}"`, 'g'), `data-nav-group="${meta.nav}" data-current`);
