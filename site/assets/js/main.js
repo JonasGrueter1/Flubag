@@ -319,7 +319,8 @@
         var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth); };
         gsap.to(track, {
           x: function () { return -dist(); }, ease: 'none',
-          scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 }
+          scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1,
+            onToggle: function (st) { document.documentElement.classList.toggle('is-hpinned', st.isActive); } }
         });
       });
     });
@@ -431,7 +432,7 @@
     };
     w.wx = WMO[w.code] || '';
     w.calm = w.speed < 2;
-    w.dirName = dirName(w.dir);
+    w.dirName = w.calm ? 'variabel' : dirName(w.dir);
     w.windText = w.calm ? 'Windstill' : F.pad3(Math.round(w.dir / 10) * 10) + '°/' + F.pad(Math.round(w.speed)) + ' kt' + (w.gust - w.speed >= 8 ? ' G' + Math.round(w.gust) : '');
     w.tempText = Math.round(w.temp) + ' °C';
     w.qnhText = Math.round(w.qnh) + ' hPa';
@@ -445,7 +446,8 @@
     var best = w.rwy33.head >= -2 ? 33 : 15;
     w.bestRwy = best;
     var comp = best === 33 ? w.rwy33 : w.rwy15;
-    w.rwyText = w.calm ? 'Windstill, Piste 33 primär' : 'Piste ' + best + ': ' + Math.abs(Math.round(comp.head)) + ' kt ' + (comp.head >= 0 ? 'Gegenwind' : 'Rückenwind') + ', ' + Math.abs(Math.round(comp.cross)) + ' kt Seitenwind';
+    var h = Math.round(comp.head);
+    w.rwyText = w.calm ? 'Windstill, Piste 33 primär' : 'Piste ' + best + ': ' + (Math.abs(h) <= 1 ? 'kaum Längswind' : Math.abs(h) + ' kt ' + (h > 0 ? 'Gegenwind' : 'Rückenwind')) + ', ' + Math.abs(Math.round(comp.cross)) + ' kt Seitenwind';
     w.tailwind33 = w.rwy33.head < -1;
     w.westHazard = !w.calm && w.dir >= 230 && w.dir <= 310 && (w.speed >= 12 || w.gust >= 20);
     w.biseHazard = !w.calm && w.dir >= 20 && w.dir <= 100 && (w.speed >= 10 || w.gust >= 18);
@@ -481,6 +483,8 @@
       get().catch(function () { return new Promise(function (res) { setTimeout(res, 2500); }).then(get); })
         .then(function (raw) { F.store.set(KEY, { t: Date.now(), raw: raw }, true); self.set(raw); })
         .catch(function () {
+          // Notlösung: lieber ein älteres Wetter zeigen (mit Zeitstempel im Cache) als gar keins
+          if (cached && cached.raw) { self.set(cached.raw); return; }
           F.$$('[data-wx-field]').forEach(function (el) { if (el.textContent === '--') el.textContent = 'nicht verfügbar'; });
           F.emit('flubag:weather-error');
         });
@@ -610,6 +614,7 @@
 
   function renderWeek(now) {
     F.$$('[data-hours-week]').forEach(function (el) {
+      el.classList.add('hours-week');
       var start = 6 * 60, end = 22 * 60, span = end - start;
       var pct = function (m) { return ((Math.min(Math.max(m, start), end) - start) / span * 100).toFixed(2) + '%'; };
       var html = '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
@@ -888,6 +893,7 @@
       img.alt = inner ? inner.alt : '';
       cap.textContent = a.getAttribute('data-caption') || (inner ? inner.alt : '');
       count.textContent = (idx + 1) + ' / ' + items.length;
+      lb.classList.toggle('is-single', items.length < 2);
     }
     function open(group, i) {
       items = group; lastFocus = document.activeElement;
@@ -972,7 +978,9 @@
       var b = e.target.closest('[data-copy]');
       if (!b) return;
       var text = b.getAttribute('data-copy');
-      if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { F.toast('Kopiert: ' + text); });
+      var manual = function () { window.prompt('Zum Kopieren markieren:', text); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { F.toast('Kopiert: ' + text); }, manual);
+      else manual();
     });
   }
 
@@ -1050,7 +1058,8 @@
         (x === 0 ? '0 kt <small>quer</small>' : Math.abs(x) + ' kt <small>' + (x > 0 ? 'von rechts' : 'von links') + '</small>');
     };
     var rec = w.calm ? 'Windstill: Piste 33 primär (Starts und Landungen).' :
-      (w.tailwind33 ? 'Rückenwind auf 33: kein Start auf Piste 33 nahe max. Startgewicht. Landung auf 15 prüfen.' : 'Gegenwind auf Piste 33: Standardbetrieb auf 33.');
+      (w.tailwind33 ? 'Rückenwind auf 33: kein Start auf Piste 33 nahe max. Startgewicht. Landung auf 15 prüfen.' :
+        (Math.abs(c33.head) <= 1.5 ? 'Kaum Längswind auf Piste 33: Standardbetrieb auf 33.' : 'Gegenwind auf Piste 33: Standardbetrieb auf 33.'));
     var hazards = '';
     if (w.westHazard) hazards += '<p class="chip chip--warn">Starker Westwind: Turbulenzen östlich des Waldstücks beim Start 33</p>';
     if (w.biseHazard) hazards += '<p class="chip chip--warn">Bise: Turbulenzen im Endanflug 33 möglich</p>';

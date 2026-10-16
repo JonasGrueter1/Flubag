@@ -55,7 +55,7 @@
     'flight-instructors': 'fluglehrer.html', 'pilots': 'piloten.html', 'webcams': 'webcams.html',
     'node/45': 'ausbildung.html', 'node/46': 'zollanmeldung.html', 'node/47': 'preise.html', 'node/52': 'geschichte.html',
     'node/58': 'sprungbetrieb.html', 'node/59': 'parkordnung.html', 'node/64': 'weisungen.html', 'node/66': 'checkflug-flarm.html',
-    'node/67': 'schnupperflug.html', 'node/71': 'briefing-links.html', 'node/75': 'piste-33.html', 'node/82': 'news-hangarierung.html',
+    'node/67': 'schnupperflug.html', 'node/84': 'infoabende.html', 'node/71': 'briefing-links.html', 'node/75': 'piste-33.html', 'node/82': 'news-hangarierung.html',
     'node/90': 'datenschutz.html#cookies', 'node/94': 'airport-briefing.html', 'node/105': 'safety-policy.html',
     'node/106': 'reporting.html', 'node/107': 'reporting.html', 'node/108': 'reporting.html', 'node/109': 'reporting.html',
     'node/110': 'reporting.html', 'node/123': 'anreise.html', 'node/134': 'news-gratulation-ppl.html',
