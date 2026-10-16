@@ -25,25 +25,6 @@
     el._raf = requestAnimationFrame(step);
   }
 
-  // Workaround (bis 03-motion.js angepasst ist): Elemente mit data-reveal="clip" erkennt der
-  // IntersectionObserver in Chromium nie als sichtbar, weil clip-path inset(100%) die Schnittfläche
-  // auf null setzt. Darum hier den Elternknoten beobachten und .is-in selbst setzen.
-  (function () {
-    if (!('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        en.target._clipKids.forEach(function (k) { k.classList.add('is-in'); });
-        io.unobserve(en.target);
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-    F.$$('main [data-reveal="clip"]').forEach(function (el) {
-      var t = el.parentElement;
-      (t._clipKids = t._clipKids || []).push(el);
-      io.observe(t);
-    });
-  })();
-
   function onceVisible(el, fn) {
     if (!el) return;
     if (!('IntersectionObserver' in window)) { fn(); return; }

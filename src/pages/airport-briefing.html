@@ -1,0 +1,350 @@
+<!--meta {
+  "title": "Airport Briefing",
+  "description": "Airport Briefing LSZO: Gefahren bei starkem Westwind und Bise, Fallschirmsprungbetrieb, Parkordnung, Empfehlungen für den Start sowie Anflug und Landung Piste 33.",
+  "nav": "piloten",
+  "bodyClass": "no-cta",
+  "ogImage": "briefing/situation",
+  "css": ["piloten"]
+} -->
+
+<section class="page-hero">
+  <div class="page-hero__media"><x-img src="hero/slide-05" alt="Cessna auf der Graspiste des Flugplatzes Luzern-Beromünster, im Hintergrund das Dorf" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Airport Briefing</li></ol>
+    <p class="eyebrow">Airport Briefing LSZO</p>
+    <h1 data-split data-split-now>Willkommen in Beromünster.</h1>
+    <p class="lead">Willkommen auf dem Flugplatz Luzern-Beromünster, einem der bemerkenswertesten Grasflugplätze Europas. Bitte nehmen Sie sich Zeit, die folgenden Regeln zu lesen und anzuwenden. Bei Fragen wenden Sie sich an die Flugplatzleitung.</p>
+    <div class="page-hero__meta">
+      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip"><x-icon name="runway"></x-icon>Piste 33 primär</span>
+      <span class="chip chip--warn"><x-icon name="triangle-alert"></x-icon>Landung Piste 33 einweisungspflichtig</span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="https://www.flubag.ch/sites/default/files/page/attachment/FLUBAG%20Airport%20Briefing%2002021.08.pdf" target="_blank" rel="noopener" data-magnetic><x-icon name="download"></x-icon>Druckversion (PDF)</a>
+      <a class="btn btn--ghost btn--lg" href="#anflug"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Abschnitte des Airport Briefings">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#ueberblick">Überblick</a></li>
+      <li><a href="#westwind">Westwind</a></li>
+      <li><a href="#bise">Bise</a></li>
+      <li><a href="#sprungbetrieb">Sprungbetrieb</a></li>
+      <li><a href="#parkordnung">Parkordnung &amp; Bodenbetrieb</a></li>
+      <li><a href="#start">Start</a></li>
+      <li><a href="#anflug">Anflug &amp; Landung</a></li>
+      <li><a href="#druckversion">Druckversion</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section" id="ueberblick" aria-labelledby="ueberblick-title">
+  <div class="container split split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Auf einen Blick</p>
+        <h2 id="ueberblick-title" data-split>Das Wichtigste vor dem Flug.</h2>
+        <p class="lead" data-reveal>Die Kernpunkte dieses Briefings in Kürze. Jeder Punkt führt zum ausführlichen Abschnitt weiter unten.</p>
+      </div>
+      <ul class="ab-key" data-reveal-group="0.06">
+        <li data-reveal><a href="#anflug"><x-icon name="runway"></x-icon><span><strong>Piste 33 primär</strong> für Starts und Landungen. Das Landen auf Piste 33 ist einweisungspflichtig.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
+        <li data-reveal><a href="#westwind"><x-icon name="wind"></x-icon><span><strong>Starker Westwind:</strong> Turbulenzen und Abwinde beim Start und Steigflug auf Piste 33.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
+        <li data-reveal><a href="#bise"><x-icon name="wind"></x-icon><span><strong>Starke Bise:</strong> Turbulenzen und Abwinde im Endanflug Piste 33.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
+        <li data-reveal><a href="#sprungbetrieb"><x-icon name="parachute"></x-icon><span><strong>Drehlicht eingeschaltet:</strong> keine Landungen und Starts, ausser dem Absetzflugzeug.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
+        <li data-reveal><a href="#parkordnung"><x-icon name="fan"></x-icon><span><strong>Propellerwind</strong> nie in den Hangar und grundsätzlich nicht Richtung Restaurant.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
+        <li data-reveal><a href="#start"><x-icon name="plane-takeoff"></x-icon><span><strong>Kein Start auf Piste 33</strong> bei Rückenwind und nahe oder bei max. Startgewicht.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
+      </ul>
+    </div>
+
+    <aside class="instrument hud-corners ab-live sticky" aria-label="Live am Flugplatz" data-reveal>
+      <div class="pl-panel__head">
+        <span class="mono">LSZO LIVE</span>
+        <span class="pl-panel__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+      </div>
+      <div class="readout">
+        <span class="readout__label">Wind</span>
+        <span class="readout__value pl-panel__big" data-wx-field="windText">--</span>
+      </div>
+      <p class="mono pl-panel__rwy"><x-icon name="runway"></x-icon><span data-wx-field="rwyText">Piste 33 primär</span></p>
+      <div class="ab-live__grid">
+        <div class="readout"><span class="readout__label">QNH</span><span class="readout__value" data-wx-field="qnhText">--</span></div>
+        <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
+        <div class="readout"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+      </div>
+      <div class="pl-hazards" aria-live="polite">
+        <a class="pl-hazard notice notice--danger" href="#westwind" data-wx-hazard="west" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Westwind-Lage:</strong> Abwinde östlich des Waldstücks beim Start 33 möglich.</span></a>
+        <a class="pl-hazard notice notice--warn" href="#bise" data-wx-hazard="bise" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Bise:</strong> Abwinde im Endanflug Piste 33 möglich.</span></a>
+        <a class="pl-hazard notice notice--warn" href="#start" data-wx-hazard="tail33" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Rückenwind auf Piste 33:</strong> kein Start nahe oder bei max. Startgewicht.</span></a>
+        <p class="pl-hazard pl-hazard--none" data-ab-nohazard hidden><x-icon name="circle-check"></x-icon><span>Keine automatischen Hinweise auf Westwind, Bise oder Rückenwind auf Piste 33.</span></p>
+      </div>
+      <p class="pl-panel__foot">Modellwerte (Open-Meteo), kein METAR. Automatische Hinweise sind Schätzungen und ersetzen die eigene Beurteilung nicht.</p>
+      <a class="btn btn--light btn--sm" href="piloten.html#live">Zum Live-Cockpit <x-icon name="arrow-right"></x-icon></a>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--alt ab-hazard ab-hazard--west" id="westwind" aria-labelledby="westwind-title">
+  <div class="container split split--wide-left">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Gefahrensituation 1</p>
+        <h2 id="westwind-title" data-split>Starker Westwind.</h2>
+        <div class="row" data-reveal><span class="chip chip--bad"><span class="dot dot--bad"></span>Abwindzone rot</span><span class="chip"><x-icon name="plane-takeoff"></x-icon>Start und Steigflug Piste 33</span></div>
+      </div>
+      <div class="prose" data-reveal>
+        <p>Bei Westwindlage im Mittelland der Schweiz kann es bei mittleren bis starken Westwinden auf der Ostseite des Waldstückes (roter Kreis) zu Turbulenzen und Abwinden kommen. Dies erschwert oder verunmöglicht einen Start und Steigflug auf Piste 33 erheblich, bis man diese Zone passiert hat.</p>
+      </div>
+      <div class="notice notice--danger" data-reveal>
+        <x-icon name="triangle-alert"></x-icon>
+        <div><p><strong>Führen Sie daher eine defensive Start- und Steigflugberechnung gemäss Flugzeughandbuch aus und planen Sie zusätzlich Reserven ein.</strong></p><p>Lokale Kenntnisse helfen, die aktuelle Situation zu beurteilen. Machen Sie sich damit vertraut.</p></div>
+      </div>
+      <p class="ab-livehint notice notice--danger" data-wx-hazard="west" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell mittleren bis starken Westwind. Diese Gefahrensituation kann jetzt bestehen.</span></p>
+    </div>
+    <figure class="pl-figure" data-gallery>
+      <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/westwind.jpg" data-caption="Abwindzone rot bei starkem Westwind, Abwindzone gelb bei starker Bise">
+        <x-img src="briefing/westwind" alt="Zwei Ausschnitte der Luftfahrtkarte um Beromünster: rot markierte Abwindzone bei starkem Westwind, gelb markierte Abwindzone bei starker Bise" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
+        <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+      </a>
+      <figcaption data-reveal>Links: Abwindzone rot, bei starkem Westwind. Rechts: Abwindzone gelb, bei starker Bise.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section ab-hazard ab-hazard--bise" id="bise" aria-labelledby="bise-title">
+  <div class="container split split--wide-right">
+    <figure class="pl-figure ab-order-2" data-gallery>
+      <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/bise.jpg" data-caption="Die beiden Gefahrengebiete aus der Vogelperspektive: rot bei Westwind, gelb bei Bise">
+        <x-img src="briefing/bise" alt="Luftbild des Flugplatzes mit gelbem Kreis westlich und rotem Kreis östlich des Waldstücks" sizes="(max-width: 860px) 100vw, 40vw"></x-img>
+        <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+      </a>
+      <figcaption data-reveal>Zur Verdeutlichung die beiden Gefahrengebiete aus der Vogelperspektive: gelb bei Bise, rot bei Westwind.</figcaption>
+    </figure>
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Gefahrensituation 2</p>
+        <h2 id="bise-title" data-split>Starke Bise.</h2>
+        <div class="row" data-reveal><span class="chip chip--warn"><span class="dot dot--warn"></span>Abwindzone gelb</span><span class="chip"><x-icon name="plane-landing"></x-icon>Endanflug Piste 33</span></div>
+      </div>
+      <div class="prose" data-reveal>
+        <p>Bei Bisenlage im Mittelland der Schweiz kann es bei mittleren bis starken Ostwinden auf der Westseite dieses Waldstückes (gelber Kreis) zu Turbulenzen und Abwinden kommen, die einen Endanflug Piste 33 (Final) erheblich erschweren oder verunmöglichen.</p>
+      </div>
+      <div class="notice notice--warn" data-reveal>
+        <x-icon name="triangle-alert"></x-icon>
+        <div><p><strong>Führen Sie daher eine defensive Anflugtaktik durch.</strong></p><p>Lokale Kenntnisse helfen, die aktuelle Situation zu beurteilen. Machen Sie sich damit vertraut.</p></div>
+      </div>
+      <p class="ab-livehint notice notice--warn" data-wx-hazard="bise" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell Bise. Diese Gefahrensituation kann jetzt bestehen.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--chart" id="sprungbetrieb" aria-labelledby="para-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Fallschirmsprungbetrieb</p>
+        <h2 id="para-title" data-split>Drehlicht an: keine Starts, keine Landungen.</h2>
+      </div>
+      <div class="stack" data-reveal>
+        <p class="lead">Der ortsansässige Fallschirmclub Skydive Luzern führt von Mitte Mai bis Mitte September bei guter Witterung täglich Fallschirmsprungbetrieb durch, insbesondere an den Wochenenden.</p>
+        <div class="row">
+          <span class="chip pl-chip-wrap" data-ab-season><x-icon name="calendar"></x-icon>Saison Mitte Mai bis Mitte September</span>
+          <button class="chip pl-copy" type="button" data-copy="122.455" aria-label="Para-Frequenz 122.455 kopieren"><x-icon name="parachute"></x-icon>Para 122.455<x-icon name="copy" class="pl-copy__icon"></x-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="split split--wide-right ab-para">
+      <figure class="pl-figure" data-gallery>
+        <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/para-zone.jpg" data-caption="Gelbes Drehlicht beim Signalplatz und Landezone der Fallschirmspringer">
+          <x-img src="briefing/para-zone" alt="Links Foto des Windsacks mit dem gelben Drehlicht beim Signalplatz, rechts Plan mit der Landezone der Fallschirmspringer westlich der Piste" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
+          <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+        </a>
+        <figcaption data-reveal>Gelbes Drehlicht beim Signalplatz (gelber Kreis) und Landezone der Fallschirmspringer.</figcaption>
+      </figure>
+      <div class="notice notice--danger ab-para__rule" data-reveal>
+        <x-icon name="siren"></x-icon>
+        <div><p><strong>Sobald das neben dem Signalplatz positionierte Drehlicht (gelber Kreis) eingeschaltet ist, dürfen keine Landungen und Starts durchgeführt werden.</strong></p><p>Ausnahme ist das Absetzflugzeug selbst.</p></div>
+      </div>
+    </div>
+
+    <div class="ab-cases" data-reveal-group="0.08">
+      <article class="card card--pad ab-case" data-reveal>
+        <span class="ab-case__num mono">A</span>
+        <x-icon name="parking-meter" class="card__icon"></x-icon>
+        <h3 class="card__title">Auf dem Parkplatz</h3>
+        <p class="card__text">Befinden Sie sich auf dem Parkplatz, halten Sie Ihre Position (Motorstarts sind erlaubt, jedoch aus Sicherheitsgründen nicht empfohlen), bis der Luftraum der Absprungzone wieder freigegeben ist.</p>
+      </article>
+      <article class="card card--pad ab-case ab-case--strong" data-reveal>
+        <span class="ab-case__num mono">B</span>
+        <x-icon name="octagon-pause" class="card__icon"></x-icon>
+        <h3 class="card__title">Am Haltepunkt</h3>
+        <p class="card__text"><strong>Befinden Sie sich am Haltepunkt vor dem Auflinieren, halten Sie Ihre Position, bis die Piste freigegeben wird.</strong></p>
+        <p class="ab-radio mono"><x-icon name="radio"></x-icon>Via Funk: "Beromünster von Para, alle Springer sind am Boden"</p>
+      </article>
+      <article class="card card--pad ab-case" data-reveal>
+        <span class="ab-case__num mono">C</span>
+        <x-icon name="plane-landing" class="card__icon"></x-icon>
+        <h3 class="card__title">Im Anflug</h3>
+        <p class="card__text">Befinden Sie sich im Anflug und eine Landung innerhalb der angegebenen Zeit ist nicht möglich oder das Drehlicht ist eingeschaltet, sehen Sie von einem Anflug ab.</p>
+        <p class="card__text">Befinden Sie sich bereits im Short Final Runway 33 und es befinden sich Fallschirme in der Luft: <strong>sofort Durchstarten und nach rechts wegdrehen</strong>, respektive nach links, sollten Sie sich im Endanflug Runway 15 befinden.</p>
+      </article>
+      <article class="card card--pad ab-case" data-reveal>
+        <span class="ab-case__num mono">D</span>
+        <x-icon name="refresh-ccw" class="card__icon"></x-icon>
+        <h3 class="card__title">Warteschlaufen</h3>
+        <p class="card__text">Fliegen Sie Warteschlaufen, bis der Luftraum und die Piste freigegeben sind. Empfohlen werden die beiden Seegebiete:</p>
+        <div class="row"><span class="chip"><x-icon name="waves"></x-icon>Sempachersee</span><span class="chip"><x-icon name="waves"></x-icon>Baldeggersee</span></div>
+      </article>
+    </div>
+
+    <div class="notice notice--brand mt-l" data-reveal>
+      <x-icon name="info"></x-icon>
+      <div><p><strong>Anmerkung:</strong> Sehen Sie generell von Flugplatz-Überflügen ab, auf denen Sie nicht landen wollen. Es muss immer mit Fallschirmsprungbetrieb gerechnet werden. Sie leisten damit einen aktiven Beitrag zur Flugsicherheit.</p><p><a class="brand-text" href="sprungbetrieb.html">Alle Flugbetriebsregeln bei Sprungbetrieb</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="parkordnung" aria-labelledby="park-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Parkordnung und Bodenbetrieb</p>
+        <h2 id="park-title" data-split>Am Boden mit Rücksicht.</h2>
+      </div>
+      <div class="stack" data-reveal>
+        <p class="lead">Parkfelder, Zonen und Rollregeln rund um Hangar und Restaurant.</p>
+        <div class="row"><a class="btn btn--ghost btn--sm" href="parkordnung.html"><x-icon name="map"></x-icon>Parkplan gross ansehen</a></div>
+      </div>
+    </div>
+
+    <div class="split split--top ab-park">
+      <div class="stack-l sticky">
+        <figure class="pl-figure" data-gallery>
+          <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/parking-briefing.jpg" data-caption="Parkordnung: Zone A, Zone B, Parkfelder 1 bis 14">
+            <x-img src="briefing/parking-briefing" alt="Plan der Abstellfläche mit Hangar, Restaurant, Parkfeldern 1 bis 14, Zone A grün und Zone B rosa" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
+            <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+          </a>
+          <figcaption data-reveal>Zone A (grün) und Zone B (rosa) mit den Parkfeldern 1 bis 14.</figcaption>
+        </figure>
+        <div class="notice" data-reveal>
+          <x-icon name="fan"></x-icon>
+          <div><p>Allgemein bitten wir alle Piloten, beim Rollen umsichtig zu handeln, damit der Propellerwind Richtung Restaurant grundsätzlich vermieden wird.</p><p>Wenn möglich immer erst in Richtung Piste eindrehen, wenn das Flugzeug am Restaurant vorbei ist, und nur so viel Leistung setzen, wie wirklich zum Rollen notwendig ist.</p></div>
+        </div>
+      </div>
+      <ol class="pl-rules pl-rules--warn" data-reveal-group="0.06">
+        <li data-reveal><div><strong>Parkplätze 1 bis 13</strong> sind frei benutzbar (Zone A) und das Rollen ist stets erlaubt.</div></li>
+        <li class="is-warn" data-reveal><div><strong>Parkplätze 4, 8, 11, 14</strong> sind bei Fallschirmsprungbetrieb gesperrt (Zone B) und das Rollen ist ebenfalls untersagt.</div></li>
+        <li data-reveal><div><strong>Hartbelag vor dem Hangar nur zum Hangarieren</strong>, kein Rollen erlaubt, Triebwerkstart nur im Ausnahmefall, parallel zum Hangar. Es ist untersagt, den Propellerwind in den Hangar zu blasen.</div></li>
+        <li data-reveal><div><strong>Cessna C150</strong> bitte Richtung Neudorf parkieren (Tankentlüftung). Parkplätze 1 und 2 nicht verwenden, damit kein Propellerwind Richtung Restaurant und Gäste bläst.</div></li>
+        <li class="is-warn" data-reveal><div>Befindet sich ein Flugzeug im <strong>Final Runway 33</strong> und Sie können die Run up Area nicht erreichen, bis das Flugzeug die Pistenschwelle überfliegt, <strong>warten Sie auf dem Parkplatz, bis das Flugzeug gelandet ist.</strong> Dies aus Sicherheitsgründen, denn wenn das landende Flugzeug ausbricht, besteht ein Kollisionsrisiko.</div></li>
+        <li data-reveal><div><strong>Run up</strong> primär in der rot eingezeichneten Run up Bay durchführen.</div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="start" aria-labelledby="start-title">
+  <div class="container split split--wide-left split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Empfehlungen für den Start</p>
+        <h2 id="start-title" data-split>Gras verlangt Reserven.</h2>
+      </div>
+      <p class="ab-livehint notice notice--warn" data-wx-hazard="tail33" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell Rückenwind auf Piste 33.</span></p>
+      <ol class="pl-rules pl-rules--warn" data-reveal-group="0.06">
+        <li data-reveal><div>Die Graspiste in Beromünster kann je nach Pistenzustand einen Start oder eine Landung verunmöglichen.</div></li>
+        <li data-reveal><div>Die Flugplatzleitung entscheidet, ob die Piste benutzbar ist. Dies entbindet den Piloten aber nicht von seiner Verantwortung.</div></li>
+        <li data-reveal><div>Nehmen Sie die Pistenmittenmarkierung als Referenz für einen Startabbruch.</div></li>
+        <li class="is-warn" data-reveal><div><strong>Grundsätzlich kein Start auf Piste 33 bei Rückenwind und nahe oder bei max. Startgewicht!</strong></div></li>
+      </ol>
+    </div>
+    <figure class="pl-figure ab-takeoff" data-gallery>
+      <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/takeoff.jpg" data-caption="Piste 33 mit Pistenmittenmarkierung, Taxiway und Run up Bay">
+        <x-img src="briefing/takeoff" alt="Skizze der Piste 33 mit Segelflugpiste links, Pistenmittenmarkierung, Taxiway, Hangar und rot eingezeichneter Run up Bay bei der Schwelle 33" sizes="(max-width: 860px) 80vw, 320px"></x-img>
+        <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+      </a>
+      <figcaption data-reveal>Pistenmittenmarkierung als Referenz für den Startabbruch, Run up Bay rot bei der Schwelle 33.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="anflug" aria-labelledby="anflug-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Start, Anflug und Landung</p>
+      <h2 id="anflug-title" data-split>Primär auf der Piste 33.</h2>
+    </div>
+    <div class="split split--top">
+      <div class="stack-l">
+        <p class="ab-statement" data-reveal><strong>Primär wird auf dem Flugplatz Luzern-Beromünster auf der Piste 33 operiert (Starts und Landungen).</strong></p>
+        <div class="prose" data-reveal>
+          <p>Bei entsprechenden Windverhältnissen kann aber auch auf der Piste 15 gelandet werden. Von einem Start auf der Piste 15 sollte grundsätzlich abgesehen werden, da das Gelände in Richtung Süden sehr stark ansteigt und zudem mit starken Leewinden (Abwinden) gerechnet werden muss. Ausnahmen können vom Flugplatzchef bewilligt werden.</p>
+        </div>
+        <div class="notice notice--warn" data-reveal>
+          <x-icon name="badge-check"></x-icon>
+          <div>
+            <p><strong>Wichtig: Das Landen auf der Piste 33 ist einweisungspflichtig</strong>, das heisst, es darf erst nach erfolgter Einweisung selbst auf Piste 33 gelandet werden.</p>
+            <p>Die Einweisung erfolgt von einem dafür zugelassenen Fluglehrer und danach der Eintrag auf die Liste der eingewiesenen Piloten. Piste 15 kann auch ohne Einweisung angeflogen werden.</p>
+          </div>
+        </div>
+        <div class="notice" data-reveal>
+          <x-icon name="info"></x-icon>
+          <div><p>Parallelstarts und Parallellandungen mit Segelflugzeugen sind nicht erlaubt. <strong>Segelflugzeuge sind vortrittsberechtigt.</strong></p></div>
+        </div>
+      </div>
+      <div class="stack-l">
+        <figure class="pl-figure" data-gallery>
+          <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/situation.jpg" data-caption="Start, Anflug und Landung: Platzrunde mit Fernrichtpunkten">
+            <x-img src="briefing/situation" alt="Ausschnitt der Luftfahrtkarte mit Platzrunden um Beromünster und vier Fotos der Fernrichtpunkte für Downwind, Base, Final und Short Final" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
+            <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+          </a>
+          <figcaption data-reveal>Fernrichtpunkte: Downwind die zwei höchsten Stromleitungsmasten, Base das rote Scheunendach, Final die Mitte des zweiten Waldstreifens bzw. Schützenhaus, Short Final Scheunendach und Pumpenhaus.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="ab-anflug-bottom mt-l">
+      <div class="card card--pad ab-xwind" data-reveal>
+        <div class="row row--between">
+          <p class="eyebrow eyebrow--plain">Live: Wind auf Piste 15/33</p>
+          <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+        </div>
+        <div class="mt-s" data-xwind></div>
+      </div>
+      <a class="tile ab-next" href="piste-33.html" data-reveal>
+        <x-img src="hero/slide-01" alt="Cessna beim Start von der Graspiste im Gegenlicht" sizes="(max-width: 960px) 100vw, 40vw"></x-img>
+        <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
+        <span class="tile__eyebrow">Verfahren · 6 Schritte</span>
+        <span class="tile__title">Anflug und Abflug Piste 33</span>
+        <span class="tile__text">Holding Point bis Short Final mit Luftbildern, Richtpunkten und interaktiver Platzrunde.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="druckversion" aria-labelledby="druck-title">
+  <div class="container split split--top">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Druckversion</p>
+      <h2 id="druck-title" data-split>Zum Mitnehmen.</h2>
+      <p class="lead" data-reveal>Das Airport Briefing als PDF zum Ausdrucken und für die Flugvorbereitung.</p>
+    </div>
+    <div class="stack-l">
+      <ul class="doc-list" data-reveal>
+        <li><a class="doc" href="https://www.flubag.ch/sites/default/files/page/attachment/FLUBAG%20Airport%20Briefing%2002021.08.pdf" target="_blank" rel="noopener">
+          <x-icon name="file-text" class="doc__icon"></x-icon>
+          <span class="pl-tile__body"><span class="doc__title">Airport Briefing Druckversion</span><span class="doc__meta">PDF · Ausgabe 2021</span></span>
+          <x-icon name="download" class="doc__go"></x-icon>
+        </a></li>
+      </ul>
+      <div class="pl-related" data-reveal-group="0.06">
+        <a class="pl-link" href="piste-33.html" data-reveal><x-icon name="plane-landing" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Piste 33</span><span class="pl-link__text">Anflug und Abflug</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+        <a class="pl-link" href="parkordnung.html" data-reveal><x-icon name="parking-meter" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Parkordnung</span><span class="pl-link__text">Plan und Regeln</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+        <a class="pl-link" href="sprungbetrieb.html" data-reveal><x-icon name="parachute" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Regeln Sprungbetrieb</span><span class="pl-link__text">Motorflugzeuge und Helikopter</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+        <a class="pl-link" href="weisungen.html" data-reveal><x-icon name="scale" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Weisung Piloten 2026</span><span class="pl-link__text">Betriebszeiten</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      </div>
+    </div>
+  </div>
+</section>

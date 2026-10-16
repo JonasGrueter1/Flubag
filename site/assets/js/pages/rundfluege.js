@@ -644,18 +644,6 @@
     }
   }
 
-  // Unternavigation: die aktive Sprungmarke nur innerhalb der Leiste horizontal zentrieren. Das gemeinsame
-  // scrollIntoView() würde sonst ein laufendes weiches Scrollen der Seite abbrechen (z.B. Sprung zum
-  // Formular oder zur Erfolgsmeldung nach dem Absenden).
-  F.$$('[data-subnav] .subnav__list a').forEach(function (a) {
-    a.scrollIntoView = function () {
-      var list = a.closest('.subnav__list');
-      if (!list || list.scrollWidth <= list.clientWidth) return;
-      var ar = a.getBoundingClientRect(), lr = list.getBoundingClientRect();
-      list.scrollBy({ left: ar.left - lr.left - (list.clientWidth - ar.width) / 2, behavior: reduced ? 'auto' : 'smooth' });
-    };
-  });
-
   // Ohne Lenis (Touch, reduzierte Bewegung): Anker selbst anfahren, damit Formular-Vorauswahl und
   // Sprung zuverlässig zusammenspielen.
   document.addEventListener('click', function (e) {
@@ -668,19 +656,6 @@
     t.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
     if (history.pushState) history.pushState(null, '', '#' + id);
   });
-
-  // Ohne Lenis: Anker beim Aufruf (z.B. von der Startseite: rundfluege.html#luzern) nach dem Laden
-  // sicher anfahren. Der Browser springt sonst schon, bevor Bilder und Schriften das Layout verschieben.
-  if (location.hash.length > 1) {
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-        if (!t || F.lenis) return;
-        var off = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-        if (Math.abs(t.getBoundingClientRect().top - off) > 120) t.scrollIntoView({ behavior: 'instant', block: 'start' });
-      }, 80);
-    });
-  }
 
   // Vorauswahl über Anker (rundfluege.html#titlis) oder Parameter (?route=titlis)
   var params = new URLSearchParams(location.search);

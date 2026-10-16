@@ -1,0 +1,64 @@
+/* Airport Briefing */
+
+/* Kernpunkte */
+.ab-key { list-style: none; padding: 0; display: grid; gap: 10px; }
+.ab-key a { display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: center; padding: 14px 18px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--text-2); transition: border-color 0.25s, transform 0.35s var(--ease-out); }
+.ab-key a:hover { border-color: rgba(230, 50, 1, 0.45); transform: translateX(4px); }
+.ab-key a > .icon:first-child { width: 44px; height: 44px; padding: 11px; border-radius: 13px; background: rgba(230, 50, 1, 0.1); color: var(--brand-text); border: 1px solid rgba(230, 50, 1, 0.22); }
+.ab-key strong { color: var(--text); }
+.ab-key__go { width: 16px; height: 16px; color: var(--text-3); }
+
+/* Live Panel */
+.ab-live { display: grid; gap: 16px; padding: clamp(22px, 2.6vw, 32px); justify-items: stretch; }
+.ab-live > .btn { justify-self: start; }
+.ab-live__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-block: 16px; border-block: 1px dashed rgba(160, 190, 230, 0.2); }
+[data-theme="light"] .ab-live__grid { border-color: var(--line); }
+.ab-live__grid .readout__value { font-size: 1.05rem; }
+
+/* Gefahren */
+.ab-hazard { overflow: hidden; }
+.ab-hazard::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.ab-hazard--west::before { background: linear-gradient(90deg, var(--bad), transparent 70%); }
+.ab-hazard--bise::before { background: linear-gradient(90deg, transparent 30%, var(--warn)); }
+.ab-livehint { display: grid; grid-template-columns: auto 1fr; gap: 14px; }
+.ab-livehint[hidden] { display: none; }
+.ab-livehint .icon { animation: ab-pulse 1.8s ease-in-out infinite; }
+@keyframes ab-pulse { 50% { opacity: 0.35; } }
+
+/* Sprungbetrieb */
+.ab-para { align-items: center; margin-bottom: clamp(28px, 4vw, 48px); }
+.ab-para__rule { font-size: 1.08rem; }
+.ab-para__rule p:first-child { font-family: var(--font-display); font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem); line-height: 1.2; font-stretch: 108%; }
+.ab-cases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 20px); align-items: stretch; }
+.ab-case { position: relative; display: grid; gap: 14px; align-content: start; }
+.ab-case__num { position: absolute; top: 18px; right: 22px; font-size: 2.6rem; font-weight: 800; line-height: 1; color: var(--text); opacity: 0.08; }
+.ab-case--strong { border-color: rgba(248, 113, 113, 0.4); }
+.ab-case--strong .card__icon { color: var(--bad); background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); }
+.ab-radio { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding: 12px 14px; border-radius: var(--radius-s); background: var(--surface-2); border: 1px dashed var(--line-strong); font-size: 0.82rem; line-height: 1.5; }
+.ab-radio .icon { width: 16px; height: 16px; color: var(--brand-text); margin-top: 2px; }
+
+/* Start, Anflug */
+.ab-takeoff { max-width: 340px; justify-self: center; width: 100%; }
+.ab-statement { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.1rem); line-height: 1.15; font-stretch: 108%; }
+.ab-statement strong { color: var(--text); font-weight: 750; }
+.ab-anflug-bottom { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(16px, 2vw, 24px); align-items: stretch; }
+.ab-next { min-height: 340px; height: 100%; }
+
+@media (max-width: 1100px) {
+  .ab-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .ab-anflug-bottom { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 860px) {
+  .ab-order-2 { order: 2; }
+  .ab-live.sticky { position: static; }
+}
+@media (max-width: 640px) {
+  .ab-takeoff { max-width: 260px; }
+  .ab-cases { grid-template-columns: minmax(0, 1fr); }
+  .ab-key a { grid-template-columns: 40px 1fr; padding: 12px 14px; gap: 12px; }
+  .ab-key a > .icon:first-child { width: 40px; height: 40px; padding: 10px; }
+  .ab-key__go { display: none; }
+}
+.reduced-motion .ab-livehint .icon { animation: none; }

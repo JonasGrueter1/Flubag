@@ -1,0 +1,129 @@
+<!--meta {
+  "title": "Seite nicht gefunden",
+  "description": "Go around! Diese Seite gibt es auf flubag.ch nicht oder nicht mehr. Starte durch und wähle ein neues Ziel am Flugplatz Luzern-Beromünster.",
+  "nav": "",
+  "bodyClass": "no-cta",
+  "noindex": true,
+  "ogImage": "hero/slide-01"
+} -->
+
+<section class="page-hero page-hero--chart ga-hero" aria-labelledby="ga-title">
+  <div class="ga-hero__sky" aria-hidden="true">
+    <span class="ga-hero__big">404</span>
+  </div>
+  <div class="container page-hero__inner ga-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Fehler 404</li></ol>
+    <p class="eyebrow">Fehler 404 · Seite nicht gefunden</p>
+    <h1 id="ga-title" class="ga-hero__title" data-split data-split-now>Go around!</h1>
+    <p class="lead">Diese Piste ist nicht frei: Die gesuchte Seite gibt es nicht oder nicht mehr. Kein Problem, wir starten durch und fliegen einen neuen Anflug.</p>
+
+    <figure class="ga-scene" data-ga-scene>
+      <svg class="ga-scene__svg" viewBox="0 0 1200 300" role="img" aria-labelledby="ga-svg-title" preserveAspectRatio="xMidYMid meet">
+        <title id="ga-svg-title">Flugzeug im Anflug auf eine gesperrte Piste startet durch und steigt wieder</title>
+        <defs>
+          <linearGradient id="ga-trail" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0" stop-color="#ff5a26" stop-opacity="0"/>
+            <stop offset="0.55" stop-color="#ff5a26" stop-opacity="0.9"/>
+            <stop offset="1" stop-color="#ffd8a8"/>
+          </linearGradient>
+        </defs>
+        <!-- Gleitpfad (Soll) -->
+        <path class="ga-scene__glide" d="M30 40 L640 262"/>
+        <!-- Boden und Piste -->
+        <path class="ga-scene__ground" d="M0 270 H1200"/>
+        <rect class="ga-scene__rwy" x="470" y="262" width="560" height="14" rx="3"/>
+        <path class="ga-scene__center" d="M520 269 H1000"/>
+        <g class="ga-scene__x" aria-hidden="true">
+          <path d="M600 256 l36 26 M636 256 l-36 26"/>
+          <path d="M860 256 l36 26 M896 256 l-36 26"/>
+        </g>
+        <text class="ga-scene__rwytext" x="750" y="296" text-anchor="middle">PISTE 404 · GESPERRT</text>
+        <!-- tatsächlicher Flugweg -->
+        <path id="ga-path" class="ga-scene__path" d="M30 40 L560 233 C610 251 640 256 680 248 C780 226 900 140 1170 34"/>
+        <!-- Beschriftungen -->
+        <g class="ga-scene__labels">
+          <text x="120" y="38">APPROACH</text>
+          <text x="652" y="196" text-anchor="middle" class="ga-scene__label--hot">GO AROUND</text>
+          <path class="ga-scene__tick" d="M652 206 V236"/>
+          <text x="1010" y="58">CLIMB</text>
+        </g>
+        <!-- Flugzeug (Seitenansicht), folgt dem Flugweg -->
+        <g class="ga-scene__plane">
+          <g transform="translate(-30 -14)">
+            <path class="ga-plane__body" d="M2 13 8 12l30-1.1c8 0 14 .6 19.5 2.4 1.4.5 1.4 2.4 0 2.8C52 17.6 46 18.2 38 18.2L11 17.2l-6 1.6H2.2z"/>
+            <path class="ga-plane__body" d="M2.6 13.1.8 4.7h4.6l6.4 7.6z"/>
+            <rect class="ga-plane__wing" x="19" y="7.3" width="24" height="2.6" rx="1.3"/>
+            <path class="ga-plane__strut" d="M25 9.9 29 16.3M37 9.9 33 16.3"/>
+            <circle class="ga-plane__wheel" cx="30" cy="22.5" r="2.4"/>
+            <circle class="ga-plane__wheel" cx="52" cy="21.5" r="2"/>
+            <rect class="ga-plane__prop" x="58.6" y="7" width="1.6" height="14" rx=".8"/>
+          </g>
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto" keyPoints="0;0.55;0.62;1;1" keyTimes="0;0.5;0.6;0.92;1" calcMode="linear">
+            <mpath href="#ga-path"/>
+          </animateMotion>
+        </g>
+      </svg>
+    </figure>
+
+    <div class="row ga-hero__actions">
+      <a class="btn btn--primary btn--lg" href="index.html" data-magnetic><x-icon name="house"></x-icon>Zur Startseite</a>
+      <button class="btn btn--ghost btn--lg" type="button" data-ga-back><x-icon name="arrow-left"></x-icon>Zurück</button>
+      <button class="btn btn--text" type="button" data-ga-replay><x-icon name="refresh-cw"></x-icon>Nochmals durchstarten</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="ziel-title">
+  <div class="container">
+    <div class="ga-redirect notice notice--brand" data-ga-redirect hidden>
+      <x-icon name="compass"></x-icon>
+      <div>
+        <p><strong>Du kommst von der alten Website?</strong></p>
+        <p><span data-ga-redirect-text>Diese Seite findest du jetzt hier:</span> <a class="ga-redirect__link" href="index.html" data-ga-redirect-link>Startseite</a></p>
+      </div>
+    </div>
+
+    <div class="split split--top ga-main">
+      <div class="stack-l sticky">
+        <div class="stack">
+          <p class="eyebrow" data-reveal>Durchstarten</p>
+          <h2 id="ziel-title" data-split>Neuer Anflug, neues Ziel.</h2>
+          <p class="lead" data-reveal>Vielleicht hat sich die Adresse geändert, denn die Website ist neu. Wähle dein Ziel aus der Liste oder ruf uns an.</p>
+        </div>
+        <div class="ga-panel instrument hud-corners force-dark" data-reveal>
+          <div class="readout"><span class="readout__label">Status</span><span class="readout__value ga-panel__bad">404</span></div>
+          <div class="readout"><span class="readout__label">Piste</span><span class="readout__value readout__value--text">nicht frei</span></div>
+          <div class="readout ga-panel__wide"><span class="readout__label">Angefordert</span><span class="readout__value ga-panel__path mono" data-ga-path>/</span></div>
+          <div class="readout ga-panel__wide"><span class="readout__label">Empfehlung</span><span class="readout__value readout__value--text">Durchstarten und neu anfliegen</span></div>
+        </div>
+        <div class="ga-checklist" data-reveal>
+          <p class="ga-checklist__title mono">Go-around-Checkliste</p>
+          <ol class="ga-checklist__list">
+            <li><span>Leistung</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>Vollgas</strong></li>
+            <li><span>Fluglage</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>Steigflug</strong></li>
+            <li><span>Klappen</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>schrittweise ein</strong></li>
+            <li><span>Neues Ziel</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>wählen</strong></li>
+          </ol>
+          <p class="ga-checklist__note">Nur zur Unterhaltung. Im Cockpit gilt die Checkliste aus dem Flughandbuch.</p>
+        </div>
+      </div>
+
+      <nav class="ga-targets" aria-label="Wichtige Seiten">
+        <ol class="ga-targets__list" data-reveal-group="0.05">
+          <li data-reveal><a class="ga-target" href="schnupperflug.html"><span class="ga-target__code mono">SF</span><span class="ga-target__text"><strong>Schnupperflug</strong><small>Selbst am Steuer, ab CHF 420</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="rundfluege.html"><span class="ga-target__code mono">RF</span><span class="ga-target__text"><strong>Rundflüge</strong><small>Luzern, Alpen, Matterhorn</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="gutscheine.html"><span class="ga-target__code mono">GS</span><span class="ga-target__text"><strong>Gutscheine</strong><small>Fliegen verschenken</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="ausbildung.html"><span class="ga-target__code mono">PPL</span><span class="ga-target__text"><strong>Ausbildung</strong><small>PPL und LAPL in Beromünster</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="infoabende.html"><span class="ga-target__code mono">INFO</span><span class="ga-target__text"><strong>Infoabende</strong><small>"Wie werde ich Pilot?"</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="flotte.html"><span class="ga-target__code mono">HB</span><span class="ga-target__text"><strong>Flotte</strong><small>Unsere Flugzeuge</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="webcams.html"><span class="ga-target__code mono">WX</span><span class="ga-target__text"><strong>Webcams und Wetter</strong><small>Live vom Flugplatz</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="anreise.html"><span class="ga-target__code mono">ARR</span><span class="ga-target__text"><strong>Anreise</strong><small>So findest du zu uns</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="aktuelles.html"><span class="ga-target__code mono">NEWS</span><span class="ga-target__text"><strong>Aktuelles</strong><small>Neues vom Platz</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="piloten.html"><span class="ga-target__code mono">PIC</span><span class="ga-target__text"><strong>Pilotenbereich</strong><small>Weisungen, Briefing, Dokumente</small></span><x-icon name="arrow-right"></x-icon></a></li>
+          <li data-reveal><a class="ga-target" href="kontakt.html"><span class="ga-target__code mono">TEL</span><span class="ga-target__text"><strong>Kontakt</strong><small>{{site.phone}}</small></span><x-icon name="arrow-right"></x-icon></a></li>
+        </ol>
+        <p class="subtle ga-targets__report" data-reveal>Ein Link auf unserer Website führt hierher? <a href="mailto:{{site.email}}?subject=Fehlerhafter%20Link%20auf%20flubag.ch" data-ga-report>Sag uns Bescheid</a>, dann korrigieren wir ihn.</p>
+      </nav>
+    </div>
+  </div>
+</section>

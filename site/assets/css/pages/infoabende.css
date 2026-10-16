@@ -119,8 +119,6 @@
 .ia-license .data-list dd { max-width: 60%; }
 .ia-footnote { margin-top: 16px; font-size: 0.85rem; color: var(--text-3); }
 .ia-cost { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: center; margin-top: clamp(28px, 4vw, 48px); padding: clamp(24px, 3.4vw, 44px); }
-/* bleibt auch im hellen Modus dunkel (04-components.css schliesst .force-dark selbst nicht aus) */
-html .ia-cost.instrument.force-dark { background: linear-gradient(180deg, rgba(14, 24, 41, 0.97), rgba(9, 15, 29, 0.98)); color: var(--text); border-color: rgba(160, 190, 230, 0.16); }
 .ia-cost__figure { display: grid; gap: 8px; }
 .ia-cost__body { display: grid; gap: 18px; justify-items: start; }
 .ia-cost__value { font-family: var(--font-display); font-weight: 900; font-stretch: 115%; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1; white-space: nowrap; }

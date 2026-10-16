@@ -1,19 +1,11 @@
-/* Kontakt: Kopieren, vCard, Themen-Hinweise, Thema per URL (?thema=...), Zeichenzähler */
+/* Kontakt: vCard, Themen-Hinweise, Thema per URL (?thema=...), Zeichenzähler */
 (function () {
   'use strict';
   var F = window.FLUBAG;
   var site = (F.data && F.data.site) || {};
   var form = F.$('#kontaktformular');
 
-  // In die Zwischenablage kopieren
-  F.$$('[data-copy]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var text = b.getAttribute('data-copy');
-      var ok = function () { F.toast('Kopiert: ' + text); };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function () { window.prompt('Kopieren:', text); });
-      else window.prompt('Kopieren:', text);
-    });
-  });
+  // Kopieren: [data-copy] erledigt 07-ui.js global (eigener Handler hier würde doppelt melden)
 
   // Kontakt als vCard speichern
   F.$$('[data-vcard]').forEach(function (b) {

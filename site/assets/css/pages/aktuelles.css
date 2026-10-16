@@ -133,3 +133,6 @@
   .news-next { grid-template-columns: 1fr; }
   .news-filter { width: 100%; }
 }
+
+/* Dunkle Instrument-Panels dieser Seiten (Aktuelles, News, Kontakt) im hellen Modus satt statt halbtransparent */
+[data-theme="light"] :is(.pilot-news, .zlk-facts, .spot-game, .hangar-rule, .contact-arrival).instrument { background: linear-gradient(180deg, #101b2f, #080e1b); }

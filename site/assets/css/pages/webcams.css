@@ -40,7 +40,7 @@
 @media (prefers-reduced-motion: reduce) { .wc-cam.is-live .wc-cam__progress > span { animation: none; } }
 
 /* ---------- Wetter ---------- */
-.wc-wx { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(14px, 2vw, 22px); align-items: stretch; }
+.wc-wx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(14px, 2vw, 22px); align-items: stretch; }
 .wc-panel { display: grid; gap: 22px; align-content: start; padding: clamp(22px, 2.6vw, 34px); }
 .wc-panel__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 0.74rem; letter-spacing: 0.1em; }
 .wc-panel__hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: center; }

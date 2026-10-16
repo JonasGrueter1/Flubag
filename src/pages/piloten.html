@@ -1,0 +1,308 @@
+<!--meta {
+  "title": "Pilotenbereich",
+  "description": "Pilotenbereich LSZO: Pilot News, Live-Wind mit Seitenwind, Platzstatus und Betriebszeiten, Weisungen, Verfahren Piste 33, Airport Briefing und Platzdaten.",
+  "nav": "piloten",
+  "bodyClass": "no-cta",
+  "ogImage": "hero/slide-05"
+} -->
+
+<section class="page-hero page-hero--chart page-hero--compact pl-hero">
+  <svg class="page-hero__deco pl-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor">
+      <circle cx="200" cy="200" r="192" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="178" stroke-width="12" stroke-dasharray="1.4 29.67"/>
+      <circle cx="200" cy="200" r="132" stroke-width="1" stroke-dasharray="3 9"/>
+      <circle cx="200" cy="200" r="64" stroke-width="1"/>
+    </g>
+    <g transform="rotate(-26 200 200)">
+      <rect x="184" y="58" width="32" height="284" rx="4" fill="currentColor" opacity="0.4"/>
+      <line x1="200" y1="78" x2="200" y2="322" stroke="currentColor" stroke-width="2.5" stroke-dasharray="14 10"/>
+      <text x="200" y="336" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor">33</text>
+      <text x="200" y="80" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor" transform="rotate(180 200 72)">15</text>
+    </g>
+    <text x="200" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="currentColor">N</text>
+  </svg>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Piloten</li></ol>
+    <p class="eyebrow">Pilotenbereich LSZO</p>
+    <h1 data-split data-split-now>Briefing, Regeln, Live-Daten.</h1>
+    <p class="lead">Alles für den Flug ab und nach Luzern-Beromünster an einem Ort: Pilot News, Platzstatus, Wind auf der Piste, Weisungen, Verfahren und Dokumente.</p>
+    <div class="page-hero__meta">
+      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip"><x-icon name="wind"></x-icon><span data-wx-field="windText">--</span></span>
+      <button class="chip pl-copy" type="button" data-copy="122.455" aria-label="Para-Frequenz 122.455 kopieren"><x-icon name="parachute"></x-icon>Para 122.455<x-icon name="copy" class="pl-copy__icon"></x-icon></button>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="{{site.reservation}}" target="_blank" rel="noopener" data-magnetic><x-icon name="calendar"></x-icon>Flugzeug reservieren</a>
+      <a class="btn btn--ghost btn--lg" href="airport-briefing.html"><x-icon name="book-open"></x-icon>Airport Briefing</a>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Inhalt dieser Seite">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#news">Pilot News</a></li>
+      <li><a href="#live">Live-Cockpit</a></li>
+      <li><a href="#seiten">Alle Pilotenseiten</a></li>
+      <li><a href="#platz">Platzdaten</a></li>
+      <li><a href="#links">Portal &amp; Reservation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section section--tight pl-news-section" id="news" aria-labelledby="news-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Pilot News</p>
+        <h2 id="news-title" data-split>Neues für Piloten.</h2>
+      </div>
+      <p class="lead" data-reveal>Mitteilungen der Flugplatzleitung an alle Piloten. Frühere Informationen stehen in den Newslettern.</p>
+    </div>
+    <div class="pl-news">
+      <div class="pl-empty card card--pad" data-reveal>
+        <div class="pl-radar" aria-hidden="true">
+          <span class="pl-radar__ring"></span><span class="pl-radar__ring"></span><span class="pl-radar__ring"></span>
+          <span class="pl-radar__sweep"></span>
+          <x-icon name="radio"></x-icon>
+        </div>
+        <div class="stack">
+          <p class="mono subtle pl-empty__kicker">LSZO · Pilot News · <span data-pl-today>heute</span></p>
+          <h3 class="pl-empty__title">Keine aktuellen News vorhanden.</h3>
+          <p class="muted">Zurzeit liegen keine Mitteilungen für Piloten vor. Die Regeln und Verfahren unten gelten unverändert.</p>
+          <div class="row">
+            <a class="btn btn--ghost btn--sm" href="dokumente.html#newsletter"><x-icon name="newspaper"></x-icon>Newsletter-Archiv</a>
+            <a class="btn btn--text btn--sm" href="aktuelles.html">Alle News vom Platz <x-icon name="arrow-right"></x-icon></a>
+          </div>
+        </div>
+      </div>
+      <!-- @each data.news as n --><!-- @if n.category == "Piloten" -->
+      <a class="card card--glow pl-news__card" href="{{n.file}}" data-reveal>
+        <span class="card__media"><x-img src="{{n.image}}" alt="" sizes="(max-width: 860px) 100vw, 30vw"></x-img><span class="card__badge chip">Weiterhin wichtig</span></span>
+        <span class="card__body"><span class="card__title">{{n.title}}</span><span class="card__text">{{n.teaser}}</span></span>
+      </a>
+      <!-- @endif --><!-- @end -->
+    </div>
+  </div>
+</section>
+
+<section class="section section--chart" id="live" aria-labelledby="live-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Live-Cockpit</p>
+        <h2 id="live-title" data-split>Wie steht's auf dem Platz?</h2>
+      </div>
+      <p class="lead" data-reveal>Platzstatus nach der Weisung Piloten 2026, Wind auf der Piste und Wetterwerte für LSZO. Automatisch berechnet, ohne Gewähr.</p>
+    </div>
+
+    <div class="pl-cockpit">
+      <div class="instrument hud-corners pl-panel" data-reveal>
+        <div class="pl-panel__head">
+          <span class="mono">LSZO LIVE</span>
+          <span class="pl-panel__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+        </div>
+        <div class="pl-panel__wind">
+          <div class="readout">
+            <span class="readout__label">Wind</span>
+            <span class="readout__value pl-panel__big" data-wx-field="windText">--</span>
+          </div>
+          <p class="mono pl-panel__rwy"><x-icon name="runway"></x-icon><span data-wx-field="rwyText">Piste 33 primär</span></p>
+        </div>
+        <div class="pl-panel__grid">
+          <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
+          <div class="readout"><span class="readout__label">QNH</span><span class="readout__value" data-wx-field="qnhText">--</span></div>
+          <div class="readout"><span class="readout__label">Sicht</span><span class="readout__value" data-wx-field="visText">--</span></div>
+          <div class="readout"><span class="readout__label">Bewölkung</span><span class="readout__value" data-wx-field="cloudText">--</span></div>
+          <div class="readout"><span class="readout__label">Wolkenbasis *</span><span class="readout__value" data-wx-field="cloudbaseText">--</span></div>
+          <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
+          <div class="readout"><span class="readout__label">Sonnenaufgang</span><span class="readout__value" data-sun-field="sunrise">--</span></div>
+          <div class="readout"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+          <div class="readout"><span class="readout__label">Abenddämmerung</span><span class="readout__value" data-sun-field="dusk">--</span></div>
+        </div>
+        <div class="pl-hazards" aria-live="polite">
+          <a class="pl-hazard notice notice--danger" href="airport-briefing.html#westwind" data-wx-hazard="west" hidden>
+            <x-icon name="triangle-alert"></x-icon>
+            <span><strong>Westwind-Lage:</strong> Turbulenzen und Abwinde östlich des Waldstücks möglich. Start und Steigflug auf Piste 33 defensiv berechnen. <span class="pl-hazard__more">Airport Briefing <x-icon name="arrow-right"></x-icon></span></span>
+          </a>
+          <a class="pl-hazard notice notice--warn" href="airport-briefing.html#bise" data-wx-hazard="bise" hidden>
+            <x-icon name="triangle-alert"></x-icon>
+            <span><strong>Bise:</strong> Turbulenzen und Abwinde im Endanflug Piste 33 möglich. Defensive Anflugtaktik. <span class="pl-hazard__more">Airport Briefing <x-icon name="arrow-right"></x-icon></span></span>
+          </a>
+          <a class="pl-hazard notice notice--warn" href="airport-briefing.html#start" data-wx-hazard="tail33" hidden>
+            <x-icon name="triangle-alert"></x-icon>
+            <span><strong>Rückenwind auf Piste 33:</strong> Grundsätzlich kein Start auf Piste 33 bei Rückenwind und nahe oder bei max. Startgewicht. <span class="pl-hazard__more">Empfehlungen für den Start <x-icon name="arrow-right"></x-icon></span></span>
+          </a>
+          <p class="pl-hazard pl-hazard--none" data-pl-nohazard hidden><x-icon name="circle-check"></x-icon><span>Keine automatischen Gefahrenhinweise für Westwind, Bise oder Rückenwind auf Piste 33.</span></p>
+        </div>
+        <p class="pl-panel__foot">Werte aus dem Wettermodell von Open-Meteo für die Platzkoordinaten, kein METAR<span data-pl-wxtime></span>. * Wolkenbasis grob geschätzt aus Temperatur und Taupunkt. Gefahrenhinweise sind automatische Schätzungen und ersetzen weder Briefing noch eigene Beurteilung.</p>
+      </div>
+
+      <div class="pl-cockpit__side">
+      <div class="card card--pad pl-card-status" data-reveal>
+        <p class="eyebrow eyebrow--plain">Platzstatus</p>
+        <div class="mt-s" data-airfield-status></div>
+      </div>
+
+      <div class="card card--pad pl-card-xwind" data-reveal>
+        <div class="row row--between">
+          <p class="eyebrow eyebrow--plain">Seitenwind Piste 15/33</p>
+          <a class="btn btn--text btn--sm" href="airport-briefing.html#anflug">Pistenwahl <x-icon name="arrow-right"></x-icon></a>
+        </div>
+        <div class="mt-s" data-xwind></div>
+      </div>
+      </div>
+
+      <div class="card card--pad pl-card-week" data-reveal>
+        <div class="row row--between">
+          <p class="eyebrow eyebrow--plain">Betriebszeiten, nächste 7 Tage</p>
+          <a class="btn btn--text btn--sm" href="weisungen.html">Weisung Piloten 2026 <x-icon name="arrow-right"></x-icon></a>
+        </div>
+        <div class="hours-week mt-m" data-hours-week></div>
+        <p class="subtle pl-week__note">Berechnet aus der Weisung Piloten 2026. Mit * markierte Tage sind Feiertage. Massgebend sind Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="seiten" aria-labelledby="seiten-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Alle Pilotenseiten</p>
+        <h2 id="seiten-title" data-split>Regeln, Verfahren, Vorbereitung.</h2>
+      </div>
+      <div class="stack" data-reveal>
+        <p class="lead">Gegliedert wie im Menü. Oder direkt suchen.</p>
+        <div class="pl-search">
+          <label class="pl-search__label" for="pl-filter">Pilotenseite suchen</label>
+          <div class="pl-search__field">
+            <x-icon name="search"></x-icon>
+            <input class="input" id="pl-filter" type="search" placeholder="z.B. Zoll, Sprung, Preise, FLARM" autocomplete="off" data-pl-filter>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pl-groups" data-pl-groups data-reveal-group="0.08">
+      <section class="pl-group" aria-labelledby="g-regeln" data-reveal>
+        <header class="pl-group__head"><span class="pl-group__num mono">01</span><h3 id="g-regeln" class="pl-group__title">Regeln &amp; Weisungen</h3></header>
+        <ul class="pl-links">
+          <li><a class="pl-link" href="weisungen.html" data-keywords="weisung betriebszeiten öffnungszeiten feiertage sonntag einschränkungen platzrunde regeln"><x-icon name="scale" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Weisung Piloten 2026</span><span class="pl-link__text">Betriebszeiten, Einschränkungen und Feiertage</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="sprungbetrieb.html" data-keywords="sprungbetrieb fallschirm para skydive drehlicht helikopter motorflugzeuge"><x-icon name="parachute" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Regeln Sprungbetrieb</span><span class="pl-link__text">Flugbetriebsregeln für Motorflugzeuge und Helikopter</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="safety-policy.html" data-keywords="safety policy sicherheit just culture"><x-icon name="shield-check" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Safety Policy</span><span class="pl-link__text">Sicherheitspolitik der FLUBAG</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+        </ul>
+      </section>
+
+      <section class="pl-group" aria-labelledby="g-verfahren" data-reveal>
+        <header class="pl-group__head"><span class="pl-group__num mono">02</span><h3 id="g-verfahren" class="pl-group__title">Verfahren</h3></header>
+        <ul class="pl-links">
+          <li><a class="pl-link" href="piste-33.html" data-keywords="piste 33 anflug abflug volte platzrunde downwind base final holding point einweisung"><x-icon name="plane-landing" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Anflug &amp; Abflug Piste 33</span><span class="pl-link__text">Sechs Schritte mit Luftbildern und Richtpunkten</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="checkflug-flarm.html" data-keywords="checkflug trainingsflug flarm kontrollformular theorie"><x-icon name="radio" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Checkflug 2026 &amp; FLARM</span><span class="pl-link__text">Kontrollformular und Theorie FLARM</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="parkordnung.html" data-keywords="parkordnung parkieren parkplatz zone hangar hangarieren rollen bodenbetrieb"><x-icon name="parking-meter" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Parkordnung</span><span class="pl-link__text">Parkfelder, Zonen A und B, Hangarieren</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+        </ul>
+      </section>
+
+      <section class="pl-group" aria-labelledby="g-vorbereitung" data-reveal>
+        <header class="pl-group__head"><span class="pl-group__num mono">03</span><h3 id="g-vorbereitung" class="pl-group__title">Flugvorbereitung</h3></header>
+        <ul class="pl-links">
+          <li><a class="pl-link" href="airport-briefing.html" data-keywords="airport briefing westwind bise gefahren sprungbetrieb start landung"><x-icon name="book-open" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Airport Briefing</span><span class="pl-link__text">Gefahren, Sprungbetrieb, Bodenbetrieb, Start und Landung</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="briefing-links.html" data-keywords="briefing links wetter meteo homebriefing skybriefing dabs notam webcams"><x-icon name="compass" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Briefing Links</span><span class="pl-link__text">Briefing, Wetter, Webcams und Behörden</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="flotte.html" data-keywords="flugzeuge flotte handbuch flughandbuch checkliste mass balance cessna piper"><x-icon name="plane" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Flugzeuge &amp; Handbücher</span><span class="pl-link__text">Flotte, Flughandbücher und Checklisten</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="{{site.reservation}}" target="_blank" rel="noopener" data-keywords="reservation reservieren buchen flugzeug buchung"><x-icon name="calendar" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Flugzeug Reservation</span><span class="pl-link__text">Reservationssystem, externe Seite</span></span><x-icon name="arrow-up-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="zollanmeldung.html" data-keywords="zoll zollanmeldung ausland schengen customs"><x-icon name="receipt" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Zollanmeldung</span><span class="pl-link__text">Personenzoll für Direktflüge ins und aus dem Ausland</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+        </ul>
+      </section>
+
+      <section class="pl-group" aria-labelledby="g-infos" data-reveal>
+        <header class="pl-group__head"><span class="pl-group__num mono">04</span><h3 id="g-infos" class="pl-group__title">Reporting &amp; Infos</h3></header>
+        <ul class="pl-links">
+          <li><a class="pl-link" href="reporting.html" data-keywords="reporting ereignis melden vorfall unfall meldung safety"><x-icon name="siren" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Reporting &amp; Ereignis melden</span><span class="pl-link__text">Ereignisse an die FLUBAG und die Aviatik melden</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="preise.html" data-keywords="preise miete landetaxen abstellgebühren fluglehrer kosten"><x-icon name="calculator" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Preise</span><span class="pl-link__text">Flugzeuge, Fluglehrer, Landetaxen, Abstellgebühren</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+          <li><a class="pl-link" href="dokumente.html" data-keywords="dokumente newsletter syllabus familiarization pdf"><x-icon name="file-text" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Dokumente &amp; Newsletter</span><span class="pl-link__text">Syllabi, Familiarization und Newsletter</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a></li>
+        </ul>
+      </section>
+    </div>
+    <p class="pl-noresult notice" data-pl-noresult hidden><x-icon name="search"></x-icon><span>Keine passende Pilotenseite gefunden. Anderen Begriff versuchen, zum Beispiel "Wetter", "Handbuch" oder "Landetaxe".</span></p>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="platz" aria-labelledby="platz-title">
+  <div class="container split split--wide-left">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Platzdaten</p>
+        <h2 id="platz-title" data-split>LSZO auf einen Blick.</h2>
+        <p class="lead" data-reveal>Primär wird auf der Piste 33 operiert, Starts und Landungen. Das Landen auf Piste 33 ist einweisungspflichtig.</p>
+      </div>
+      <div class="specs pl-specs" data-reveal-group="0.06">
+        <div class="spec" data-reveal><span class="spec__label">ICAO</span><span class="spec__value">LSZO</span></div>
+        <div class="spec" data-reveal><span class="spec__label">Platzhöhe</span><span class="spec__value"><span data-count="2146" data-count-nosep>2146</span> <small>ft</small></span></div>
+        <div class="spec" data-reveal><span class="spec__label">Piste</span><span class="spec__value">15/33</span></div>
+        <div class="spec" data-reveal><span class="spec__label">Belag</span><span class="spec__value">Gras</span></div>
+        <div class="spec" data-reveal><span class="spec__label">Abmessungen</span><span class="spec__value"><span data-count="510">510</span> × 30 <small>m</small></span></div>
+        <div class="spec" data-reveal><span class="spec__label">Platzrunde 33</span><span class="spec__value">Links</span></div>
+      </div>
+      <div class="row" data-reveal>
+        <a class="btn btn--ghost" href="piste-33.html"><x-icon name="plane-landing"></x-icon>Anflug Piste 33</a>
+        <a class="btn btn--text" href="anreise.html">Anreise &amp; Lage <x-icon name="arrow-right"></x-icon></a>
+      </div>
+    </div>
+
+    <aside class="instrument hud-corners pl-freq" aria-label="Frequenz und Koordinaten" data-reveal="scale">
+      <span class="readout__label">Fallschirmsprungbetrieb</span>
+      <p class="pl-freq__value mono">122.455</p>
+      <p class="pl-freq__sub">Para · Skydive Luzern</p>
+      <button class="btn btn--light btn--sm" type="button" data-copy="122.455"><x-icon name="copy"></x-icon>Frequenz kopieren</button>
+      <div class="pl-freq__rule"></div>
+      <span class="readout__label">Koordinaten</span>
+      <p class="mono pl-freq__coord">47°11'24" N · 008°12'17" E</p>
+      <button class="btn btn--text btn--sm pl-freq__copy" type="button" data-copy="47°11'24&quot; N 008°12'17&quot; E"><x-icon name="copy"></x-icon>Koordinaten kopieren</button>
+    </aside>
+  </div>
+</section>
+
+<section class="section" id="links" aria-labelledby="links-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Portal &amp; Reservation</p>
+        <h2 id="links-title" data-split>Direkt ins System.</h2>
+      </div>
+      <p class="lead" data-reveal>Login ins Pilotenportal, Reservation von Flugzeug und Helikopter und das Archiv der FLUBAG Newsletter.</p>
+    </div>
+    <div class="link-tiles pl-tiles" data-reveal-group="0.06">
+      <a class="link-tile" href="{{site.pilotsPortal}}" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-icon name="log-in"></x-icon></span>
+        <span class="pl-tile__body"><span class="link-tile__title">Pilotenportal</span><span class="link-tile__sub">Login pilots.flubag.ch</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="{{site.reservation}}" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/flubag-reservation" alt="Logo FLUBAG Reservation" sizes="56px"></x-img></span>
+        <span class="pl-tile__body"><span class="link-tile__title">Flugzeug Reservation</span><span class="link-tile__sub">FLUBAG Flotte</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="{{site.reservationHeli}}" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/airportheli-reservation" alt="Logo Airport Helicopter Reservation" sizes="56px"></x-img></span>
+        <span class="pl-tile__body"><span class="link-tile__title">Helikopter Reservation</span><span class="link-tile__sub">Airport Helicopter</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="dokumente.html#newsletter" data-reveal>
+        <span class="link-tile__logo"><x-icon name="newspaper"></x-icon></span>
+        <span class="pl-tile__body"><span class="link-tile__title">Newsletter</span><span class="link-tile__sub">Alle Ausgaben als PDF</span></span>
+        <x-icon name="arrow-right"></x-icon>
+      </a>
+      <a class="link-tile" href="webcams.html" data-reveal>
+        <span class="link-tile__logo"><x-icon name="camera"></x-icon></span>
+        <span class="pl-tile__body"><span class="link-tile__title">Webcams &amp; Wetter</span><span class="link-tile__sub">Live-Bilder vom Platz</span></span>
+        <x-icon name="arrow-right"></x-icon>
+      </a>
+      <a class="link-tile" href="briefing-links.html" data-reveal>
+        <span class="link-tile__logo"><x-icon name="compass"></x-icon></span>
+        <span class="pl-tile__body"><span class="link-tile__title">Briefing Links</span><span class="link-tile__sub">Homebriefing, Meteo, DABS</span></span>
+        <x-icon name="arrow-right"></x-icon>
+      </a>
+    </div>
+  </div>
+</section>

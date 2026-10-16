@@ -1,0 +1,163 @@
+<!--meta {
+  "title": "Checkflug 2026 und FLARM",
+  "description": "Kontrollformular für den jährlichen FLUBAG Check- und Trainingsflug 2026 und die Theorie zu FLARM, dem Kollisionswarnsystem der allgemeinen Luftfahrt, als PDF.",
+  "nav": "piloten",
+  "bodyClass": "no-cta",
+  "ogImage": "hero/slide-00",
+  "css": ["piloten"]
+} -->
+
+<section class="page-hero page-hero--chart page-hero--compact cf-hero">
+  <svg class="page-hero__deco cf-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <circle cx="200" cy="200" r="180" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="200" cy="200" r="120" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="200" cy="200" r="60" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+    <path d="M200 20 V380 M20 200 H380" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+    <g class="cf-deco__sweep"><path d="M200 200 L200 20 A180 180 0 0 1 327 73 Z" fill="currentColor" opacity="0.18"/></g>
+    <circle class="cf-deco__blip" cx="292" cy="128" r="7" fill="currentColor"/>
+    <circle class="cf-deco__blip cf-deco__blip--2" cx="118" cy="268" r="6" fill="currentColor"/>
+    <path d="M200 186 L206 204 L200 200 L194 204 Z" fill="currentColor"/>
+  </svg>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Checkflug 2026 und FLARM</li></ol>
+    <p class="eyebrow">Für FLUBAG Piloten</p>
+    <h1 data-split data-split-now>Checkflug 2026 und FLARM.</h1>
+    <p class="lead">Nachstehend sind das Kontrollformular für den jährlichen Checkflug sowie die Theorie zu den FLARM Geräten zu finden.</p>
+    <div class="page-hero__meta">
+      <span class="chip"><x-icon name="clipboard-check"></x-icon>Jährlicher Checkflug</span>
+      <span class="chip"><x-icon name="radar"></x-icon>Theorie FLARM</span>
+      <span class="chip chip--brand"><x-icon name="file-text"></x-icon>2 PDF</span>
+    </div>
+    <div class="row mt-s">
+      <!-- @each data.dokumente as d --><!-- @if d.title == "FLUBAG Check- und Trainingsflug 2026" -->
+      <a class="btn btn--primary btn--lg" href="{{d.url}}" target="_blank" rel="noopener" data-magnetic><x-icon name="download"></x-icon>Kontrollformular 2026</a>
+      <!-- @endif --><!-- @end -->
+      <a class="btn btn--ghost btn--lg" href="#flarm"><x-icon name="radar"></x-icon>Was ist FLARM?</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dokumente" aria-labelledby="doc-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Unterlagen</p>
+        <h2 id="doc-title" data-split>Zwei Dokumente für die Saison.</h2>
+      </div>
+      <p class="lead" data-reveal>Das Kontrollformular begleitet dich durch den jährlichen Check- und Trainingsflug. Die FLARM Theorie erklärt die Geräte in den Flugzeugen.</p>
+    </div>
+    <div class="grid grid-2 cf-docs" data-reveal-group="0.12">
+      <!-- @each data.dokumente as d --><!-- @if d.title == "FLUBAG Check- und Trainingsflug 2026" -->
+      <a class="cf-doc" href="{{d.url}}" target="_blank" rel="noopener" data-reveal data-tilt="4">
+        <span class="cf-doc__paper" aria-hidden="true">
+          <span class="cf-doc__brand">FLUBAG</span>
+          <span class="cf-doc__big">2026</span>
+          <span class="cf-doc__lines"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="cf-doc__checks"><i></i><i></i><i></i></span>
+        </span>
+        <span class="cf-doc__body">
+          <span class="cf-doc__kicker mono">PDF · Kontrollformular</span>
+          <span class="cf-doc__title">{{d.title}}</span>
+          <span class="cf-doc__text">Das Kontrollformular für den jährlichen Checkflug.</span>
+          <span class="btn btn--primary btn--sm cf-doc__btn"><x-icon name="download"></x-icon>PDF öffnen</span>
+        </span>
+      </a>
+      <!-- @endif --><!-- @end -->
+      <!-- @each data.dokumente as d --><!-- @if d.title == "Theorie FLARM" -->
+      <a class="cf-doc cf-doc--flarm" href="{{d.url}}" target="_blank" rel="noopener" data-reveal data-tilt="4">
+        <span class="cf-doc__paper" aria-hidden="true">
+          <span class="cf-doc__brand">FLARM</span>
+          <span class="cf-doc__radar"><i></i></span>
+          <span class="cf-doc__lines"><i></i><i></i><i></i></span>
+        </span>
+        <span class="cf-doc__body">
+          <span class="cf-doc__kicker mono">PDF · Familiarization Training</span>
+          <span class="cf-doc__title">{{d.title}}</span>
+          <span class="cf-doc__text">Die Theorie zu den FLARM Geräten.</span>
+          <span class="btn btn--primary btn--sm cf-doc__btn"><x-icon name="download"></x-icon>PDF öffnen</span>
+        </span>
+      </a>
+      <!-- @endif --><!-- @end -->
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="flarm" aria-labelledby="flarm-title">
+  <div class="container split split--wide-left">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Kurz erklärt</p>
+      <h2 id="flarm-title" data-split>Was ist FLARM?</h2>
+      <p class="lead" data-reveal>FLARM (von "Flight Alarm") ist ein Kollisionswarnsystem für die allgemeine Luftfahrt. Es wurde in der Schweiz entwickelt und ist besonders im Segelflug weit verbreitet.</p>
+      <ul class="cf-facts" data-reveal-group="0.08">
+        <li data-reveal><span class="cf-facts__n mono">01</span><div><h3>Senden</h3><p>Das Gerät bestimmt per GPS die eigene Position und Bewegung, berechnet daraus den voraussichtlichen Flugweg und sendet ihn per Funk an andere FLARM Geräte in der Nähe.</p></div></li>
+        <li data-reveal><span class="cf-facts__n mono">02</span><div><h3>Empfangen und vergleichen</h3><p>Gleichzeitig empfängt es die Flugwege der anderen Luftfahrzeuge und prüft laufend, ob eine Kollisionsgefahr besteht.</p></div></li>
+        <li data-reveal><span class="cf-facts__n mono">03</span><div><h3>Warnen</h3><p>Droht eine Annäherung, warnt FLARM optisch und akustisch und zeigt an, aus welcher Richtung der Verkehr kommt.</p></div></li>
+      </ul>
+      <div class="notice notice--warn" data-reveal>
+        <x-icon name="eye"></x-icon>
+        <div><p><strong>FLARM ersetzt den Blick nach draussen nicht.</strong></p><p>Es warnt nur vor Luftfahrzeugen, die selbst ein kompatibles Gerät an Bord haben. See and avoid gilt immer.</p></div>
+      </div>
+    </div>
+    <figure class="cf-radar-wrap" data-reveal="scale">
+      <div class="cf-radar instrument hud-corners" aria-hidden="true">
+        <div class="cf-radar__scope">
+          <span class="cf-radar__ring cf-radar__ring--1"></span>
+          <span class="cf-radar__ring cf-radar__ring--2"></span>
+          <span class="cf-radar__ring cf-radar__ring--3"></span>
+          <span class="cf-radar__sweep"></span>
+          <span class="cf-radar__own"><x-icon name="plane"></x-icon></span>
+          <span class="cf-radar__target cf-radar__target--a"><i></i></span>
+          <span class="cf-radar__target cf-radar__target--b"><i></i></span>
+          <span class="cf-radar__alert">Traffic</span>
+        </div>
+      </div>
+      <figcaption class="subtle">Schematische Darstellung: eigenes Flugzeug in der Mitte, anderer Verkehr als Punkte.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section" id="familiarization" aria-labelledby="fam-title">
+  <div class="container split split--top">
+    <div class="stack sticky">
+      <p class="eyebrow" data-reveal>Pilots Portal</p>
+      <h2 id="fam-title" data-split>Familiarization Trainings.</h2>
+      <p class="lead" data-reveal>Im Pilots Portal der FLUBAG liegen die Familiarization Trainings für FLARM und für alle Flugzeugtypen der Flotte.</p>
+      <div class="row" data-reveal>
+        <a class="btn btn--ghost" href="{{site.pilotsPortal}}familiarization" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>Pilots Portal öffnen</a>
+      </div>
+    </div>
+    <div class="stack-l">
+      <ul class="doc-list" data-reveal-group="0.05">
+        <!-- @each data.dokumente as d --><!-- @if d.title == "Familiarization FLARM" -->
+        <li data-reveal><a class="doc cf-doc-row cf-doc-row--hi" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="radar" class="doc__icon"></x-icon><span class="cf-doc-row__body"><span class="doc__title">Familiarization Training FLARM</span><span class="doc__meta">PDF · Pilots Portal</span></span><x-icon name="download" class="doc__go"></x-icon></a></li>
+        <!-- @endif --><!-- @end -->
+        <!-- @each data.dokumente as d --><!-- @if d.title == "FLARM Manual" -->
+        <li data-reveal><a class="doc cf-doc-row" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="book-open" class="doc__icon"></x-icon><span class="cf-doc-row__body"><span class="doc__title">FLARM Manual (Supplement AFM)</span><span class="doc__meta">PDF · Flughandbuch {{d.aircraft}}</span></span><x-icon name="download" class="doc__go"></x-icon></a></li>
+        <!-- @endif --><!-- @end -->
+      </ul>
+      <div class="stack">
+        <p class="readout__label" data-reveal>Weitere Familiarizations</p>
+        <ul class="doc-list cf-fam" data-reveal-group="0.05">
+          <!-- @each data.dokumente as d --><!-- @if d.group == "familiarization" --><!-- @if d.title != "Familiarization FLARM" -->
+          <li data-reveal><a class="doc cf-doc-row" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="plane" class="doc__icon"></x-icon><span class="cf-doc-row__body"><span class="doc__title">{{d.title}}</span><span class="doc__meta">PDF · Pilots Portal</span></span><x-icon name="download" class="doc__go"></x-icon></a></li>
+          <!-- @endif --><!-- @endif --><!-- @end -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--tight" aria-labelledby="mehr-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Weiterführend</p>
+      <h2 id="mehr-title" class="h3" data-split>Mehr für Piloten.</h2>
+    </div>
+    <div class="pl-related" data-reveal-group="0.06">
+      <a class="pl-link" href="flotte.html" data-reveal><x-icon name="plane" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Flotte</span><span class="pl-link__text">Flugzeuge, Handbücher, Checklisten</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="fluglehrer.html" data-reveal><x-icon name="users" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Fluglehrer</span><span class="pl-link__text">Das Team der Flugschule</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="{{site.reservation}}" target="_blank" rel="noopener" data-reveal><x-icon name="calendar" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Reservation</span><span class="pl-link__text">Flugzeug reservieren</span></span><x-icon name="arrow-up-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="safety-policy.html" data-reveal><x-icon name="shield-check" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Safety Policy</span><span class="pl-link__text">Sicherheit bei der FLUBAG</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+    </div>
+  </div>
+</section>

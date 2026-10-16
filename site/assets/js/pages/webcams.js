@@ -90,6 +90,7 @@
   F.listen('flubag:weather-error', function () {
     var t = F.$('[data-wc-wxtime]');
     if (t) t.textContent = 'Wetterdaten nicht erreichbar';
+    F.$$('[data-wc-gust], [data-wc-dew]').forEach(function (el) { if (el.textContent === '--') el.textContent = 'nicht verfügbar'; });
   });
 
   // ---------- Seitenwind-Rechner ----------

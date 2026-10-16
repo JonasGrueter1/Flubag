@@ -276,12 +276,6 @@
 .ausb-night:hover .tile__arrow { transform: rotate(-45deg); background: var(--brand); border-color: var(--brand); }
 .ausb-night::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(160, 190, 230, 0.16); }
 
-/* Workaround: 04-components.css macht .instrument.force-dark im hellen Modus weiss (Text bleibt hell). */
-[data-theme="light"] .page-ausbildung .instrument.force-dark {
-  background: linear-gradient(180deg, rgba(14, 24, 41, 0.97), rgba(9, 15, 29, 0.98));
-  color: #edf2fa; border-color: rgba(160, 190, 230, 0.16);
-}
-
 /* ---------- Feinschliff mobil ---------- */
 .ausb-share__head b { white-space: nowrap; }
 .ausb-glacier .tile__eyebrow, .ausb-glacier .tile__title, .ausb-glacier .tile__text { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.65); }

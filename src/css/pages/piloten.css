@@ -1,0 +1,149 @@
+/* Pilotenbereich (wird auch von airport-briefing, piste-33 und parkordnung mitgeladen: "css": ["piloten"]) */
+
+/* ---------- Hero Deko (Kompassrose mit Piste 15/33) ---------- */
+.pl-deco { color: #fff; opacity: 0.14; right: -6%; bottom: -24%; width: min(46vw, 620px); animation: pl-deco-spin 140s linear infinite; }
+@keyframes pl-deco-spin { to { transform: rotate(360deg); } }
+@media (max-width: 760px) { .pl-deco { width: 92vw; right: -38%; bottom: -30%; opacity: 0.1; } }
+
+.pl-copy { cursor: pointer; font: inherit; transition: border-color 0.2s, background-color 0.2s; }
+.pl-copy:hover { border-color: rgba(230, 50, 1, 0.55); background: rgba(230, 50, 1, 0.1); }
+.pl-copy .pl-copy__icon { opacity: 0.6; }
+
+/* ---------- Pilot News, Leerzustand ---------- */
+.pl-news { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(16px, 2vw, 28px); align-items: stretch; }
+.pl-empty { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 3vw, 40px); align-items: center; }
+.pl-empty__kicker { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.pl-empty__title { font-size: var(--fs-h3); font-family: var(--font-display); font-weight: 800; font-stretch: 110%; line-height: 1.05; }
+.pl-news__card .card__media { aspect-ratio: 16 / 9; }
+
+.pl-radar { position: relative; width: clamp(120px, 14vw, 168px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle, rgba(52, 211, 153, 0.1), transparent 70%); border: 1px solid var(--line-strong); overflow: hidden; }
+.pl-radar__ring { position: absolute; inset: 0; margin: auto; border-radius: 50%; border: 1px solid rgba(52, 211, 153, 0.28); }
+.pl-radar__ring:nth-child(1) { width: 33%; height: 33%; }
+.pl-radar__ring:nth-child(2) { width: 66%; height: 66%; }
+.pl-radar__ring:nth-child(3) { width: 100%; height: 100%; border-style: dashed; opacity: 0.6; }
+.pl-radar__sweep { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, rgba(52, 211, 153, 0.45), rgba(52, 211, 153, 0) 70deg, transparent 360deg); animation: pl-sweep 4s linear infinite; }
+.pl-radar .icon { position: relative; width: 30px; height: 30px; color: var(--ok); }
+@keyframes pl-sweep { to { transform: rotate(-360deg); } }
+.reduced-motion .pl-radar__sweep, .reduced-motion .pl-deco { animation: none; }
+@media (prefers-reduced-motion: reduce) { .pl-radar__sweep, .pl-deco { animation: none; } }
+
+/* ---------- Live-Cockpit ---------- */
+.pl-cockpit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 2vw, 24px); align-items: start; }
+.pl-cockpit__side { display: grid; gap: clamp(16px, 2vw, 24px); }
+.pl-card-week { grid-column: 1 / -1; }
+.pl-panel { padding: clamp(22px, 2.6vw, 34px); display: grid; gap: 22px; }
+.pl-panel__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.78rem; letter-spacing: 0.14em; }
+.pl-panel__status { display: inline-flex; align-items: center; gap: 8px; letter-spacing: 0; font-weight: 600; font-size: 0.9rem; }
+.pl-panel__wind { display: grid; gap: 10px; padding-bottom: 20px; border-bottom: 1px dashed rgba(160, 190, 230, 0.2); }
+.pl-panel__big { font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem); line-height: 1; letter-spacing: -0.02em; }
+.pl-panel__rwy { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; opacity: 0.85; }
+.pl-panel__rwy .icon { width: 18px; height: 18px; color: var(--brand-hi); flex: none; }
+.pl-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 20px; }
+.pl-panel__grid .readout__value { font-size: 1.1rem; }
+.pl-panel__grid .readout__value--text { font-family: var(--font-body); font-size: 0.98rem; font-weight: 600; }
+.pl-panel__foot { font-size: 0.78rem; opacity: 0.6; line-height: 1.5; }
+.pl-hazards { display: grid; gap: 10px; }
+.pl-hazard { text-decoration: none; color: inherit; font-size: 0.92rem; line-height: 1.45; transition: transform 0.3s var(--ease-out); }
+a.pl-hazard:hover { transform: translateX(4px); }
+.pl-hazard__more { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: var(--brand-hi); white-space: nowrap; }
+.pl-hazard__more .icon { width: 14px; height: 14px; }
+.pl-hazard--none { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 14px 18px; border-radius: var(--radius); border: 1px solid rgba(52, 211, 153, 0.3); background: rgba(52, 211, 153, 0.06); }
+.pl-hazard--none[hidden] { display: none; }
+.pl-hazard--none .icon { width: 20px; height: 20px; color: var(--ok); margin-top: 1px; }
+[data-theme="light"] .pl-panel__wind { border-bottom-color: var(--line); }
+[data-theme="light"] .pl-hazard__more { color: var(--brand-text); }
+.pl-week__note { font-size: 0.8rem; margin-top: 16px; }
+
+/* ---------- Pilotenseiten, gruppiert ---------- */
+.pl-search { display: grid; gap: 8px; }
+.pl-search__label { font-size: 0.82rem; color: var(--text-3); font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.pl-search__field { position: relative; }
+.pl-search__field > .icon { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--text-3); pointer-events: none; }
+.pl-search__field .input { padding-left: 46px; }
+.pl-groups { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); align-items: start; }
+.pl-group { display: grid; gap: 14px; }
+.pl-group[hidden] { display: none; }
+.pl-group__head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line-strong); }
+.pl-group__num { color: var(--brand-text); font-size: 0.8rem; letter-spacing: 0.1em; }
+.pl-group__title { font-size: var(--fs-h4); font-family: var(--font-display); font-weight: 750; }
+.pl-links { list-style: none; padding: 0; display: grid; gap: 10px; }
+.pl-links li[hidden] { display: none; }
+.pl-link {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 16px; min-height: 92px;
+  border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: inherit;
+  transition: border-color 0.25s, transform 0.35s var(--ease-out), background-color 0.25s, box-shadow 0.35s;
+}
+.pl-link:hover, .pl-link:focus-visible { border-color: rgba(230, 50, 1, 0.45); transform: translateY(-3px); box-shadow: var(--shadow-s); }
+.pl-link__icon { width: 44px; height: 44px; padding: 11px; border-radius: 13px; background: rgba(230, 50, 1, 0.1); color: var(--brand-text); border: 1px solid rgba(230, 50, 1, 0.22); transition: background-color 0.25s, color 0.25s; }
+.pl-link:hover .pl-link__icon { background: var(--brand); color: #fff; }
+.pl-link__body { display: grid; gap: 3px; min-width: 0; }
+.pl-link__title { font-weight: 650; line-height: 1.25; }
+.pl-link__text { font-size: 0.84rem; color: var(--text-3); line-height: 1.4; }
+.pl-link__go { width: 16px; height: 16px; color: var(--text-3); transition: transform 0.3s var(--ease-out), color 0.2s; }
+.pl-link:hover .pl-link__go { color: var(--brand-text); transform: translateX(3px); }
+.pl-link mark { background: rgba(230, 50, 1, 0.22); color: inherit; border-radius: 3px; padding: 0 2px; }
+.pl-noresult { margin-top: 20px; }
+
+/* ---------- Platzdaten ---------- */
+.pl-specs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pl-freq { display: grid; gap: 8px; justify-items: start; padding: clamp(26px, 3vw, 40px); }
+.pl-freq__value { font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.4rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--brand-hi); }
+[data-theme="light"] .pl-freq__value { color: var(--brand-text); }
+.pl-freq__sub { opacity: 0.7; margin-bottom: 8px; }
+.pl-freq__rule { width: 100%; height: 1px; background: rgba(160, 190, 230, 0.2); margin: 18px 0 10px; }
+[data-theme="light"] .pl-freq__rule { background: var(--line); }
+.pl-freq__coord { font-size: 1.05rem; }
+.pl-freq__copy { padding-left: 0; }
+
+/* ---------- Gemeinsam für die Pilotenseiten ---------- */
+.section-head--split > * { min-width: 0; }
+.pl-chip-wrap { white-space: normal; text-align: left; }
+.pl-figure { display: grid; gap: 10px; margin: 0; }
+.pl-figure__link { position: relative; display: block; border-radius: var(--radius-l); overflow: hidden; border: 1px solid var(--line); background: #fff; cursor: zoom-in; }
+.pl-figure__link img { width: 100%; height: auto; display: block; transition: transform 0.8s var(--ease-out); }
+.pl-figure__link:hover img { transform: scale(1.025); }
+.pl-figure__zoom { position: absolute; right: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: var(--radius-pill); background: rgba(6, 11, 22, 0.78); color: #fff; font-size: 0.78rem; font-weight: 600; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); pointer-events: none; }
+.pl-figure__zoom .icon { width: 14px; height: 14px; }
+.pl-figure figcaption { font-size: 0.85rem; color: var(--text-3); line-height: 1.5; }
+
+.pl-rules { list-style: none; padding: 0; display: grid; gap: 12px; counter-reset: rule; }
+.pl-rules > li { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; padding: 16px 18px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); counter-increment: rule; }
+.pl-rules > li::before { content: counter(rule, decimal-leading-zero); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; color: var(--brand-text); background: rgba(230, 50, 1, 0.1); border: 1px solid rgba(230, 50, 1, 0.22); }
+.pl-rules > li > div { padding-top: 8px; }
+.pl-rules strong { color: var(--text); }
+.pl-rules--warn > li.is-warn { border-color: rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.06); }
+.pl-rules--warn > li.is-warn::before { color: var(--bad); background: rgba(248, 113, 113, 0.12); border-color: rgba(248, 113, 113, 0.35); }
+
+.pl-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pl-tile__body { display: grid; gap: 2px; min-width: 0; }
+.pl-related { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+
+@media (max-width: 1100px) {
+  .pl-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .pl-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pl-cockpit { grid-template-columns: minmax(0, 1fr); }
+  .pl-news { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .pl-groups { grid-template-columns: minmax(0, 1fr); }
+  .pl-empty { grid-template-columns: 1fr; justify-items: start; }
+  .pl-radar { width: 110px; }
+  .pl-panel__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pl-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pl-link { min-height: 0; }
+  .pl-tiles { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .pl-card-week .hours-day, .pl-card-week .hours-axis { grid-template-columns: 76px 1fr; gap: 10px; }
+  .pl-card-week .hours-day__name { white-space: nowrap; }
+}
+
+/* Heller Modus: Signalfarben auf hellem Grund kräftiger (lokal für die Pilotenseiten) */
+.page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }
+[data-theme="light"] .chip--warn:not(.page-hero *) { color: #92400e; border-color: rgba(180, 83, 9, 0.4); background: rgba(251, 191, 36, 0.1); }
+[data-theme="light"] .chip--bad:not(.page-hero *) { color: #b91c1c; border-color: rgba(185, 28, 28, 0.35); }
+[data-theme="light"] .pl-rules--warn > li.is-warn::before { color: #b91c1c; }
+[data-theme="light"] .po-summary .mono { color: #047857; }
+[data-theme="light"] .pl-hazard--none .icon, [data-theme="light"] .pl-radar .icon { color: #059669; }

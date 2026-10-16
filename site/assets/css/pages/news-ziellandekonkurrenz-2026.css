@@ -82,3 +82,6 @@
   .podium { gap: 8px; }
   .spot-game__field { height: 150px; }
 }
+
+/* Podest steht auf einer Grundlinie */
+.podium::after { content: ""; grid-column: 1 / -1; height: 3px; margin-top: calc(-1 * clamp(10px, 2vw, 24px)); border-radius: 3px; background: linear-gradient(90deg, transparent, var(--line-strong) 15%, var(--line-strong) 85%, transparent); }

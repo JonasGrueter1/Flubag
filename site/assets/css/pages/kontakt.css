@@ -66,3 +66,10 @@ a.contact-card__value:hover { color: var(--brand-text); }
 @media (max-width: 640px) {
   .contact-cards, .contact-live { grid-template-columns: 1fr; }
 }
+
+/* Hero: Text liegt über den Personen, Verlauf links kräftiger für bessere Lesbarkeit */
+.contact-hero::after {
+  background:
+    linear-gradient(180deg, rgba(6, 11, 22, 0.55) 0%, rgba(6, 11, 22, 0.12) 35%, rgba(6, 11, 22, 0.9) 100%),
+    linear-gradient(90deg, rgba(6, 11, 22, 0.86) 0%, rgba(6, 11, 22, 0.5) 45%, transparent 78%);
+}

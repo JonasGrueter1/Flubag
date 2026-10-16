@@ -1,0 +1,206 @@
+<!--meta {
+  "title": "Zollanmeldung",
+  "description": "Zollanmeldung in Luzern-Beromünster (LSZO): Personenzoll für Direktflüge in den und aus dem Schengen-Raum. Ablauf in 7 Schritten, Frist 2 Stunden, Gebühr CHF 30.",
+  "nav": "piloten",
+  "bodyClass": "no-cta",
+  "ogImage": "hero/slide-00",
+  "css": ["piloten"]
+} -->
+
+<section class="page-hero page-hero--chart page-hero--compact zl-hero">
+  <svg class="page-hero__deco zl-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <defs><path id="zl-ring" d="M200 200 m-138 0 a138 138 0 1 1 276 0 a138 138 0 1 1 -276 0"/></defs>
+    <g class="zl-deco__stamp">
+      <circle cx="200" cy="200" r="176" fill="none" stroke="currentColor" stroke-width="8"/>
+      <circle cx="200" cy="200" r="112" fill="none" stroke="currentColor" stroke-width="3"/>
+      <text font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" letter-spacing="7" fill="currentColor"><textPath href="#zl-ring">PERSONENZOLL · LUZERN-BEROMÜNSTER · </textPath></text>
+      <text x="200" y="196" text-anchor="middle" font-family="Archivo, sans-serif" font-size="64" font-weight="800" fill="currentColor">LSZO</text>
+      <text x="200" y="240" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" letter-spacing="6" fill="currentColor">SCHENGEN</text>
+    </g>
+  </svg>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Zollanmeldung</li></ol>
+    <p class="eyebrow">Personenzoll LSZO</p>
+    <h1 data-split data-split-now>Zollanmeldung.</h1>
+    <p class="lead">Direkt ins Ausland oder direkt aus dem Ausland nach Beromünster: Die Flubag kann Personenabfertigungen für Flüge in den und aus dem Schengen-Raum bewilligen. So läuft die Anmeldung.</p>
+    <div class="page-hero__meta">
+      <span class="chip"><x-icon name="users"></x-icon>Nur Personenzoll</span>
+      <span class="chip chip--warn"><x-icon name="timer"></x-icon>2 Stunden vorher</span>
+      <span class="chip chip--brand"><x-icon name="receipt"></x-icon>CHF 30 pro Flugzeug</span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="{{site.customs}}" target="_blank" rel="noopener" data-magnetic><x-icon name="file-text"></x-icon>Zum Zollformular</a>
+      <a class="btn btn--ghost btn--lg" href="#helfer"><x-icon name="calculator"></x-icon>Frist berechnen</a>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Abschnitte der Zollanmeldung">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#allgemeines">Allgemeines</a></li>
+      <li><a href="#helfer">Frist berechnen</a></li>
+      <li><a href="#vorgehen">Vorgehen in 7 Schritten</a></li>
+      <li><a href="#gebuehr">Gebühr</a></li>
+      <li><a href="#unterhalt">Unterhaltsarbeiten</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section" id="allgemeines" aria-labelledby="allg-title">
+  <div class="container split split--wide-left split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Allgemeines</p>
+        <h2 id="allg-title" data-split>Zoll am Graspisten-Flugplatz.</h2>
+        <p class="lead" data-reveal>Im Rahmen einer Vereinbarung der Oberzolldirektion verfügt die Flubag Flugbetriebs AG über die Kompetenz, auf dem Flugplatz Luzern-Beromünster <em>Personenabfertigungen</em> für Direktflüge ins Ausland (Ausflug-Zoll in den Schengen-Raum) bzw. für Direktflüge aus dem Ausland (Einflug-Zoll aus dem Schengen-Raum) zu bewilligen.</p>
+        <p data-reveal>In diesem Zusammenhang wird das Vorgehen für die Zollabfertigung wie folgt geregelt.</p>
+      </div>
+      <div class="grid grid-2 zl-facts" data-reveal-group="0.1">
+        <div class="notice notice--warn" data-reveal><x-icon name="users"></x-icon><div><p><strong>Nur Personenzoll ist möglich.</strong></p><p>Verzollungen von Unterhaltsarbeiten etc. nur über einen <a class="brand-text" href="#unterhalt">Zollflugplatz</a> (Altenrhein, Bern, Basel).</p></div></div>
+        <div class="notice" data-reveal><x-icon name="building-2"></x-icon><div><p><strong>Ausgefüllte Zollanmeldungen werden nur an das C-Büro geleitet</strong> und werden dann vom Büro an das Zollamt weitergeleitet.</p></div></div>
+      </div>
+      <div class="zl-route" data-reveal aria-label="Weg der Zollanmeldung">
+        <div class="zl-route__node"><x-icon name="user"></x-icon><strong>Pilot</strong><span>füllt die Zollanmeldung aus</span></div>
+        <span class="zl-route__line" aria-hidden="true"></span>
+        <div class="zl-route__node"><x-icon name="building-2"></x-icon><strong>C-Büro</strong><span>prüft und verifiziert</span></div>
+        <span class="zl-route__line" aria-hidden="true"></span>
+        <div class="zl-route__node"><x-icon name="shield-check"></x-icon><strong>Zoll und Polizei</strong><span>Anmeldung aktiviert</span></div>
+      </div>
+    </div>
+
+    <aside class="zl-contact card card--glow" data-reveal="scale" aria-labelledby="zl-contact-title">
+      <div class="zl-contact__photo"><x-img src="team/patrizia-wandeler" alt="Patrizia Wandeler, Administration und Stv. Flugplatzleitung" sizes="(max-width: 860px) 40vw, 160px"></x-img></div>
+      <div class="zl-contact__body">
+        <p class="eyebrow eyebrow--plain">Wichtig: Anmeldung oder Änderung</p>
+        <h3 id="zl-contact-title">Bitte immer Patrizia Wandeler anrufen.</h3>
+        <div class="zl-contact__tel">
+          <a class="btn btn--primary btn--block" href="tel:0419301866"><x-icon name="phone"></x-icon>041 930 18 66</a>
+          <a class="btn btn--ghost btn--block" href="tel:0793254129"><x-icon name="smartphone"></x-icon>079 325 41 29</a>
+        </div>
+        <p class="subtle">Ist das Büro nicht besetzt, gilt die Mobilnummer.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="helfer" aria-labelledby="helfer-title">
+  <div class="container split split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Zeit-Helfer</p>
+        <h2 id="helfer-title" data-split>Bis wann muss die Anmeldung raus?</h2>
+        <p class="lead" data-reveal>Die Zollanmeldung muss 2 Stunden vor dem geplanten Start bzw. 2 Stunden vor der geplanten Landung in Beromünster komplett ausgefüllt abgeschickt sein. Gib deine geplante Zeit ein, der Helfer rechnet die Frist aus.</p>
+      </div>
+      <form class="form form-panel zl-form" data-zl-form novalidate>
+        <fieldset class="field">
+          <legend class="field__label">Was ist geplant?</legend>
+          <div class="segmented" role="radiogroup">
+            <label><input type="radio" name="art" value="abflug" checked><span>Abflug ab Beromünster</span></label>
+            <label><input type="radio" name="art" value="landung"><span>Landung in Beromünster</span></label>
+          </div>
+        </fieldset>
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="zl-date">Datum</label>
+            <input class="input" type="date" id="zl-date" name="datum" required>
+          </div>
+          <div class="field">
+            <label class="field__label" for="zl-time"><span data-zl-time-label>Geplante Abflugzeit</span> (Lokalzeit)</label>
+            <input class="input" type="time" id="zl-time" name="zeit" step="300" required>
+          </div>
+        </div>
+        <p class="field__help">Die Berechnung läuft nur in deinem Browser. Es wird nichts gesendet.</p>
+      </form>
+    </div>
+
+    <div class="zl-out instrument hud-corners" data-zl-out aria-live="polite" data-reveal="scale">
+      <span class="readout__label">Zollanmeldung spätestens abschicken bis</span>
+      <div class="zl-out__time"><strong class="mono" data-zl-deadline>--:--</strong><span>Uhr</span></div>
+      <p class="zl-out__date" data-zl-date>Datum und Zeit eingeben</p>
+      <div class="zl-out__count" data-zl-count hidden></div>
+      <ol class="zl-out__todo">
+        <li><span class="zl-out__n">1</span><div><strong>Zollanmeldung komplett ausfüllen und abschicken</strong><a class="btn btn--light btn--sm" href="{{site.customs}}" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>customsmanager.ch/lszo</a></div></li>
+        <li><span class="zl-out__n">2</span><div><strong>Direkt anschliessend persönlich anrufen</strong><span class="zl-out__tel"><a href="tel:+41419301866">+41 41 930 18 66</a> <span>oder, wenn das Büro nicht besetzt ist,</span> <a href="tel:+41793254129">+41 79 325 41 29</a></span></div></li>
+      </ol>
+      <div class="zl-out__hint" data-zl-hint hidden></div>
+      <div class="row">
+        <button class="btn btn--ghost btn--sm zl-out__ics" type="button" data-zl-ics disabled><x-icon name="calendar-plus"></x-icon>Erinnerung in den Kalender</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="vorgehen" aria-labelledby="vorgehen-title">
+  <div class="container split split--top">
+    <div class="stack sticky">
+      <p class="eyebrow" data-reveal>Vorgehen</p>
+      <h2 id="vorgehen-title" data-split>In sieben Schritten zur Abfertigung.</h2>
+      <p class="lead" data-reveal>Erst mit dem OK des Betriebsleiters bzw. Flugdienstleiters und seiner Weiterleitung an die Zoll- und Polizeiorgane wird die Zollanmeldung aktiviert.</p>
+      <div class="row" data-reveal>
+        <a class="btn btn--primary" href="{{site.customs}}" target="_blank" rel="noopener"><x-icon name="file-text"></x-icon>Zum Zollformular</a>
+        <a class="btn btn--ghost" href="tel:+41419301866"><x-icon name="phone"></x-icon>+41 41 930 18 66</a>
+      </div>
+    </div>
+    <ol class="steps zl-steps" data-steps>
+      <li class="step"><span class="step__num">01</span><div class="step__body"><h3 class="step__title">Anmelden: 2 Stunden vorher</h3><p><strong>2 Stunden vor dem geplanten Start</strong> in Beromünster und <strong>2 Stunden vor der geplanten Landung</strong> in Beromünster muss der verantwortliche Pilot die <a class="brand-text" href="{{site.customs}}" target="_blank" rel="noopener">Zollanmeldung</a> komplett ausfüllen und abschicken.</p><p class="zl-steps__note"><x-icon name="wrench"></x-icon>Verzollungen von Unterhaltsarbeiten etc. nur über Zollflugplatz möglich (Altenrhein, Bern, Basel).</p></div></li>
+      <li class="step"><span class="step__num">02</span><div class="step__body"><h3 class="step__title">Sofort anrufen</h3><p>In jedem Fall ruft der Pilot direkt anschliessend persönlich unter der Telefonnummer <a class="brand-text" href="tel:+41419301866">+41 41 930 18 66</a> (wenn Büro nicht besetzt auf <a class="brand-text" href="tel:+41793254129">+41 79 325 41 29</a>) den Betriebsleiter/Flugdienstleiter auf dem Flugplatz an. Er erkundigt sich über die Verhältnisse auf dem Platz und weist auf das Vorliegen seiner Zollanmeldung hin.</p></div></li>
+      <li class="step"><span class="step__num">03</span><div class="step__body"><h3 class="step__title">Prüfung und Aktivierung</h3><p>Der Betriebsleiter/Flugdienstleiter überprüft das Eintreffen der Zollanmeldung, verifiziert diese und leitet sie umgehend an die Zoll- und Polizeiorgane weiter. Erst mit dem OK des Betriebsleiters/Flugdienstleiters und seiner Weiterleitung an die Zoll- und Polizeiorgane wird die Zollanmeldung aktiviert.</p></div></li>
+      <li class="step"><span class="step__num">04</span><div class="step__body"><h3 class="step__title">Vorschriften einhalten</h3><p>Der verantwortliche Pilot verpflichtet sich, die auf der Anmeldung ersichtlichen Zoll- und Polizeivorschriften strikte einzuhalten sowie Crew und Passagiere über diese in Kenntnis zu setzen. Den Anordnungen der Flugplatz- und Polizeiorgane ist in jedem Fall Folge zu leisten.</p></div></li>
+      <li class="step"><span class="step__num">05</span><div class="step__body"><h3 class="step__title">Zeiten einhalten, Verspätung melden</h3><p>Die gemeldete Start- bzw. Landezeit ist nach Möglichkeit einzuhalten. Ein vorzeitiger Abflug ist ausgeschlossen. Der verantwortliche Pilot meldet eine grössere Start- bzw. Landeverzögerung (&gt;30 Min) oder Flugstornierung möglichst frühzeitig dem Betriebsleiter/Flugdienstleiter, welcher die Änderung umgehend per Mail (in dringenden Fällen zusätzlich per Telefon) an die Zoll- und Polizeiorgane übermittelt.</p></div></li>
+      <li class="step"><span class="step__num">06</span><div class="step__body"><h3 class="step__title">Vorzeitige Landung</h3><p>Bei vorzeitiger Landung aus dem Ausland müssen Pilot und Passagiere ihr Gepäck vorerst im Flugzeug belassen und begeben sich auf direktem Weg ins C-Büro, um dort eine allfällige Kontrolle abzuwarten, zumindest so lange, bis die gemeldete Landezeit abgelaufen ist.</p></div></li>
+      <li class="step"><span class="step__num">07</span><div class="step__body"><h3 class="step__title">Gebühr</h3><p>Für die Umtriebe im Zusammenhang mit der Zollabfertigung wird eine separate Gebühr von CHF 30 pro Flugzeug erhoben (Abflug und/oder Eingang).</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--alt section--chart" id="gebuehr" aria-labelledby="gebuehr-title">
+  <div class="container split split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Gebühr</p>
+        <h2 id="gebuehr-title" data-split>Eine Pauschale pro Flugzeug.</h2>
+      </div>
+      <div class="zl-fee instrument hud-corners" data-reveal="scale">
+        <span class="readout__label">Zollabfertigung</span>
+        <div class="zl-fee__value"><small>CHF</small><span data-count="30">30</span></div>
+        <p>pro Flugzeug, Abflug und/oder Eingang. Separate Gebühr für die Umtriebe im Zusammenhang mit der Zollabfertigung.</p>
+      </div>
+      <a class="btn btn--text" href="preise.html" data-reveal>Alle Preise und Gebühren <x-icon name="arrow-right"></x-icon></a>
+    </div>
+
+    <div class="stack-l" id="unterhalt">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Unterhaltsarbeiten</p>
+        <h2 class="h3" data-split>Verzollung von Unterhaltsarbeiten nur über einen Zollflugplatz.</h2>
+        <p class="muted" data-reveal>In Beromünster ist nur Personenzoll möglich. Verzollungen von Unterhaltsarbeiten etc. sind nur über einen Zollflugplatz möglich:</p>
+      </div>
+      <div class="zl-airports" data-reveal-group="0.08">
+        <div class="zl-airport" data-reveal><span class="zl-airport__code mono">LSZR</span><strong>Altenrhein</strong><span>St. Gallen-Altenrhein</span></div>
+        <div class="zl-airport" data-reveal><span class="zl-airport__code mono">LSZB</span><strong>Bern</strong><span>Bern-Belp</span></div>
+        <div class="zl-airport" data-reveal><span class="zl-airport__code mono">LFSB</span><strong>Basel</strong><span>EuroAirport Basel-Mulhouse</span></div>
+      </div>
+      <ul class="doc-list" data-reveal>
+        <!-- @each data.dokumente as d --><!-- @if d.title == "Checkliste für Auslandflüge" -->
+        <li><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="file-text" class="doc__icon"></x-icon><span class="zl-doc"><span class="doc__title">{{d.title}}</span><span class="doc__meta">PDF · Flugvorbereitung</span></span><x-icon name="download" class="doc__go"></x-icon></a></li>
+        <!-- @endif --><!-- @end -->
+        <li><a class="doc" href="{{site.customs}}" target="_blank" rel="noopener"><x-icon name="globe" class="doc__icon"></x-icon><span class="zl-doc"><span class="doc__title">Zollformular LSZO</span><span class="doc__meta">customsmanager.ch</span></span><x-icon name="external-link" class="doc__go"></x-icon></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="mehr-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Weiterführend</p>
+      <h2 id="mehr-title" class="h3" data-split>Mehr für Piloten.</h2>
+    </div>
+    <div class="pl-related" data-reveal-group="0.06">
+      <a class="pl-link" href="weisungen.html" data-reveal><x-icon name="scale" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Weisung Piloten 2026</span><span class="pl-link__text">Betriebszeiten und Feiertage</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="airport-briefing.html" data-reveal><x-icon name="book-open" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Airport Briefing</span><span class="pl-link__text">Vor dem Anflug lesen</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="anreise.html" data-reveal><x-icon name="map-pin" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Anreise</span><span class="pl-link__text">Mit dem Flugzeug nach LSZO</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="preise.html" data-reveal><x-icon name="receipt" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Preise</span><span class="pl-link__text">Landetaxen und Gebühren</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+    </div>
+  </div>
+</section>

@@ -87,3 +87,6 @@
 @keyframes an-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .an-resto__badge, .an-resto__badge .icon, .an-resto__badge .mono { animation: none; } }
 @media (max-width: 760px) { .an-resto { grid-template-columns: 1fr; } .an-resto__badge { display: none; } }
+
+/* Telefonnummern im Fliesstext nicht mitten in der Nummer umbrechen */
+.an-fly .step__body a[href^="tel:"] { white-space: nowrap; }

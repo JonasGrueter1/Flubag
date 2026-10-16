@@ -1,0 +1,55 @@
+/* Parkordnung */
+.po-deco { color: #fff; opacity: 0.1; right: 3%; bottom: 8%; width: min(34vw, 460px); }
+@media (max-width: 760px) { .po-deco { right: -30%; width: 80vw; bottom: -6%; opacity: 0.07; } }
+
+.po-plan .pl-figure__link { box-shadow: var(--shadow); }
+
+/* Parkfeld-Check */
+.po-checker { display: grid; gap: 22px; }
+.po-checker__title { font-size: var(--fs-h3); font-family: var(--font-display); font-weight: 800; font-stretch: 108%; line-height: 1.1; }
+.po-controls { display: grid; gap: 16px; padding: 18px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--line); }
+.po-switch { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; cursor: pointer; }
+.po-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.po-switch__track { position: relative; width: 52px; height: 30px; border-radius: 999px; background: var(--surface-3); border: 1px solid var(--line-strong); transition: background-color 0.3s; }
+.po-switch__track span { position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35); transition: transform 0.35s var(--ease-spring); }
+.po-switch input:checked + .po-switch__track { background: var(--warn); border-color: var(--warn); }
+.po-switch input:checked + .po-switch__track span { transform: translateX(22px); }
+.po-switch input:focus-visible + .po-switch__track { outline: 2px solid var(--sky); outline-offset: 2px; }
+.po-switch__text { display: grid; gap: 2px; }
+.po-switch__text small { color: var(--text-3); font-size: 0.8rem; }
+.po-type { display: grid; gap: 8px; }
+.po-type__label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.po-type .segmented span { padding: 8px 14px; font-size: 0.85rem; }
+
+.po-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.po-spot { position: relative; display: grid; place-items: center; gap: 2px; aspect-ratio: 1 / 1.15; border-radius: 12px; border: 1.5px solid rgba(52, 211, 153, 0.5); background: rgba(52, 211, 153, 0.1); transition: background-color 0.35s, border-color 0.35s, transform 0.35s var(--ease-spring); }
+.po-spot__num { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.1rem, 0.9rem + 0.7vw, 1.5rem); line-height: 1; }
+.po-spot .icon { width: 14px; height: 14px; color: var(--ok); }
+.po-spot.is-blocked { border-color: rgba(248, 113, 113, 0.55); background: rgba(248, 113, 113, 0.1); border-style: dashed; }
+.po-spot.is-blocked .po-spot__num { color: var(--text-3); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--bad); }
+.po-spot.is-blocked .icon { color: var(--bad); }
+.po-spot.is-changed { animation: po-pop 0.45s var(--ease-spring); }
+@keyframes po-pop { 40% { transform: scale(0.88); } }
+.po-summary { font-weight: 600; color: var(--text); }
+.po-summary .mono { color: var(--ok); }
+.po-notes { list-style: none; padding: 0; display: grid; gap: 8px; }
+.po-notes li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.9rem; color: var(--text-2); }
+.po-notes .icon { width: 16px; height: 16px; margin-top: 3px; color: var(--warn); }
+.po-disclaimer { font-size: 0.78rem; }
+
+/* Hangarieren */
+.po-hangar__media { position: relative; }
+.po-hangar__badge { position: absolute; right: -18px; bottom: 28px; display: grid; gap: 4px; padding: 18px 22px; }
+.po-hangar__value { font-family: var(--font-display); font-weight: 850; font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem); line-height: 1; color: var(--brand-hi); }
+[data-theme="light"] .po-hangar__value { color: var(--brand-text); }
+
+@media (max-width: 860px) {
+  .po-checker.sticky { position: static; }
+  .po-hangar__badge { right: 12px; bottom: 12px; }
+}
+@media (max-width: 520px) {
+  .po-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .po-type .segmented { display: grid; grid-template-columns: 1fr; border-radius: var(--radius); }
+  .po-type .segmented span { text-align: center; }
+}
+.reduced-motion .po-spot.is-changed { animation: none; }

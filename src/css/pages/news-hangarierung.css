@@ -46,3 +46,9 @@
 
 .link-tile__logo .icon { color: #0b1426; }
 .hangar-links { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+
+/* Handy: Beschriftungen in der Skizze lesbar halten (SVG wird stark verkleinert) */
+@media (max-width: 640px) {
+  .door-check__label { font-size: 17px; letter-spacing: 0.02em; }
+  .door-check__label--zone { font-size: 15px; }
+}

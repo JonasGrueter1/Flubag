@@ -53,3 +53,10 @@
   .ppl-path { grid-template-columns: 1fr; }
   .ppl-card__stamp { font-size: 1.1rem; }
 }
+
+/* Hero: Ronnie und die Expertin sollen rechts neben dem Text sichtbar bleiben */
+@media (min-width: 861px) {
+  .ppl-hero .page-hero__media img { width: 118%; max-width: none; margin-left: -1%; object-position: 50% 64%; }
+  .ppl-hero.article-hero .page-hero__inner > h1 { max-width: 7em; }
+  .ppl-hero.article-hero .page-hero__inner > .lead { max-width: 38ch; }
+}
