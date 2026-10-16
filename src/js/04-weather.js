@@ -88,6 +88,7 @@
           // Notlösung: lieber ein älteres Wetter zeigen (mit Zeitstempel im Cache) als gar keins
           if (cached && cached.raw) { self.set(cached.raw); return; }
           F.$$('[data-wx-field]').forEach(function (el) { if (el.textContent === '--') el.textContent = 'nicht verfügbar'; });
+          document.documentElement.classList.add('wx-error');
           F.emit('flubag:weather-error');
         });
     },

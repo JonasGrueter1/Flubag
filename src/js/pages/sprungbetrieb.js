@@ -31,6 +31,7 @@
     var on = s.getAttribute('data-lamp') === 'on';
     var free = s.getAttribute('data-rwy') === 'Frei';
     clock.textContent = s.getAttribute('data-clock');
+    clock.classList.toggle('is-text', clock.textContent.charAt(0) !== 'T');
     lamp.classList.toggle('is-on', on);
     lampText.textContent = on ? 'EIN' : 'AUS';
     rwy.classList.toggle('is-closed', !free);

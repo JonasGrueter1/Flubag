@@ -486,6 +486,7 @@
           // Notlösung: lieber ein älteres Wetter zeigen (mit Zeitstempel im Cache) als gar keins
           if (cached && cached.raw) { self.set(cached.raw); return; }
           F.$$('[data-wx-field]').forEach(function (el) { if (el.textContent === '--') el.textContent = 'nicht verfügbar'; });
+          document.documentElement.classList.add('wx-error');
           F.emit('flubag:weather-error');
         });
     },
@@ -669,6 +670,7 @@
     min: 'Der Wert ist zu klein.',
     max: 'Der Wert ist zu gross.',
     date: 'Bitte wähle ein Datum in der Zukunft.',
+    datePast: 'Das Datum darf nicht in der Zukunft liegen.',
     check: 'Bitte bestätigen.',
     choice: 'Bitte wähle eine Option.'
   };
@@ -700,6 +702,7 @@
     else if (v && input.type === 'number' && input.min !== '' && +v < +input.min) msg = MSG.min;
     else if (v && input.type === 'number' && input.max !== '' && +v > +input.max) msg = MSG.max;
     else if (v && input.type === 'date' && input.min && v < input.min) msg = MSG.date;
+    else if (v && input.type === 'date' && input.max && v > input.max) msg = MSG.datePast;
     setError(input, msg);
     return !msg;
   }
@@ -818,6 +821,7 @@
       F.$$('form[data-form]').forEach(function (form) {
         form.setAttribute('novalidate', '');
         F.$$('input[type="date"][data-future]', form).forEach(function (d) { d.min = today; });
+        F.$$('input[type="date"][data-past]', form).forEach(function (d) { var n = new Date(); d.max = n.getFullYear() + '-' + F.pad(n.getMonth() + 1) + '-' + F.pad(n.getDate()); });
         var t = form.querySelector('input[name="_t"]');
         if (t) t.value = String(Date.now());
         form.addEventListener('blur', function (e) { if (e.target.matches('input, select, textarea') && e.target.value) validateInput(e.target); }, true);

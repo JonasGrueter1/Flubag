@@ -162,7 +162,7 @@
   .pr-feelist--cols { grid-template-columns: 1fr; }
   .pr-feelist--cols > div { display: flex; border-top: 0; border-bottom: 1px dashed var(--line-strong); }
   .pr-feelist--cols > div:last-child { border-bottom: 0; }
-  .pr-feelist--cols dd { text-align: right; font-size: 1rem; }
+  .pr-feelist--cols dd { text-align: right; font-size: 1rem; white-space: nowrap; }
 }
 @media (max-width: 640px) {
   .pr-rates, .pr-fees { grid-template-columns: 1fr; }
@@ -179,6 +179,7 @@
 @media (max-width: 420px) {
   .pr-picks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pr-calc__row { flex-direction: column; align-items: stretch; }
+  .pr-calc__lt { flex: none; }
   .pr-stepper { align-self: flex-start; }
 }
 .pr-calc__group .segmented { justify-self: start; }

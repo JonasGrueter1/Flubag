@@ -88,6 +88,7 @@
 .sb-sim.is-playing .sb-play .sb-play__off { display: inline-block; }
 .sb-sim__clock { display: grid; gap: 4px; }
 .sb-sim__clock strong { font-size: clamp(2.2rem, 1.6rem + 2vw, 3rem); line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.sb-sim__clock strong.is-text { font-size: clamp(1.5rem, 1.2rem + 0.8vw, 1.9rem); line-height: 1.15; letter-spacing: 0; min-height: 1.15em; }
 .sb-sim__state { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .sb-sim__state > div { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius-s); border: 1px solid rgba(127, 150, 190, 0.22); transition: border-color 0.3s, background-color 0.3s; }
 .sb-sim__state b { display: block; font-family: var(--font-mono); font-size: 1rem; }

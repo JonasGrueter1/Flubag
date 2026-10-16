@@ -163,10 +163,10 @@
   .wz-table tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
   .wz-table tr:last-child { border-bottom: 0; }
   .wz-table td { padding: 0; border: 0; }
-  .wz-table td:nth-child(2) { grid-column: 1; grid-row: 1; }
-  .wz-table td:nth-child(4) { grid-column: 2; grid-row: 1; text-align: right; }
-  .wz-table td:nth-child(1) { grid-column: 1; grid-row: 2; }
-  .wz-table td:nth-child(3) { grid-column: 2; grid-row: 2; text-align: right; }
+  .wz-table td:nth-child(2) { grid-column: 1; grid-row: 1; min-width: 0; }
+  .wz-table td:nth-child(3) { grid-column: 2; grid-row: 1; text-align: right; align-self: start; }
+  .wz-table td:nth-child(1) { grid-column: 1; grid-row: 2; min-width: 0; }
+  .wz-table td:nth-child(4) { grid-column: 2; grid-row: 2; text-align: right; white-space: nowrap; }
   .wz-pin--alt em { transform: translateX(-72%); }
   .wz-week .hours-day, .wz-week .hours-axis { grid-template-columns: 66px minmax(0, 1fr); }
   .wz-week .hours-day__name { white-space: nowrap; font-size: 0.74rem; }

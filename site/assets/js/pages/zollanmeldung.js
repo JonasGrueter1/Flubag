@@ -33,7 +33,16 @@
   }
 
   // Vorbelegung: heute, in etwa 3 Stunden (auf 15 Minuten gerundet)
-  var start = parts(Math.ceil((nowMs() + 3 * HOUR) / (15 * MIN)) * 15 * MIN);
+  var startMs = Math.ceil((nowMs() + 3 * HOUR) / (15 * MIN)) * 15 * MIN;
+  var start = parts(startMs);
+  // Liegt der Vorschlag ausserhalb der Betriebszeit, stattdessen nächster Tag 10:00
+  if (F.status && F.status.dayRules) {
+    var sr = F.status.dayRules(start.y, start.m, start.d, start.wd), sm = start.h * 60 + start.min;
+    if (sm < sr.open || sm >= sr.close) {
+      var base = Date.UTC(start.y, start.m - 1, start.d, 10, 0);
+      start = parts(sm >= sr.close ? base + 24 * HOUR : base);
+    }
+  }
   dateIn.value = iso(start);
   timeIn.value = hm(start);
   dateIn.min = iso(parts(nowMs()));

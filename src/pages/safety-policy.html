@@ -1,0 +1,339 @@
+<!--meta {
+  "title": "Safety Policy",
+  "description": "Safety Policy der FLUBAG Flugbetriebs AG (Ver. 01, Rev. 2, 22.03.2022) als PDF, mit Meldeweg für Vorfälle, meldepflichtigen Ereignissen und Just Culture.",
+  "nav": "piloten",
+  "bodyClass": "no-cta",
+  "ogImage": "hero/slide-00",
+  "css": ["piloten"]
+} -->
+
+<section class="page-hero page-hero--chart page-hero--compact sp-hero">
+  <svg class="page-hero__deco sp-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <circle cx="200" cy="200" r="182" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 14" opacity="0.6"/>
+    <path d="M200 52 L322 98 V196 C322 270 270 322 200 350 C130 322 78 270 78 196 V98 Z" fill="currentColor" opacity="0.12"/>
+    <path class="sp-deco__shield" d="M200 52 L322 98 V196 C322 270 270 322 200 350 C130 322 78 270 78 196 V98 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
+    <path class="sp-deco__check" d="M146 204 L186 244 L258 164" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Safety Policy</li></ol>
+    <p class="eyebrow">Sicherheit bei der FLUBAG</p>
+    <h1 data-split data-split-now>Safety Policy.</h1>
+    <p class="lead">Nachfolgend die aktuelle Safety Policy der Flubag zur Information der Piloten. Ihr Leitsatz: <em>"Safety is everyone's responsibility."</em></p>
+    <div class="page-hero__meta">
+      <span class="chip"><x-icon name="file-text"></x-icon>Ver. 01 / Rev. 2</span>
+      <span class="chip"><x-icon name="calendar"></x-icon>Stand 22.03.2022</span>
+      <span class="chip chip--brand"><x-icon name="shield-check"></x-icon>Just Culture</span>
+    </div>
+    <div class="row mt-s">
+      <!-- @each data.dokumente as d --><!-- @if d.section == "Safety Policy" -->
+      <a class="btn btn--primary btn--lg" href="{{d.url}}" target="_blank" rel="noopener" data-magnetic><x-icon name="download"></x-icon>Safety Policy (PDF)</a>
+      <!-- @endif --><!-- @end -->
+      <a class="btn btn--ghost btn--lg" href="#meldeweg"><x-icon name="siren"></x-icon>Vorfall melden</a>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Abschnitte der Safety Policy">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#dokument">Dokument</a></li>
+      <li><a href="#grundsaetze">Grundsätze</a></li>
+      <li><a href="#meldeweg">Meldeweg</a></li>
+      <li><a href="#meldepflichtig">Meldepflichtige Vorfälle</a></li>
+      <li><a href="#just-culture">Just Culture</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section" id="dokument" aria-labelledby="doc-title">
+  <div class="container split split--top">
+    <!-- @each data.dokumente as d --><!-- @if d.section == "Safety Policy" -->
+    <a class="sp-doc" href="{{d.url}}" target="_blank" rel="noopener" data-reveal="scale" data-tilt="5" aria-label="{{d.title}} als PDF öffnen">
+      <span class="sp-doc__stack" aria-hidden="true"><i></i><i></i></span>
+      <span class="sp-doc__paper" aria-hidden="true">
+        <span class="sp-doc__head"><span>FLUBAG Flugbetriebs AG</span><x-icon name="shield-check"></x-icon></span>
+        <span class="sp-doc__title">Safety Policy</span>
+        <span class="sp-doc__lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="sp-doc__quote">Safety is everyone's responsibility.</span>
+        <span class="sp-doc__sign"><i></i><small>The representative of the DTO</small></span>
+        <span class="sp-doc__foot"><span>Ver. 01 / Rev. 2</span><span>22.03.2022</span></span>
+      </span>
+      <span class="sp-doc__badge"><x-icon name="download"></x-icon>PDF öffnen</span>
+    </a>
+    <!-- @endif --><!-- @end -->
+
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Das Dokument</p>
+        <h2 id="doc-title" data-split>Zur Information der Piloten.</h2>
+        <p class="lead" data-reveal>Die Safety Policy beschreibt, wie die FLUBAG als Ausbildungsorganisation (DTO) mit Sicherheit, Meldungen und Risiken umgeht. Die Policy selbst ist auf Englisch verfasst, der Anhang auf Deutsch.</p>
+      </div>
+      <dl class="data-list sp-meta" data-reveal>
+        <div><dt>Dokument</dt><dd>Safety Policy FLUBAG</dd></div>
+        <div><dt>Version</dt><dd class="mono">Ver. 01 / Rev. 2</dd></div>
+        <div><dt>Datum</dt><dd class="mono">22.03.2022</dd></div>
+        <div><dt>Umfang</dt><dd>4 Seiten A4, PDF (ca. 2 MB)</dd></div>
+      </dl>
+      <div class="stack">
+        <p class="readout__label" data-reveal>Inhalt</p>
+        <ol class="sp-toc" data-reveal-group="0.06">
+          <li data-reveal><span class="sp-toc__n mono">P</span><span><strong>Safety Policy</strong><small>Grundsätze, Meldewesen, Ziele</small></span></li>
+          <li data-reveal><span class="sp-toc__n mono">1</span><span><strong>Vorfallmeldung</strong><small>Anhang zur DTO-Safety Policy</small></span></li>
+          <li data-reveal><span class="sp-toc__n mono">2</span><span><strong>Ermittlung der Gefahren</strong><small>Anhang zur DTO-Safety Policy</small></span></li>
+          <li data-reveal><span class="sp-toc__n mono">3</span><span><strong>Risikobewertung</strong><small>Anhang zur DTO-Safety Policy</small></span></li>
+          <li data-reveal><span class="sp-toc__n mono">4</span><span><strong>Umsetzung und Wirksamkeit von Minderungsmassnahmen</strong><small>Anhang zur DTO-Safety Policy</small></span></li>
+        </ol>
+      </div>
+      <div class="row" data-reveal>
+        <!-- @each data.dokumente as d --><!-- @if d.section == "Safety Policy" -->
+        <a class="btn btn--primary" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="download"></x-icon>{{d.title}}</a>
+        <!-- @endif --><!-- @end -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="grundsaetze" aria-labelledby="grund-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Grundsätze</p>
+        <h2 id="grund-title" data-split>Was die Policy festhält.</h2>
+      </div>
+      <p class="lead" data-reveal>Auszüge im englischen Originalwortlaut. Massgebend ist das PDF.</p>
+    </div>
+
+    <div class="grid grid-3 sp-quotes" data-reveal-group="0.08">
+      <figure class="card card--pad sp-quote" data-reveal>
+        <span class="sp-quote__icon"><x-icon name="message-circle"></x-icon></span>
+        <figcaption class="eyebrow eyebrow--plain">Melden ohne Repressalien</figcaption>
+        <blockquote lang="en">"Every employee is expected to show commitment to communicate to the head of training, or the representative of the organisation, any occurrence that may affect the integrity of safety, including flight, maintenance and ground safety. This communication shall be free of reprisal."</blockquote>
+      </figure>
+      <figure class="card card--pad sp-quote" data-reveal>
+        <span class="sp-quote__icon"><x-icon name="scale"></x-icon></span>
+        <figcaption class="eyebrow eyebrow--plain">Just Culture</figcaption>
+        <blockquote lang="en">"FLUBAG will not initiate disciplinary action against any employee who discloses an occurrence involving safety, in accordance with the organisation's just culture in regards to safety."</blockquote>
+      </figure>
+      <figure class="card card--pad sp-quote sp-quote--warn" data-reveal>
+        <span class="sp-quote__icon"><x-icon name="triangle-alert"></x-icon></span>
+        <figcaption class="eyebrow eyebrow--plain">Die Grenze</figcaption>
+        <blockquote lang="en">"Occurrences with elements of gross negligence, intentional violations or criminal act are exempt from the above statement and will not be tolerated."</blockquote>
+      </figure>
+      <figure class="card card--pad sp-quote" data-reveal>
+        <span class="sp-quote__icon"><x-icon name="user-lock"></x-icon></span>
+        <figcaption class="eyebrow eyebrow--plain">Schutz der Identität</figcaption>
+        <blockquote lang="en">"Procedures for collecting, recording and disseminating information are in place to protect the identity of any person who provides safety information."</blockquote>
+      </figure>
+      <figure class="card card--pad sp-quote" data-reveal>
+        <span class="sp-quote__icon"><x-icon name="target"></x-icon></span>
+        <figcaption class="eyebrow eyebrow--plain">Der Zweck</figcaption>
+        <blockquote lang="en">"The sole purpose of safety reporting and internal investigations is to improve safety and not to apportion blame to individuals."</blockquote>
+      </figure>
+      <figure class="card card--pad sp-quote" data-reveal>
+        <span class="sp-quote__icon"><x-icon name="list-checks"></x-icon></span>
+        <figcaption class="eyebrow eyebrow--plain">Meldesysteme</figcaption>
+        <blockquote lang="en">"The reporting systems, including the above-mentioned just culture, are: Mandatory occurrence reporting systems; Company safety reports; and Other confidential information."</blockquote>
+      </figure>
+    </div>
+
+    <div class="sp-goals instrument hud-corners mt-l" data-reveal>
+      <div class="sp-goals__head">
+        <p class="readout__label" lang="en">We strive to achieve</p>
+        <p class="sp-goals__claim" lang="en" data-split>Safety is everyone's responsibility.</p>
+      </div>
+      <ul class="sp-goals__list" lang="en" data-reveal-group="0.1">
+        <li data-reveal><x-icon name="shield-check"></x-icon><span>An accident free environment;</span></li>
+        <li data-reveal><x-icon name="refresh-cw"></x-icon><span>Effective and safe procedures and continuous improvement; and</span></li>
+        <li data-reveal><x-icon name="scale"></x-icon><span>Full compliance with the statutory national and international regulations that apply to us.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="meldeweg" aria-labelledby="melde-title">
+  <div class="container split split--top">
+    <div class="stack-l sticky">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Anhang 1 · Vorfallmeldung</p>
+        <h2 id="melde-title" data-split>Vorfall? So wird gemeldet.</h2>
+        <p class="lead" data-reveal>Jeder Vorfall wird intern gemeldet. Gab es Verletzte, grosse Schäden an Flugzeugen oder einen meldepflichtigen Vorfall gemäss Liste, kommen REGA und BAZL dazu.</p>
+      </div>
+      <fieldset class="sp-ask" data-reveal>
+        <legend class="field__label">Gab es Verletzte, grosse Schäden an Flugzeugen oder einen meldepflichtigen Vorfall?</legend>
+        <div class="segmented sp-seg" role="radiogroup" data-sp-ask>
+          <label><input type="radio" name="sp-schwer" value="ja"><span>Ja</span></label>
+          <label><input type="radio" name="sp-schwer" value="nein"><span>Nein</span></label>
+          <label><input type="radio" name="sp-schwer" value="alle" checked><span>Alle Wege zeigen</span></label>
+        </div>
+      </fieldset>
+      <a class="btn btn--text" href="#meldepflichtig" data-reveal>Liste der meldepflichtigen Vorfälle <x-icon name="arrow-right"></x-icon></a>
+    </div>
+
+    <div class="sp-flow" data-sp-flow data-mode="alle" data-reveal>
+      <div class="sp-flow__start"><x-icon name="siren"></x-icon><strong>Vorfall</strong></div>
+      <div class="sp-flow__cols">
+        <div class="sp-flow__branch sp-flow__branch--grave" data-branch="ja">
+          <div class="sp-flow__cond">
+            <ul>
+              <li>Verletzte</li>
+              <li>Grosse Schäden an Flugzeugen</li>
+              <li>Meldepflichtiger Vorfall (gem. Liste)</li>
+            </ul>
+          </div>
+          <div class="sp-flow__targets">
+            <div class="sp-flow__target sp-flow__target--now">
+              <span class="sp-flow__when mono">sofort</span>
+              <strong>REGA</strong>
+              <a class="sp-flow__tel" href="tel:1414"><x-icon name="phone"></x-icon>1414</a>
+              <small>Aus dem Ausland <a href="tel:+41333333333">+41 333 333 333</a></small>
+            </div>
+            <div class="sp-flow__target">
+              <span class="sp-flow__when mono">innert 72 h</span>
+              <strong>BAZL</strong>
+              <a class="sp-flow__link" href="https://e2.aviationreporting.eu/reporting" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>Meldeportal</a>
+              <small>e2.<wbr>aviationreporting.<wbr>eu</small>
+            </div>
+          </div>
+        </div>
+        <div class="sp-flow__branch sp-flow__branch--all" data-branch="alle">
+          <div class="sp-flow__cond"><ul><li>Alle Vorfälle</li></ul></div>
+          <div class="sp-flow__targets">
+            <div class="sp-flow__target sp-flow__target--int">
+              <span class="sp-flow__when mono">immer</span>
+              <strong>Interne Meldung</strong>
+              <span class="sp-flow__sub">per E-Mail</span>
+              <a class="sp-flow__link" href="reporting.html"><x-icon name="arrow-right"></x-icon>Reporting</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sp-flow__out" data-sp-out aria-live="polite">Alle Meldewege gemäss Anhang 1 der Safety Policy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="meldepflichtig" aria-labelledby="liste-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Anhang 1 · Liste</p>
+        <h2 id="liste-title" data-split>Meldepflichtige Vorfälle.</h2>
+      </div>
+      <div class="stack">
+        <p class="lead" data-reveal>Die Liste aus dem Anhang zur DTO-Safety Policy. Wähle die Luftfahrzeugart, um die passenden Punkte zu sehen.</p>
+        <div class="segmented sp-seg" role="radiogroup" aria-label="Luftfahrzeugart" data-sp-type data-reveal>
+          <label><input type="radio" name="sp-typ" value="motor" checked><span>Motorflugzeuge</span></label>
+          <label><input type="radio" name="sp-typ" value="segel"><span>Segelflugzeuge, TMG</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-list" data-sp-list data-type="motor" data-reveal-group="0.06">
+      <article class="card card--pad sp-cat" data-reveal>
+        <h3 class="sp-cat__title"><x-icon name="plane"></x-icon>Flugbetrieb</h3>
+        <ul>
+          <li>Kontrollverlust</li>
+          <li>Flug wurde mit nicht-flugtüchtigem Flugzeug oder nach bemängelter Vorbereitung durchgeführt</li>
+          <li data-only="segel">Seil konnte nicht normal geklinkt werden</li>
+          <li data-only="segel">Seil wurde gefährlich ausgeklinkt</li>
+          <li data-only="segel">Motorausfall beim Start (motorisierte Segelflugzeuge, TMG)</li>
+          <li data-only="motor">Landung ausserhalb der Landezone</li>
+          <li data-only="motor">Ungenügende Leistung vom Flugzeug bei Start, Steigflug und Landung</li>
+          <li data-only="motor">Pisten-Verletzung, Ausbruch aus der Piste</li>
+          <li data-only="motor">Unabsichtlicher Flug in IMC</li>
+        </ul>
+      </article>
+      <article class="card card--pad sp-cat" data-reveal>
+        <h3 class="sp-cat__title"><x-icon name="wrench"></x-icon>Technisch</h3>
+        <ul>
+          <li>Starke Vibrationen</li>
+          <li>Nicht funktionierendes Steuer</li>
+          <li>Strukturschäden</li>
+          <li>Verlust von Flugzeugteilen im Flug</li>
+          <li>Motorausfall, Ausfall von wichtigen Systemen</li>
+          <li>Verlust von Flüssigkeiten mit erhöhtem Risiko für die Insassen</li>
+        </ul>
+      </article>
+      <article class="card card--pad sp-cat" data-reveal>
+        <h3 class="sp-cat__title"><x-icon name="radio"></x-icon>Flugverkehrsdienst</h3>
+        <ul>
+          <li>Gefährliche Interaktion mit Flugsicherungsdiensten (z.B. Erlaubnis nicht eingehalten, gefährliche Freigabe, widersprüchliche Infos)</li>
+          <li>Luftraumverletzung</li>
+        </ul>
+      </article>
+      <article class="card card--pad sp-cat sp-cat--danger" data-reveal>
+        <h3 class="sp-cat__title"><x-icon name="siren"></x-icon>Notfälle</h3>
+        <ul>
+          <li>Notfall deklariert (Mayday, Pan Pan)</li>
+          <li>Feuer, Explosion, Rauch oder toxische Gase</li>
+          <li>Ausfall des Piloten</li>
+          <li>Flug ohne sichere Landemöglichkeit</li>
+        </ul>
+      </article>
+      <article class="card card--pad sp-cat sp-cat--wide" data-reveal>
+        <h3 class="sp-cat__title"><x-icon name="cloud-lightning"></x-icon>Meteorologie und äussere Einflüsse</h3>
+        <ul>
+          <li>Kollision in der Luft oder am Boden, mit Flugzeugen, Boden oder Hindernis</li>
+          <li>Beinahe-Zusammenstoss, der ein Not-Ausweichmanöver erfordert hat</li>
+          <li>Interaktion mit Schusswaffen, Feuerwerk, Drachen, Laser, Drohnen, Modellflugzeug oder ähnlich</li>
+          <li>Blitzschlag mit Schäden am Flugzeug</li>
+          <li>Kollision mit einem Tier, welche Schäden verursachte</li>
+          <li>Starke Turbulenzen, welche Verletzungen der Insassen oder Strukturüberprüfung verursachten</li>
+          <li>Gefährliche Vereisung</li>
+        </ul>
+      </article>
+    </div>
+    <p class="subtle mt-m" data-reveal>Quelle: Anhang zur DTO-Safety Policy, Kapitel 1 Vorfallmeldung (REV2 / 22.03.2022). Massgebend ist das PDF.</p>
+  </div>
+</section>
+
+<section class="section section--chart" id="just-culture" aria-labelledby="jc-title">
+  <div class="container split split--wide-left split--top">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Just Culture</p>
+        <h2 id="jc-title" data-split>Das Gesetz ist auf der Seite der Meldenden.</h2>
+        <p class="lead" data-reveal>Wer ein Ereignis meldet, ist zusammen mit allen in der Meldung genannten Personen vor allfälligen nachteiligen Folgen geschützt, die die Meldung haben könnte.</p>
+      </div>
+      <ul class="sp-jc" data-reveal-group="0.08">
+        <li data-reveal><span class="sp-jc__icon"><x-icon name="user-lock"></x-icon></span><div><h3>Identität geschützt</h3><p>Die Identität der meldenden Person sowie diejenige aller anderen Personen, die in der Meldung genannt werden, sind geschützt.</p></div></li>
+        <li data-reveal><span class="sp-jc__icon"><x-icon name="eye-off"></x-icon></span><div><h3>Nicht verbreitet</h3><p>Die Meldung wird nicht verbreitet, es sei denn, dies wäre für die Sicherheit erforderlich.</p></div></li>
+        <li data-reveal><span class="sp-jc__icon"><x-icon name="hand-heart"></x-icon></span><div><h3>Keine Schuldzuweisung</h3><p>Die Meldung wird nicht genutzt, um die meldende Person oder andere darin genannte Personen zu beschuldigen.</p></div></li>
+      </ul>
+      <details class="acc sp-acc" data-reveal>
+        <summary>Ausnahme: vorsätzliches Verschulden und unannehmbares Verhalten</summary>
+        <div class="acc__body">
+          <p>Davon ausgenommen sind Fälle von vorsätzlichem Verschulden und unannehmbarem Verhalten.</p>
+          <p class="muted">Unannehmbares Verhalten ist definiert als offenkundige, schwerwiegende und ernste Missachtung eines offensichtlichen Risikos sowie gravierender Mangel an beruflicher Verantwortung hinsichtlich der Wahrnehmung der unter den Umständen ersichtlich erforderlichen Sorgfalt, wodurch eine Person oder Sache vorhersehbar geschädigt oder die Flugsicherheit ernsthaft gefährdet worden ist.</p>
+        </div>
+      </details>
+      <p class="subtle" data-reveal>Dieser Text hat rein informativen Charakter. Es gelten in jedem Fall die in der Verordnung (EU) Nr. 376/2014 genannten rechtlichen Anforderungen.</p>
+    </div>
+
+    <aside class="sp-cta card card--glow" data-reveal="scale" aria-labelledby="cta-title">
+      <span class="sp-cta__icon"><x-icon name="shield-check"></x-icon></span>
+      <p class="eyebrow eyebrow--plain">Ihr Beitrag zur Flugsicherheit</p>
+      <h3 id="cta-title">Meldungen verbessern die Luftfahrtsicherheit.</h3>
+      <p class="muted">Meldewege, das FLUBAG Reporting Form und weitere Informationen zum Melden von Ereignissen findest du auf der Reporting-Seite.</p>
+      <div class="sp-cta__btns">
+        <a class="btn btn--primary btn--block" href="reporting.html"><x-icon name="siren"></x-icon>Zum Reporting</a>
+        <a class="btn btn--ghost btn--block" href="https://www.aviationreporting.eu/" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>aviationreporting.eu</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--alt section--tight" aria-labelledby="mehr-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Weiterführend</p>
+      <h2 id="mehr-title" class="h3" data-split>Mehr für Piloten.</h2>
+    </div>
+    <div class="pl-related" data-reveal-group="0.06">
+      <a class="pl-link" href="reporting.html" data-reveal><x-icon name="siren" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Reporting</span><span class="pl-link__text">Ereignisse melden</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="checkflug-flarm.html" data-reveal><x-icon name="radar" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Checkflug und FLARM</span><span class="pl-link__text">Kontrollformular 2026</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="airport-briefing.html" data-reveal><x-icon name="book-open" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Airport Briefing</span><span class="pl-link__text">Gefahren, Start und Landung</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="weisungen.html" data-reveal><x-icon name="scale" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Weisung Piloten 2026</span><span class="pl-link__text">Betriebszeiten und Feiertage</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+    </div>
+  </div>
+</section>

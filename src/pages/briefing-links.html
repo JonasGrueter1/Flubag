@@ -1,0 +1,443 @@
+<!--meta {
+  "title": "Briefing Links",
+  "description": "Briefing Links für Piloten in LSZO: Homebriefing, Skybriefing, DABS, MeteoSchweiz, Webcams, Reservation, BAZL, SUST und PDFs. Mit Live-Kurzbriefing.",
+  "nav": "piloten",
+  "bodyClass": "no-cta",
+  "ogImage": "hero/slide-00"
+} -->
+
+<section class="page-hero page-hero--chart page-hero--compact bl-hero">
+  <svg class="page-hero__deco bl-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor">
+      <circle cx="200" cy="200" r="190" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="176" stroke-width="10" stroke-dasharray="1.2 8.01"/>
+      <circle cx="200" cy="200" r="150" stroke-width="1" stroke-dasharray="2 10"/>
+      <circle cx="200" cy="200" r="70" stroke-width="1"/>
+    </g>
+    <g fill="currentColor" font-size="22" font-weight="700" text-anchor="middle">
+      <text x="200" y="44">N</text><text x="362" y="208">E</text><text x="200" y="374">S</text><text x="38" y="208">W</text>
+    </g>
+    <g class="bl-deco__needle">
+      <path d="M200 64 L214 200 L200 188 L186 200 Z" fill="currentColor" opacity="0.85"/>
+      <path d="M200 336 L214 200 L200 212 L186 200 Z" fill="currentColor" opacity="0.35"/>
+    </g>
+  </svg>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Briefing Links</li></ol>
+    <p class="eyebrow">Briefing Links</p>
+    <h1 data-split data-split-now>Gut gebrieft in die Luft.</h1>
+    <p class="lead">Die wichtigsten Adressen für die Flugvorbereitung an einem Ort: Briefing und Luftraum, Wetter, Webcams, Reservation, Behörden und die PDFs der FLUBAG. Dazu ein Kurzbriefing mit den aktuellen Werten für LSZO.</p>
+    <div class="page-hero__meta">
+      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip"><x-icon name="wind"></x-icon><span data-wx-field="windText">--</span></span>
+      <span class="chip chip--brand"><x-icon name="link"></x-icon>19 Links</span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="https://www.skybriefing.com/portal/de/signinnativ" target="_blank" rel="noopener" data-magnetic><x-icon name="compass"></x-icon>Skybriefing öffnen</a>
+      <a class="btn btn--ghost btn--lg" href="#kurzbriefing"><x-icon name="gauge"></x-icon>Kurzbriefing LSZO</a>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Abschnitte der Briefing Links">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#kurzbriefing">Kurzbriefing</a></li>
+      <li><a href="#briefing">Briefing</a></li>
+      <li><a href="#wetter">Wetter</a></li>
+      <li><a href="#webcams">Webcams</a></li>
+      <li><a href="#reservation">Reservation</a></li>
+      <li><a href="#diverses">Diverses</a></li>
+      <li><a href="#pdf">PDFs</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section section--chart" id="kurzbriefing" aria-labelledby="kb-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Live für LSZO</p>
+        <h2 id="kb-title" data-split>Kurzbriefing auf einen Blick.</h2>
+      </div>
+      <p class="lead" data-reveal>Wind, QNH, Sicht und Platzstatus für Luzern-Beromünster, automatisch berechnet. Ein erster Eindruck, kein Ersatz für das offizielle Briefing.</p>
+    </div>
+
+    <div class="bl-brief">
+      <div class="instrument hud-corners bl-panel" data-reveal>
+        <div class="bl-panel__head">
+          <span class="mono">LSZO · 2146 ft</span>
+          <span class="bl-panel__time mono" data-bl-time>Werte werden geladen …</span>
+        </div>
+
+        <div class="bl-panel__status">
+          <span class="readout__label">Platzstatus</span>
+          <span class="status-pill bl-panel__pill" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+        </div>
+
+        <div class="bl-panel__wind">
+          <svg class="bl-rose" viewBox="0 0 200 200" role="img" aria-label="Windrichtung im Verhältnis zur Piste 15/33">
+            <circle cx="100" cy="100" r="92" class="bl-rose__ring"/>
+            <circle cx="100" cy="100" r="84" class="bl-rose__ticks"/>
+            <g class="bl-rose__labels" text-anchor="middle"><text x="100" y="30">N</text><text x="176" y="105">O</text><text x="100" y="180">S</text><text x="24" y="105">W</text></g>
+            <g transform="rotate(334 100 100)">
+              <rect x="91" y="40" width="18" height="120" rx="3" class="bl-rose__rwy"/>
+              <line x1="100" y1="50" x2="100" y2="150" class="bl-rose__cl"/>
+              <text x="100" y="156" text-anchor="middle" class="bl-rose__num">33</text>
+              <text x="100" y="52" text-anchor="middle" class="bl-rose__num" transform="rotate(180 100 48)">15</text>
+            </g>
+            <g class="bl-rose__arrow" data-wx-arrow>
+              <path d="M97 6 L103 6 L103 42 L111 40 L100 64 L89 40 L97 42 Z"/>
+            </g>
+          </svg>
+          <div class="stack">
+            <div class="readout">
+              <span class="readout__label">Wind</span>
+              <span class="readout__value bl-panel__big" data-wx-field="windText">--</span>
+            </div>
+            <p class="mono bl-panel__rwy"><x-icon name="runway"></x-icon><span data-wx-field="rwyText">Piste 33 primär</span></p>
+          </div>
+        </div>
+
+        <div class="bl-panel__grid">
+          <div class="readout bl-key"><span class="readout__label">QNH</span><span class="readout__value" data-wx-field="qnhText">--</span></div>
+          <div class="readout bl-key"><span class="readout__label">Sicht</span><span class="readout__value" data-wx-field="visText">--</span></div>
+          <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
+          <div class="readout"><span class="readout__label">Wolkenbasis *</span><span class="readout__value" data-wx-field="cloudbaseText">--</span></div>
+          <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
+          <div class="readout"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+        </div>
+
+        <div class="bl-hazards" aria-live="polite">
+          <a class="notice notice--danger bl-hazard" href="airport-briefing.html#westwind" data-wx-hazard="west" hidden>
+            <x-icon name="triangle-alert"></x-icon>
+            <span><strong>Westwind-Lage:</strong> Turbulenzen und Abwinde beim Start und Steigflug auf Piste 33 möglich. Airport Briefing beachten.</span>
+          </a>
+          <a class="notice notice--warn bl-hazard" href="airport-briefing.html#bise" data-wx-hazard="bise" hidden>
+            <x-icon name="triangle-alert"></x-icon>
+            <span><strong>Bise:</strong> Turbulenzen und Abwinde im Endanflug Piste 33 möglich. Airport Briefing beachten.</span>
+          </a>
+          <a class="notice notice--warn bl-hazard" href="airport-briefing.html#start" data-wx-hazard="tail33" hidden>
+            <x-icon name="triangle-alert"></x-icon>
+            <span><strong>Rückenwind auf Piste 33:</strong> Grundsätzlich kein Start auf Piste 33 bei Rückenwind und nahe oder bei max. Startgewicht.</span>
+          </a>
+        </div>
+
+        <div class="bl-panel__foot">
+          <p class="bl-panel__note">Modelldaten (Open-Meteo), keine Messung am Platz. * Grob geschätzt aus Temperatur und Taupunkt. Für die Flugvorbereitung gelten die offiziellen Quellen unten. Massgebend für den Betrieb sind Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>
+          <div class="row">
+            <button class="btn btn--ghost btn--sm" type="button" data-bl-copy hidden><x-icon name="copy"></x-icon>Kurzbriefing kopieren</button>
+            <a class="btn btn--text btn--sm" href="webcams.html">Webcams &amp; Wetter <x-icon name="arrow-right"></x-icon></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bl-side">
+        <div class="card card--pad bl-side__card" data-reveal>
+          <p class="readout__label">Heute auf dem Platz</p>
+          <div data-airfield-status><p class="muted">Der Platzstatus wird aus der Weisung Piloten berechnet.</p></div>
+          <a class="btn btn--text btn--sm" href="weisungen.html">Weisung Piloten 2026 <x-icon name="arrow-right"></x-icon></a>
+        </div>
+        <div class="card card--pad bl-side__card bl-fav" data-bl-favbox hidden data-reveal>
+          <div class="bl-fav__head">
+            <p class="readout__label">Schnellzugriff</p>
+            <x-icon name="star"></x-icon>
+          </div>
+          <ul class="bl-fav__list" data-bl-favlist></ul>
+          <p class="bl-fav__empty muted" data-bl-favempty>Links mit dem Stern markieren, dann erscheinen sie hier. Gespeichert nur in diesem Browser.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bl-links" aria-labelledby="links-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Linksammlung</p>
+        <h2 id="links-title" data-split>Alles für die Flugvorbereitung.</h2>
+      </div>
+      <div class="stack">
+        <p class="lead" data-reveal>Externe Seiten öffnen in einem neuen Tab. Mit dem Stern legst du deine wichtigsten Links in den Schnellzugriff.</p>
+        <div class="bl-search" data-bl-search hidden>
+          <label class="bl-search__label" for="bl-filter">Links durchsuchen</label>
+          <div class="bl-search__field">
+            <x-icon name="search"></x-icon>
+            <input class="input" id="bl-filter" type="search" placeholder="z.B. NOTAM, Wetter, Formular, SUST" autocomplete="off" data-bl-filter>
+            <kbd class="bl-search__kbd" aria-hidden="true">/</kbd>
+          </div>
+          <p class="bl-search__count mono" aria-live="polite" data-bl-count></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Briefing -->
+    <section class="bl-group" id="briefing" aria-labelledby="g-briefing" data-bl-group>
+      <header class="bl-group__head" data-reveal>
+        <span class="bl-group__num mono">01</span>
+        <div><h3 id="g-briefing" class="bl-group__title">Briefing</h3><p class="bl-group__text">Flugplan, NOTAM und Luftraum.</p></div>
+      </header>
+      <ul class="bl-grid" data-reveal-group="0.06">
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="https://www.homebriefing.com/" target="_blank" rel="noopener" data-bl-link="homebriefing" data-keywords="homebriefing austro control flugplan notam briefing">
+            <span class="bl-card__logo bl-card__logo--cover bl-card__logo--hb"><x-img src="links/homebriefing" alt="" sizes="(max-width: 640px) 100vw, 360px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Homebriefing</span>
+              <span class="bl-card__text">Briefing-Portal der Austro Control.</span>
+              <span class="bl-card__url mono">homebriefing.com<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Homebriefing im Schnellzugriff merken" data-bl-star="homebriefing" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="https://www.skybriefing.com/portal/de/signinnativ" target="_blank" rel="noopener" data-bl-link="skybriefing" data-keywords="skybriefing skyguide flugplan notam login briefing">
+            <span class="bl-card__logo"><x-img src="links/skybriefing" alt="" sizes="240px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Skybriefing</span>
+              <span class="bl-card__text">Briefing-Portal der Schweizer Flugsicherung skyguide, mit Login.</span>
+              <span class="bl-card__url mono">skybriefing.com<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Skybriefing im Schnellzugriff merken" data-bl-star="skybriefing" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="https://www.skybriefing.com/portal/de/dabs" target="_blank" rel="noopener" data-bl-link="dabs" data-keywords="dabs daily airspace bulletin luftraum sperrgebiete skybriefing">
+            <span class="bl-card__logo bl-card__logo--cover"><x-img src="links/dabs" alt="" sizes="(max-width: 640px) 100vw, 360px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">DABS</span>
+              <span class="bl-card__text">Daily Airspace Bulletin Switzerland: die tägliche Übersicht über Luftraumbeschränkungen.</span>
+              <span class="bl-card__url mono">skybriefing.com/dabs<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="DABS im Schnellzugriff merken" data-bl-star="dabs" hidden><x-icon name="star"></x-icon></button>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Wetter -->
+    <section class="bl-group" id="wetter" aria-labelledby="g-wetter" data-bl-group>
+      <header class="bl-group__head" data-reveal>
+        <span class="bl-group__num mono">02</span>
+        <div><h3 id="g-wetter" class="bl-group__title">Wetter</h3><p class="bl-group__text">Allgemeine Lage und Prognosen.</p></div>
+      </header>
+      <ul class="bl-grid" data-reveal-group="0.06">
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="https://www.meteoschweiz.admin.ch/home/wetter/prognosen/allgemeine-lage.html" target="_blank" rel="noopener" data-bl-link="meteo-lage" data-keywords="meteoschweiz meteoswiss wetter allgemeine lage">
+            <span class="bl-card__logo"><x-img src="links/meteoswiss" alt="" sizes="160px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">MeteoSchweiz: Allgemein</span>
+              <span class="bl-card__text">Die allgemeine Wetterlage von MeteoSchweiz.</span>
+              <span class="bl-card__url mono">meteoschweiz.admin.ch<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="MeteoSchweiz Allgemein im Schnellzugriff merken" data-bl-star="meteo-lage" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="https://www.meteoschweiz.admin.ch/home.html?tab=overview" target="_blank" rel="noopener" data-bl-link="meteo-prognosen" data-keywords="meteoschweiz meteoswiss wetter prognosen vorhersage">
+            <span class="bl-card__logo"><x-img src="links/meteoswiss" alt="" sizes="160px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">MeteoSchweiz: Prognosen</span>
+              <span class="bl-card__text">Die Wetterprognosen von MeteoSchweiz.</span>
+              <span class="bl-card__url mono">meteoschweiz.admin.ch<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="MeteoSchweiz Prognosen im Schnellzugriff merken" data-bl-star="meteo-prognosen" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="https://www.dwd.de/" target="_blank" rel="noopener" data-bl-link="dwd" data-keywords="dwd deutscher wetterdienst wetter deutschland">
+            <span class="bl-card__logo"><x-img src="links/dwd" alt="" sizes="120px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Deutscher Wetterdienst</span>
+              <span class="bl-card__text">Der nationale Wetterdienst Deutschlands.</span>
+              <span class="bl-card__url mono">dwd.de<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Deutscher Wetterdienst im Schnellzugriff merken" data-bl-star="dwd" hidden><x-icon name="star"></x-icon></button>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Webcams -->
+    <section class="bl-group" id="webcams" aria-labelledby="g-webcams" data-bl-group>
+      <header class="bl-group__head" data-reveal>
+        <span class="bl-group__num mono">03</span>
+        <div><h3 id="g-webcams" class="bl-group__title">Webcams</h3><p class="bl-group__text">Ein Blick auf den Platz und in die Schweiz.</p></div>
+      </header>
+      <ul class="bl-grid bl-grid--2" data-reveal-group="0.06">
+        <li class="bl-item" data-reveal>
+          <a class="bl-card bl-card--cam" href="webcams.html" data-bl-link="webcams-lszo" data-keywords="webcams beromünster lszo flugplatz live kamera">
+            <span class="bl-card__logo bl-card__logo--cover bl-card__logo--cam">
+              <img src="https://flubag.ch/webcam/cam-south000.jpg" alt="Live-Webcam LSZO Süden, Blick Richtung Holding Point Piste 33" width="1600" height="1200" loading="lazy" data-webcam data-fallback="assets/img/flugplatz/webcam-sued-960.webp">
+              <span class="bl-live"><span class="dot dot--ok"></span>Live</span>
+            </span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Webcams Beromünster</span>
+              <span class="bl-card__text">Die Webcams Süd und West am Flugplatz, mit Wetterwerten.</span>
+              <span class="bl-card__url mono">flubag.ch/webcams<x-icon name="arrow-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Webcams Beromünster im Schnellzugriff merken" data-bl-star="webcams-lszo" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="http://www.westwind.ch/w_0liv.php" target="_blank" rel="noopener" data-bl-link="webcams-ch" data-keywords="webcams schweiz westwind kamera wetter">
+            <span class="bl-card__logo bl-card__logo--cover"><x-img src="links/webcams-ch" alt="" sizes="(max-width: 640px) 100vw, 520px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Webcams der Schweiz</span>
+              <span class="bl-card__text">Webcam-Übersicht für die ganze Schweiz auf westwind.ch.</span>
+              <span class="bl-card__url mono">westwind.ch<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Webcams der Schweiz im Schnellzugriff merken" data-bl-star="webcams-ch" hidden><x-icon name="star"></x-icon></button>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Reservation -->
+    <section class="bl-group" id="reservation" aria-labelledby="g-reservation" data-bl-group>
+      <header class="bl-group__head" data-reveal>
+        <span class="bl-group__num mono">04</span>
+        <div><h3 id="g-reservation" class="bl-group__title">Reservation Flugzeug/Helikopter</h3><p class="bl-group__text">Flugzeuge der FLUBAG und Helikopter von Airport Helicopter.</p></div>
+      </header>
+      <ul class="bl-grid bl-grid--2" data-reveal-group="0.06">
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="http://res.airportheli.ch/flubag/" target="_blank" rel="noopener" data-bl-link="res-flubag" data-keywords="reservation reservieren flubag flugzeug buchen">
+            <span class="bl-card__logo"><x-img src="links/flubag-reservation" alt="" sizes="240px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Flubag Reservation</span>
+              <span class="bl-card__text">Flugzeuge der FLUBAG reservieren.</span>
+              <span class="bl-card__url mono">res.airportheli.ch/flubag<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Flubag Reservation im Schnellzugriff merken" data-bl-star="res-flubag" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="bl-card" href="http://res.airportheli.ch/res/index.html" target="_blank" rel="noopener" data-bl-link="res-heli" data-keywords="reservation reservieren airport helicopter helikopter buchen">
+            <span class="bl-card__logo"><x-img src="links/airportheli-reservation" alt="" sizes="240px"></x-img></span>
+            <span class="bl-card__body">
+              <span class="bl-card__title">Airport Helicopter Reservation</span>
+              <span class="bl-card__text">Helikopter von Airport Helicopter reservieren.</span>
+              <span class="bl-card__url mono">res.airportheli.ch<x-icon name="arrow-up-right"></x-icon></span>
+            </span>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Airport Helicopter Reservation im Schnellzugriff merken" data-bl-star="res-heli" hidden><x-icon name="star"></x-icon></button>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Diverses -->
+    <section class="bl-group" id="diverses" aria-labelledby="g-diverses" data-bl-group>
+      <header class="bl-group__head" data-reveal>
+        <span class="bl-group__num mono">05</span>
+        <div><h3 id="g-diverses" class="bl-group__title">Diverses</h3><p class="bl-group__text">Behörden, Recht, Karten und Nachschlagewerke.</p></div>
+      </header>
+      <ul class="bl-grid bl-grid--small" data-reveal-group="0.05">
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="https://cloudatlas.wmo.int/home.html" target="_blank" rel="noopener" data-bl-link="wolkenatlas" data-keywords="wolkenatlas cloud atlas wmo wolken">
+            <span class="link-tile__logo"><x-icon name="cloud"></x-icon></span>
+            <span><span class="link-tile__title">Wolkenatlas</span><span class="link-tile__sub">International Cloud Atlas der WMO</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Wolkenatlas im Schnellzugriff merken" data-bl-star="wolkenatlas" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="http://www.map.search.ch/" target="_blank" rel="noopener" data-bl-link="kartensuche" data-keywords="kartensuche karte map search">
+            <span class="link-tile__logo"><x-icon name="map"></x-icon></span>
+            <span><span class="link-tile__title">Kartensuche</span><span class="link-tile__sub">map.search.ch</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Kartensuche im Schnellzugriff merken" data-bl-star="kartensuche" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="https://www.bazl.admin.ch/bazl/de/home.html" target="_blank" rel="noopener" data-bl-link="bazl" data-keywords="bazl bundesamt für zivilluftfahrt behörde">
+            <span class="link-tile__logo"><x-icon name="landmark"></x-icon></span>
+            <span><span class="link-tile__title">BAZL</span><span class="link-tile__sub">Bundesamt für Zivilluftfahrt</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="BAZL im Schnellzugriff merken" data-bl-star="bazl" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="https://www.bazl.admin.ch/bazl/de/home/fachleute/flugverkehr/formularsammlung.html" target="_blank" rel="noopener" data-bl-link="bazl-formulare" data-keywords="bazl formularsammlung formulare formular">
+            <span class="link-tile__logo"><x-icon name="files"></x-icon></span>
+            <span><span class="link-tile__title">BAZL Formularsammlung</span><span class="link-tile__sub">Formulare des Bundesamts für Zivilluftfahrt</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="BAZL Formularsammlung im Schnellzugriff merken" data-bl-star="bazl-formulare" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="https://www.sust.admin.ch/de/sust-startseite/" target="_blank" rel="noopener" data-bl-link="sust" data-keywords="sust sicherheitsuntersuchungsstelle unfall vorfall untersuchung">
+            <span class="link-tile__logo"><x-icon name="shield-alert"></x-icon></span>
+            <span><span class="link-tile__title">SUST</span><span class="link-tile__sub">Schweizerische Sicherheitsuntersuchungsstelle</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="SUST im Schnellzugriff merken" data-bl-star="sust" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="http://www.icao.int/" target="_blank" rel="noopener" data-bl-link="icao" data-keywords="icao international civil aviation organization">
+            <span class="link-tile__logo"><x-icon name="globe"></x-icon></span>
+            <span><span class="link-tile__title">ICAO</span><span class="link-tile__sub">International Civil Aviation Organization</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="ICAO im Schnellzugriff merken" data-bl-star="icao" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="link-tile bl-tile" href="http://www.admin.ch/ch/d/sr/74.html#748" target="_blank" rel="noopener" data-bl-link="gesetze" data-keywords="gesetzessammlung luftfahrt recht gesetz verordnung sr 748">
+            <span class="link-tile__logo"><x-icon name="scale"></x-icon></span>
+            <span><span class="link-tile__title">Gesetzessammlung Luftfahrt</span><span class="link-tile__sub">Systematische Rechtssammlung, SR 748</span></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Gesetzessammlung Luftfahrt im Schnellzugriff merken" data-bl-star="gesetze" hidden><x-icon name="star"></x-icon></button>
+        </li>
+      </ul>
+    </section>
+
+    <!-- PDFs -->
+    <section class="bl-group" id="pdf" aria-labelledby="g-pdf" data-bl-group>
+      <header class="bl-group__head" data-reveal>
+        <span class="bl-group__num mono">06</span>
+        <div><h3 id="g-pdf" class="bl-group__title">PDFs der FLUBAG</h3><p class="bl-group__text">Zum Ausdrucken und Mitnehmen.</p></div>
+      </header>
+      <ul class="bl-grid bl-grid--2" data-reveal-group="0.06">
+        <li class="bl-item" data-reveal>
+          <a class="doc bl-doc" href="https://www.flubag.ch/sites/default/files/page/attachment/Airport%20Briefing.pdf" target="_blank" rel="noopener" data-bl-link="pdf-briefing" data-keywords="airport briefing pdf flugplatz">
+            <x-icon name="file-text" class="doc__icon"></x-icon>
+            <span><span class="doc__title">Airport Briefing</span><span class="doc__meta">PDF · Flugplatz LSZO</span></span>
+            <x-icon name="download" class="doc__go"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Airport Briefing PDF im Schnellzugriff merken" data-bl-star="pdf-briefing" hidden><x-icon name="star"></x-icon></button>
+        </li>
+        <li class="bl-item" data-reveal>
+          <a class="doc bl-doc" href="https://www.flubag.ch/sites/default/files/page/attachment/checklist-intl-flights.pdf" target="_blank" rel="noopener" data-bl-link="pdf-ausland" data-keywords="checkliste auslandflüge ausland international zoll pdf">
+            <x-icon name="file-text" class="doc__icon"></x-icon>
+            <span><span class="doc__title">Checkliste für Auslandflüge</span><span class="doc__meta">PDF · International</span></span>
+            <x-icon name="download" class="doc__go"></x-icon>
+          </a>
+          <button class="bl-star" type="button" aria-pressed="false" aria-label="Checkliste für Auslandflüge im Schnellzugriff merken" data-bl-star="pdf-ausland" hidden><x-icon name="star"></x-icon></button>
+        </li>
+      </ul>
+    </section>
+
+    <div class="bl-empty" data-bl-empty hidden>
+      <x-icon name="search-x"></x-icon>
+      <p><strong>Kein Link gefunden.</strong> Anderer Suchbegriff? Oder alle Links wieder anzeigen.</p>
+      <button class="btn btn--ghost btn--sm" type="button" data-bl-reset>Suche zurücksetzen</button>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="mehr-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Im Pilotenbereich</p>
+      <h2 id="mehr-title" data-split>Weiter mit dem Briefing.</h2>
+    </div>
+    <ul class="link-tiles bl-more" data-reveal-group="0.06">
+      <li data-reveal><a class="link-tile" href="airport-briefing.html"><span class="link-tile__logo"><x-icon name="book-open"></x-icon></span><span><span class="link-tile__title">Airport Briefing</span><span class="link-tile__sub">Westwind, Bise, Sprungbetrieb, Start und Landung</span></span><x-icon name="arrow-right"></x-icon></a></li>
+      <li data-reveal><a class="link-tile" href="piste-33.html"><span class="link-tile__logo"><x-icon name="plane-landing"></x-icon></span><span><span class="link-tile__title">Anflug Piste 33</span><span class="link-tile__sub">Verfahren mit Luftbildern</span></span><x-icon name="arrow-right"></x-icon></a></li>
+      <li data-reveal><a class="link-tile" href="weisungen.html"><span class="link-tile__logo"><x-icon name="scale"></x-icon></span><span><span class="link-tile__title">Weisung Piloten 2026</span><span class="link-tile__sub">Betriebszeiten und Einschränkungen</span></span><x-icon name="arrow-right"></x-icon></a></li>
+      <li data-reveal><a class="link-tile" href="zollanmeldung.html"><span class="link-tile__logo"><x-icon name="globe"></x-icon></span><span><span class="link-tile__title">Zollanmeldung</span><span class="link-tile__sub">Ein- und Ausreise über LSZO</span></span><x-icon name="arrow-right"></x-icon></a></li>
+      <li data-reveal><a class="link-tile" href="reporting.html"><span class="link-tile__logo"><x-icon name="siren"></x-icon></span><span><span class="link-tile__title">Reporting</span><span class="link-tile__sub">Ereignis melden</span></span><x-icon name="arrow-right"></x-icon></a></li>
+      <li data-reveal><a class="link-tile" href="dokumente.html"><span class="link-tile__logo"><x-icon name="folder-open"></x-icon></span><span><span class="link-tile__title">Dokumente &amp; Newsletter</span><span class="link-tile__sub">Handbücher, Checklisten, Syllabi</span></span><x-icon name="arrow-right"></x-icon></a></li>
+    </ul>
+  </div>
+</section>
