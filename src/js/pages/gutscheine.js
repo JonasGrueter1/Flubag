@@ -81,7 +81,7 @@
     if (kind === 'rundflug') {
       var r = routeById(state.id), n = Math.min(3, Math.max(1, +state.personen || 1));
       v.kindLabel = 'Rundflug'; v.flug = r.name; v.title = r.title; v.dauer = r.duration + ' min';
-      v.xLabel = 'Personen'; v.x = n + (n > 1 ? ' Personen' : ' Person');
+      v.xLabel = 'Personen'; v.x = n + (n > 1 ? '\u00a0Personen' : '\u00a0Person');
       v.price = r.price * n; v.priceLabel = n + ' × ' + F.chf(r.price); v.shop = r.shop; v.shopTitle = r.title;
       v.what = r.title + ' · ' + v.x;
     } else if (kind === 'schnupperflug') {
@@ -241,12 +241,16 @@
     tween(F.$('[data-gift-total]', root), v.price);
     shopBtn.href = v.shop;
     var note = F.$('[data-gift-shopnote]', root);
-    if (note) note.textContent = 'Der Shop öffnet die Seite "' + v.shopTitle + '" in einem neuen Tab.';
+    if (note) {
+      note.textContent = 'Öffnet "' + v.shopTitle + '" im Gutschein-Shop in einem neuen Tab. Name, Widmung und Versandart gibst du dort ein.' +
+        (state.widmung.trim() ? ' Deine Widmung kopieren wir dir beim Klick in die Zwischenablage.' : '');
+    }
 
     // Mini-Leiste (Handy)
     if (dock) {
       flap(q('code', dock) || F.$('[data-d="code"]', dock), v.code);
-      F.$('[data-d="title"]', dock).textContent = v.kind === 'rundflug' ? v.flug + ' · ' + v.x : v.what;
+      F.$('[data-d="title"]', dock).textContent = v.flug;
+      F.$('[data-d="detail"]', dock).textContent = v.kind === 'rundflug' ? v.x : (v.kind === 'schnupperflug' ? v.x.replace('Cessna ', 'C') + ' · ' + v.dauer : 'freie Wahl');
       tween(F.$('[data-d="price"]', dock), v.price);
       if (fx && animate && (idChanged || prev.price !== v.price)) { dock.classList.remove('is-pulse'); void dock.offsetWidth; dock.classList.add('is-pulse'); }
     }
@@ -293,9 +297,20 @@
       var v = Math.round(+state.eigen);
       if (v < MIN || v > MAX || isNaN(v)) { v = Math.min(MAX, Math.max(MIN, isNaN(v) ? MIN : v)); ownInput.value = v; state.eigen = String(v); }
     }
-    if (e.target.name === 'betrag' && state.betrag === 'eigen') setTimeout(function () { ownInput.focus({ preventScroll: true }); }, 30);
+    if (e.target.name === 'betrag' && state.betrag === 'eigen') { prefillOwn(); setTimeout(focusOwn, 30); }
     validateOwn(); render(false); save();
   });
+
+  // Eigener Betrag: mit dem zuletzt gewählten Betrag vorbelegen, damit Feld und Bordkarte übereinstimmen
+  function prefillOwn() {
+    if (state.eigen !== '') return;
+    state.eigen = String(lastAmount);
+    ownInput.value = state.eigen;
+  }
+  function focusOwn() {
+    ownInput.focus({ preventScroll: true });
+    try { ownInput.select(); } catch (err) { /* nicht unterstützt */ }
+  }
 
   F.$$('.gift-idea', form).forEach(function (b) {
     b.addEventListener('click', function () {
@@ -319,16 +334,87 @@
     navigator.clipboard.writeText(txt).then(function () { F.toast('Widmung kopiert. Im Shop kannst du sie einfach einfügen.'); }, function () {});
   });
 
-  // Auswahl aus dem Katalog übernehmen
+  // Weich zu einem Element scrollen, unter Header und Sprungmarken-Leiste.
+  // Ohne Lenis (Touch-Geräte) eigene Animation: Sie setzt die Position in jedem Frame und wird darum
+  // nicht abgebrochen, wenn die Sprungmarken-Leiste unterwegs ihr scrollIntoView() aufruft.
+  var scrollRaf = 0;
+  function animateScroll(target) {
+    var html = document.documentElement;
+    var from = window.scrollY, t0 = performance.now();
+    var dist = Math.abs(target() - from);
+    var dur = Math.min(1100, 350 + dist * 0.09);
+    cancelAnimationFrame(scrollRaf);
+    function stop() {
+      cancelAnimationFrame(scrollRaf);
+      html.style.scrollBehavior = '';
+      window.removeEventListener('touchstart', stop);
+      window.removeEventListener('wheel', stop);
+    }
+    html.style.scrollBehavior = 'auto';
+    if (F.reducedMotion || dist < 2) { window.scrollTo(0, target()); stop(); return; }
+    window.addEventListener('touchstart', stop, { passive: true });
+    window.addEventListener('wheel', stop, { passive: true });
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / dur);
+      var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      window.scrollTo(0, from + (target() - from) * e);
+      if (k < 1) scrollRaf = requestAnimationFrame(step); else stop();
+    })(t0);
+  }
+  function scrollOffset() {
+    var sub = F.$('.subnav');
+    return (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 76) + (sub ? sub.offsetHeight : 0) + 16;
+  }
+  function scrollToEl(el) {
+    if (!el) return;
+    // Position aus offsetTop: ignoriert laufende Einblend-Transforms (data-reveal, is-entering)
+    var target = function () {
+      var y = 0, n = el;
+      while (n) { y += n.offsetTop; n = n.offsetParent; }
+      return Math.max(0, y - scrollOffset());
+    };
+    // Lenis mit absoluter Zahl: bei Element-Zielen rechnet es scroll-padding-top noch dazu
+    if (F.lenis) { F.lenis.scrollTo(target()); return; }
+    animateScroll(target);
+  }
+
+  // Touch-Geräte: Sprungmarken auf dieser Seite (Hero, Sprungmarken-Leiste, Texte) mit derselben Animation
+  document.addEventListener('click', function (e) {
+    if (F.lenis || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var a = e.target.closest && e.target.closest('main a[href^="#"]');
+    if (!a) return;
+    var id = decodeURIComponent(a.getAttribute('href').slice(1));
+    var t = id && document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    scrollToEl(t);
+    if (history.pushState) history.pushState(null, '', '#' + id);
+  });
+
+  // Auswahl aus dem Katalog übernehmen und zum Konfigurator springen
   F.$$('[data-gift-pick]').forEach(function (a) {
-    a.addEventListener('click', function () {
+    a.addEventListener('click', function (e) {
       var id = a.getAttribute('data-gift-pick');
       if (!validId(id)) return;
+      e.preventDefault();
+      e.stopPropagation();
       state.id = id;
       if (a.hasAttribute('data-schnupper')) state.schnupper = a.getAttribute('data-schnupper');
       if (a.hasAttribute('data-betrag')) state.betrag = a.getAttribute('data-betrag');
+      var own = state.betrag === 'eigen' && kindOf(id) === 'wertgutschein';
+      if (own) prefillOwn();
       writeForm(); validateOwn(); render(false); save();
-      if (state.betrag === 'eigen' && kindOf(id) === 'wertgutschein') setTimeout(function () { ownInput.focus({ preventScroll: true }); }, 900);
+      scrollToEl(own ? F.$('[data-gift-panel="wertgutschein"]', form) : F.$('.gift-config', root));
+      if (own) setTimeout(focusOwn, 1200);
+    });
+  });
+
+  // Handy: "Zur Vorschau" in Formular und Mini-Leiste
+  F.$$('[data-gift-to-preview], [data-gift-dock] a[href="#vorschau"]', root).forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      scrollToEl(F.$('.gift-stage', root));
     });
   });
 
@@ -375,9 +461,9 @@
   // ---------------------------------------------------------------- Mini-Leiste (Handy)
   if (dock && 'IntersectionObserver' in window) {
     var mq = window.matchMedia('(max-width: 860px)');
-    var inForm = false, inPass = false;
+    var inForm = false, inPass = false, typing = false, typeT;
     var toggleDock = function () {
-      var on = mq.matches && inForm && !inPass;
+      var on = mq.matches && inForm && !inPass && !typing;
       dock.classList.toggle('is-visible', on);
       dock.setAttribute('aria-hidden', String(!on));
       if (on) dock.removeAttribute('inert'); else dock.setAttribute('inert', '');
@@ -386,6 +472,15 @@
     new IntersectionObserver(function (en) { inForm = en[0].isIntersecting; toggleDock(); }, { rootMargin: '-35% 0px -10% 0px' }).observe(form);
     new IntersectionObserver(function (en) { inPass = en[0].isIntersecting; toggleDock(); }, { threshold: 0.25 }).observe(pass);
     if (mq.addEventListener) mq.addEventListener('change', toggleDock);
+    // Beim Tippen (Bildschirmtastatur) würde die Leiste das Eingabefeld verdecken
+    var isText = function (el) { return el && (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && /^(text|number|search|)$/.test(el.type || ''))); };
+    form.addEventListener('focusin', function (e) { if (isText(e.target)) { clearTimeout(typeT); typing = true; toggleDock(); } });
+    form.addEventListener('focusout', function (e) { if (isText(e.target)) { typeT = setTimeout(function () { typing = false; toggleDock(); }, 150); } });
+  }
+
+  // Desktop: Konfigurator im Bild? (blendet den Nach-oben-Knopf aus, der sonst die Aktionen überdeckt)
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) { document.body.classList.toggle('gift-config-on', en[0].isIntersecting); }, { rootMargin: '-20% 0px -20% 0px' }).observe(F.$('.gift-config', root));
   }
 
   // ---------------------------------------------------------------- Start: URL > gespeichert > Formular
@@ -422,8 +517,9 @@
   function updateRedeem() {
     var v = nr ? nr.value.trim() : '';
     F.$$('[data-redeem]').forEach(function (a) {
-      if (a.getAttribute('data-redeem') === 'schnupper') {
-        a.href = 'schnupperflug.html' + (v ? '?gutschein=' + encodeURIComponent(v) : '') + '#anfrage';
+      var kind = a.getAttribute('data-redeem');
+      if (kind === 'schnupper' || kind === 'rundflug') {
+        a.href = (kind === 'schnupper' ? 'schnupperflug.html' : 'rundfluege.html') + (v ? '?gutschein=' + encodeURIComponent(v) : '') + '#anfrage';
       } else {
         var mail = a.getAttribute('data-email') || (D.site && D.site.email) || '';
         var body = 'Guten Tag\n\nIch möchte meinen Gutschein einlösen.\n\nGutscheinnummer: ' + (v || '') + '\nGewünschter Flug: \nWunschtermin: \nTelefon: \n\nFreundliche Grüsse';

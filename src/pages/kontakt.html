@@ -1,0 +1,227 @@
+<!--meta {
+  "title": "Kontakt",
+  "description": "Kontakt zur FLUBAG Flugbetriebs AG am Flugplatz Luzern-Beromünster: Telefon +41 41 930 18 66, E-Mail, Adresse Moos 3, 6025 Neudorf und Kontaktformular.",
+  "nav": "kontakt",
+  "ogImage": "hero/slide-03",
+  "css": ["aktuelles"]
+} -->
+
+<section class="page-hero contact-hero">
+  <div class="page-hero__media"><x-img src="hero/slide-03" alt="Fluglehrer mit Gästen vor einer Cessna auf dem Flugplatz Beromünster" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Kontakt</li></ol>
+    <p class="eyebrow">Kontakt</p>
+    <h1 data-split data-split-now>Sprich mit uns.</h1>
+    <p class="lead">Schnupperflug, Rundflug, Ausbildung oder Hangarplatz: Wir sind gerne für dich da. Ruf an, schreib uns oder komm direkt am Flugplatz Luzern-Beromünster vorbei.</p>
+    <div class="page-hero__meta">
+      <a class="chip" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
+      <a class="chip" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
+      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#formular" data-magnetic><x-icon name="send"></x-icon>Nachricht schreiben</a>
+      <a class="btn btn--ghost btn--lg" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>Anrufen</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="wege-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>So erreichst du uns</p>
+        <h2 id="wege-title" data-split>Kurzer Draht zum Flugplatz.</h2>
+      </div>
+      <p class="lead" data-reveal>Alle Kontaktwege auf einen Blick. Tipp: Mit einem Klick kopierst du Nummer oder Adresse, oder speicherst uns direkt im Adressbuch.</p>
+    </div>
+    <div class="contact-cards" data-reveal-group="0.08">
+      <article class="contact-card card card--glow" data-reveal>
+        <span class="card__icon"><x-icon name="phone"></x-icon></span>
+        <h3 class="contact-card__label">Telefon</h3>
+        <a class="contact-card__value" href="tel:{{site.phoneHref}}">{{site.phone}}</a>
+        <dl class="contact-card__list">
+          <div><dt>Wenn das Büro nicht besetzt ist</dt><dd><a href="tel:{{site.phoneMobileHref}}">{{site.phoneMobile}}</a></dd></div>
+          <div><dt>Fax</dt><dd>{{site.fax}}</dd></div>
+        </dl>
+        <div class="contact-card__actions">
+          <a class="btn btn--primary btn--sm" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>Anrufen</a>
+          <button class="btn btn--ghost btn--sm" type="button" data-copy="{{site.phone}}" aria-label="Telefonnummer kopieren"><x-icon name="copy"></x-icon>Kopieren</button>
+        </div>
+      </article>
+      <article class="contact-card card card--glow" data-reveal>
+        <span class="card__icon"><x-icon name="mail"></x-icon></span>
+        <h3 class="contact-card__label">E-Mail</h3>
+        <a class="contact-card__value contact-card__value--mail" href="mailto:{{site.email}}">{{site.email}}</a>
+        <p class="contact-card__text">Für alle Anfragen rund um Flugschule, Rundflüge, Gutscheine und Flugplatz. Oder nutze unten das Kontaktformular.</p>
+        <div class="contact-card__actions">
+          <a class="btn btn--primary btn--sm" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>Schreiben</a>
+          <button class="btn btn--ghost btn--sm" type="button" data-copy="{{site.email}}" aria-label="E-Mail-Adresse kopieren"><x-icon name="copy"></x-icon>Kopieren</button>
+        </div>
+      </article>
+      <article class="contact-card card card--glow" data-reveal>
+        <span class="card__icon"><x-icon name="map-pin"></x-icon></span>
+        <h3 class="contact-card__label">Adresse</h3>
+        <address class="contact-card__value contact-card__value--addr">FLUBAG<br>Flugbetriebs AG Beromünster<br>{{site.address.street}}<br>CH-{{site.address.zip}} {{site.address.city}}</address>
+        <div class="contact-card__actions">
+          <a class="btn btn--primary btn--sm" href="anreise.html"><x-icon name="route"></x-icon>Anreise</a>
+          <button class="btn btn--ghost btn--sm" type="button" data-copy="FLUBAG Flugbetriebs AG Beromünster, {{site.address.street}}, CH-{{site.address.zip}} {{site.address.city}}" aria-label="Adresse kopieren"><x-icon name="copy"></x-icon>Kopieren</button>
+          <button class="btn btn--text btn--sm" type="button" data-vcard><x-icon name="download"></x-icon>Kontakt speichern</button>
+        </div>
+      </article>
+      <article class="contact-card card card--glow" data-reveal>
+        <span class="card__icon"><x-icon name="utensils"></x-icon></span>
+        <h3 class="contact-card__label">{{site.restaurant.name}}</h3>
+        <a class="contact-card__value" href="tel:{{site.restaurant.phoneHref}}">{{site.restaurant.phone}}</a>
+        <p class="contact-card__text">Das Restaurant direkt am Flugplatz, erreichbar unter eigener Telefonnummer.</p>
+        <div class="contact-card__actions">
+          <a class="btn btn--primary btn--sm" href="tel:{{site.restaurant.phoneHref}}"><x-icon name="phone"></x-icon>Anrufen</a>
+          <a class="btn btn--ghost btn--sm" href="{{site.restaurant.url}}" target="_blank" rel="noopener">Website <x-icon name="arrow-up-right"></x-icon></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--chart" id="formular" aria-labelledby="formular-title">
+  <div class="container split split--top">
+    <div class="stack-l sticky">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Kontaktformular</p>
+        <h2 id="formular-title" data-split>Schreib uns.</h2>
+        <p class="lead" data-reveal>Wähle ein Thema und schick uns deine Nachricht. Wir melden uns so schnell wie möglich bei dir.</p>
+      </div>
+      <div class="stack">
+        <p class="contact-quick__title mono" data-reveal>Schneller ans Ziel</p>
+        <div class="contact-quick" data-reveal-group="0.08">
+          <a class="contact-quick__item" href="schnupperflug.html#anfrage" data-reveal>
+            <span class="contact-quick__icon"><x-icon name="plane-takeoff"></x-icon></span>
+            <span><strong>Schnupperflug anfragen</strong><small>Flugzeug, Dauer und Wunschtermin in 4 Schritten</small></span>
+            <x-icon name="arrow-right"></x-icon>
+          </a>
+          <a class="contact-quick__item" href="rundfluege.html#anfrage" data-reveal>
+            <span class="contact-quick__icon"><x-icon name="route"></x-icon></span>
+            <span><strong>Rundflug anfragen</strong><small>Route, Termin und Anzahl Gäste wählen</small></span>
+            <x-icon name="arrow-right"></x-icon>
+          </a>
+          <a class="contact-quick__item" href="infoabende.html#anmeldung" data-reveal>
+            <span class="contact-quick__icon"><x-icon name="calendar"></x-icon></span>
+            <span><strong>Infoabend anmelden</strong><small>"Wie werde ich Pilot?"</small></span>
+            <x-icon name="arrow-right"></x-icon>
+          </a>
+        </div>
+      </div>
+      <div class="contact-person" data-reveal>
+        <x-img src="team/patrizia-wandeler" alt="Patrizia Wandeler" sizes="72px"></x-img>
+        <span><strong>Patrizia Wandeler</strong><small>Administration, Buchhaltung, Stv. Flugplatzleitung</small></span>
+      </div>
+    </div>
+
+    <form class="form form-panel" id="kontaktformular" data-form data-form-name="Kontaktanfrage" data-subject="Kontaktanfrage über flubag.ch" data-reveal>
+      <div class="form-grid">
+        <div class="field span-2">
+          <label class="field__label" for="k-thema">Thema <span class="req">*</span></label>
+          <select class="select" id="k-thema" name="thema" required data-topic>
+            <option>Allgemeine Anfrage</option>
+            <option>Schnupperflug</option>
+            <option>Rundflug</option>
+            <option>Gutschein</option>
+            <option>Ausbildung</option>
+            <option>Infoabend</option>
+            <option>Hangarplatz</option>
+            <option>Flugzeugmiete/Charter</option>
+            <option>Zoll</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="span-2 topic-hint" data-topic-hint hidden></div>
+        <div class="field">
+          <label class="field__label" for="k-name">Vor- und Nachname <span class="req">*</span></label>
+          <input class="input" id="k-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="k-mail">E-Mail <span class="req">*</span></label>
+          <input class="input" type="email" id="k-mail" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="k-tel">Telefon</label>
+          <input class="input" type="tel" id="k-tel" name="telefon" autocomplete="tel">
+          <p class="field__help">Für Rückfragen, freiwillig.</p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="k-betreff">Betreff</label>
+          <input class="input" id="k-betreff" name="betreff">
+        </div>
+        <div class="field span-2">
+          <label class="field__label" for="k-msg">Nachricht <span class="req">*</span></label>
+          <textarea class="textarea" id="k-msg" name="nachricht" rows="6" maxlength="4000" required data-msg></textarea>
+          <p class="field__help"><span data-msg-count>0</span> / 4000 Zeichen</p>
+        </div>
+      </div>
+      <label class="check mt-m"><input type="checkbox" name="datenschutz" value="ja" data-label="Datenschutz" required><span>Ich bin einverstanden, dass FLUBAG meine Angaben zur Bearbeitung der Anfrage verwendet (<a href="datenschutz.html#formulare">Datenschutz</a>).</span></label>
+      <div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <input type="hidden" name="_t">
+      <div class="row mt-m">
+        <button class="btn btn--primary btn--lg" type="submit" data-magnetic><x-icon name="send"></x-icon>Nachricht senden</button>
+        <span class="subtle contact-form__note">Pflichtfelder sind mit <span class="req">*</span> markiert.</span>
+      </div>
+
+      <div class="form-success" role="status">
+        <div class="form-success__plane"><x-icon name="plane-takeoff"></x-icon></div>
+        <h3>Danke, deine Nachricht ist unterwegs!</h3>
+        <p class="muted">Wir melden uns so schnell wie möglich bei dir.</p>
+        <p class="muted" data-mail-note hidden>Dein E-Mail-Programm wurde mit allen Angaben geöffnet. Bitte sende die E-Mail noch ab.</p>
+        <button class="btn btn--ghost" type="button" data-form-reset>Neue Nachricht</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="platz-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Vorbeikommen</p>
+        <h2 id="platz-title" data-split>Heute am Platz.</h2>
+      </div>
+      <p class="lead" data-reveal>Ob gerade geflogen wird, siehst du am Platzstatus. Wie du zu uns findest, steht ausführlich auf der Anreise-Seite.</p>
+    </div>
+    <div class="contact-live" data-reveal-group="0.1">
+      <div class="card card--pad" data-reveal>
+        <p class="eyebrow eyebrow--plain">Platzstatus</p>
+        <div class="mt-s" data-airfield-status></div>
+      </div>
+      <div class="contact-arrival instrument hud-corners force-dark" data-reveal>
+        <div class="contact-arrival__head"><span class="mono">ANREISE</span><span class="mono contact-arrival__icao">{{site.airfield.icao}}</span></div>
+        <p class="contact-arrival__title">Flugplatz Luzern-Beromünster</p>
+        <p class="contact-arrival__addr">{{site.address.street}}, {{site.address.zip}} {{site.address.city}}</p>
+        <div class="contact-arrival__grid">
+          <div class="readout"><span class="readout__label">Koordinaten</span><span class="readout__value readout__value--sm">47°11'24" N<br>008°12'17" E</span></div>
+          <div class="readout"><span class="readout__label">Höhe</span><span class="readout__value">{{site.airfield.elevationFt}} <small>ft</small></span></div>
+          <div class="readout"><span class="readout__label">Piste</span><span class="readout__value">{{site.airfield.runway}}</span></div>
+          <div class="readout"><span class="readout__label">Belag</span><span class="readout__value readout__value--sm">{{site.airfield.surface}}, {{site.airfield.runwayLength}} m</span></div>
+        </div>
+        <div class="row">
+          <a class="btn btn--primary btn--sm" href="anreise.html"><x-icon name="route"></x-icon>Anreise planen</a>
+          <a class="btn btn--ghost btn--sm" href="webcams.html"><x-icon name="camera"></x-icon>Webcams</a>
+        </div>
+      </div>
+      <div class="social-card card card--pad" data-reveal>
+        <p class="eyebrow eyebrow--plain">Social Media</p>
+        <p class="social-card__title">Bilder und News vom Flugplatz.</p>
+        <div class="social-links">
+          <a class="social-link social-link--fb" href="{{site.social.facebook}}" target="_blank" rel="noopener">
+            <span class="social-link__icon"><x-icon name="facebook"></x-icon></span>
+            <span class="social-link__text"><strong>Facebook</strong><small>FLUBAG Luzern-Beromünster</small></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <a class="social-link social-link--ig" href="{{site.social.instagram}}" target="_blank" rel="noopener">
+            <span class="social-link__icon"><x-icon name="instagram"></x-icon></span>
+            <span class="social-link__text"><strong>Instagram</strong><small>@flugplatzberomuenster</small></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+        </div>
+        <a class="btn btn--text" href="aktuelles.html">Aktuelles vom Platz <x-icon name="arrow-right"></x-icon></a>
+      </div>
+    </div>
+  </div>
+</section>

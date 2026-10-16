@@ -44,7 +44,7 @@
     </div>
 
     <div class="fl-filter" data-fleet-filter hidden>
-      <p class="fl-filter__label mono" id="fl-filter-label">Einsatz</p>
+      <p class="fl-filter__label mono" id="fl-filter-label">Filter</p>
       <div class="fl-filter__list" role="group" aria-labelledby="fl-filter-label" data-fleet-filter-list></div>
       <p class="fl-filter__count mono subtle" data-fleet-filter-count aria-live="polite"></p>
     </div>
@@ -159,8 +159,8 @@
     <div class="stack-l sticky">
       <div class="stack">
         <p class="eyebrow" data-reveal>Mietpreise</p>
-        <h2 id="preise-title" data-split>Abgerechnet wird pro Minute.</h2>
-        <p class="lead" data-reveal>Alle Flugzeuge haben zwei Tarife. Preis 1 gilt für alle, Preis 2 nach Erreichen der 25. Flugstunde oder ab einem Umsatz von CHF 5000 pro Kalenderjahr.</p>
+        <h2 id="preise-title" data-split>Zwei Tarife für jedes Flugzeug.</h2>
+        <p class="lead" data-reveal>Die Mietpreise sind pro Minute und pro Stunde angegeben. Preis 2 gilt nach Erreichen der 25. Flugstunde oder ab einem Umsatz von CHF 5000 pro Kalenderjahr.</p>
       </div>
       <ul class="checklist" data-reveal-group>
         <li data-reveal><x-icon name="check"></x-icon><span>Fluglehrer auf Flubag-Flugzeugen: CHF 1.50 pro Minute (CHF 90 pro Stunde)</span></li>
@@ -181,12 +181,12 @@
         <span class="fl-rate__col">
           <span class="fl-rate__label mono">Preis 1</span>
           <span class="fl-rate__value">{{a.price1 | chf}}<small> / h</small></span>
-          <span class="fl-rate__min mono">{{a.priceMin1 | chf}} / Min.</span>
+          <span class="fl-rate__min mono"><span data-chf2="{{a.priceMin1}}">{{a.priceMin1 | chf}}</span> / Min.</span>
         </span>
         <span class="fl-rate__col">
           <span class="fl-rate__label mono">Preis 2</span>
           <span class="fl-rate__value">{{a.price2 | chf}}<small> / h</small></span>
-          <span class="fl-rate__min mono">{{a.priceMin2 | chf}} / Min.</span>
+          <span class="fl-rate__min mono"><span data-chf2="{{a.priceMin2}}">{{a.priceMin2 | chf}}</span> / Min.</span>
         </span>
         <span class="fl-rate__fuel"><x-icon name="fuel"></x-icon><span class="mono">{{a.fuel}} %</span></span>
       </a>
@@ -217,7 +217,7 @@
         </div>
       </article>
 
-      <article class="fl-pilot__card card card--pad" data-reveal>
+      <article class="fl-pilot__card fl-pilot__card--fam card card--pad" data-reveal>
         <span class="fl-pilot__num mono">02</span>
         <x-icon name="clipboard-check" class="card__icon"></x-icon>
         <h3 class="card__title">Familiarization</h3>
@@ -227,6 +227,9 @@
           <li><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="file-text" class="doc__icon"></x-icon><span><span class="doc__title">{{d.title}}</span><span class="doc__meta">PDF · Fragebogen</span></span><x-icon name="arrow-up-right" class="doc__go"></x-icon></a></li>
           <!-- @endif --><!-- @end -->
         </ul>
+        <div class="card__foot">
+          <a class="btn btn--text" href="https://pilots.flubag.ch/familiarization" target="_blank" rel="noopener">Familiarizations im Pilotenportal <x-icon name="arrow-up-right"></x-icon></a>
+        </div>
       </article>
 
       <article class="fl-pilot__card card card--pad" data-reveal>

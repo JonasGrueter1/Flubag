@@ -370,7 +370,7 @@
     var L = window.L;
     map = L.map(mapEl, {
       zoomControl: false, scrollWheelZoom: false, dragging: !F.isTouch, touchZoom: true, doubleClickZoom: true,
-      minZoom: 7, maxZoom: 14, zoomSnap: 1, zoomDelta: 1, attributionControl: true, keyboard: true
+      minZoom: 7, maxZoom: 14, zoomSnap: 0.25, zoomDelta: 1, attributionControl: true, keyboard: true
     });
     var wide = isWide();
     L.control.zoom({ position: wide ? 'topleft' : 'bottomright', zoomInTitle: 'Hineinzoomen', zoomOutTitle: 'Herauszoomen' }).addTo(map);
@@ -399,6 +399,7 @@
     var all = L.latLngBounds([]);
     ROUTES.forEach(function (r) {
       r._glow = L.polyline(r.path, { className: 'rf-line-glow', interactive: false, weight: 14, color: '#ff5a26' }).addTo(map);
+      r._case = L.polyline(r.path, { className: 'rf-line-case', interactive: false, weight: 6, color: '#0b1426', lineJoin: 'round', lineCap: 'round' }).addTo(map);
       r._line = L.polyline(r.path, { className: 'rf-line', interactive: false, weight: 3, color: '#e63201', lineJoin: 'round', lineCap: 'round' }).addTo(map);
       r._hit = L.polyline(r.path, { className: 'rf-line-hit', weight: 20, opacity: 0, color: '#000' }).addTo(map);
       r._hit.bindTooltip(r.name + ' · ' + r.duration + ' min', { sticky: true, direction: 'top', className: 'wp-label', offset: [0, -8] });
@@ -570,6 +571,8 @@
     ROUTES.forEach(function (x) {
       pathCls(x._line, 'is-active', x === r);
       pathCls(x._line, 'is-dim', r && x !== r);
+      pathCls(x._case, 'is-dim', r && x !== r);
+      pathCls(x._case, 'is-active', x === r);
       pathCls(x._glow, 'is-active', x === r);
     });
     trail.setLatLngs([]);
@@ -582,6 +585,7 @@
       setTimeout(declutter, 30);
       return;
     }
+    r._case.bringToFront();
     r._line.bringToFront();
     trail.bringToFront();
     map.removeLayer(overviewLayer);
@@ -640,8 +644,20 @@
     }
   }
 
-  // Ohne Lenis (Touch, reduzierte Bewegung): Anker direkt anspringen. Das weiche Browser-Scrollen
-  // würde sonst von der Unternavigation (scrollIntoView der aktiven Sprungmarke) abgebrochen.
+  // Unternavigation: die aktive Sprungmarke nur innerhalb der Leiste horizontal zentrieren. Das gemeinsame
+  // scrollIntoView() würde sonst ein laufendes weiches Scrollen der Seite abbrechen (z.B. Sprung zum
+  // Formular oder zur Erfolgsmeldung nach dem Absenden).
+  F.$$('[data-subnav] .subnav__list a').forEach(function (a) {
+    a.scrollIntoView = function () {
+      var list = a.closest('.subnav__list');
+      if (!list || list.scrollWidth <= list.clientWidth) return;
+      var ar = a.getBoundingClientRect(), lr = list.getBoundingClientRect();
+      list.scrollBy({ left: ar.left - lr.left - (list.clientWidth - ar.width) / 2, behavior: reduced ? 'auto' : 'smooth' });
+    };
+  });
+
+  // Ohne Lenis (Touch, reduzierte Bewegung): Anker selbst anfahren, damit Formular-Vorauswahl und
+  // Sprung zuverlässig zusammenspielen.
   document.addEventListener('click', function (e) {
     if (F.lenis || e.defaultPrevented || e.button) return;
     var a = e.target.closest && e.target.closest('a[href^="#"]');
@@ -649,9 +665,22 @@
     var t = id && document.getElementById(id);
     if (!t) return;
     e.preventDefault();
-    t.scrollIntoView({ behavior: 'instant', block: 'start' });
+    t.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
     if (history.pushState) history.pushState(null, '', '#' + id);
   });
+
+  // Ohne Lenis: Anker beim Aufruf (z.B. von der Startseite: rundfluege.html#luzern) nach dem Laden
+  // sicher anfahren. Der Browser springt sonst schon, bevor Bilder und Schriften das Layout verschieben.
+  if (location.hash.length > 1) {
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (!t || F.lenis) return;
+        var off = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+        if (Math.abs(t.getBoundingClientRect().top - off) > 120) t.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }, 80);
+    });
+  }
 
   // Vorauswahl über Anker (rundfluege.html#titlis) oder Parameter (?route=titlis)
   var params = new URLSearchParams(location.search);

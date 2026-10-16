@@ -1,0 +1,301 @@
+<!--meta {
+  "title": "Webcams & Wetter",
+  "description": "Live-Webcams vom Flugplatz Luzern-Beromünster (LSZO), aktuelles Wetter, Wind auf der Piste 15/33, Platzstatus und Betriebszeiten der nächsten 7 Tage.",
+  "nav": "flugplatz",
+  "ogImage": "flugplatz/webcam-sued"
+} -->
+
+<section class="page-hero page-hero--compact wc-hero">
+  <div class="page-hero__media"><x-img src="flugplatz/webcam-sued" alt="Webcam-Archivbild: Blick über den Flugplatz Luzern-Beromünster Richtung Süden am frühen Morgen" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Flugplatz</li><li>Webcams &amp; Wetter</li></ol>
+    <p class="eyebrow">Live vom Platz</p>
+    <h1 data-split data-split-now>Webcams &amp; Wetter.</h1>
+    <p class="lead">Wie sieht es gerade aus in Beromünster? Drei Live-Webcams, aktuelle Wetterwerte, Wind auf der Piste und der Platzstatus nach den Betriebszeiten. Alles automatisch aktualisiert.</p>
+    <div class="page-hero__meta">
+      <span class="chip wc-chip-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+      <span class="chip"><x-icon name="sunrise"></x-icon>Sonnenaufgang <span class="mono" data-sun-field="sunrise">--</span></span>
+      <span class="chip"><x-icon name="sunset"></x-icon>Sonnenuntergang <span class="mono" data-sun-field="sunset">--</span></span>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" data-subnav aria-label="Abschnitte">
+  <div class="container">
+    <ul class="subnav__list">
+      <li><a href="#webcams">Webcams</a></li>
+      <li><a href="#wetter">Wetter &amp; Wind</a></li>
+      <li><a href="#rechner">Seitenwind-Rechner</a></li>
+      <li><a href="#betrieb">Platzstatus &amp; Betriebszeiten</a></li>
+      <li><a href="#quellen">Briefing &amp; Quellen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section wc-cams-sec" id="webcams" aria-labelledby="cams-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Live-Webcams</p>
+        <h2 id="cams-title" data-split>Drei Blicke auf den Platz.</h2>
+      </div>
+      <p class="lead" data-reveal>Die Bilder laden jede Minute neu. Klick auf ein Bild für die Grossansicht, mit den Pfeiltasten wechselst du zwischen den Kameras.</p>
+    </div>
+
+    <div class="wc-grid" data-gallery data-reveal-group="0.1">
+      <figure class="wc-cam wc-cam--main" data-wc data-reveal>
+        <a class="wc-cam__media" href="https://flubag.ch/webcam/cam-south000.jpg" data-caption="LSZO Süden: Blick Richtung Holding Point Runway 33" data-wc-large="assets/img/flugplatz/webcam-sued.jpg">
+          <img src="https://flubag.ch/webcam/cam-south000.jpg" alt="Live-Webcam LSZO Süden: Blick Richtung Holding Point Runway 33" width="1600" height="1200" loading="eager" data-webcam data-fallback="assets/img/flugplatz/webcam-sued-960.webp">
+          <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
+          <span class="wc-cam__zoom" aria-hidden="true"><x-icon name="maximize-2"></x-icon></span>
+        </a>
+        <figcaption class="wc-cam__info">
+          <div class="wc-cam__text">
+            <h3 class="wc-cam__title">LSZO Süden</h3>
+            <p class="wc-cam__desc">Blick Richtung Holding Point Runway 33</p>
+          </div>
+          <p class="wc-cam__state mono" data-wc-state>Lädt …</p>
+        </figcaption>
+        <span class="wc-cam__progress" aria-hidden="true"><span data-wc-bar></span></span>
+      </figure>
+
+      <figure class="wc-cam" data-wc data-reveal>
+        <a class="wc-cam__media" href="https://flubag.ch/webcam/cam-west000.jpg" data-caption="LSZO Westen: Blick auf Windsack und Holding Point Runway 15" data-wc-large="assets/img/flugplatz/webcam-west.jpg">
+          <img src="https://flubag.ch/webcam/cam-west000.jpg" alt="Live-Webcam LSZO Westen: Blick auf Windsack und Holding Point Runway 15" width="1600" height="1200" loading="eager" data-webcam data-fallback="assets/img/flugplatz/webcam-west-960.webp">
+          <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
+          <span class="wc-cam__zoom" aria-hidden="true"><x-icon name="maximize-2"></x-icon></span>
+        </a>
+        <figcaption class="wc-cam__info">
+          <div class="wc-cam__text">
+            <h3 class="wc-cam__title">LSZO Westen</h3>
+            <p class="wc-cam__desc">Blick auf Windsack und Holding Point Runway 15</p>
+          </div>
+          <p class="wc-cam__state mono" data-wc-state>Lädt …</p>
+        </figcaption>
+        <span class="wc-cam__progress" aria-hidden="true"><span data-wc-bar></span></span>
+      </figure>
+
+      <figure class="wc-cam" data-wc data-reveal>
+        <a class="wc-cam__media" href="https://paraclub.myhostpoint.ch/webcam/image.jpg" data-caption="Paraclub Beromünster">
+          <img src="https://paraclub.myhostpoint.ch/webcam/image.jpg" alt="Live-Webcam des Paraclub Beromünster" width="1600" height="1200" loading="eager" data-webcam data-fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%230e1829'/%3E%3Ccircle cx='400' cy='260' r='38' fill='none' stroke='%2374839b' stroke-width='4'/%3E%3Cpath d='M380 260h40M400 240v40' stroke='%2374839b' stroke-width='4' transform='rotate(45 400 260)'/%3E%3Ctext x='400' y='350' fill='%23a9b6ca' font-family='Arial,sans-serif' font-size='26' text-anchor='middle'%3EWebcam momentan nicht erreichbar%3C/text%3E%3C/svg%3E">
+          <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
+          <span class="wc-cam__zoom" aria-hidden="true"><x-icon name="maximize-2"></x-icon></span>
+        </a>
+        <figcaption class="wc-cam__info">
+          <div class="wc-cam__text">
+            <h3 class="wc-cam__title">Paraclub Beromünster</h3>
+            <p class="wc-cam__desc">Webcam des Paraclub Beromünster</p>
+          </div>
+          <p class="wc-cam__state mono" data-wc-state>Lädt …</p>
+        </figcaption>
+        <span class="wc-cam__progress" aria-hidden="true"><span data-wc-bar></span></span>
+      </figure>
+    </div>
+    <div class="row wc-cams-actions" data-reveal>
+      <button class="btn btn--ghost btn--sm" type="button" data-wc-reload><x-icon name="refresh-cw"></x-icon>Alle Bilder neu laden</button>
+      <p class="subtle wc-cams-note">Die Webcams laufen auf den Servern der FLUBAG und des Paraclub. Ist eine Kamera nicht erreichbar, zeigen wir ein Archivbild.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--glow" id="wetter" aria-labelledby="wetter-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Live-Wetter</p>
+        <h2 id="wetter-title" data-split>Das Wetter über LSZO.</h2>
+      </div>
+      <p class="lead" data-reveal>Aktuelle Werte für die Koordinaten des Flugplatzes, berechnet aus Wettermodellen. Dazu der Wind auf der Piste 15/33, zerlegt in Gegen- und Seitenwind.</p>
+    </div>
+
+    <div class="wc-wx">
+      <div class="instrument hud-corners wc-panel" data-reveal>
+        <div class="wc-panel__head">
+          <span class="mono">LSZO · METEO</span>
+          <span class="mono subtle" data-wc-wxtime>Wird geladen …</span>
+        </div>
+        <div class="wc-panel__hero">
+          <div class="wc-icon" aria-hidden="true">
+            <span data-wc-icon="clear" hidden><x-icon name="sun"></x-icon></span>
+            <span data-wc-icon="night" hidden><x-icon name="moon"></x-icon></span>
+            <span data-wc-icon="partly" hidden><x-icon name="cloud-sun"></x-icon></span>
+            <span data-wc-icon="cloudy"><x-icon name="cloud"></x-icon></span>
+            <span data-wc-icon="fog" hidden><x-icon name="cloud-fog"></x-icon></span>
+            <span data-wc-icon="drizzle" hidden><x-icon name="cloud-drizzle"></x-icon></span>
+            <span data-wc-icon="rain" hidden><x-icon name="cloud-rain"></x-icon></span>
+            <span data-wc-icon="snow" hidden><x-icon name="cloud-snow"></x-icon></span>
+            <span data-wc-icon="storm" hidden><x-icon name="cloud-lightning"></x-icon></span>
+          </div>
+          <div class="wc-panel__main">
+            <span class="wc-temp" data-wx-field="tempText">--</span>
+            <span class="wc-cond" data-wx-field="wx">--</span>
+          </div>
+          <div class="wc-windrose" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" class="wc-windrose__ring"/><text x="50" y="13" class="wc-windrose__n">N</text><g class="wc-windrose__arrow" data-wx-arrow><path d="M50 58 L56 40 L52 41 L52 14 L48 14 L48 41 L44 40 Z"/></g></svg>
+          </div>
+        </div>
+        <div class="wc-panel__grid">
+          <div class="readout"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
+          <div class="readout"><span class="readout__label">Böen</span><span class="readout__value" data-wc-gust>--</span></div>
+          <div class="readout"><span class="readout__label">Richtung</span><span class="readout__value" data-wx-field="dirName">--</span></div>
+          <div class="readout"><span class="readout__label">QNH</span><span class="readout__value" data-wx-field="qnhText">--</span></div>
+          <div class="readout"><span class="readout__label">Sicht</span><span class="readout__value" data-wx-field="visText">--</span></div>
+          <div class="readout"><span class="readout__label">Bewölkung</span><span class="readout__value" data-wx-field="cloudText">--</span></div>
+          <div class="readout"><span class="readout__label">Wolkenbasis (geschätzt)</span><span class="readout__value" data-wx-field="cloudbaseText">--</span></div>
+          <div class="readout"><span class="readout__label">Taupunkt</span><span class="readout__value" data-wc-dew>--</span></div>
+        </div>
+        <p class="wc-panel__note">Modelldaten (Open-Meteo), keine Messung am Platz. Wolkenbasis grob geschätzt aus Temperatur und Taupunkt.</p>
+      </div>
+
+      <div class="card card--pad wc-xwind" data-reveal>
+        <div class="wc-xwind__head">
+          <p class="eyebrow eyebrow--plain">Wind auf der Piste</p>
+          <p class="mono subtle" data-wx-field="rwyText">--</p>
+        </div>
+        <div data-xwind></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rechner" aria-labelledby="rechner-title">
+  <div class="container split split--wide-right">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Seitenwind-Rechner</p>
+      <h2 id="rechner-title" data-split>Welche Piste passt zum Wind?</h2>
+      <p class="lead" data-reveal>Stell Windrichtung und Stärke ein, zum Beispiel aus dem METAR eines Nachbarplatzes oder aus der Prognose. Der Rechner zerlegt den Wind für beide Pistenrichtungen.</p>
+      <p class="muted" data-reveal>Primär wird in Beromünster auf der Piste 33 gestartet und gelandet. Grundsätzlich kein Start auf Piste 33 bei Rückenwind und nahe oder bei max. Startgewicht. Die zulässige Seitenwindkomponente steht im Flughandbuch deines Flugzeugs.</p>
+      <div class="row" data-reveal><a class="btn btn--text" href="airport-briefing.html">Airport Briefing <x-icon name="arrow-right"></x-icon></a></div>
+    </div>
+
+    <div class="card card--pad wc-calc" data-wc-calc data-reveal>
+      <div class="wc-calc__inputs">
+        <div class="range">
+          <div class="range__head"><label for="wc-dir">Windrichtung</label><output class="range__value" for="wc-dir" data-wc-out="dir">330°</output></div>
+          <input type="range" id="wc-dir" min="10" max="360" step="10" value="330">
+        </div>
+        <div class="range">
+          <div class="range__head"><label for="wc-spd">Windstärke</label><output class="range__value" for="wc-spd" data-wc-out="spd">10 kt</output></div>
+          <input type="range" id="wc-spd" min="0" max="40" step="1" value="10">
+        </div>
+        <button class="btn btn--ghost btn--sm" type="button" data-wc-live disabled><x-icon name="wind"></x-icon>Aktuellen Wind übernehmen</button>
+      </div>
+      <div class="wc-calc__out">
+        <div class="wc-rwy" data-wc-rwy="33">
+          <div class="wc-rwy__head"><span class="wc-rwy__num">33</span><span class="chip" data-wc-tag>--</span></div>
+          <div class="wc-bar"><span class="wc-bar__label">Gegenwind</span><span class="wc-bar__track"><span class="wc-bar__fill" data-wc-head></span></span><span class="wc-bar__val mono" data-wc-headval>--</span></div>
+          <div class="wc-bar"><span class="wc-bar__label">Seitenwind</span><span class="wc-bar__track"><span class="wc-bar__fill wc-bar__fill--x" data-wc-cross></span></span><span class="wc-bar__val mono" data-wc-crossval>--</span></div>
+        </div>
+        <div class="wc-rwy" data-wc-rwy="15">
+          <div class="wc-rwy__head"><span class="wc-rwy__num">15</span><span class="chip" data-wc-tag>--</span></div>
+          <div class="wc-bar"><span class="wc-bar__label">Gegenwind</span><span class="wc-bar__track"><span class="wc-bar__fill" data-wc-head></span></span><span class="wc-bar__val mono" data-wc-headval>--</span></div>
+          <div class="wc-bar"><span class="wc-bar__label">Seitenwind</span><span class="wc-bar__track"><span class="wc-bar__fill wc-bar__fill--x" data-wc-cross></span></span><span class="wc-bar__val mono" data-wc-crossval>--</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--chart" id="betrieb" aria-labelledby="betrieb-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Platzstatus &amp; Betriebszeiten</p>
+        <h2 id="betrieb-title" data-split>Ist heute Flugbetrieb?</h2>
+      </div>
+      <p class="lead" data-reveal>Der Status ist aus den Betriebszeiten der Weisung für Piloten berechnet, inklusive Feiertagen und Abenddämmerung. Massgebend bleibt die Flugplatzleitung.</p>
+    </div>
+
+    <div class="wc-ops">
+      <div class="card card--pad wc-status" data-reveal>
+        <p class="eyebrow eyebrow--plain">Platzstatus jetzt</p>
+        <div class="mt-s" data-airfield-status></div>
+      </div>
+      <div class="card card--pad wc-week" data-reveal>
+        <div class="wc-week__head">
+          <p class="eyebrow eyebrow--plain">Die nächsten 7 Tage</p>
+          <ul class="wc-legend" aria-label="Legende">
+            <li><span class="wc-legend__sw wc-legend__sw--ok"></span>Flugbetrieb</li>
+            <li><span class="wc-legend__sw wc-legend__sw--pause"></span>Mittag: keine Starts</li>
+            <li><span class="wc-legend__sw wc-legend__sw--now"></span>Jetzt</li>
+          </ul>
+        </div>
+        <div class="mt-s" data-hours-week></div>
+        <dl class="data-list wc-week__rules">
+          <div><dt>Montag bis Samstag</dt><dd>08:00 bis zur Abenddämmerung, spätestens 21:00 · Landungen bis 21:30 · 12:00 bis 13:00 keine Starts</dd></div>
+          <div><dt>Sonntag und Feiertage</dt><dd>09:00 bis 12:00 und 14:00 bis zur Abenddämmerung, spätestens 20:00 · Landungen bis 21:00</dd></div>
+        </dl>
+        <p class="subtle wc-week__foot">* Feiertag. Alle Regeln und Einschränkungen in der <a href="weisungen.html">Weisung für Piloten</a>.</p>
+      </div>
+    </div>
+
+    <div class="card card--pad wc-sun" data-wc-sun data-reveal>
+      <div class="wc-sun__arc">
+        <svg viewBox="0 0 400 150" aria-hidden="true">
+          <path class="wc-sun__horizon" d="M10 130 H390"/>
+          <path class="wc-sun__path" d="M30 130 Q200 -40 370 130"/>
+          <path class="wc-sun__done" data-wc-sun-done d="M30 130 Q200 -40 370 130" pathLength="100"/>
+          <circle class="wc-sun__dot" data-wc-sun-dot cx="30" cy="130" r="9"/>
+        </svg>
+      </div>
+      <div class="wc-sun__times">
+        <div class="readout"><span class="readout__label">Sonnenaufgang</span><span class="readout__value" data-sun-field="sunrise">--</span></div>
+        <div class="readout"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+        <div class="readout"><span class="readout__label">Abenddämmerung</span><span class="readout__value" data-sun-field="dusk">--</span></div>
+        <p class="wc-sun__text" data-wc-sun-text>Tageslicht in Beromünster heute.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="quellen" aria-labelledby="quellen-title">
+  <div class="container">
+    <div class="notice notice--warn wc-disclaimer" data-reveal>
+      <x-icon name="triangle-alert"></x-icon>
+      <div>
+        <p><strong>Keine offizielle Flugwetterberatung.</strong></p>
+        <p>Alle Werte auf dieser Seite sind Modelldaten und Berechnungen ohne Gewähr. Für die Flugvorbereitung gelten die offiziellen Quellen: MeteoSchweiz, das Briefing über Skybriefing und die aktuellen NOTAM. Massgebend für den Betrieb sind Flugplatzleitung, Pistenzustand und Sprungbetrieb.</p>
+      </div>
+    </div>
+
+    <div class="section-head section-head--split mt-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Briefing &amp; Quellen</p>
+        <h2 id="quellen-title" data-split>Offizielle Quellen.</h2>
+      </div>
+      <div class="row" data-reveal><a class="btn btn--ghost" href="briefing-links.html"><x-icon name="compass"></x-icon>Alle Briefing Links</a></div>
+    </div>
+    <div class="link-tiles wc-links" data-reveal-group="0.06">
+      <a class="link-tile" href="https://www.meteoschweiz.admin.ch/home/wetter/prognosen/allgemeine-lage.html" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/meteoswiss" alt="Logo MeteoSchweiz" sizes="56px"></x-img></span>
+        <span><span class="link-tile__title">MeteoSchweiz</span><br><span class="link-tile__sub">Allgemeine Lage</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="https://www.meteoschweiz.admin.ch/home.html?tab=overview" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/meteoswiss" alt="Logo MeteoSchweiz" sizes="56px"></x-img></span>
+        <span><span class="link-tile__title">MeteoSchweiz</span><br><span class="link-tile__sub">Prognosen</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="https://www.skybriefing.com/portal/de/signinnativ" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/skybriefing" alt="Logo Skybriefing" sizes="56px"></x-img></span>
+        <span><span class="link-tile__title">Skybriefing</span><br><span class="link-tile__sub">Flugwetter, NOTAM, Flugplan</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="https://www.skybriefing.com/portal/de/dabs" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/dabs" alt="Logo DABS" sizes="56px"></x-img></span>
+        <span><span class="link-tile__title">DABS</span><br><span class="link-tile__sub">Daily Airspace Bulletin Switzerland</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="https://www.dwd.de/" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/dwd" alt="Logo Deutscher Wetterdienst" sizes="56px"></x-img></span>
+        <span><span class="link-tile__title">Deutscher Wetterdienst</span><br><span class="link-tile__sub">DWD</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+      <a class="link-tile" href="http://www.westwind.ch/w_0liv.php" target="_blank" rel="noopener" data-reveal>
+        <span class="link-tile__logo"><x-img src="links/webcams-ch" alt="Logo Webcams der Schweiz" sizes="56px"></x-img></span>
+        <span><span class="link-tile__title">Webcams der Schweiz</span><br><span class="link-tile__sub">westwind.ch</span></span>
+        <x-icon name="arrow-up-right"></x-icon>
+      </a>
+    </div>
+  </div>
+</section>

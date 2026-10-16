@@ -1,0 +1,137 @@
+<!--meta {
+  "title": "Hangarierungsschäden vermeiden",
+  "description": "Hinweis für Piloten in Luzern-Beromünster: Flugzeuge immer vollständig aus dem Bereich der Schiebetüren ziehen. Meistens reichen zwei Meter mehr.",
+  "nav": "flugplatz",
+  "ogImage": "news/hangarierung",
+  "css": ["aktuelles"],
+  "js": ["aktuelles"]
+} -->
+
+<section class="page-hero article-hero hangar-hero">
+  <div class="page-hero__media"><x-img src="news/hangarierung" alt="Geöffneter Hangar am Morgen, davor steht eine Cessna im Dunst" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="aktuelles.html">Aktuelles</a></li><li>Hangarierung</li></ol>
+    <p class="eyebrow">Piloten · 2026</p>
+    <h1 class="hangar-title" data-reveal>Helft mit, Hangarierungs&shy;schäden zu vermeiden.</h1>
+    <p class="lead">Wir bitten alle Piloten, aktiv bei der Vermeidung von Hangarierungsschäden mitzuhelfen.</p>
+    <div class="page-hero__meta">
+      <span class="chip chip--warn"><x-icon name="triangle-alert"></x-icon>Hinweis für Piloten</span>
+      <span class="chip"><x-icon name="ruler"></x-icon>Plus zwei Meter</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Hinweis">
+  <div class="container article-body hangar-body">
+    <div class="stack-l">
+      <div class="article-text" data-reveal>
+        <p class="dropcap">Wir bitten alle Piloten, aktiv bei der Vermeidung von Hangarierungsschäden mitzuhelfen.</p>
+        <p>Bitte stellt sicher, dass die Flugzeuge immer <strong>vollständig aus dem Bereich der Schiebetüren</strong> gezogen werden. Meistens reicht es, das Flugzeug noch <strong>zwei Meter weiter</strong> zu schieben oder zu ziehen, um sicher zu sein.</p>
+      </div>
+      <div class="article-share" data-reveal>
+        <span class="article-share__label">Teilen</span>
+        <button class="btn btn--ghost btn--sm" type="button" data-share><x-icon name="share-2"></x-icon>Link teilen</button>
+        <a class="btn btn--ghost btn--sm" href="piloten.html"><x-icon name="plane"></x-icon>Pilotenbereich</a>
+      </div>
+    </div>
+    <aside class="hangar-rule instrument hud-corners force-dark" aria-label="Die Regel in Kürze" data-reveal="scale">
+      <p class="readout__label">Die Regel in Kürze</p>
+      <p class="hangar-rule__big"><span data-count="2">2</span><small>m</small></p>
+      <p class="hangar-rule__text">Flugzeug vollständig aus dem Bereich der Schiebetüren ziehen. Im Zweifel einfach noch zwei Meter weiter.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--alt section--chart" aria-labelledby="check-title">
+  <div class="container split split--wide-right">
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Probier es aus</p>
+        <h2 id="check-title" data-split>Der Schiebetür-Check.</h2>
+        <p class="lead" data-reveal>Zieh das Flugzeug mit dem Regler aus dem Hangar und schliess dann die Türen. Erst wenn nichts mehr im Türbereich steht, ist alles sicher.</p>
+      </div>
+      <ul class="checklist" data-reveal-group>
+        <li data-reveal><x-icon name="check"></x-icon><span>Flugzeug <strong>vollständig</strong> aus dem Bereich der Schiebetüren ziehen: Flügel, Leitwerk und Propeller.</span></li>
+        <li data-reveal><x-icon name="check"></x-icon><span>Im Zweifel noch <strong>zwei Meter weiter</strong> schieben oder ziehen. Meistens reicht das, um sicher zu sein.</span></li>
+        <li data-reveal><x-icon name="check"></x-icon><span>Erst dann die Schiebetüren bewegen.</span></li>
+      </ul>
+    </div>
+    <div class="door-check" data-door-check data-reveal>
+      <div class="door-check__stage">
+        <svg class="door-check__svg" viewBox="0 0 400 300" role="img" aria-labelledby="door-svg-title">
+          <title id="door-svg-title">Schematische Draufsicht: Hangar mit Schiebetüren und Flugzeug</title>
+          <defs>
+            <pattern id="door-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="10" class="door-check__hatch"/></pattern>
+          </defs>
+          <rect x="0" y="0" width="400" height="300" class="door-check__apron"/>
+          <rect x="40" y="0" width="320" height="110" class="door-check__hangar"/>
+          <rect x="20" y="104" width="360" height="8" class="door-check__track"/>
+          <rect x="110" y="96" width="180" height="34" class="door-check__zone" data-zone/>
+          <line x1="90" y1="160" x2="310" y2="160" class="door-check__reserve"/>
+          <text x="316" y="164" class="door-check__label">+2 m</text>
+          <text x="294" y="90" class="door-check__label door-check__label--zone">Türbereich</text>
+          <text x="50" y="22" class="door-check__label">HANGAR</text>
+          <g class="door-check__plane" data-plane>
+            <path d="M-26 -60h52l-4 11h-44z" class="door-check__tail"/>
+            <path d="M0 -60c4 0 5 14 6 40 1 22 3 42 3 62 0 7-4 11-9 11s-9-4-9-11c0-20 2-40 3-62 1-26 2-40 6-40z" class="door-check__fuse"/>
+            <rect x="-80" y="-8" width="160" height="19" rx="7" class="door-check__wing"/>
+            <rect x="-15" y="52" width="30" height="3" rx="1.5" class="door-check__prop"/>
+          </g>
+          <rect x="20" y="102" width="90" height="12" rx="2" class="door-check__door" data-door="left"/>
+          <rect x="290" y="102" width="90" height="12" rx="2" class="door-check__door" data-door="right"/>
+        </svg>
+        <span class="door-check__flash" data-door-flash aria-hidden="true"></span>
+      </div>
+      <div class="door-check__controls">
+        <label class="door-check__range" for="door-pos">
+          <span class="field__label">Flugzeug herausziehen</span>
+          <input type="range" id="door-pos" min="0" max="100" value="18" data-door-range>
+        </label>
+        <div class="row">
+          <button class="btn btn--primary btn--sm" type="button" data-door-close><x-icon name="arrow-right"></x-icon><span data-door-close-label>Türen schliessen</span></button>
+          <span class="status-pill" data-door-status><span class="dot dot--bad"></span><span>Im Türbereich</span></span>
+        </div>
+        <p class="door-check__msg" aria-live="polite" data-door-msg>Das Flugzeug steht noch im Bereich der Schiebetüren.</p>
+        <p class="door-check__note">Schematische Darstellung, nicht massstäblich.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="regeln-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Für Piloten</p>
+        <h2 id="regeln-title" data-split>Mehr Regeln für den Platz.</h2>
+      </div>
+      <p class="lead" data-reveal>Alle Weisungen, Briefings und Hinweise für Piloten am Flugplatz Luzern-Beromünster.</p>
+    </div>
+    <div class="link-tiles hangar-links" data-reveal-group="0.06">
+      <a class="link-tile" href="weisungen.html" data-reveal><span class="link-tile__logo"><x-icon name="file-text"></x-icon></span><span><span class="link-tile__title">Weisung Piloten 2026</span><br><span class="link-tile__sub">Betriebszeiten und Regeln</span></span><x-icon name="arrow-right"></x-icon></a>
+      <a class="link-tile" href="parkordnung.html" data-reveal><span class="link-tile__logo"><x-icon name="parking-meter"></x-icon></span><span><span class="link-tile__title">Parkordnung</span><br><span class="link-tile__sub">Abstellen am Flugplatz</span></span><x-icon name="arrow-right"></x-icon></a>
+      <a class="link-tile" href="airport-briefing.html" data-reveal><span class="link-tile__logo"><x-icon name="compass"></x-icon></span><span><span class="link-tile__title">Airport Briefing</span><br><span class="link-tile__sub">Wind, Para-Zone, Abflug</span></span><x-icon name="arrow-right"></x-icon></a>
+      <a class="link-tile" href="piloten.html" data-reveal><span class="link-tile__logo"><x-icon name="plane"></x-icon></span><span><span class="link-tile__title">Pilotenbereich</span><br><span class="link-tile__sub">Pilot News und Übersicht</span></span><x-icon name="arrow-right"></x-icon></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="weiter-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Weitere News</p>
+        <h2 id="weiter-title" data-split>Mehr vom Platz.</h2>
+      </div>
+      <div class="row" data-reveal><a class="btn btn--ghost" href="aktuelles.html"><x-icon name="arrow-left"></x-icon>Alle Beiträge</a></div>
+    </div>
+    <div class="news-next" data-reveal-group>
+      <!-- @each data.news as n --><!-- @if n.id != "hangarierung" -->
+      <a class="card card--glow" href="{{n.file}}" data-reveal>
+        <span class="card__media"><x-img src="{{n.image}}" alt="" sizes="(max-width: 640px) 100vw, 33vw"></x-img><span class="card__badge chip">{{n.category}}</span></span>
+        <span class="card__body"><span class="card__title">{{n.title}}</span><span class="card__text">{{n.teaser}}</span></span>
+      </a>
+      <!-- @endif --><!-- @end -->
+    </div>
+  </div>
+</section>

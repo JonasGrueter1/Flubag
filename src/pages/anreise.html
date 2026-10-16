@@ -1,0 +1,208 @@
+<!--meta {
+  "title": "Anreise",
+  "description": "Anreise zum Flugplatz Luzern-Beromünster (LSZO): Adresse Moos 3, 6025 Neudorf, Karte, Routenplaner und Hinweise für die Anreise mit dem Flugzeug.",
+  "nav": "flugplatz",
+  "ogImage": "hero/slide-05",
+  "vendor": ["leaflet"]
+} -->
+
+<section class="page-hero page-hero--compact an-hero">
+  <div class="page-hero__media"><x-img src="hero/slide-05" alt="Cessna auf der Graspiste des Flugplatzes, im Hintergrund das Dorf Beromünster" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Flugplatz</li><li>Anreise</li></ol>
+    <p class="eyebrow">Anreise</p>
+    <h1 data-split data-split-now>So findest du zu uns.</h1>
+    <p class="lead">Der Flugplatz Luzern-Beromünster liegt im Moos bei Neudorf, mitten im Kanton Luzern. Ob mit dem Auto, dem Velo, dem öffentlichen Verkehr oder dem eigenen Flugzeug: Hier findest du Adresse, Karte und Route.</p>
+    <div class="page-hero__meta">
+      <span class="chip chip--brand"><x-icon name="map-pin"></x-icon>Moos 3, 6025 Neudorf</span>
+      <span class="chip"><x-icon name="compass"></x-icon>47°11'24" N · 008°12'17" E</span>
+      <span class="chip"><x-icon name="mountain"></x-icon>Platzhöhe {{site.airfield.elevationFt}} ft · {{site.airfield.elevationM}} m</span>
+    </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="https://www.google.com/maps/dir/?api=1&amp;destination={{site.airfield.lat}},{{site.airfield.lon}}" target="_blank" rel="noopener" data-magnetic><x-icon name="route"></x-icon>Route planen</a>
+      <a class="btn btn--ghost btn--lg" href="#karte"><x-icon name="map"></x-icon>Zur Karte</a>
+    </div>
+  </div>
+</section>
+
+<section class="section an-main" id="karte" aria-labelledby="karte-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Adresse &amp; Karte</p>
+        <h2 id="karte-title" data-split>Mitten in der Schweiz.</h2>
+      </div>
+      <p class="lead" data-reveal>Gib als Ziel einfach „Moos 3, 6025 Neudorf“ ein oder starte die Route direkt von hier. Die Karte zeigt die Landeskarte, das Luftbild oder die ICAO-Karte von swisstopo.</p>
+    </div>
+
+    <div class="an-grid">
+      <div class="an-side">
+        <div class="card card--pad an-address" data-reveal>
+          <p class="eyebrow eyebrow--plain">Adresse</p>
+          <address class="an-address__lines">
+            <strong>FLUBAG</strong>
+            <span>Flugbetriebs AG Beromünster</span>
+            <span>Moos 3</span>
+            <span>CH-6025 Neudorf</span>
+          </address>
+          <dl class="data-list an-contact">
+            <div><dt><x-icon name="phone"></x-icon>Telefon</dt><dd><a href="tel:{{site.phoneHref}}">{{site.phone}}</a></dd></div>
+            <div><dt><x-icon name="printer"></x-icon>Fax</dt><dd class="mono">{{site.fax}}</dd></div>
+            <div><dt><x-icon name="utensils"></x-icon>Restaurant</dt><dd><a href="tel:{{site.restaurant.phoneHref}}">{{site.restaurant.phone}}</a></dd></div>
+            <div><dt><x-icon name="mail"></x-icon>E-Mail</dt><dd><a href="mailto:{{site.email}}">{{site.email}}</a></dd></div>
+          </dl>
+          <div class="row an-address__actions">
+            <button class="btn btn--ghost btn--sm" type="button" data-copy="FLUBAG Flugbetriebs AG Beromünster, Moos 3, CH-6025 Neudorf"><x-icon name="copy"></x-icon>Adresse kopieren</button>
+            <button class="btn btn--ghost btn--sm" type="button" data-an-vcard><x-icon name="download"></x-icon>Kontakt speichern</button>
+          </div>
+        </div>
+
+        <div class="card card--pad an-route" data-reveal>
+          <p class="eyebrow eyebrow--plain">Route planen</p>
+          <div class="segmented an-modes" role="radiogroup" aria-label="Verkehrsmittel wählen">
+            <label><input type="radio" name="an-mode" value="driving" checked><span>Auto</span></label>
+            <label><input type="radio" name="an-mode" value="transit"><span>ÖV</span></label>
+            <label><input type="radio" name="an-mode" value="bicycling"><span>Velo</span></label>
+            <label><input type="radio" name="an-mode" value="walking"><span>Zu Fuss</span></label>
+          </div>
+          <a class="btn btn--primary btn--block" data-an-google href="https://www.google.com/maps/dir/?api=1&amp;destination={{site.airfield.lat}},{{site.airfield.lon}}&amp;travelmode=driving" target="_blank" rel="noopener"><x-icon name="route"></x-icon>Route planen</a>
+          <div class="an-route__alt">
+            <a class="btn btn--ghost btn--sm" data-an-apple href="https://maps.apple.com/?daddr={{site.airfield.lat}},{{site.airfield.lon}}&amp;dirflg=d" target="_blank" rel="noopener"><x-icon name="map"></x-icon>Apple Karten</a>
+            <a class="btn btn--ghost btn--sm" href="https://map.geo.admin.ch/?lang=de&amp;swisssearch={{site.airfield.lat}},{{site.airfield.lon}}" target="_blank" rel="noopener"><x-icon name="map-pin"></x-icon>map.geo.admin.ch</a>
+          </div>
+          <p class="field__help">Die Route öffnet sich im jeweiligen Kartendienst. Fahrplan und Verbindungen liefert beim ÖV der Kartendienst.</p>
+        </div>
+      </div>
+
+      <div class="an-mapwrap" data-reveal="fade">
+        <div class="map an-map" data-an-map role="region" aria-label="Karte mit dem Flugplatz Luzern-Beromünster"></div>
+        <div class="map-layers" role="group" aria-label="Kartenart">
+          <button type="button" data-an-layer="karte" aria-pressed="true">Landeskarte</button>
+          <button type="button" data-an-layer="luftbild" aria-pressed="false">Luftbild</button>
+          <button type="button" data-an-layer="icao" aria-pressed="false">ICAO</button>
+        </div>
+        <div class="an-map__bar">
+          <button class="btn btn--light btn--sm" type="button" data-an-locate><x-icon name="compass"></x-icon>Wie weit ist es?</button>
+          <p class="an-map__result" data-an-result aria-live="polite" hidden></p>
+        </div>
+        <div class="an-map__offline" data-an-offline hidden>
+          <x-icon name="map-pin"></x-icon>
+          <p><strong>Karte nicht verfügbar.</strong> Flugplatz Luzern-Beromünster, Moos 3, 6025 Neudorf ({{site.airfield.lat}} N, {{site.airfield.lon}} E). <a href="https://map.geo.admin.ch/?lang=de&amp;swisssearch={{site.airfield.lat}},{{site.airfield.lon}}" target="_blank" rel="noopener">Auf map.geo.admin.ch öffnen</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--chart an-fly" id="flugzeug" aria-labelledby="flug-title">
+  <div class="container split split--top">
+    <div class="stack-l sticky">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Anreise mit dem Flugzeug</p>
+        <h2 id="flug-title" data-split>Im Anflug auf LSZO.</h2>
+        <p class="lead" data-reveal>Graspiste, Fallschirmsprungbetrieb und Einweisungspflicht auf Piste 33: Wer mit dem eigenen Flugzeug nach Beromünster kommt, bereitet sich mit dem Airport Briefing vor.</p>
+      </div>
+      <div class="instrument hud-corners an-panel" data-reveal>
+        <div class="an-panel__head">
+          <span class="mono">LSZO · Luzern-Beromünster</span>
+          <span class="an-panel__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+        </div>
+        <div class="an-panel__grid">
+          <div class="readout"><span class="readout__label">Piste</span><span class="readout__value">{{site.airfield.runway}}</span></div>
+          <div class="readout"><span class="readout__label">Belag</span><span class="readout__value">{{site.airfield.surface}}</span></div>
+          <div class="readout"><span class="readout__label">Länge</span><span class="readout__value">{{site.airfield.runwayLength}} <small>m</small></span></div>
+          <div class="readout"><span class="readout__label">Elevation</span><span class="readout__value">{{site.airfield.elevationFt}} <small>ft</small></span></div>
+          <div class="readout"><span class="readout__label">Para</span><span class="readout__value">{{site.airfield.paraFrequency}}</span></div>
+          <div class="readout"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
+        </div>
+        <a class="an-panel__link" href="webcams.html">Webcams &amp; Wetter <x-icon name="arrow-right"></x-icon></a>
+      </div>
+      <div class="row" data-reveal>
+        <a class="btn btn--primary" href="airport-briefing.html"><x-icon name="file-text"></x-icon>Airport Briefing</a>
+        <a class="btn btn--ghost" href="briefing-links.html"><x-icon name="compass"></x-icon>Briefing Links</a>
+      </div>
+    </div>
+
+    <ol class="steps" data-steps>
+      <li class="step">
+        <span class="step__num">01</span>
+        <div class="step__body">
+          <h3 class="step__title">Airport Briefing lesen</h3>
+          <p>Anflug, Gefahrensituationen bei Westwind und Bise, Rollen und Parkieren: Alles Wichtige für LSZO steht im Airport Briefing.</p>
+          <a class="btn btn--text btn--sm" href="airport-briefing.html">Zum Airport Briefing <x-icon name="arrow-right"></x-icon></a>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step__num">02</span>
+        <div class="step__body">
+          <h3 class="step__title">Piste 33 nur mit Einweisung</h3>
+          <p>Primär wird auf der Piste 33 gestartet und gelandet. <strong>Das Landen auf der Piste 33 ist einweisungspflichtig</strong>: Selbst gelandet werden darf dort erst nach erfolgter Einweisung durch einen dafür zugelassenen Fluglehrer und dem Eintrag auf die Liste der eingewiesenen Piloten.</p>
+          <div class="notice notice--brand an-note">
+            <x-icon name="plane-landing"></x-icon>
+            <p><strong>Piste 15 kann auch ohne Einweisung angeflogen werden.</strong></p>
+          </div>
+          <a class="btn btn--text btn--sm" href="piste-33.html">Platzeinweisung Piste 33 <x-icon name="arrow-right"></x-icon></a>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step__num">03</span>
+        <div class="step__body">
+          <h3 class="step__title">Wetter und Platzstatus prüfen</h3>
+          <p>Die Graspiste kann je nach Pistenzustand einen Start oder eine Landung verunmöglichen. Die Flugplatzleitung entscheidet, ob die Piste benutzbar ist.</p>
+          <a class="btn btn--text btn--sm" href="webcams.html">Webcams &amp; Wetter <x-icon name="arrow-right"></x-icon></a>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step__num">04</span>
+        <div class="step__body">
+          <h3 class="step__title">Sprungbetrieb: Para {{site.airfield.paraFrequency}}</h3>
+          <p>Piloten können „Para“ über Funk auf {{site.airfield.paraFrequency}} anfragen, um Informationen über den Absetzvorgang zu erhalten, zum Beispiel in welcher Zeit Springer zu erwarten sind.</p>
+          <a class="btn btn--text btn--sm" href="sprungbetrieb.html">Regeln Sprungbetrieb <x-icon name="arrow-right"></x-icon></a>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step__num">05</span>
+        <div class="step__body">
+          <h3 class="step__title">Aus dem Ausland: Zollanmeldung</h3>
+          <p>Für Direktflüge aus dem Ausland (Einflug-Zoll aus dem Schengen-Raum) muss die Zollanmeldung 2 Stunden vor der geplanten Landung in Beromünster komplett ausgefüllt und abgeschickt sein. Direkt anschliessend ruft der verantwortliche Pilot persönlich den Betriebsleiter oder Flugdienstleiter auf dem Flugplatz an ({{site.phone}}). Nur Personenzoll ist möglich.</p>
+          <div class="row">
+            <a class="btn btn--text btn--sm" href="zollanmeldung.html">Ablauf Zollanmeldung <x-icon name="arrow-right"></x-icon></a>
+            <a class="btn btn--text btn--sm" href="{{site.customs}}" target="_blank" rel="noopener">Zum Zollformular <x-icon name="arrow-up-right"></x-icon></a>
+          </div>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step__num">06</span>
+        <div class="step__body">
+          <h3 class="step__title">Nach der Landung: Parkordnung</h3>
+          <p>Bei Fallschirmsprungbetrieb sind einzelne Parkplätze gesperrt. Landetaxen und Abstellgebühren findest du in der Preisliste.</p>
+          <div class="row">
+            <a class="btn btn--text btn--sm" href="parkordnung.html">Parkordnung <x-icon name="arrow-right"></x-icon></a>
+            <a class="btn btn--text btn--sm" href="preise.html">Landetaxen <x-icon name="arrow-right"></x-icon></a>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section an-resto-sec" aria-labelledby="resto-title">
+  <div class="container">
+    <div class="an-resto" data-reveal="scale">
+      <div class="an-resto__glow" aria-hidden="true"></div>
+      <div class="an-resto__text stack">
+        <p class="eyebrow">Direkt am Flugplatz</p>
+        <h2 id="resto-title" data-split>{{site.restaurant.name}}.</h2>
+        <p class="lead">So nah am Geschehen, dass die Piloten beim Rollen extra Rücksicht auf die Gäste nehmen. Das Restaurant Flüüger hat einen Wintergarten für Anlässe wie Geburtstag, GV, Weihnachtsessen oder Klassentreffen und öffnet auf Anfrage auch ausserhalb der Öffnungszeiten.</p>
+        <div class="row mt-s">
+          <a class="btn btn--primary" href="{{site.restaurant.url}}" target="_blank" rel="noopener"><x-icon name="utensils"></x-icon>Zum Restaurant <x-icon name="arrow-up-right"></x-icon></a>
+          <a class="btn btn--ghost" href="tel:{{site.restaurant.phoneHref}}"><x-icon name="phone"></x-icon>{{site.restaurant.phone}}</a>
+        </div>
+      </div>
+      <div class="an-resto__badge" aria-hidden="true">
+        <x-icon name="utensils"></x-icon>
+        <span class="mono">LSZO</span>
+      </div>
+    </div>
+  </div>
+</section>

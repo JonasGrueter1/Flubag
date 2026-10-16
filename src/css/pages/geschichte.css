@@ -1,0 +1,135 @@
+/* Geschichte & Team */
+
+/* Kennzahlen */
+.gs-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 640px) { .gs-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Zeitleiste (horizontal auf Desktop, vertikal auf dem Handy) ---------- */
+.gs-timeline { position: relative; overflow: hidden; background: var(--bg-2); border-block: 1px solid var(--line); isolation: isolate; }
+.gs-timeline::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(50% 60% at 85% 10%, rgba(230, 50, 1, 0.14), transparent 70%),
+    radial-gradient(40% 50% at 5% 95%, rgba(59, 164, 246, 0.1), transparent 70%);
+}
+.gs-timeline__inner { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: clamp(28px, 4vh, 48px); padding: calc(var(--header-h) + 88px) 0 clamp(40px, 6vh, 72px); }
+.gs-timeline__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 64px; align-items: end; }
+.gs-timeline__head .lead { color: var(--text-2); }
+
+.gs-htl .htimeline__track {
+  list-style: none; margin: 0;
+  gap: clamp(28px, 3vw, 44px);
+  padding: 8px max(var(--gutter), calc((100vw - var(--container)) / 2)) 12px;
+}
+.gs-htl .htimeline__item { width: clamp(290px, 26vw, 370px); gap: 12px; }
+.gs-htl .htimeline__item:not(:last-child) .htimeline__line { margin-right: calc(-1 * clamp(28px, 3vw, 44px)); }
+.gs-htl .htimeline__year { font-size: clamp(3rem, 5.4vw, 5rem); }
+.gs-htl .htimeline__title { line-height: 1.2; margin-top: 2px; }
+.gs-htl .htimeline__text { font-size: 0.98rem; }
+.gs-htl .htimeline__item > .btn { justify-self: start; }
+.gs-news img { object-position: center 28%; }
+.gs-date { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-text); margin-top: 6px; }
+.gs-source { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-3); }
+.gs-source .icon { width: 15px; height: 15px; }
+
+.gs-archive a, .gs-news { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-3); }
+.gs-archive img, .gs-news img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out), filter 0.8s var(--ease-out); }
+.gs-archive img { filter: sepia(0.55) contrast(1.05) saturate(0.8); }
+.gs-archive a:hover img { filter: none; transform: scale(1.04); }
+.gs-archive__tag { position: absolute; left: 10px; bottom: 10px; padding: 5px 10px; border-radius: var(--radius-pill); background: rgba(6, 11, 22, 0.7); color: #fff; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.gs-news { text-decoration: none; color: #fff; }
+.gs-news::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(6, 11, 22, 0.85)); }
+.gs-news:hover img { transform: scale(1.05); }
+.gs-news__label { position: absolute; left: 14px; bottom: 12px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.9rem; }
+.gs-news__label .icon { width: 16px; height: 16px; }
+.gs-next .htimeline__year { color: transparent; -webkit-text-stroke: 0; background: linear-gradient(100deg, var(--brand-hi), #ffb08e 60%, var(--sky)); -webkit-background-clip: text; background-clip: text; }
+.gs-next .row { gap: 10px; }
+
+@media (min-width: 900px) and (max-height: 860px) {
+  .gs-timeline__inner { padding-top: calc(var(--header-h) + 76px); padding-bottom: 28px; gap: 22px; }
+  .gs-timeline__head h2 { font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem); }
+  .gs-htl .htimeline__year { font-size: clamp(2.6rem, 4.4vw, 3.8rem); }
+  .gs-htl .htimeline__item { gap: 9px; }
+  .gs-archive a, .gs-news { aspect-ratio: 16 / 8; }
+}
+@media (max-width: 899px) {
+  .gs-timeline__inner { min-height: 0; padding: var(--space-section) 0; }
+  .gs-timeline__head { grid-template-columns: 1fr; }
+  .gs-htl .htimeline__track { flex-direction: column; width: auto; gap: 0; padding: 0 var(--gutter); }
+  .gs-htl .htimeline__item { position: relative; width: auto; max-width: 560px; padding: 0 0 44px 34px; gap: 10px; }
+  .gs-htl .htimeline__item::before { content: ""; position: absolute; left: 5px; top: 18px; bottom: -18px; width: 2px; background: var(--line-strong); }
+  .gs-htl .htimeline__item:last-child { padding-bottom: 0; }
+  .gs-htl .htimeline__item:last-child::before { display: none; }
+  .gs-htl .htimeline__line { position: absolute; left: 0; top: 12px; width: 12px; height: 12px; background: none; margin: 0 !important; }
+  .gs-htl .htimeline__year { font-size: clamp(2.6rem, 11vw, 3.4rem); }
+}
+
+/* ---------- Verwaltungsrat ---------- */
+.gs-board { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: start; }
+.gs-board__photo { display: grid; gap: 12px; margin: 0; }
+.gs-board__photo a { position: relative; display: block; border-radius: var(--radius-l); overflow: hidden; border: 1px solid var(--line); background: var(--surface-3); }
+.gs-board__photo img { display: block; width: 100%; height: auto; transition: transform 1.2s var(--ease-out); }
+.gs-board__photo a:hover img { transform: scale(1.03); }
+.gs-board__photo figcaption { font-size: 0.85rem; color: var(--text-3); }
+.gs-zoom { position: absolute; right: 14px; bottom: 14px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: rgba(6, 11, 22, 0.62); color: #fff; border: 1px solid rgba(255, 255, 255, 0.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform 0.4s var(--ease-out), background-color 0.3s; }
+.gs-zoom .icon { width: 18px; height: 18px; }
+.gs-board__photo a:hover .gs-zoom { transform: scale(1.1); background: var(--brand); }
+.gs-board__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.gs-member { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 14px; align-items: baseline; padding: 17px 6px; border-bottom: 1px solid var(--line); transition: background-color 0.3s, padding 0.4s var(--ease-out); }
+.gs-member:hover { background: var(--surface-2); padding-left: 14px; }
+.gs-member__num { font-size: 0.72rem; color: var(--text-3); }
+.gs-member__name { font-family: var(--font-display); font-weight: 750; font-size: clamp(1.1rem, 1rem + 0.45vw, 1.4rem); line-height: 1.2; }
+.gs-member__role { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); text-align: right; }
+.gs-member--key .gs-member__role { color: var(--brand-text); }
+.gs-member--key .gs-member__num { color: var(--brand-text); }
+@media (max-width: 980px) { .gs-board { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .gs-member { grid-template-columns: 28px minmax(0, 1fr); row-gap: 4px; }
+  .gs-member__role { grid-column: 2; text-align: left; }
+}
+
+/* ---------- Administration ---------- */
+.gs-roles { list-style: none; margin-bottom: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.gs-roles li { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); font-size: 0.95rem; }
+.gs-roles .icon { width: 18px; height: 18px; color: var(--brand-text); }
+.gs-admin { justify-self: center; width: min(100%, 290px); margin: 0; }
+.gs-admin figcaption { display: grid; gap: 6px; }
+
+/* ---------- Partner ---------- */
+.gs-partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gs-partners .link-tile { grid-template-columns: 92px minmax(0, 1fr) auto; }
+.gs-partners .link-tile__logo { width: 92px; height: 60px; padding: 8px; }
+@media (max-width: 980px) { .gs-partners { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .gs-partners { grid-template-columns: 1fr; } }
+
+/* ---------- Heutige Struktur (Bento) ---------- */
+.gs-bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 22px); }
+.gs-bento .card { gap: 12px; }
+.gs-bento__fleet { grid-column: span 2; }
+.gs-bento__head { display: flex; gap: 18px; align-items: flex-start; }
+.gs-bento__head .card__icon { flex: none; }
+.gs-bento__head .card__title { margin-bottom: 6px; }
+.gs-fleet { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.gs-fleet__item { display: grid; gap: 3px; text-decoration: none; color: inherit; }
+.gs-fleet__img { display: block; aspect-ratio: 4 / 3; border-radius: var(--radius-s); overflow: hidden; background: var(--surface-3); margin-bottom: 8px; }
+.gs-fleet__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+.gs-fleet__item:hover .gs-fleet__img img { transform: scale(1.08); }
+.gs-fleet__type { font-weight: 650; font-size: 0.95rem; line-height: 1.25; }
+.gs-fleet__item:hover .gs-fleet__type { color: var(--brand-text); }
+.gs-fleet__reg { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--text-3); }
+.gs-faces { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 44px)); gap: 8px; }
+.gs-faces li { position: relative; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 2px solid var(--line-strong); background: var(--surface-3); transition: transform 0.35s var(--ease-out), border-color 0.3s; }
+.gs-faces li:hover { border-color: var(--brand); }
+.gs-faces li:hover { transform: translateY(-5px); z-index: 1; }
+.gs-faces img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+@media (max-width: 1024px) {
+  .gs-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gs-bento__fleet { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .gs-bento { grid-template-columns: 1fr; }
+  .gs-bento__head { flex-direction: column; gap: 12px; }
+  .gs-fleet { grid-template-columns: 1fr; gap: 8px; }
+  .gs-fleet__item { grid-template-columns: 76px minmax(0, 1fr) auto; align-items: center; gap: 14px; }
+  .gs-fleet__img { margin: 0; }
+}

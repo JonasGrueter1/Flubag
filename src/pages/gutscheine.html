@@ -211,8 +211,11 @@
         </fieldset>
 
         <div class="gift-form__foot">
-          <button class="btn btn--text btn--sm" type="button" data-gift-reset><x-icon name="rotate-ccw"></x-icon>Zurücksetzen</button>
-          <a class="btn btn--ghost btn--sm show-860" href="#vorschau"><x-icon name="eye"></x-icon>Zur Vorschau</a>
+          <p class="gift-form__disclaimer"><x-icon name="ticket"></x-icon>Die Bordkarte ist eine Vorschau. Den gültigen Gutschein mit Gutscheinnummer erhältst du nach der Bestellung im Shop.</p>
+          <div class="gift-form__foot-row">
+            <button class="btn btn--text btn--sm" type="button" data-gift-reset><x-icon name="rotate-ccw"></x-icon>Zurücksetzen</button>
+            <a class="btn btn--ghost btn--sm show-860" href="#vorschau" data-gift-to-preview><x-icon name="eye"></x-icon>Zur Vorschau</a>
+          </div>
         </div>
       </form>
 
@@ -225,7 +228,7 @@
                 <x-img src="rundflug/eiger-moench-jungfrau" alt="" class="is-on" data-photo sizes="(max-width: 640px) 92vw, 460px"></x-img>
                 <img alt="" data-photo decoding="async">
                 <span class="gift-pass__brand"><span class="gift-pass__logo" aria-hidden="true"><!-- @include logo --></span>FLUBAG</span>
-                <span class="gift-pass__tag mono">Boarding Pass · Vorschau</span>
+                <span class="gift-pass__tag mono"><span class="gift-pass__tag-bp">Boarding Pass · </span>Vorschau</span>
               </div>
               <div class="pass__route">
                 <span class="gift-pass__end"><span class="pass__code">LSZO</span><span class="gift-pass__place">Beromünster</span></span>
@@ -268,8 +271,7 @@
             <a class="btn btn--primary btn--lg gift-actions__shop" href="https://shop.e-guma.ch/flubag/de/gutscheine/45095/gutschein-rundflug-eiger-moench-jungfrau" target="_blank" rel="noopener" data-gift-shop data-magnetic><x-icon name="shopping-bag"></x-icon>Weiter zum Shop <x-icon name="arrow-up-right"></x-icon></a>
             <button class="btn btn--ghost btn--lg gift-actions__print" type="button" data-gift-print aria-label="Vorschau drucken"><x-icon name="printer"></x-icon><span>Vorschau drucken</span></button>
           </div>
-          <p class="gift-note"><x-icon name="info"></x-icon><span><span data-gift-shopnote>Der Shop öffnet sich in einem neuen Tab.</span> Name, Widmung und Versandart gibst du dort ein. Deine Widmung kopieren wir dir dabei in die Zwischenablage.</span></p>
-          <p class="gift-note gift-note--small">Die Bordkarte ist nur eine Vorschau. Den gültigen Gutschein mit Gutscheinnummer erhältst du nach der Bestellung im Shop.</p>
+          <p class="gift-note"><x-icon name="info"></x-icon><span data-gift-shopnote>Öffnet "Rundflug Eiger, Mönch und Jungfrau" im Gutschein-Shop in einem neuen Tab. Name, Widmung und Versandart gibst du dort ein.</span></p>
         </div>
         <p class="visually-hidden" aria-live="polite" data-gift-live></p>
       </div>
@@ -278,8 +280,8 @@
 
   <div class="gift-dock" data-gift-dock aria-hidden="true" inert>
     <span class="gift-dock__code mono"><span class="gift-dock__from">LSZO</span><x-icon name="plane"></x-icon><span data-d="code">JFJ</span></span>
-    <span class="gift-dock__info"><strong data-d="title">Eiger, Mönch &amp; Jungfrau</strong><span data-d="price">CHF 290</span></span>
-    <a class="btn btn--primary btn--sm" href="#vorschau"><x-icon name="eye"></x-icon>Vorschau</a>
+    <span class="gift-dock__info"><strong data-d="title">Eiger, Mönch &amp; Jungfrau</strong><span class="gift-dock__sub"><span data-d="price">CHF 290</span><span class="gift-dock__detail" data-d="detail">1 Person</span></span></span>
+    <a class="btn btn--primary btn--sm" href="#vorschau" aria-label="Zur Vorschau"><x-icon name="eye"></x-icon><span class="gift-dock__btn-text">Vorschau</span></a>
   </div>
 </section>
 
@@ -318,7 +320,7 @@
         <div class="gift-how__card">
           <span class="gift-how__icon"><x-icon name="plane-takeoff"></x-icon></span>
           <h3 class="gift-how__title">Einlösen und abheben</h3>
-          <p>Die Beschenkten melden sich bei uns und geben bei der Anfrage die Gutscheinnummer an, zum Beispiel im <a href="schnupperflug.html#anfrage">Schnupperflug-Formular</a>. Den Termin vereinbaren wir persönlich, geflogen wird, wenn das Wetter passt.</p>
+          <p>Die Beschenkten melden sich bei uns und geben bei der Anfrage die Gutscheinnummer an, zum Beispiel im <a href="schnupperflug.html#anfrage">Schnupperflug-</a> oder im <a href="rundfluege.html#anfrage">Rundflug-Formular</a>. Den Termin vereinbaren wir persönlich, geflogen wird, wenn das Wetter passt.</p>
         </div>
       </li>
     </ol>
@@ -403,7 +405,7 @@
 
       <article class="gift-card gift-card--wide card card--glow" id="gutschein-wertgutschein" data-reveal>
         <div class="gift-card__media">
-          <x-img src="rundflug/wertgutschein" alt="Blick aus dem Flugzeug auf den Pilatus über dem Nebelmeer" sizes="(max-width: 860px) 100vw, 640px"></x-img>
+          <x-img src="rundflug/wertgutschein" alt="Blick aus dem Flugzeug auf einen Bergrücken mit Sendemast über dem Nebelmeer" sizes="(max-width: 860px) 100vw, 640px"></x-img>
           <span class="card__badge chip"><x-icon name="sparkles"></x-icon>Freie Wahl</span>
           <span class="gift-card__price-tag"><small>von</small>CHF 20 bis 3000</span>
         </div>
@@ -449,7 +451,7 @@
       <div class="stack">
         <p class="eyebrow" data-reveal>Gutschein einlösen</p>
         <h2 id="redeem-title" data-split>Gutschein bekommen? Ab in die Luft.</h2>
-        <p class="lead" data-reveal>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Für einen Schnupperflug geht das direkt im Anfrageformular.</p>
+        <p class="lead" data-reveal>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Für einen Schnupperflug oder einen Rundflug geht das direkt im Anfrageformular.</p>
       </div>
 
       <div class="gift-redeem instrument hud-corners force-dark" data-reveal>
@@ -457,11 +459,12 @@
         <div class="field">
           <label class="field__label" for="redeem-nr">Deine Gutscheinnummer</label>
           <input class="input mono" id="redeem-nr" name="redeem" autocomplete="off" spellcheck="false" placeholder="Nummer eingeben" data-redeem-nr>
-          <p class="field__help">Wir übernehmen die Nummer ins Schnupperflug-Formular oder in deine E-Mail.</p>
+          <p class="field__help">Wir tragen die Nummer für dich ins passende Anfrageformular oder in deine E-Mail ein.</p>
         </div>
         <div class="gift-redeem__actions">
           <a class="btn btn--primary" href="schnupperflug.html#anfrage" data-redeem="schnupper"><x-icon name="plane-takeoff"></x-icon>Schnupperflug anfragen</a>
-          <a class="btn btn--ghost" href="mailto:{{site.email}}?subject=Gutschein%20einl%C3%B6sen" data-redeem="mail" data-email="{{site.email}}"><x-icon name="mail"></x-icon>Anfrage per E-Mail</a>
+          <a class="btn btn--ghost" href="rundfluege.html#anfrage" data-redeem="rundflug"><x-icon name="route"></x-icon>Rundflug anfragen</a>
+          <a class="btn btn--text" href="mailto:{{site.email}}?subject=Gutschein%20einl%C3%B6sen" data-redeem="mail" data-email="{{site.email}}"><x-icon name="mail"></x-icon>Per E-Mail</a>
         </div>
       </div>
 
@@ -479,7 +482,7 @@
       <p class="eyebrow" data-reveal>Häufige Fragen</p>
       <h2 class="gift-faq__title" data-split>Gut zu wissen.</h2>
       <div class="accordion mt-m" data-reveal>
-        <details class="acc" open><summary>Wie löse ich meinen Gutschein ein?</summary><div class="acc__body"><p>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Für einen Schnupperflug trägst du die Nummer direkt im <a class="brand-text" href="schnupperflug.html#anfrage">Schnupperflug-Formular</a> ein. Für einen Rundflug oder einen Wertgutschein erreichst du uns unter <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a> oder per E-Mail an <a class="brand-text" href="mailto:{{site.email}}">{{site.email}}</a>. Den Termin vereinbaren wir persönlich mit dir.</p></div></details>
+        <details class="acc" open><summary>Wie löse ich meinen Gutschein ein?</summary><div class="acc__body"><p>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Am einfachsten trägst du sie direkt im <a class="brand-text" href="schnupperflug.html#anfrage">Schnupperflug-Formular</a> oder im <a class="brand-text" href="rundfluege.html#anfrage">Rundflug-Formular</a> ein, das gilt auch für den Wertgutschein. Oder du erreichst uns unter <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a> und per E-Mail an <a class="brand-text" href="mailto:{{site.email}}">{{site.email}}</a>. Den Termin vereinbaren wir persönlich mit dir.</p></div></details>
         <details class="acc"><summary>Wie erhalte ich den Gutschein?</summary><div class="acc__body"><p>Du hast die Wahl: Mit print@home bekommst du den Gutschein sofort als PDF und druckst ihn direkt aus. Oder du lässt ihn per Post schicken. Gutscheine lassen sich ausserdem aufs Smartphone laden (voucher2mobile).</p></div></details>
         <details class="acc"><summary>Kann ich den Gutschein personalisieren?</summary><div class="acc__body"><p>Ja. Im Shop gibst du an, für wen der Gutschein ist und von wem er kommt, und schreibst eine persönliche Widmung mit maximal 160 Zeichen. Im <a class="brand-text" href="#gestalten">Gutschein-Konfigurator</a> kannst du vorher in Ruhe ausprobieren, wie das wirkt.</p></div></details>
         <details class="acc"><summary>Wie viele Personen können beim Rundflug mitfliegen?</summary><div class="acc__body"><p>Bis zu drei. Die Cessna hat drei Passagierplätze, der Preis gilt pro Person. Im Shop wählst du 1 bis 3 Personen.</p></div></details>

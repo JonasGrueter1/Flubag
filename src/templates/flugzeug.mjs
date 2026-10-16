@@ -66,7 +66,7 @@ export function pages(DATA) {
 
     // ---------- Kennzahlen (null Werte weglassen)
     const stats = [
-      has(s.cruiseKmh) && { value: s.cruiseKmh, unit: 'km/h', label: 'Reisegeschwindigkeit' },
+      has(s.cruiseKmh) && { value: s.cruiseKmh, unit: 'km/h', label: 'Reise&shy;geschwindigkeit' },
       has(s.rangeKm) && { value: s.rangeKm, unit: 'km', label: 'Reichweite' },
       has(s.mtowKg) && { value: s.mtowKg, unit: 'kg', label: 'Max. Abfluggewicht' },
       has(a.seats) && { value: a.seats, unit: '', label: a.seats === 1 ? 'Platz' : 'Plätze' },
@@ -170,7 +170,7 @@ export function pages(DATA) {
     </div>
     <div class="stack-l">
       <div class="stats stats--2" data-reveal>
-        ${stats.map((st) => `<div class="stat"><span class="stat__value"><span data-count="${st.value}"${st.value >= 1000 ? '' : ''}>${num(st.value)}</span>${st.unit ? `<small>${st.unit}</small>` : ''}</span><span class="stat__label">${st.label}</span></div>`).join('\n        ')}
+        ${stats.map((st) => `<div class="stat"><span class="stat__value"><span data-count="${st.value}">${num(st.value)}</span>${st.unit ? `<small>${st.unit}</small>` : ''}</span><span class="stat__label">${st.label}</span></div>`).join('\n        ')}
       </div>
       <div class="specs ac-specs" data-reveal-group="0.06">
         ${specs.map((sp) => `<div class="spec${sp.wide ? ' spec--wide' : ''}" data-reveal><span class="spec__label">${sp.label}</span><span class="spec__value">${sp.value}</span></div>`).join('\n        ')}
@@ -201,7 +201,7 @@ ${a.facts && a.facts.length ? `<section class="section section--alt section--glo
       <div class="stack">
         <p class="eyebrow" data-reveal>Mietpreise</p>
         <h2 id="preise-title" data-split>Was kostet die ${esc(a.reg)}?</h2>
-        <p class="lead" data-reveal>Abgerechnet wird pro Minute. ${esc(preise.note || 'Alle Preise in CHF exkl. MwSt.')}</p>
+        <p class="lead" data-reveal>Zwei Tarife, angegeben pro Minute und pro Stunde. ${esc(preise.note || 'Alle Preise in CHF exkl. MwSt.')}</p>
       </div>
       <div class="rate-card ac-rate-card" data-reveal>
         <div class="rate-card__head">
@@ -212,7 +212,8 @@ ${a.facts && a.facts.length ? `<section class="section section--alt section--glo
           <div class="rate"><p class="rate__label">Preis 1</p><p class="rate__hour">${chf(a.price1)} <small>/ Std.</small></p><p class="rate__min">${chf(a.priceMin1, 2)} / Min.</p></div>
           <div class="rate rate--alt"><p class="rate__label">Preis 2 *</p><p class="rate__hour">${chf(a.price2)} <small>/ Std.</small></p><p class="rate__min">${chf(a.priceMin2, 2)} / Min.</p></div>
         </div>
-        <p class="ac-rate-card__note">* ${esc(preise.price2Note || '')}</p>
+        <p class="ac-rate-card__note">* ${esc(String(preise.price2Note || '').replace(/\.[–-]/g, ''))}</p>${a.price1 === a.price2 ? `
+        <p class="ac-rate-card__note">Bei der ${esc(a.reg)} sind Preis 1 und Preis 2 gleich.</p>` : ''}
       </div>
       <div class="row" data-reveal>
         <a class="btn btn--ghost" href="preise.html"><x-icon name="receipt"></x-icon>Alle Preise und Landetaxen</a>
@@ -232,7 +233,7 @@ ${a.facts && a.facts.length ? `<section class="section section--alt section--glo
         <div class="ac-calc__res"><span class="readout__label">Mit Preis 1</span><span class="ac-calc__val" data-calc-p1>${p60(a.priceMin1)}</span></div>
         <div class="ac-calc__res ac-calc__res--alt"><span class="readout__label">Mit Preis 2</span><span class="ac-calc__val" data-calc-p2>${p60(a.priceMin2)}</span></div>
       </div>
-      <p class="field__help">Richtwert für die Flugzeugmiete${''}: zuzüglich Benzinzuschlag ${num(a.fuel)} % und Landetaxen, exkl. MwSt.</p>
+      <p class="field__help">Richtwert für die Flugzeugmiete (mit Fluglehrer, falls gewählt), zuzüglich Benzinzuschlag ${num(a.fuel)} % und Landetaxen, exkl. MwSt.</p>
     </div>
   </div>
 </section>

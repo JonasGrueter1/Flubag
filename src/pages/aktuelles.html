@@ -1,0 +1,126 @@
+<!--meta {
+  "title": "Aktuelles",
+  "description": "News vom Flugplatz Luzern-Beromünster: Ziellandekonkurrenz 2026, Erfolge der Flugschule, Infoabende und Hinweise für Piloten der FLUBAG.",
+  "nav": "flugplatz",
+  "ogImage": "news/ziellandekonkurrenz-2026"
+} -->
+
+<section class="page-hero news-hero">
+  <div class="page-hero__media"><x-img src="news/zlk-04" alt="Blick aus dem Cockpit einer gelben Piper Cub im Anflug auf die Graspiste von Beromünster" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="container page-hero__inner">
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="geschichte.html">Flugplatz</a></li><li>Aktuelles</li></ol>
+    <p class="eyebrow">Aktuelles · LSZO</p>
+    <h1 data-split data-split-now>Neues aus Beromünster.</h1>
+    <p class="lead">Events am Platz, Erfolge aus der Flugschule und wichtige Hinweise für Piloten. Hier liest du, was am Flugplatz Luzern-Beromünster gerade los ist.</p>
+    <div class="page-hero__meta">
+      <span class="chip"><x-icon name="newspaper"></x-icon><span data-news-total>4</span> Beiträge</span>
+      <a class="chip" href="{{site.social.facebook}}" target="_blank" rel="noopener"><x-icon name="facebook"></x-icon>Facebook</a>
+      <a class="chip" href="{{site.social.instagram}}" target="_blank" rel="noopener"><x-icon name="instagram"></x-icon>Instagram</a>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#top-story" aria-label="Weiter zur Top-Story"><span></span></a>
+</section>
+
+<section class="section" id="top-story" aria-labelledby="top-title">
+  <div class="container split split--wide-right top-story">
+    <a class="top-story__media media-frame media-frame--tall" href="news-ziellandekonkurrenz-2026.html" tabindex="-1" aria-hidden="true" data-reveal="clip">
+      <x-img src="news/ziellandekonkurrenz-2026" alt="" sizes="(max-width: 860px) 100vw, 42vw" data-parallax="0.1"></x-img>
+      <span class="top-story__badge chip"><x-icon name="sparkles"></x-icon>Top-Story</span>
+    </a>
+    <div class="stack-l">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Event · 2026</p>
+        <h2 id="top-title" data-split><a class="top-story__link" href="news-ziellandekonkurrenz-2026.html">Impressionen: Ziellandekonkurrenz 2026</a></h2>
+        <p class="lead" data-reveal>Am letzten Samstag fand die Ziellandekonkurrenz 2026 statt. Es nahmen ca. 40 Piloten an der Konkurrenz teil, darunter auch auswärtige Gäste.</p>
+      </div>
+      <div class="stats stats--2 top-story__stats" data-reveal>
+        <div class="stat"><span class="stat__value"><small class="top-story__ca">ca.</small><span data-count="40">40</span></span><span class="stat__label">Piloten am Start</span></div>
+        <div class="stat"><span class="stat__value" data-count="8">8</span><span class="stat__label">Bilder in der Galerie</span></div>
+      </div>
+      <ol class="top-story__podium" data-reveal-group>
+        <li data-reveal><span class="top-story__rank mono">01</span><span><strong>Beat Odermatt</strong><small>Sieger</small></span></li>
+        <li data-reveal><span class="top-story__rank mono">02</span><span><strong>Michael Hartmann</strong><small>Platz 2</small></span></li>
+        <li data-reveal><span class="top-story__rank mono">03</span><span><strong>Hugo Nicoletti und Urs Eichenberger</strong><small>Platz 3</small></span></li>
+      </ol>
+      <div class="row" data-reveal>
+        <a class="btn btn--primary" href="news-ziellandekonkurrenz-2026.html" data-magnetic><x-icon name="camera"></x-icon>Bericht und Bilder</a>
+        <a class="btn btn--text" href="news-ziellandekonkurrenz-2026.html#galerie">Direkt zur Galerie <x-icon name="arrow-right"></x-icon></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="beitraege" aria-labelledby="alle-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>Alle Beiträge</p>
+        <h2 id="alle-title" data-split>Was am Platz läuft.</h2>
+      </div>
+      <div class="news-filter" role="group" aria-label="Beiträge nach Kategorie filtern" data-news-filter data-reveal>
+        <button type="button" class="news-filter__btn" aria-pressed="true" data-filter="alle">Alle <span class="news-filter__count" data-count-for="alle">4</span></button>
+        <button type="button" class="news-filter__btn" aria-pressed="false" data-filter="Event"><x-icon name="star"></x-icon>Event <span class="news-filter__count" data-count-for="Event">1</span></button>
+        <button type="button" class="news-filter__btn" aria-pressed="false" data-filter="Flugschule"><x-icon name="graduation-cap"></x-icon>Flugschule <span class="news-filter__count" data-count-for="Flugschule">2</span></button>
+        <button type="button" class="news-filter__btn" aria-pressed="false" data-filter="Piloten"><x-icon name="plane"></x-icon>Piloten <span class="news-filter__count" data-count-for="Piloten">1</span></button>
+      </div>
+    </div>
+
+    <ol class="news-list" data-news-list data-reveal-group="0.1">
+      <!-- @each data.news as n -->
+      <li class="news-row" data-category="{{n.category}}" data-reveal>
+        <a class="news-row__link" href="{{n.file}}">
+          <span class="news-row__num mono" aria-hidden="true">0{{loop.number}}</span>
+          <span class="news-row__body">
+            <span class="news-row__meta"><span class="chip chip--brand">{{n.category}}</span><span class="mono subtle">{{n.date}}</span></span>
+            <span class="news-row__title">{{n.title}}</span>
+            <span class="news-row__teaser">{{n.teaser}}</span>
+            <span class="news-row__more"><!-- @if n.id == "infoabende" -->Zu den Infoabenden<!-- @else -->Weiterlesen<!-- @endif --> <x-icon name="arrow-right"></x-icon></span>
+          </span>
+          <span class="news-row__media"><x-img src="{{n.image}}" alt="" sizes="(max-width: 640px) 100vw, 320px"></x-img></span>
+        </a>
+      </li>
+      <!-- @end -->
+    </ol>
+    <p class="news-empty muted" data-news-empty hidden>In dieser Kategorie gibt es gerade keine Beiträge.</p>
+    <p class="visually-hidden" aria-live="polite" data-news-status></p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="mehr-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Mehr News</p>
+      <h2 id="mehr-title" data-split>Für Piloten und alle, die mitfiebern.</h2>
+    </div>
+    <div class="grid grid-2 news-more" data-reveal-group="0.12">
+      <a class="pilot-news instrument hud-corners force-dark" href="piloten.html" data-reveal>
+        <span class="pilot-news__head"><span class="mono">PILOT NEWS</span><span class="pilot-news__live" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus</span></span></span>
+        <span class="pilot-news__title">Mitteilungen für Piloten</span>
+        <span class="pilot-news__text">Aktuelle Hinweise für Piloten findest du im Pilotenbereich, zusammen mit der Weisung Piloten 2026, dem Airport Briefing und allen Dokumenten und Newslettern.</span>
+        <span class="pilot-news__links">
+          <span class="chip"><x-icon name="file-text"></x-icon>Weisung 2026</span>
+          <span class="chip"><x-icon name="compass"></x-icon>Airport Briefing</span>
+          <span class="chip"><x-icon name="book-open"></x-icon>Newsletter</span>
+        </span>
+        <span class="pilot-news__go">Zum Pilotenbereich <x-icon name="arrow-right"></x-icon></span>
+      </a>
+      <div class="social-card card card--pad" data-reveal>
+        <p class="eyebrow eyebrow--plain">Folge uns</p>
+        <p class="social-card__title">Noch mehr Bilder vom Platz gibt es auf Social Media.</p>
+        <div class="social-links">
+          <a class="social-link social-link--fb" href="{{site.social.facebook}}" target="_blank" rel="noopener">
+            <span class="social-link__icon"><x-icon name="facebook"></x-icon></span>
+            <span class="social-link__text"><strong>Facebook</strong><small>FLUBAG Luzern-Beromünster</small></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+          <a class="social-link social-link--ig" href="{{site.social.instagram}}" target="_blank" rel="noopener">
+            <span class="social-link__icon"><x-icon name="instagram"></x-icon></span>
+            <span class="social-link__text"><strong>Instagram</strong><small>@flugplatzberomuenster</small></span>
+            <x-icon name="arrow-up-right"></x-icon>
+          </a>
+        </div>
+        <p class="subtle social-card__note">Externe Links. Beim Öffnen gelten die Datenschutzbestimmungen von Meta (<a href="datenschutz.html#extern">mehr dazu</a>).</p>
+      </div>
+    </div>
+  </div>
+</section>

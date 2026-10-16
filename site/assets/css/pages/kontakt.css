@@ -1,0 +1,68 @@
+/* Kontakt: Kontaktkarten, Schnellzugriff, Themen-Hinweise, Live und Anreise
+   (Social-Links kommen aus aktuelles.css) */
+.contact-hero .page-hero__media img { object-position: 50% 45%; }
+.page-hero__meta .chip[data-airfield-status-inline] { gap: 8px; }
+
+/* ---------- Kontaktkarten ---------- */
+.contact-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); }
+.contact-card { display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 12px; padding: clamp(22px, 2.4vw, 30px); align-content: start; }
+.contact-card__label { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-top: 6px; }
+.contact-card__value { font-family: var(--font-display); font-weight: 800; font-stretch: 105%; font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem); line-height: 1.2; text-decoration: none; letter-spacing: -0.01em; transition: color 0.25s; }
+a.contact-card__value:hover { color: var(--brand-text); }
+.contact-card__value--mail { overflow-wrap: anywhere; }
+.contact-card__value--addr { font-style: normal; font-family: var(--font-body); font-weight: 600; font-stretch: 100%; font-size: 1.05rem; line-height: 1.5; }
+.contact-card__value--addr::first-line { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; }
+.contact-card__text { color: var(--text-2); font-size: 0.94rem; }
+.contact-card__list { display: grid; gap: 10px; align-content: start; font-size: 0.9rem; }
+.contact-card__list dt { color: var(--text-3); font-size: 0.8rem; }
+.contact-card__list dd a { text-decoration: none; font-weight: 600; }
+.contact-card__list dd a:hover { color: var(--brand-text); }
+.contact-card__actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 8px; }
+
+/* ---------- Schnellzugriff ---------- */
+.contact-quick__title { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.contact-quick { display: grid; gap: 10px; }
+.contact-quick__item {
+  display: grid; grid-template-columns: 48px 1fr auto; gap: 14px; align-items: center; padding: 12px 18px 12px 12px;
+  border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); text-decoration: none;
+  transition: border-color 0.3s, transform 0.35s var(--ease-out), background-color 0.3s;
+}
+.contact-quick__item:hover { border-color: rgba(230, 50, 1, 0.5); transform: translateX(4px); }
+.contact-quick__item strong { display: block; font-weight: 700; line-height: 1.25; }
+.contact-quick__item small { display: block; color: var(--text-3); font-size: 0.84rem; }
+.contact-quick__item > .icon { width: 18px; height: 18px; color: var(--text-3); transition: transform 0.35s var(--ease-out), color 0.3s; }
+.contact-quick__item:hover > .icon { transform: translateX(4px); color: var(--brand-text); }
+.contact-quick__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: rgba(230, 50, 1, 0.1); border: 1px solid rgba(230, 50, 1, 0.25); color: var(--brand-text); }
+.contact-quick__icon .icon { width: 22px; height: 22px; }
+
+.contact-person { display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: center; padding: 14px; border-radius: var(--radius); border: 1px dashed var(--line-strong); }
+.contact-person img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+.contact-person strong { display: block; }
+.contact-person small { display: block; color: var(--text-3); font-size: 0.84rem; }
+
+/* ---------- Formular ---------- */
+#kontaktformular .field { align-content: start; }
+.topic-hint { animation: step-in 0.45s var(--ease-out) both; }
+.topic-hint .notice a { color: var(--brand-text); font-weight: 600; }
+.topic-hint__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.contact-form__note { font-size: 0.85rem; }
+.contact-form__note .req { color: var(--brand-text); }
+
+/* ---------- Live und Anreise ---------- */
+.contact-live { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); align-items: stretch; }
+.contact-arrival { display: grid; gap: 14px; align-content: start; padding: clamp(22px, 2.6vw, 30px); }
+.contact-arrival__head { display: flex; justify-content: space-between; font-size: 0.76rem; letter-spacing: 0.14em; color: #ff8a5c; }
+.contact-arrival__icao { color: rgba(237, 242, 250, 0.8); }
+.contact-arrival__title { font-family: var(--font-display); font-weight: 800; font-stretch: 108%; font-size: 1.5rem; line-height: 1.1; }
+.contact-arrival__addr { color: rgba(237, 242, 250, 0.75); }
+.contact-arrival__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-block: 12px; border-block: 1px dashed rgba(160, 190, 230, 0.2); }
+.readout__value--sm { font-size: 0.95rem; line-height: 1.35; }
+
+@media (max-width: 1100px) {
+  .contact-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-live { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-live > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .contact-cards, .contact-live { grid-template-columns: 1fr; }
+}

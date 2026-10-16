@@ -1,0 +1,55 @@
+/* Gratulation PPL: Prüfungskarte, Stempel, Weg zur Lizenz */
+.ppl-hero .page-hero__media img { object-position: 50% 60%; }
+.ppl-body { align-items: center; }
+
+.ppl-card-wrap { perspective: 1000px; }
+.ppl-card {
+  position: relative; display: grid; gap: 10px; padding: clamp(24px, 3vw, 34px); border-radius: var(--radius-l); overflow: hidden;
+  color: #0b1426; background:
+    radial-gradient(120% 80% at 100% 0%, rgba(230, 50, 1, 0.14), transparent 55%),
+    repeating-linear-gradient(135deg, rgba(11, 20, 38, 0.025) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, #fffdf8, #f3eee2);
+  box-shadow: var(--shadow); border: 1px solid rgba(12, 22, 42, 0.08);
+  transform-style: preserve-3d;
+}
+.ppl-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, var(--brand), var(--brand-hi)); }
+.ppl-card__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.8rem; color: #3e4a5e; }
+.ppl-card__brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; letter-spacing: 0.02em; color: #0b1426; }
+.ppl-card__brand img { width: 34px; height: auto; }
+.ppl-card__label { margin-top: 10px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #66728a; }
+.ppl-card__title { font-family: var(--font-display); font-weight: 900; font-stretch: 120%; font-size: clamp(3.6rem, 2.4rem + 4vw, 6rem); line-height: 0.9; letter-spacing: -0.03em; color: #0b1426; }
+.ppl-card__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; margin-top: 10px; padding-top: 16px; border-top: 1px dashed rgba(12, 22, 42, 0.2); }
+.ppl-card__grid dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: #66728a; }
+.ppl-card__grid dd { font-weight: 700; font-size: 1.02rem; }
+.ppl-card__ok { color: #0d8a5f; }
+.ppl-card__stamp {
+  position: relative; justify-self: end; margin: 14px 6px 4px 0; padding: 8px 16px; border: 3px solid #0d8a5f; border-radius: 10px;
+  font-family: var(--font-display); font-weight: 900; font-size: 1.4rem; letter-spacing: 0.12em; text-transform: uppercase; color: #0d8a5f;
+  transform: rotate(-8deg); opacity: 0.85; mix-blend-mode: multiply;
+}
+.anim-ready .ppl-card-wrap[data-reveal] .ppl-card__stamp { opacity: 0; transform: rotate(-8deg) scale(2.4); }
+.anim-ready .ppl-card-wrap.is-in .ppl-card__stamp { opacity: 0.85; transform: rotate(-8deg) scale(1); transition: opacity 0.25s 0.9s, transform 0.5s 0.9s var(--ease-spring); }
+
+.ppl-marquee { --marquee-speed: 36s; padding: 26px 0; }
+
+/* Weg zur Lizenz */
+.ppl-path { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: none; }
+.ppl-path__step {
+  position: relative; display: grid; gap: 8px; align-content: start; padding: 22px 22px 24px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line); transition: border-color 0.3s, transform 0.4s var(--ease-out);
+}
+.ppl-path__step:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+.ppl-path__step strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 750; line-height: 1.2; }
+.ppl-path__step > span:not(.ppl-path__num):not(.chip) { color: var(--text-2); font-size: 0.94rem; }
+.ppl-path__num { font-size: 0.8rem; color: var(--brand-text); letter-spacing: 0.1em; }
+.ppl-path__step--done { background: linear-gradient(160deg, rgba(52, 211, 153, 0.12), var(--surface) 60%); border-color: rgba(52, 211, 153, 0.45); }
+.ppl-path__step--done .chip { justify-self: start; margin-top: 6px; }
+
+@media (max-width: 860px) {
+  .ppl-path { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ppl-card-wrap { max-width: 460px; }
+}
+@media (max-width: 560px) {
+  .ppl-path { grid-template-columns: 1fr; }
+  .ppl-card__stamp { font-size: 1.1rem; }
+}

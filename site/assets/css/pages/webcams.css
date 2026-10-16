@@ -1,0 +1,127 @@
+/* Webcams & Wetter */
+.wc-hero .page-hero__inner > h1 { max-width: 20ch; }
+.wc-chip-status { gap: 8px; }
+
+/* ---------- Webcams ---------- */
+.wc-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); grid-template-rows: auto auto; gap: clamp(14px, 2vw, 22px); }
+.wc-cam--main { grid-row: span 2; }
+.wc-cam { position: relative; display: flex; flex-direction: column; margin: 0; border-radius: var(--radius-l); overflow: hidden; background: var(--surface); border: 1px solid var(--line); transition: border-color 0.4s, box-shadow 0.5s var(--ease-out); }
+.wc-cam:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
+.wc-cam__media { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-3); cursor: zoom-in; }
+.wc-cam--main .wc-cam__media { flex: 1; min-height: 0; }
+.wc-cam__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out), opacity 0.5s; }
+.wc-cam__media:hover img { transform: scale(1.03); }
+.wc-cam__zoom { position: absolute; right: 14px; top: 14px; z-index: 2; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: rgba(6, 11, 22, 0.6); color: #fff; border: 1px solid rgba(255, 255, 255, 0.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; transform: scale(0.8); transition: opacity 0.3s, transform 0.4s var(--ease-out); }
+.wc-cam__zoom .icon { width: 18px; height: 18px; }
+.wc-cam__media:hover .wc-cam__zoom, .wc-cam__media:focus-visible .wc-cam__zoom { opacity: 1; transform: none; }
+.wc-cam .card__badge .dot { margin-right: 6px; }
+.wc-cam.is-live .card__badge .dot { animation: wc-blink 1.6s infinite; }
+@keyframes wc-blink { 50% { opacity: 0.25; } }
+.wc-cam__info { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; padding: 16px 20px 18px; }
+.wc-cam__title { font-family: var(--font-display); font-weight: 750; font-size: var(--fs-h4); line-height: 1.2; }
+.wc-cam--main .wc-cam__title { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); }
+.wc-cam__desc { color: var(--text-2); font-size: 0.92rem; }
+.wc-cam__state { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--text-3); white-space: nowrap; }
+.wc-cam.is-live .wc-cam__state { color: var(--ok); }
+[data-theme="light"] .wc-cam.is-live .wc-cam__state { color: #0f8a5f; }
+.wc-cam.is-archive .wc-cam__state { color: var(--warn); }
+[data-theme="light"] .wc-cam.is-archive .wc-cam__state { color: #a16207; }
+.wc-cam__progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }
+.wc-cam__progress > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brand), var(--brand-hi)); }
+.wc-cam.is-live .wc-cam__progress > span { animation: wc-progress 60s linear forwards; }
+@keyframes wc-progress { from { width: 0; } to { width: 100%; } }
+.wc-cams-actions { margin-top: 18px; gap: 12px 20px; }
+.wc-cams-note { font-size: 0.85rem; max-width: 70ch; }
+@media (max-width: 900px) {
+  .wc-grid { grid-template-columns: 1fr 1fr; }
+  .wc-cam--main { grid-column: 1 / -1; grid-row: auto; }
+}
+@media (max-width: 600px) { .wc-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .wc-cam.is-live .wc-cam__progress > span { animation: none; } }
+
+/* ---------- Wetter ---------- */
+.wc-wx { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(14px, 2vw, 22px); align-items: stretch; }
+.wc-panel { display: grid; gap: 22px; align-content: start; padding: clamp(22px, 2.6vw, 34px); }
+.wc-panel__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 0.74rem; letter-spacing: 0.1em; }
+.wc-panel__hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: center; }
+.wc-icon:not(.is-set) { opacity: 0.3; }
+.wc-icon .icon { width: clamp(52px, 5vw, 72px); height: clamp(52px, 5vw, 72px); color: var(--brand-hi); stroke-width: 1.5; }
+.wc-panel__main { display: grid; gap: 4px; }
+.wc-temp { font-family: var(--font-display); font-weight: 850; font-stretch: 110%; font-size: clamp(2.6rem, 1.8rem + 2.6vw, 4.2rem); line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.wc-cond { font-size: 1rem; opacity: 0.8; }
+.wc-windrose { width: clamp(76px, 7vw, 100px); }
+.wc-windrose svg { width: 100%; height: auto; display: block; }
+.wc-windrose__ring { fill: none; stroke: currentColor; stroke-opacity: 0.25; stroke-width: 1.5; }
+.wc-windrose__n { font-family: var(--font-mono); font-size: 9px; fill: currentColor; opacity: 0.6; text-anchor: middle; dominant-baseline: middle; }
+.wc-windrose__arrow { fill: var(--brand-hi); transform-origin: 50px 50px; transition: transform 1.2s var(--ease-out); }
+.wc-panel__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px 16px; padding-top: 20px; border-top: 1px solid rgba(160, 190, 230, 0.16); }
+[data-theme="light"] .wc-panel__grid { border-top-color: var(--line); }
+.wc-panel__grid .readout__value { font-size: 1.05rem; overflow-wrap: anywhere; }
+.wc-panel__note { font-size: 0.78rem; opacity: 0.65; line-height: 1.5; }
+.wc-xwind { gap: 18px; }
+.wc-xwind__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.wc-xwind__head .mono { font-size: 0.78rem; }
+@media (max-width: 1100px) { .wc-wx { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .wc-panel__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wc-panel__hero { grid-template-columns: auto minmax(0, 1fr); }
+  .wc-windrose { grid-column: 1 / -1; justify-self: start; display: none; }
+}
+
+/* ---------- Seitenwind-Rechner ---------- */
+.wc-calc { gap: 26px; }
+.wc-calc__inputs { display: grid; gap: 22px; }
+.wc-calc__inputs .btn { justify-self: start; }
+.wc-calc__out { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.wc-rwy { display: grid; gap: 14px; padding: 18px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--line); transition: border-color 0.3s, background-color 0.3s; }
+.wc-rwy.is-best { border-color: rgba(52, 211, 153, 0.5); background: rgba(52, 211, 153, 0.06); }
+.wc-rwy.is-tail { border-color: rgba(251, 191, 36, 0.45); }
+.wc-rwy__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.wc-rwy__num { font-family: var(--font-display); font-weight: 900; font-stretch: 120%; font-size: 2.4rem; line-height: 1; letter-spacing: -0.02em; }
+.wc-bar { display: grid; grid-template-columns: 78px minmax(0, 1fr) auto; align-items: center; gap: 10px; font-size: 0.82rem; }
+.wc-bar__label { color: var(--text-3); }
+.wc-bar__track { position: relative; height: 8px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
+.wc-bar__fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 4px; background: var(--ok); transition: width 0.6s var(--ease-out), background-color 0.3s; }
+.wc-bar__fill.is-tail { background: var(--warn); }
+.wc-bar__fill--x { background: var(--sky-2); }
+.wc-bar__val { text-align: right; font-size: 0.76rem; white-space: nowrap; min-width: 44px; }
+@media (max-width: 1100px) { .wc-calc__out { grid-template-columns: 1fr; } }
+
+/* ---------- Betrieb ---------- */
+.wc-ops { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(14px, 2vw, 22px); align-items: start; }
+.wc-week__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.wc-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.78rem; color: var(--text-3); }
+.wc-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.wc-legend__sw { width: 16px; height: 8px; border-radius: 4px; display: inline-block; }
+.wc-legend__sw--ok { background: linear-gradient(90deg, var(--ok), #6ee7b7); }
+.wc-legend__sw--pause { background: repeating-linear-gradient(45deg, rgba(251, 191, 36, 0.8) 0 3px, rgba(251, 191, 36, 0.35) 3px 6px); }
+.wc-legend__sw--now { width: 3px; height: 14px; border-radius: 2px; background: var(--brand-hi); }
+.wc-week__rules { margin-top: 18px; }
+.wc-week__rules > div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 4px 16px; }
+.wc-week__rules dd { text-align: left; color: var(--text-2); }
+.wc-week__foot { margin-top: 12px; font-size: 0.8rem; }
+@media (max-width: 980px) { .wc-ops { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .wc-week__rules > div { grid-template-columns: 1fr; } }
+@media (max-width: 520px) {
+  .wc-week .hours-day, .wc-week .hours-axis { grid-template-columns: 74px minmax(0, 1fr); gap: 10px; }
+  .wc-week .hours-day__name { font-size: 0.78rem; white-space: nowrap; }
+}
+
+.wc-sun { margin-top: clamp(14px, 2vw, 22px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
+.wc-sun__arc svg { width: 100%; height: auto; display: block; overflow: visible; }
+.wc-sun__horizon { stroke: var(--line-strong); stroke-width: 1.5; }
+.wc-sun__path { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 4 6; }
+.wc-sun__done { fill: none; stroke: #fbbf24; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1.4s var(--ease-out); }
+.wc-sun__dot { fill: #fbbf24; filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8)); transition: cx 1.4s var(--ease-out), cy 1.4s var(--ease-out); }
+.wc-sun.is-night .wc-sun__dot { fill: var(--text-3); filter: none; }
+.wc-sun__times { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.wc-sun__times .readout__value { font-size: clamp(1.3rem, 1rem + 1vw, 1.8rem); }
+.wc-sun__text { grid-column: 1 / -1; color: var(--text-2); font-size: 0.92rem; }
+@media (max-width: 820px) { .wc-sun { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .wc-sun__times { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Quellen ---------- */
+.wc-disclaimer { padding: 22px 26px; }
+.wc-links { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 980px) { .wc-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .wc-links { grid-template-columns: 1fr; } }

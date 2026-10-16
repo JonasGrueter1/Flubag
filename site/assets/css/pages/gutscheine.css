@@ -35,7 +35,10 @@
 .gift-step.is-entering { animation: step-in 0.5s var(--ease-out); }
 .gift-step__legend { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-weight: 750; font-size: var(--fs-h4); line-height: 1.2; margin-bottom: 2px; padding: 0; }
 .gift-step__num { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid rgba(230, 50, 1, 0.55); background: rgba(230, 50, 1, 0.08); color: var(--brand-text); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
-.gift-form__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 4px; border-top: 1px dashed var(--line-strong); }
+.gift-form__foot { display: grid; gap: 12px; padding-top: 16px; border-top: 1px dashed var(--line-strong); }
+.gift-form__foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.gift-form__disclaimer { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.84rem; line-height: 1.5; color: var(--text-3); }
+.gift-form__disclaimer .icon { width: 16px; height: 16px; margin-top: 2px; color: var(--brand-text); }
 .gift-form__foot .btn--text { color: var(--text-3); padding-inline: 0; }
 .gift-form__foot .btn--text:hover { color: var(--brand-text); }
 .show-860 { display: none; }
@@ -120,9 +123,10 @@
 .gift-idea.is-used { border-color: var(--brand); background: rgba(230, 50, 1, 0.1); color: var(--text); }
 
 /* ---------- Vorschau ---------- */
-.gift-preview { display: grid; gap: 18px; min-width: 0; }
-@media (min-width: 861px) and (min-height: 860px) {
-  .gift-preview { position: sticky; top: calc(var(--header-h) + 84px); }
+.gift-preview { display: grid; gap: 16px; min-width: 0; }
+/* Desktop: Vorschau bleibt beim Ausfüllen sichtbar (unter Header und Sprungmarken) */
+@media (min-width: 861px) and (min-height: 600px) {
+  .gift-preview { position: sticky; top: calc(var(--header-h) + 76px); }
 }
 .gift-stage { perspective: 1400px; }
 
@@ -173,7 +177,7 @@
 @keyframes gift-bump { 30% { box-shadow: 0 50px 90px -40px rgba(0, 0, 0, 0.7), 0 0 0 3px rgba(230, 50, 1, 0.35); } }
 
 /* Aktionen unter der Bordkarte */
-.gift-actions { display: grid; gap: 14px; padding: clamp(18px, 2vw, 24px); border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-s); }
+.gift-actions { display: grid; gap: 12px; padding: clamp(16px, 1.6vw, 22px); border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-s); }
 .gift-total { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
 .gift-total__label { display: grid; gap: 2px; min-width: 0; }
 .gift-total__label .mono { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -182,14 +186,40 @@
 .gift-actions__row { display: flex; gap: 10px; }
 .gift-actions__shop { flex: 1; }
 .gift-actions__print { flex: none; }
-.gift-note { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.86rem; line-height: 1.5; color: var(--text-2); }
+.gift-note { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.84rem; line-height: 1.5; color: var(--text-2); }
 .gift-note > .icon { width: 17px; height: 17px; margin-top: 2px; color: var(--sky); }
 [data-theme="light"] .gift-note > .icon { color: var(--sky-2); }
-.gift-note--small { display: block; font-size: 0.78rem; color: var(--text-3); padding-top: 10px; border-top: 1px dashed var(--line); }
 @media (max-width: 1180px) and (min-width: 861px) {
   .gift-actions__print span { display: none; }
   .gift-actions__print { padding-inline: 1.15em; }
 }
+
+/* Desktop mit wenig Höhe (Laptops): Bordkarte kompakter, damit sie ganz sichtbar bleibt */
+@media (min-width: 861px) and (max-height: 840px) {
+  .gift-pass .pass__main { padding: 14px 18px 16px; gap: 11px; }
+  .gift-pass__photo { height: 80px; padding: 10px 12px; }
+  .gift-pass__grid { gap: 7px 18px; }
+  .gift-pass__grid > div { padding-top: 6px; }
+  .gift-pass .pass__msg { min-height: 2.9em; padding: 8px 12px; font-size: 0.9rem; }
+  .gift-pass .pass__stub { padding: 16px; }
+  .gift-actions .btn--lg { padding-block: 0.8em; }
+}
+@media (min-width: 861px) and (max-height: 800px) {
+  .gift-pass__photo { height: 56px; }
+  .gift-pass__logo { width: 32px; }
+  .gift-pass .pass__code { font-size: 2.1rem; }
+  .gift-pass .pass__line { margin-top: 1rem; }
+}
+@media (min-width: 861px) and (max-height: 720px), (min-width: 861px) and (max-width: 1100px) and (max-height: 800px) {
+  .gift-pass__photo { height: auto; padding: 0 0 2px; background: none; color: #0b1426; align-items: center; }
+  .gift-pass__photo img, .gift-pass__photo::after { display: none; }
+  .gift-pass__logo { color: #0b1426; }
+  .gift-pass__tag { background: none; border-color: rgba(11, 20, 38, 0.18); color: #6a7588; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .gift-total__what { display: none; }
+  .gift-pass__tag-bp { display: none; }
+}
+/* "Nach oben" ausblenden, solange der Konfigurator im Bild ist (sonst über den Aktionen) */
+body.gift-config-on .to-top { opacity: 0; transform: translateY(20px) scale(0.8); pointer-events: none; }
 
 /* Mobile: Mini-Leiste mit Live-Zusammenfassung */
 .gift-dock { display: none; }
@@ -214,7 +244,14 @@
 .gift-dock__from { opacity: 0.6; }
 .gift-dock__info { display: grid; min-width: 0; flex: 1; line-height: 1.25; }
 .gift-dock__info strong { font-size: 0.88rem; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.gift-dock__info span { font-family: var(--font-mono); font-size: 0.8rem; color: var(--brand-text); font-weight: 700; }
+.gift-dock__sub { display: flex; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; font-family: var(--font-mono); font-size: 0.78rem; }
+.gift-dock__sub [data-d="price"] { color: var(--brand-text); font-weight: 700; flex: none; }
+.gift-dock__detail { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; }
+.gift-dock__detail::before { content: "· "; }
+@media (max-width: 420px) {
+  .gift-dock__btn-text { display: none; }
+  .gift-dock .btn { padding-inline: 0.95em; }
+}
 .gift-dock .btn { flex: none; }
 
 /* ---------- Konfigurator: Breakpoints ---------- */
@@ -258,6 +295,7 @@
   .gift-actions__print span { display: inline; }
 }
 @media (max-width: 380px) {
+  .gift-pass__tag-bp { display: none; }
   .gift-pass .pass__code { font-size: 1.8rem; }
   .gift-pass__tag { font-size: 0.52rem; padding: 4px 7px; }
 }
@@ -357,7 +395,8 @@
 /* ---------- Druckansicht (nur die Bordkarte) ---------- */
 .gift-print { display: none; }
 @media print {
-  html.is-printing-gift, html.is-printing-gift body { background: #fff !important; color: #0b1426 !important; }
+  html.is-printing-gift { color-scheme: light !important; }
+  html.is-printing-gift, html.is-printing-gift body { background: #fff !important; color: #0b1426 !important; transition: none !important; }
   html.is-printing-gift body::after { display: none !important; }
   html.is-printing-gift body > *:not(.gift-print) { display: none !important; }
   html.is-printing-gift .gift-print { display: block !important; padding: 8mm 0 0; font-family: var(--font-body); }
