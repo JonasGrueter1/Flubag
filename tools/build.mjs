@@ -304,6 +304,7 @@ function renderPage(p, layout, allFiles) {
     .replace(/%%CANONICAL%%/g, `${SITE.url}/${name === 'index' ? '' : p.file}`)
     .replace(/%%OG_IMAGE%%/g, `${SITE.url}/${og}`)
     .replace(/%%BODY_CLASS%%/g, esc(`page-${name} ${meta.bodyClass}`.trim()))
+    .replace('%%BASE%%', meta.base ? `<base href="${meta.base === true ? '/' : esc(meta.base)}">\n` : '')
     .replace(/%%PAGE%%/g, name)
     .replace('%%HEAD_EXTRA%%', vendorCss + cssPage + extraCss + (meta.noindex ? '<meta name="robots" content="noindex">' : '') + (meta.jsonld ? `<script type="application/ld+json">${JSON.stringify(meta.jsonld)}</script>` : ''))
     .replace('%%SCRIPTS_EXTRA%%', vendorJs + jsPage + extraJs);

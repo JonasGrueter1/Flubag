@@ -23,3 +23,35 @@ Options -Indexes
   AddType font/woff2 .woff2
   AddType application/manifest+json .webmanifest
 </IfModule>
+
+# Alte Adressen der bisherigen Website (Drupal, /de und /en) dauerhaft auf die neuen Seiten umleiten
+<IfModule mod_alias.c>
+  RedirectMatch 301 ^/(de|en)/?$ /
+  RedirectMatch 301 ^/(de|en)/becoming-a-pilot/?$ /infoabende.html
+  RedirectMatch 301 ^/(de|en)/contact/infoabend_wie_werde_ich_pilot_/?$ /infoabende.html
+  RedirectMatch 301 ^/(de|en)/contact/?$ /kontakt.html
+  RedirectMatch 301 ^/(de|en)/flight-instructors/?$ /fluglehrer.html
+  RedirectMatch 301 ^/(de|en)/pilots/?$ /piloten.html
+  RedirectMatch 301 ^/(de|en)/webcams/?$ /webcams.html
+  RedirectMatch 301 ^/(de|en)/node/?$ /aktuelles.html
+  RedirectMatch 301 ^/(de|en)/node/45/?$ /ausbildung.html
+  RedirectMatch 301 ^/(de|en)/node/46/?$ /zollanmeldung.html
+  RedirectMatch 301 ^/(de|en)/node/47/?$ /preise.html
+  RedirectMatch 301 ^/(de|en)/node/52/?$ /geschichte.html
+  RedirectMatch 301 ^/(de|en)/node/58/?$ /sprungbetrieb.html
+  RedirectMatch 301 ^/(de|en)/node/59/?$ /parkordnung.html
+  RedirectMatch 301 ^/(de|en)/node/64/?$ /weisungen.html
+  RedirectMatch 301 ^/(de|en)/node/66/?$ /checkflug-flarm.html
+  RedirectMatch 301 ^/(de|en)/node/67/?$ /schnupperflug.html
+  RedirectMatch 301 ^/(de|en)/node/71/?$ /briefing-links.html
+  RedirectMatch 301 ^/(de|en)/node/75/?$ /piste-33.html
+  RedirectMatch 301 ^/(de|en)/node/82/?$ /news-hangarierung.html
+  RedirectMatch 301 ^/(de|en)/node/84/?$ /infoabende.html
+  RedirectMatch 301 ^/(de|en)/node/90/?$ /datenschutz.html
+  RedirectMatch 301 ^/(de|en)/node/94/?$ /airport-briefing.html
+  RedirectMatch 301 ^/(de|en)/node/105/?$ /safety-policy.html
+  RedirectMatch 301 ^/(de|en)/node/123/?$ /anreise.html
+  RedirectMatch 301 ^/(de|en)/node/134/?$ /news-gratulation-ppl.html
+  RedirectMatch 301 ^/(de|en)/node/137/?$ /news-ziellandekonkurrenz-2026.html
+  RedirectMatch 301 ^/(de|en)/node/(106|107|108|109|110)/?$ /reporting.html
+</IfModule>

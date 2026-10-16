@@ -50,6 +50,7 @@
       img.alt = inner ? inner.alt : '';
       cap.textContent = a.getAttribute('data-caption') || (inner ? inner.alt : '');
       count.textContent = (idx + 1) + ' / ' + items.length;
+      lb.classList.toggle('is-single', items.length < 2);
     }
     function open(group, i) {
       items = group; lastFocus = document.activeElement;
@@ -134,7 +135,9 @@
       var b = e.target.closest('[data-copy]');
       if (!b) return;
       var text = b.getAttribute('data-copy');
-      if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { F.toast('Kopiert: ' + text); });
+      var manual = function () { window.prompt('Zum Kopieren markieren:', text); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { F.toast('Kopiert: ' + text); }, manual);
+      else manual();
     });
   }
 

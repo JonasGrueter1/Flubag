@@ -318,7 +318,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .hud-corners::before, .hud-corners::after { content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--brand-hi); pointer-events: none; }
 .hud-corners::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; border-top-left-radius: 10px; }
 .hud-corners::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; border-bottom-right-radius: 10px; }
-.readout { display: grid; gap: 2px; }
+.readout { display: grid; gap: 2px; grid-template-rows: auto 1fr; align-content: start; }
 .readout__label { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
 .readout__value { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .readout__value small { font-size: 0.7em; opacity: 0.7; font-weight: 500; }
@@ -338,7 +338,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .hours-day__text { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-3); text-align: right; }
 .hours-axis { display: grid; grid-template-columns: 74px 1fr 110px; gap: 12px; font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-3); }
 .hours-axis__ticks { display: flex; justify-content: space-between; }
-@media (max-width: 520px) { .hours-day, .hours-axis { grid-template-columns: 56px 1fr; } .hours-day__text, .hours-axis > :last-child { display: none; } }
+@media (max-width: 520px) { .hours-day, .hours-axis { grid-template-columns: 78px 1fr; } .hours-day__name { white-space: nowrap; } .hours-day__text, .hours-axis > :last-child { display: none; } }
 
 /* Seitenwind-Widget */
 .xwind { display: grid; grid-template-columns: minmax(0, 260px) 1fr; gap: 24px; align-items: center; }
@@ -519,3 +519,9 @@ legend.h3 { font-size: var(--fs-h3); }
 /* Nachträge aus dem Review */
 .doc__title, .doc__meta { display: block; }
 .btn--text.btn--sm, .btn--text.btn--lg { padding-inline: 0; }
+[data-theme="light"] .instrument.force-dark { background: linear-gradient(180deg, #101b2f, #080e1b); }
+.readout__value { align-self: end; }
+.readout__label { text-wrap: balance; }
+@media (max-width: 640px) { .chip { white-space: normal; max-width: 100%; } }
+.lightbox.is-single .lightbox__nav--prev, .lightbox.is-single .lightbox__nav--next, .lightbox.is-single .lightbox__count { display: none; }
+.is-hpinned .altimeter { opacity: 0; }

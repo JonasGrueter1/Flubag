@@ -35,7 +35,8 @@
         (x === 0 ? '0 kt <small>quer</small>' : Math.abs(x) + ' kt <small>' + (x > 0 ? 'von rechts' : 'von links') + '</small>');
     };
     var rec = w.calm ? 'Windstill: Piste 33 primär (Starts und Landungen).' :
-      (w.tailwind33 ? 'Rückenwind auf 33: kein Start auf Piste 33 nahe max. Startgewicht. Landung auf 15 prüfen.' : 'Gegenwind auf Piste 33: Standardbetrieb auf 33.');
+      (w.tailwind33 ? 'Rückenwind auf 33: kein Start auf Piste 33 nahe max. Startgewicht. Landung auf 15 prüfen.' :
+        (Math.abs(c33.head) <= 1.5 ? 'Kaum Längswind auf Piste 33: Standardbetrieb auf 33.' : 'Gegenwind auf Piste 33: Standardbetrieb auf 33.'));
     var hazards = '';
     if (w.westHazard) hazards += '<p class="chip chip--warn">Starker Westwind: Turbulenzen östlich des Waldstücks beim Start 33</p>';
     if (w.biseHazard) hazards += '<p class="chip chip--warn">Bise: Turbulenzen im Endanflug 33 möglich</p>';

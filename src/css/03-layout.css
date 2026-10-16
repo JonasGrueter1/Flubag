@@ -47,7 +47,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .section-head--split { grid-template-columns: 1fr; }
+  .section-head--split { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 860px) {
   .split, .split--wide-left, .split--wide-right { grid-template-columns: minmax(0, 1fr); }
@@ -272,7 +272,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .breadcrumbs a:hover { color: var(--brand-hi); }
 
 /* In-Page Navigation für lange Seiten */
-.subnav { position: sticky; top: calc(var(--header-h) - 1px); z-index: 50; background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+.subnav { position: sticky; top: calc(var(--header-h) - 1px); transition: top 0.4s var(--ease-out); z-index: 50; background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
 .subnav__list { display: flex; gap: 6px; overflow-x: auto; padding: 10px 0; list-style: none; scrollbar-width: none; }
 .subnav__list::-webkit-scrollbar { display: none; }
 .subnav a { display: inline-block; white-space: nowrap; padding: 8px 14px; border-radius: var(--radius-pill); text-decoration: none; font-size: 0.9rem; color: var(--text-2); transition: background-color 0.2s, color 0.2s; }
@@ -333,3 +333,8 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .scroll-cue { position: absolute; left: 50%; bottom: 26px; width: 26px; height: 44px; translate: -50% 0; border: 1.5px solid rgba(255, 255, 255, 0.5); border-radius: 14px; overflow: hidden; }
 .scroll-cue span { position: absolute; left: 50%; top: 8px; width: 3px; height: 10px; translate: -50% 0; border-radius: 3px; background: #fff; animation: scroll-cue 1.8s var(--ease-in-out) infinite; }
 @media (max-width: 900px) { .scroll-cue { display: none; } }
+
+/* Header fährt beim Runterscrollen weg: Unternavigation und Sticky-Spalten rutschen nach */
+body:has(.site-header.is-hidden) .subnav { top: 0; }
+body:has(.subnav):has(.site-header.is-hidden) .sticky { top: 84px; }
+.sticky { transition: top 0.4s var(--ease-out); }

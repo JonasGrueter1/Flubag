@@ -113,6 +113,7 @@
 
   function renderWeek(now) {
     F.$$('[data-hours-week]').forEach(function (el) {
+      el.classList.add('hours-week');
       var start = 6 * 60, end = 22 * 60, span = end - start;
       var pct = function (m) { return ((Math.min(Math.max(m, start), end) - start) / span * 100).toFixed(2) + '%'; };
       var html = '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';

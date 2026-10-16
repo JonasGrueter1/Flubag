@@ -34,7 +34,7 @@
     };
     w.wx = WMO[w.code] || '';
     w.calm = w.speed < 2;
-    w.dirName = dirName(w.dir);
+    w.dirName = w.calm ? 'variabel' : dirName(w.dir);
     w.windText = w.calm ? 'Windstill' : F.pad3(Math.round(w.dir / 10) * 10) + '°/' + F.pad(Math.round(w.speed)) + ' kt' + (w.gust - w.speed >= 8 ? ' G' + Math.round(w.gust) : '');
     w.tempText = Math.round(w.temp) + ' °C';
     w.qnhText = Math.round(w.qnh) + ' hPa';
@@ -48,7 +48,8 @@
     var best = w.rwy33.head >= -2 ? 33 : 15;
     w.bestRwy = best;
     var comp = best === 33 ? w.rwy33 : w.rwy15;
-    w.rwyText = w.calm ? 'Windstill, Piste 33 primär' : 'Piste ' + best + ': ' + Math.abs(Math.round(comp.head)) + ' kt ' + (comp.head >= 0 ? 'Gegenwind' : 'Rückenwind') + ', ' + Math.abs(Math.round(comp.cross)) + ' kt Seitenwind';
+    var h = Math.round(comp.head);
+    w.rwyText = w.calm ? 'Windstill, Piste 33 primär' : 'Piste ' + best + ': ' + (Math.abs(h) <= 1 ? 'kaum Längswind' : Math.abs(h) + ' kt ' + (h > 0 ? 'Gegenwind' : 'Rückenwind')) + ', ' + Math.abs(Math.round(comp.cross)) + ' kt Seitenwind';
     w.tailwind33 = w.rwy33.head < -1;
     w.westHazard = !w.calm && w.dir >= 230 && w.dir <= 310 && (w.speed >= 12 || w.gust >= 20);
     w.biseHazard = !w.calm && w.dir >= 20 && w.dir <= 100 && (w.speed >= 10 || w.gust >= 18);
@@ -84,6 +85,8 @@
       get().catch(function () { return new Promise(function (res) { setTimeout(res, 2500); }).then(get); })
         .then(function (raw) { F.store.set(KEY, { t: Date.now(), raw: raw }, true); self.set(raw); })
         .catch(function () {
+          // Notlösung: lieber ein älteres Wetter zeigen (mit Zeitstempel im Cache) als gar keins
+          if (cached && cached.raw) { self.set(cached.raw); return; }
           F.$$('[data-wx-field]').forEach(function (el) { if (el.textContent === '--') el.textContent = 'nicht verfügbar'; });
           F.emit('flubag:weather-error');
         });

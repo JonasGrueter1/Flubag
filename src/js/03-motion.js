@@ -127,7 +127,8 @@
         var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth); };
         gsap.to(track, {
           x: function () { return -dist(); }, ease: 'none',
-          scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 }
+          scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1,
+            onToggle: function (st) { document.documentElement.classList.toggle('is-hpinned', st.isActive); } }
         });
       });
     });
