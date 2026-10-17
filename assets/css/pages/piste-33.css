@@ -1,0 +1,114 @@
+/* Anflug und Abflug Piste 33 */
+.p33-deco { color: #fff; opacity: 0.16; right: 2%; bottom: -8%; width: min(30vw, 400px); }
+@media (max-width: 760px) { .p33-deco { right: -22%; width: 70vw; opacity: 0.1; } }
+
+.p33-rules .notice { height: 100%; }
+
+/* Layout: Skizze links (sticky), Schritte rechts */
+.p33-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.p33-visual { position: sticky; top: calc(var(--header-h) + 20px); display: grid; gap: 14px; }
+.p33-map { margin: 0; padding: 18px 18px 14px; display: grid; gap: 8px; }
+.p33-map__head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 0.7rem; letter-spacing: 0.12em; opacity: 0.8; }
+.p33-map__step { color: var(--brand-hi); }
+[data-theme="light"] .p33-map__step { color: var(--brand-text); }
+.p33-svg { display: block; width: 100%; height: auto; max-height: calc(100vh - var(--header-h) - 270px); margin-inline: auto; overflow: visible; }
+.p33-map__note { font-size: 0.74rem; line-height: 1.45; opacity: 0.65; }
+.p33-note-short { display: none; }
+
+/* SVG Elemente */
+.p33-svg text { font-family: var(--font-mono); }
+.p33-rwy { fill: rgba(140, 200, 120, 0.28); stroke: rgba(160, 220, 140, 0.6); stroke-width: 1; }
+.p33-rwy__cl { stroke: rgba(255, 255, 255, 0.55); stroke-width: 1; stroke-dasharray: 6 5; }
+.p33-rwy__num { font-size: 9px; font-weight: 700; fill: currentColor; opacity: 0.85; }
+.p33-glider { fill: rgba(140, 200, 120, 0.12); stroke: rgba(160, 220, 140, 0.35); stroke-dasharray: 3 3; }
+.p33-taxi { fill: rgba(160, 190, 230, 0.22); }
+.p33-hangar { fill: rgba(160, 190, 230, 0.32); stroke: rgba(160, 190, 230, 0.5); }
+.p33-runup { fill: rgba(248, 113, 113, 0.55); }
+.p33-tiny { font-size: 8.5px; fill: currentColor; opacity: 0.55; letter-spacing: 0.04em; }
+.p33-tiny--runup { fill: var(--bad); opacity: 0.9; }
+.p33-route { fill: none; stroke: currentColor; stroke-width: 2; stroke-dasharray: 5 6; opacity: 0.3; }
+.p33-flown { fill: none; stroke: var(--brand-hi); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(255, 90, 38, 0.55)); }
+.p33-leg { fill: none; stroke: transparent; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.4s; }
+.p33-leg.is-active { stroke: rgba(255, 90, 38, 0.2); }
+.p33-dot { fill: #0a1222; stroke: currentColor; stroke-width: 1.5; opacity: 0.6; transition: fill 0.3s, opacity 0.3s, r 0.3s; }
+.p33-dot.is-done { fill: var(--brand-hi); stroke: var(--brand-hi); opacity: 0.9; }
+.p33-dot.is-active { fill: var(--brand-hi); stroke: #fff; opacity: 1; r: 7; }
+.p33-label { font-size: 10.5px; fill: currentColor; opacity: 0.55; transition: opacity 0.3s, fill 0.3s; }
+.p33-label.is-active { opacity: 1; fill: var(--brand-hi); font-weight: 700; }
+.p33-leglabel { font-size: 8px; letter-spacing: 0.24em; fill: currentColor; opacity: 0.35; }
+.p33-north circle, .p33-wind circle { fill: rgba(255, 255, 255, 0.04); stroke: currentColor; stroke-opacity: 0.35; }
+.p33-north path { fill: currentColor; }
+.p33-north text { font-size: 10px; font-weight: 700; fill: currentColor; }
+.p33-wind [data-p33-wind-arrow] { transition: transform 1s var(--ease-out); }
+.p33-wind path { fill: var(--sky); }
+.p33-wind__label { font-size: 7.5px; letter-spacing: 0.18em; fill: currentColor; opacity: 0.55; }
+.p33-wind__val { font-size: 9.5px; font-weight: 700; fill: currentColor; }
+.p33-plane path { fill: #fff; stroke: var(--brand); stroke-width: 1.2; stroke-linejoin: round; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-dot { fill: #fff; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-flown { stroke: var(--brand); filter: none; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-label.is-active { fill: var(--brand-text); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-rwy { fill: rgba(90, 160, 70, 0.35); stroke: rgba(60, 130, 50, 0.6); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-rwy__cl { stroke: rgba(255, 255, 255, 0.9); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-wind path { fill: var(--sky-2); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-plane path { fill: var(--brand); stroke: #fff; filter: none; }
+
+/* Legende */
+.p33-legend { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.p33-legend a { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: var(--radius-s); border: 1px solid var(--line); background: var(--surface); text-decoration: none; font-size: 0.82rem; color: var(--text-2); transition: border-color 0.25s, color 0.25s, background-color 0.25s; }
+.p33-legend a .mono { font-size: 0.7rem; color: var(--text-3); }
+.p33-legend a:hover { border-color: var(--line-strong); color: var(--text); }
+.p33-legend a.is-active { border-color: rgba(230, 50, 1, 0.55); background: rgba(230, 50, 1, 0.1); color: var(--text); }
+.p33-legend a.is-active .mono { color: var(--brand-text); }
+
+/* Schritte */
+.p33-steps { list-style: none; padding: 0; display: grid; gap: clamp(56px, 8vw, 110px); }
+.p33-step { display: grid; gap: 18px; scroll-margin-top: calc(var(--header-h) + 24px); }
+.p33-step__head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+.p33-step__num { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--line-strong); font-weight: 700; color: var(--text-2); background: var(--surface); transition: background-color 0.35s, border-color 0.35s, color 0.35s, box-shadow 0.35s; }
+.p33-step.is-active .p33-step__num { border-color: var(--brand); color: #fff; background: var(--brand); box-shadow: 0 0 0 8px rgba(230, 50, 1, 0.14); }
+.p33-step__kicker { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-text); }
+.p33-step__title { font-size: var(--fs-h3); font-family: var(--font-display); font-weight: 800; font-stretch: 108%; line-height: 1.08; margin-top: 4px; }
+.p33-step__media { position: relative; display: block; aspect-ratio: 1600 / 1118; border-radius: var(--radius-l); overflow: hidden; background: var(--surface-3); border: 1px solid var(--line); cursor: zoom-in; }
+.p33-step__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out); }
+.p33-step__media:hover img { transform: scale(1.03); }
+.p33-step__body { display: grid; gap: 14px; color: var(--text-2); }
+.p33-step__body strong { color: var(--text); }
+.p33-alert { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 14px 16px; border-radius: var(--radius); border: 1px solid rgba(251, 191, 36, 0.45); background: rgba(251, 191, 36, 0.07); color: var(--text); }
+.p33-alert .icon { width: 20px; height: 20px; color: var(--warn); margin-top: 1px; }
+.p33-alert--danger { border-color: rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.07); }
+.p33-alert--danger .icon { color: var(--bad); }
+.p33-marks { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.p33-marks__label { width: 100%; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.p33-marks .chip { white-space: normal; text-align: left; }
+
+/* Handy: Skizze bleibt kompakt oben kleben */
+@media (max-width: 860px) {
+  .p33-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .p33-visual { top: calc(var(--header-h) - 1px); z-index: 30; margin-inline: calc(-1 * var(--gutter)); padding: 8px var(--gutter); background: var(--bg-2); border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px -16px rgba(0, 0, 0, 0.6); transition: top 0.4s var(--ease-out); }
+  body:has(.site-header.is-hidden) .p33-visual { top: 0; }
+  .p33-map { padding: 8px 10px; grid-template-columns: minmax(0, 1fr); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .p33-note-long { display: none; }
+  .p33-note-short { display: inline; }
+  .p33-map.hud-corners::before, .p33-map.hud-corners::after { display: none; }
+  .p33-svg { max-height: 28vh; max-height: 28svh; }
+  .p33-map__note { font-size: 0.66rem; }
+  .p33-legend { display: none; }
+  .p33-step { scroll-margin-top: calc(var(--header-h) + 34vh); }
+  .p33-label, .p33-leglabel, .p33-tiny, .p33-wind__label, .p33-rwy__num { display: none; }
+  .p33-plane path { transform: scale(1.8); }
+  .p33-route { stroke-width: 3; }
+  .p33-flown { stroke-width: 5; }
+  .p33-dot { r: 7; }
+  .p33-dot.is-active { r: 10; }
+  .p33-wind__val { font-size: 15px; }
+}
+@media (max-width: 640px) {
+  .p33-step__num { width: 46px; height: 46px; }
+  .p33-step__head { gap: 14px; }
+}
+
+/* Live-Wind in der halben Spalte: kleinere Kompassrose, damit die Pistenwerte auf eine Zeile passen */
+@media (min-width: 641px) {
+  .p33-xwind .xwind { grid-template-columns: minmax(0, 180px) 1fr; gap: 20px; }
+  .p33-xwind .xwind__data .readout__value { font-size: 1.1rem; }
+}

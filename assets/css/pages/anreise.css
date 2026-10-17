@@ -1,0 +1,92 @@
+/* Anreise */
+
+/* ---------- Adresse, Route, Karte ---------- */
+.an-grid { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: clamp(16px, 2.4vw, 28px); align-items: stretch; }
+.an-side { display: grid; gap: clamp(16px, 2.4vw, 28px); align-content: start; }
+.an-address, .an-route { gap: 18px; }
+.an-address__lines { display: grid; gap: 2px; font-style: normal; font-size: 1.15rem; line-height: 1.45; }
+.an-address__lines strong { font-family: var(--font-display); font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); font-weight: 850; font-stretch: 112%; letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 6px; }
+.an-contact dt { display: inline-flex; align-items: center; gap: 8px; }
+.an-contact dt .icon { width: 15px; height: 15px; color: var(--brand-text); }
+.an-contact dd a { text-decoration: none; font-weight: 600; }
+.an-contact dd a:hover { color: var(--brand-text); }
+.an-address__actions { gap: 8px; }
+.an-modes { width: 100%; justify-content: space-between; }
+.an-modes label { flex: 1; text-align: center; }
+.an-modes span { padding: 9px 6px; white-space: nowrap; }
+.an-route__alt { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.an-route__alt .btn { justify-content: center; }
+.an-route .field__help { margin: 0; }
+
+.an-mapwrap { position: relative; min-height: 560px; border-radius: var(--radius-l); }
+.an-map { height: 100%; min-height: 560px; }
+.an-map.is-offline .leaflet-tile-pane { opacity: 0; }
+.an-map .leaflet-popup-content-wrapper { border-radius: 14px; }
+.an-map .leaflet-popup-content { margin: 14px 16px; font-family: var(--font-body); font-size: 0.85rem; line-height: 1.45; color: #0b1426; }
+.an-map .leaflet-popup-content strong { display: block; font-size: 0.95rem; margin-bottom: 2px; }
+.an-map .leaflet-popup-content a { color: #c42c00; font-weight: 600; }
+.an-map__bar { position: absolute; z-index: 500; left: 14px; bottom: 30px; display: grid; justify-items: start; gap: 8px; max-width: calc(100% - 28px); pointer-events: none; }
+.an-map__bar > * { pointer-events: auto; }
+.an-map__bar .btn--light { box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.45); }
+.an-map__result { padding: 10px 14px; border-radius: 14px; background: rgba(6, 11, 22, 0.86); color: #fff; font-size: 0.85rem; line-height: 1.45; max-width: 340px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.an-map__result strong { font-family: var(--font-mono); color: #ffb08e; }
+.an-map__offline { position: absolute; inset: auto 14px 14px 14px; z-index: 600; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 16px 18px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong); font-size: 0.9rem; }
+.an-map__offline .icon { width: 22px; height: 22px; color: var(--brand-text); }
+
+/* Marker LSZO */
+.an-marker { position: relative; }
+.an-marker__pulse, .an-marker__dot { position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; }
+.an-marker__pulse { background: rgba(230, 50, 1, 0.5); animation: an-pulse 2.4s var(--ease-out) infinite; }
+.an-marker__dot { background: var(--brand); border: 3px solid #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4); }
+.an-marker__label { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; white-space: nowrap; padding: 6px 10px; border-radius: 10px; background: rgba(6, 11, 22, 0.9); color: #fff; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35); }
+.an-marker__label::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: rgba(6, 11, 22, 0.9); }
+.an-me { width: 16px; height: 16px; border-radius: 50%; background: var(--sky-2); border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(59, 164, 246, 0.25); }
+@keyframes an-pulse { from { transform: scale(1); opacity: 0.9; } to { transform: scale(4.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .an-marker__pulse { animation: none; opacity: 0; } }
+
+@media (max-width: 1024px) {
+  .an-grid { grid-template-columns: 1fr; }
+  .an-side { grid-template-columns: 1fr 1fr; }
+  .an-mapwrap, .an-map { min-height: 480px; }
+}
+@media (max-width: 720px) {
+  .an-side { grid-template-columns: 1fr; }
+  .an-mapwrap, .an-map { min-height: 440px; }
+  .an-map__bar { bottom: 24px; }
+  .an-map__result { max-width: 100%; }
+}
+@media (max-width: 480px) {
+  .an-route__alt { grid-template-columns: 1fr; }
+  .an-modes span { font-size: 0.85rem; }
+}
+
+/* ---------- Mit dem Flugzeug ---------- */
+.an-panel { display: grid; gap: 18px; }
+.an-panel__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; font-size: 0.75rem; letter-spacing: 0.1em; }
+.an-panel__status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; letter-spacing: 0; }
+.an-panel__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 16px; }
+.an-panel__grid .readout__value { font-size: 1.1rem; overflow-wrap: anywhere; }
+.an-panel__link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; text-decoration: none; color: #ffb08e; justify-self: start; }
+[data-theme="light"] .an-panel__link { color: var(--brand-text); }
+.an-panel__link .icon { transition: transform 0.3s; }
+.an-panel__link:hover .icon { transform: translateX(4px); }
+.an-fly .step__body > .btn, .an-fly .step__body > .row { margin-top: 10px; }
+.an-fly .step__body > .btn { justify-self: start; }
+.an-note { margin-top: 12px; padding: 12px 16px; }
+@media (max-width: 480px) { .an-panel__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Restaurant ---------- */
+.an-resto { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(24px, 4vw, 64px); align-items: center; padding: clamp(28px, 6vw, 80px); border-radius: var(--radius-l); background: linear-gradient(135deg, #14233f 0%, #0a1222 65%); color: #fff; border: 1px solid rgba(160, 190, 230, 0.16); }
+.an-resto__glow { position: absolute; z-index: -1; right: -12%; top: -40%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(230, 50, 1, 0.38), transparent 65%); pointer-events: none; }
+.an-resto .eyebrow { color: var(--brand-hi); }
+.an-resto .lead { color: rgba(255, 255, 255, 0.8); max-width: 60ch; }
+.an-resto .btn--ghost { --btn-border: rgba(255, 255, 255, 0.35); --btn-bg: rgba(255, 255, 255, 0.06); color: #fff; }
+.an-resto__badge { position: relative; width: clamp(150px, 16vw, 220px); aspect-ratio: 1; display: grid; place-items: center; align-content: center; gap: 10px; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, 0.3); background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%); animation: an-spin 40s linear infinite; }
+.an-resto__badge .icon { width: 56px; height: 56px; color: #ffb08e; animation: an-spin 40s linear infinite reverse; }
+.an-resto__badge .mono { font-size: 0.8rem; letter-spacing: 0.3em; opacity: 0.7; animation: an-spin 40s linear infinite reverse; }
+@keyframes an-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .an-resto__badge, .an-resto__badge .icon, .an-resto__badge .mono { animation: none; } }
+@media (max-width: 760px) { .an-resto { grid-template-columns: 1fr; } .an-resto__badge { display: none; } }
+
+/* Telefonnummern im Fliesstext nicht mitten in der Nummer umbrechen */
+.an-fly .step__body a[href^="tel:"] { white-space: nowrap; }

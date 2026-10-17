@@ -1,0 +1,64 @@
+/* Hangarierung: Regel-Box und interaktiver Schiebetür-Check */
+.hangar-hero .page-hero__media img { object-position: 50% 55%; }
+/* Nebelbild ist sehr hell: Overlay etwas kräftiger, damit Eyebrow und Lead lesbar bleiben */
+.hangar-hero::after {
+  background:
+    linear-gradient(180deg, rgba(6, 11, 22, 0.62) 0%, rgba(6, 11, 22, 0.32) 38%, rgba(6, 11, 22, 0.9) 100%),
+    linear-gradient(90deg, rgba(6, 11, 22, 0.78) 0%, rgba(6, 11, 22, 0.12) 70%);
+}
+.hangar-title { hyphens: manual; -webkit-hyphens: manual; }
+.hangar-body { align-items: center; }
+
+.hangar-rule { display: grid; gap: 10px; padding: clamp(24px, 3vw, 34px); }
+.hangar-rule__big { font-family: var(--font-display); font-weight: 900; font-stretch: 115%; font-size: clamp(5rem, 3.5rem + 5vw, 8rem); line-height: 0.9; color: #ff8a5c; }
+.hangar-rule__big small { font-size: 0.4em; margin-left: 6px; color: rgba(237, 242, 250, 0.7); }
+.hangar-rule__text { color: rgba(237, 242, 250, 0.82); }
+
+.checklist li span { color: var(--text-2); }
+.checklist li strong { color: var(--text); }
+
+/* ---------- Schiebetür-Check ---------- */
+.door-check { display: grid; gap: 18px; padding: clamp(18px, 2.4vw, 26px); border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-s); }
+.door-check__stage { position: relative; border-radius: var(--radius); overflow: hidden; }
+.door-check__svg { display: block; width: 100%; height: auto; }
+.door-check__apron { fill: var(--surface-2); }
+.door-check__hangar { fill: var(--surface-3); }
+.door-check__track { fill: var(--line-strong); }
+.door-check__hatch { fill: rgba(248, 113, 113, 0.35); }
+.door-check__zone { fill: url(#door-hatch); stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 5 4; transition: opacity 0.3s; }
+.door-check.is-clear .door-check__zone { stroke: var(--ok); opacity: 0.55; }
+.door-check__reserve { stroke: var(--ok); stroke-width: 2; stroke-dasharray: 2 6; stroke-linecap: round; }
+.door-check__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; fill: var(--text-3); }
+.door-check__label--zone { fill: var(--bad); font-size: 10px; }
+.door-check__plane { transition: transform 0.15s linear; }
+.door-check__fuse { fill: var(--text); }
+.door-check__tail { fill: var(--text-2); }
+.door-check__wing { fill: var(--brand); }
+.door-check__prop { fill: var(--text-3); }
+.door-check__door { fill: var(--sky-2); stroke: rgba(255, 255, 255, 0.35); transition: transform 0.9s var(--ease-in-out); }
+.door-check.is-hit .door-check__door { transition-duration: 0.45s; }
+.door-check__flash { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 40%, rgba(248, 113, 113, 0.45), transparent 60%); opacity: 0; }
+.door-check.is-hit .door-check__flash { animation: door-flash 0.9s 0.4s both; }
+.door-check.is-hit .door-check__stage { animation: door-shake 0.45s 0.42s both; }
+@keyframes door-flash { 0% { opacity: 0; } 20% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes door-shake { 0%, 100% { transform: none; } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+
+.door-check__controls { display: grid; gap: 14px; }
+.door-check__range { display: grid; gap: 8px; }
+.door-check__range input { width: 100%; accent-color: var(--brand); height: 28px; cursor: grab; }
+.door-check__msg { min-height: 3em; color: var(--text-2); }
+.door-check__msg strong { color: var(--text); }
+.door-check__note { font-size: 0.78rem; color: var(--text-3); }
+
+.link-tile__logo .icon { color: #0b1426; }
+.hangar-links { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+
+/* Handy: Beschriftungen in der Skizze lesbar halten (SVG wird stark verkleinert) */
+@media (max-width: 640px) {
+  .door-check__label { font-size: 17px; letter-spacing: 0.02em; }
+  .door-check__label--zone { font-size: 15px; }
+}
+
+/* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
+.page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
+.page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }

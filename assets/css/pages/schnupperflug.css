@@ -1,0 +1,15 @@
+.price-plane__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-3); }
+.price-plane__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out); }
+.price-plane:hover .price-plane__media img { transform: scale(1.05); }
+.price-plane__options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+.price-option { display: grid; gap: 4px; padding: 16px 18px; border-radius: var(--radius); border: 1px solid var(--line-strong); text-decoration: none; transition: border-color 0.25s, background-color 0.25s, transform 0.3s var(--ease-out); }
+.price-option:hover { border-color: var(--brand); background: rgba(230, 50, 1, 0.08); transform: translateY(-3px); }
+.price-option__time { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-3); letter-spacing: 0.06em; }
+.price-option__price { font-family: var(--font-display); font-weight: 850; font-size: 1.6rem; color: var(--brand-text); line-height: 1.1; }
+/* Handy: die vier Flug-Optionen zweispaltig, damit der erste Schritt ohne langes Scrollen passt */
+@media (max-width: 560px) {
+  .wizard .choice-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wizard .choice__card { padding: 14px; }
+  .wizard .choice__card .icon { width: 22px; height: 22px; }
+  .wizard .choice__meta { font-size: 0.7rem; }
+}
