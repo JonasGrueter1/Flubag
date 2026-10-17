@@ -74,6 +74,7 @@
     data: null,
     components: components,
     load: function () {
+      if (!F.live('weather')) return;
       var cached = F.store.get(KEY, true);
       if (cached && Date.now() - cached.t < F.config.weather.cacheMinutes * 60000) { this.set(cached.raw); return; }
       var c = F.config.weather;

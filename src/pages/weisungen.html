@@ -22,7 +22,7 @@
     <h1 data-split data-split-now>Weisung Piloten 2026.</h1>
     <p class="lead">Weisungen für Piloten von Motorflugzeugen und Helikoptern: Betriebszeiten, Einschränkungen, Feiertage und alle Bestimmungen, die jeder Pilot in Beromünster individuell befolgen muss.</p>
     <div class="page-hero__meta">
-      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
       <span class="chip"><x-icon name="clock"></x-icon>Mo bis Sa ab 08:00</span>
       <span class="chip"><x-icon name="calendar"></x-icon>So ab 09:00</span>
       <span class="chip chip--warn"><x-icon name="volume-x"></x-icon>Mittagspause ohne Starts</span>
@@ -39,7 +39,7 @@
     <ul class="subnav__list">
       <li><a href="#grundlage">Grundlage</a></li>
       <li><a href="#zeiten">Betriebszeiten</a></li>
-      <li><a href="#woche">Diese Woche</a></li>
+      <li data-live="status"><a href="#woche">Diese Woche</a></li>
       <li><a href="#feiertage">Feiertage</a></li>
       <li><a href="#absetzflugzeug">Absetzflugzeug</a></li>
       <li><a href="#helikopter">Helikopter</a></li>
@@ -161,7 +161,7 @@
   </div>
 </section>
 
-<section class="section" id="woche" aria-labelledby="woche-title">
+<section class="section" id="woche" aria-labelledby="woche-title" data-live="status">
   <div class="container split split--wide-right split--top">
     <div class="stack-l">
       <div class="stack">

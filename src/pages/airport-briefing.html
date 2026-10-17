@@ -15,13 +15,13 @@
     <h1 data-split data-split-now>Willkommen in Beromünster.</h1>
     <p class="lead">Willkommen auf dem Flugplatz Luzern-Beromünster, einem der bemerkenswertesten Grasflugplätze Europas. Bitte nehmen Sie sich Zeit, die folgenden Regeln zu lesen und anzuwenden. Bei Fragen wenden Sie sich an die Flugplatzleitung.</p>
     <div class="page-hero__meta">
-      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
       <span class="chip"><x-icon name="runway"></x-icon>Piste 33 primär</span>
       <span class="chip chip--warn"><x-icon name="triangle-alert"></x-icon>Landung Piste 33 einweisungspflichtig</span>
     </div>
     <div class="row mt-s">
       <a class="btn btn--primary btn--lg" href="https://www.flubag.ch/sites/default/files/page/attachment/FLUBAG%20Airport%20Briefing%2002021.08.pdf" target="_blank" rel="noopener" data-magnetic><x-icon name="download"></x-icon>Druckversion (PDF)</a>
-      <a class="btn btn--ghost btn--lg" href="#anflug"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
+      <a class="btn btn--ghost btn--lg" href="#anflug" data-live="weather"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
     </div>
   </div>
 </section>
@@ -59,10 +59,10 @@
       </ul>
     </div>
 
-    <aside class="instrument hud-corners ab-live sticky" aria-label="Live am Flugplatz" data-reveal>
+    <aside class="instrument hud-corners ab-live sticky" aria-label="Live am Flugplatz" data-reveal data-live="weather">
       <div class="pl-panel__head">
         <span class="mono">LSZO LIVE</span>
-        <span class="pl-panel__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+        <span class="pl-panel__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
       </div>
       <div class="readout">
         <span class="readout__label">Wind</span>
@@ -72,7 +72,7 @@
       <div class="ab-live__grid">
         <div class="readout"><span class="readout__label">QNH</span><span class="readout__value" data-wx-field="qnhText">--</span></div>
         <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
-        <div class="readout"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+        <div class="readout" data-live="status"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
       </div>
       <div class="pl-hazards" aria-live="polite">
         <a class="pl-hazard notice notice--danger" href="#westwind" data-wx-hazard="west" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Westwind-Lage:</strong> Abwinde östlich des Waldstücks beim Start 33 möglich.</span></a>
@@ -306,10 +306,10 @@
       </div>
     </div>
     <div class="ab-anflug-bottom mt-l">
-      <div class="card card--pad ab-xwind" data-reveal>
+      <div class="card card--pad ab-xwind" data-reveal data-live="weather">
         <div class="row row--between">
           <p class="eyebrow eyebrow--plain">Live: Wind auf Piste 15/33</p>
-          <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+          <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
         </div>
         <div class="mt-s" data-xwind></div>
       </div>

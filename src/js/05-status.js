@@ -86,8 +86,9 @@
 
   function renderInline(s) {
     F.$$('[data-airfield-status-inline]').forEach(function (el) {
-      el.innerHTML = '<span class="dot dot--' + s.level + '"></span><span>' + F.escape(s.short) + '</span>';
-      el.setAttribute('title', s.title + ': ' + s.text);
+      el.innerHTML = '<span class="dot dot--' + s.level + '"></span><span>' + F.escape(s.short) + '</span><span class="visually-hidden"> (' + F.LIVE_SHORT + ')</span>';
+      el.setAttribute('title', s.title + ': ' + s.text + ' (' + F.LIVE_SHORT + ')');
+      el.setAttribute('aria-description', F.LIVE_SHORT);
     });
   }
 
@@ -99,6 +100,7 @@
         : F.minToTime(r.open) + ' bis ' + F.minToTime(r.close) + ' (Pause 12 bis 13)';
       el.innerHTML =
         '<div class="status-card">' +
+          F.liveBadge('status-card__badge') +
           '<div class="status-card__head"><span class="dot dot--' + s.level + '"></span><span class="status-card__title">' + s.title + '</span></div>' +
           '<p class="status-card__text">' + F.escape(s.text) + '</p>' +
           '<dl class="data-list status-card__list">' +
@@ -107,7 +109,8 @@
             (sun ? '<div><dt>Sonnenaufgang / -untergang</dt><dd class="mono">' + sun.sunrise + ' / ' + sun.sunset + '</dd></div><div><dt>Abenddämmerung</dt><dd class="mono">' + sun.dusk + '</dd></div>' : '') +
           '</dl>' +
           (r.special ? '<p class="status-card__note">Heute sind nur Flüge von mindestens einer Stunde oder Flüge von und nach anderen Plätzen erlaubt.</p>' : '') +
-          '<p class="status-card__disclaimer">Berechnet aus der Weisung Piloten 2026. Ohne Gewähr: Massgebend sind Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>' +
+          '<p class="status-card__disclaimer">Berechnet aus der Weisung Piloten 2026. Massgebend sind auch Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>' +
+          F.liveNote('status-card__note-long') +
         '</div>';
     });
   }
@@ -117,7 +120,7 @@
       el.classList.add('hours-week');
       var start = 6 * 60, end = 22 * 60, span = end - start;
       var pct = function (m) { return ((Math.min(Math.max(m, start), end) - start) / span * 100).toFixed(2) + '%'; };
-      var html = '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
+      var html = F.liveBadge('hours-week__badge') + '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
       var zNow = F.zurich(now);
       for (var i = 0; i < 7; i++) {
         // Kalendertag i ab heute (Zürcher Datum, 12 Uhr UTC): rund um die Zeitumstellung keine doppelten oder fehlenden Tage
@@ -133,7 +136,7 @@
           '<span class="hours-day__bar" title="' + (r.holiday ? F.escape(r.holiday) : DAYS_LONG[z.wd]) + '">' + bar + '</span>' +
           '<span class="hours-day__text">' + F.minToTime(r.open) + ' bis ' + F.minToTime(r.close) + (r.holiday ? ' *' : '') + '</span></div>';
       }
-      el.innerHTML = html;
+      el.innerHTML = html + F.liveNote('hours-week__note');
     });
   }
 
@@ -143,12 +146,15 @@
     holidays: holidays,
     sunTimes: sunTimes,
     init: function () {
+      // Live-Schalter aus (F.config.live.status = false): nichts rendern, die Rechenfunktionen bleiben für Seiten-Skripte verfügbar
+      if (!F.live('status')) return;
       function tick() {
         var now = new Date(), s = statusAt(now);
         renderInline(s); renderCard(s); renderWeek(now);
         var sun = sunTimes(s.rules.y, s.rules.m, s.rules.d);
         if (sun) F.$$('[data-sun-field]').forEach(function (el) { el.textContent = sun[el.getAttribute('data-sun-field')] || ''; });
         F.$$('[data-sun-inline]').forEach(function (el) { el.hidden = !sun; });
+        F.liveNotes();
         F.emit('flubag:status', s);
       }
       tick();

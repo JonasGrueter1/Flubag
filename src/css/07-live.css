@@ -1,0 +1,60 @@
+/* Live-Anzeigen: Hinweis "Richtwert ohne Gewähr" und Live-Schalter.
+   Schalter: F.config.live in src/js/00-core.js. Der Build setzt bei false schon im <html> Tag
+   die Klasse live-off-weather bzw. live-off-status, 00-core.js spiegelt sie zur Laufzeit. */
+
+/* ---------- Kurzform am Widget ---------- */
+.live-badge {
+  display: inline-flex; align-items: center; gap: 6px; width: max-content; max-width: 100%;
+  padding: 3px 10px 3px 7px; border-radius: var(--radius-pill);
+  border: 1px solid rgba(251, 191, 36, 0.45); background: rgba(251, 191, 36, 0.08); color: var(--warn);
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.04em; line-height: 1.25; white-space: nowrap;
+}
+.live-badge .icon { width: 13px; height: 13px; flex: none; }
+[data-theme="light"] .live-badge:not(.force-dark *):not(.page-hero *) { color: #92400e; border-color: rgba(180, 83, 9, 0.35); background: rgba(251, 191, 36, 0.12); }
+.force-dark .live-badge, .page-hero .live-badge { color: #fcd34d; border-color: rgba(252, 211, 77, 0.5); background: rgba(252, 211, 77, 0.1); }
+
+/* ---------- Langform als Fussnote ---------- */
+.live-note { font-size: 0.75rem; line-height: 1.5; color: var(--text-3); text-wrap: pretty; }
+.live-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.live-note a:hover { color: var(--brand-text); }
+.live-note[hidden] { display: none; }
+
+/* Platzierung in den Widgets (Platzstatus-Karte, Seitenwind, Wochenleiste) */
+.status-card__badge { justify-self: start; }
+.xwind__badge { grid-column: 1 / -1; justify-self: start; }
+.xwind__note { grid-column: 1 / -1; justify-self: stretch; }
+.hours-week__badge { margin-bottom: 4px; }
+.hours-week__note { margin-top: 6px; }
+
+/* ---------- Live-Schalter ----------
+   data-live="weather"         ausgeblendet, wenn das Wetter aus ist
+   data-live="status"          ausgeblendet, wenn der Platzstatus aus ist
+   data-live="status weather"  gemischter Bereich: erst ausgeblendet, wenn beides aus ist */
+.live-off-weather [data-live="weather"],
+.live-off-status [data-live="status"],
+.live-off-weather.live-off-status :is([data-live="status weather"], [data-live="weather status"]),
+/* Sicherheitsnetz: Live-Elemente auch ohne data-live Wrapper nie leer stehen lassen */
+.live-off-weather :is([data-wx], [data-xwind], [data-wx-hazard], [data-wx-field], [data-wx-arrow]),
+.live-off-status :is([data-airfield-status], [data-airfield-status-inline], [data-hours-week], [data-sun-inline], [data-sun-field]) { display: none !important; }
+
+/* Layouts, in denen ein ausgeblendetes Live-Element sonst eine Lücke liesse */
+@media (max-width: 760px) { .live-off-status .statusbar__icao { display: inline-flex; } }
+.live-off-weather .megamenu__inner--cols:has(> [data-live="weather"]) { grid-template-columns: repeat(3, 1fr); }
+.live-off-weather .split:has(> [data-live="weather"]),
+.live-off-status .split:has(> [data-live="status"]) { grid-template-columns: minmax(0, 1fr); }
+.live-off-weather .split:has(> [data-live="weather"]) > :not([data-live]),
+.live-off-status .split:has(> [data-live="status"]) > :not([data-live]) { max-width: var(--container-narrow); }
+.live-off-weather.live-off-status .live__grid { grid-template-columns: minmax(0, 1fr); max-width: var(--container-narrow); margin-inline: auto; }
+.live-off-weather.live-off-status .live__cam { grid-row: auto; }
+.live-off-weather.live-off-status .live__cam .card__media { aspect-ratio: 4 / 3; min-height: 0; }
+.live-off-weather .pl-card-week { grid-column: auto; }
+.live-off-weather .bl-brief { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 721px) { .live-off-weather .bl-side { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+.live-off-weather .ab-anflug-bottom { grid-template-columns: minmax(0, 1fr); }
+.live-off-weather .ab-next { min-height: 300px; }
+/* Briefing Links ohne beide Live-Quellen: Abschnitt nur zeigen, wenn der Schnellzugriff Favoriten enthält */
+.live-off-weather.live-off-status #kurzbriefing:not(:has(.bl-fav__list:not(:empty))) { display: none; }
+.live-off-weather.live-off-status .bl-side { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+.live-off-status .contact-live { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .live-off-status .contact-live > :last-child { grid-column: auto; } }
+@media (max-width: 640px) { .live-off-status .contact-live { grid-template-columns: 1fr; } }

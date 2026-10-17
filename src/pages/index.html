@@ -55,13 +55,13 @@
         <button type="button" aria-label="Bild 1"><span></span></button><button type="button" aria-label="Bild 2"><span></span></button><button type="button" aria-label="Bild 3"><span></span></button><button type="button" aria-label="Bild 4"><span></span></button><button type="button" aria-label="Bild 5"><span></span></button><button type="button" aria-label="Bild 6"><span></span></button>
       </div>
     </div>
-    <aside class="hero__hud instrument hud-corners" aria-label="Live am Flugplatz" data-hero-in>
-      <div class="hero__hud-head"><span class="mono">LSZO LIVE</span><span class="hero__hud-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span></div>
+    <aside class="hero__hud instrument hud-corners" aria-label="Live am Flugplatz" data-hero-in data-live="weather">
+      <div class="hero__hud-head"><span class="mono">LSZO LIVE</span><span class="hero__hud-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span></div>
       <div class="hero__hud-grid">
         <div class="readout"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
         <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
         <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
-        <div class="readout"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+        <div class="readout" data-live="status"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
       </div>
       <a class="hero__hud-link" href="webcams.html">Webcams &amp; Wetter <x-icon name="arrow-right"></x-icon></a>
     </aside>
@@ -294,7 +294,7 @@
         <p class="eyebrow" data-reveal>Live am Flugplatz</p>
         <h2 id="live-title" data-split>Wie sieht's aus in Beromünster?</h2>
       </div>
-      <p class="lead" data-reveal>Webcam, Wind auf der Piste und Platzstatus nach den aktuellen Betriebszeiten. Automatisch aktualisiert.</p>
+      <p class="lead" data-reveal data-live="status weather">Webcam, Wind auf der Piste und Platzstatus nach den aktuellen Betriebszeiten. Automatisch aktualisiert.</p>
     </div>
     <div class="live__grid">
       <a class="live__cam card" href="webcams.html" data-reveal>
@@ -304,11 +304,11 @@
         </span>
         <span class="card__body"><span class="card__title">Webcam Süd</span><span class="card__text">Blick Richtung Holding Point Piste 33</span></span>
       </a>
-      <div class="card card--pad" data-reveal>
+      <div class="card card--pad" data-reveal data-live="status">
         <p class="eyebrow eyebrow--plain">Platzstatus</p>
         <div class="mt-s" data-airfield-status></div>
       </div>
-      <div class="card card--pad live__wind" data-reveal>
+      <div class="card card--pad live__wind" data-reveal data-live="weather">
         <p class="eyebrow eyebrow--plain">Wind auf der Piste</p>
         <div class="mt-s" data-xwind></div>
       </div>

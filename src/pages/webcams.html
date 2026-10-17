@@ -13,9 +13,9 @@
     <h1 data-split data-split-now>Webcams &amp; Wetter.</h1>
     <p class="lead">Wie sieht es gerade aus in Beromünster? Drei Live-Webcams, aktuelle Wetterwerte, Wind auf der Piste und der Platzstatus nach den Betriebszeiten. Alles automatisch aktualisiert.</p>
     <div class="page-hero__meta">
-      <span class="chip wc-chip-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
-      <span class="chip"><x-icon name="sunrise"></x-icon>Sonnenaufgang <span class="mono" data-sun-field="sunrise">--</span></span>
-      <span class="chip"><x-icon name="sunset"></x-icon>Sonnenuntergang <span class="mono" data-sun-field="sunset">--</span></span>
+      <span class="chip wc-chip-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
+      <span class="chip" data-live="status"><x-icon name="sunrise"></x-icon>Sonnenaufgang <span class="mono" data-sun-field="sunrise">--</span></span>
+      <span class="chip" data-live="status"><x-icon name="sunset"></x-icon>Sonnenuntergang <span class="mono" data-sun-field="sunset">--</span></span>
     </div>
   </div>
 </section>
@@ -24,9 +24,9 @@
   <div class="container">
     <ul class="subnav__list">
       <li><a href="#webcams">Webcams</a></li>
-      <li><a href="#wetter">Wetter &amp; Wind</a></li>
+      <li data-live="weather"><a href="#wetter">Wetter &amp; Wind</a></li>
       <li><a href="#rechner">Seitenwind-Rechner</a></li>
-      <li><a href="#betrieb">Platzstatus &amp; Betriebszeiten</a></li>
+      <li data-live="status"><a href="#betrieb">Platzstatus &amp; Betriebszeiten</a></li>
       <li><a href="#quellen">Briefing &amp; Quellen</a></li>
     </ul>
   </div>
@@ -98,7 +98,7 @@
   </div>
 </section>
 
-<section class="section section--alt section--glow" id="wetter" aria-labelledby="wetter-title">
+<section class="section section--alt section--glow" id="wetter" aria-labelledby="wetter-title" data-live="weather">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
@@ -178,7 +178,7 @@
           <div class="range__head"><label for="wc-spd">Windstärke</label><output class="range__value" for="wc-spd" data-wc-out="spd">10 kt</output></div>
           <input type="range" id="wc-spd" min="0" max="40" step="1" value="10">
         </div>
-        <button class="btn btn--ghost btn--sm" type="button" data-wc-live disabled><x-icon name="wind"></x-icon>Aktuellen Wind übernehmen</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-wc-live data-live="weather" disabled><x-icon name="wind"></x-icon>Aktuellen Wind übernehmen</button>
       </div>
       <div class="wc-calc__out">
         <div class="wc-rwy" data-wc-rwy="33">
@@ -196,7 +196,7 @@
   </div>
 </section>
 
-<section class="section section--chart" id="betrieb" aria-labelledby="betrieb-title">
+<section class="section section--chart" id="betrieb" aria-labelledby="betrieb-title" data-live="status">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">

@@ -48,18 +48,21 @@
     var arrow = el.querySelector('[data-xwind-arrow]');
     if (arrow) { arrow.style.transform = 'rotate(' + (w.calm ? 0 : w.dir) + 'deg)'; arrow.style.opacity = w.calm ? 0.3 : 1; }
   }
+  function renderAll(els, w) { els.forEach(function (el) { render(el, w); }); F.liveNotes(); }
 
   F.crosswind = {
     init: function () {
       var els = F.$$('[data-xwind]');
-      if (!els.length) return;
+      // Live-Schalter aus (F.config.live.weather = false): Widget bleibt leer und ist per data-live ausgeblendet
+      if (!els.length || !F.live('weather')) return;
       els.forEach(function (el) {
         el.classList.add('xwind');
-        el.innerHTML = svg() + '<div class="xwind__data" data-xwind-data><p class="muted">Winddaten werden geladen …</p></div>';
+        el.innerHTML = F.liveBadge('xwind__badge') + svg() + '<div class="xwind__data" data-xwind-data><p class="muted">Winddaten werden geladen …</p></div>' + F.liveNote('xwind__note');
       });
-      F.listen('flubag:weather', function (w) { els.forEach(function (el) { render(el, w); }); });
+      F.liveNotes();
+      F.listen('flubag:weather', function (w) { renderAll(els, w); });
       F.listen('flubag:weather-error', function () { els.forEach(function (el) { el.querySelector('[data-xwind-data]').innerHTML = '<p class="muted">Wetterdaten sind gerade nicht erreichbar.</p>'; }); });
-      if (F.weather.data) els.forEach(function (el) { render(el, F.weather.data); });
+      if (F.weather.data) renderAll(els, F.weather.data);
     }
   };
 })();

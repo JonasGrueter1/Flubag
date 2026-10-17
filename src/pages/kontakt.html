@@ -16,7 +16,7 @@
     <div class="page-hero__meta">
       <a class="chip" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
       <a class="chip" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
-      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
     </div>
     <div class="row mt-s">
       <a class="btn btn--primary btn--lg" href="#formular" data-magnetic><x-icon name="send"></x-icon>Nachricht schreiben</a>
@@ -186,7 +186,7 @@
       <p class="lead" data-reveal>Ob gerade geflogen wird, siehst du am Platzstatus. Wie du zu uns findest, steht ausführlich auf der Anreise-Seite.</p>
     </div>
     <div class="contact-live" data-reveal-group="0.1">
-      <div class="card card--pad" data-reveal>
+      <div class="card card--pad" data-reveal data-live="status">
         <p class="eyebrow eyebrow--plain">Platzstatus</p>
         <div class="mt-s" data-airfield-status></div>
       </div>

@@ -271,6 +271,24 @@ function bundle() {
   write(path.join(OUT, 'assets/js/data.js'), `window.FLUBAG_DATA = ${JSON.stringify(clientData)};\n`);
 }
 
+// Live-Schalter F.config.live aus src/js/00-core.js lesen. Ausgeschaltete Bereiche bekommen
+// schon im <html> Tag die Klasse live-off-weather / live-off-status (nichts blitzt auf).
+function liveConfig() {
+  const cfg = { status: true, weather: true };
+  const m = read(path.join(SRC, 'js/00-core.js')).match(/\blive:\s*\{([^}]*)\}/);
+  if (!m) { warn('F.config.live nicht gefunden in src/js/00-core.js'); return cfg; }
+  for (const k of Object.keys(cfg)) {
+    const v = m[1].match(new RegExp(`\\b${k}:\\s*(true|false)\\b`));
+    if (v) cfg[k] = v[1] === 'true'; else warn(`F.config.live.${k} fehlt oder ist nicht true/false (src/js/00-core.js)`);
+  }
+  return cfg;
+}
+function liveClass() {
+  const cfg = liveConfig();
+  const cls = Object.keys(cfg).filter((k) => !cfg[k]).map((k) => `live-off-${k}`);
+  return cls.length ? ` class="${cls.join(' ')}"` : '';
+}
+
 // ---------------------------------------------------------------- Seiten
 const VENDOR = {
   leaflet: { css: ['assets/vendor/leaflet/leaflet.css'], js: ['assets/vendor/leaflet/leaflet.js'] },
@@ -311,6 +329,7 @@ function renderPage(p, layout, allFiles) {
     .replace(/%%BODY_CLASS%%/g, esc(`page-${name} ${meta.bodyClass}`.trim()))
     .replace('%%BASE%%', meta.base ? `<base href="${meta.base === true ? '/' : esc(meta.base)}">\n` : '')
     .replace(/%%PAGE%%/g, name)
+    .replace('%%HTML_CLASS%%', HTML_CLASS)
     .replace('%%HEAD_EXTRA%%', vendorCss + cssPage + extraCss + (meta.noindex ? '<meta name="robots" content="noindex">' : '') + (meta.jsonld ? `<script type="application/ld+json">${JSON.stringify(meta.jsonld)}</script>` : ''))
     .replace('%%SCRIPTS_EXTRA%%', vendorJs + jsPage + extraJs);
   html = html.replace('%%CONTENT%%', () => content);
@@ -334,6 +353,7 @@ const pages = await collectPages();
 await buildImages(new Set(pages.map((p) => p.meta.ogImage).filter(Boolean)));
 bundle();
 const layout = read(path.join(SRC, 'layout.html'));
+const HTML_CLASS = liveClass();
 const allFiles = new Set(pages.map((p) => p.file));
 let built = 0;
 for (const p of pages) {

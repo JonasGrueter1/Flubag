@@ -28,8 +28,8 @@
     <h1 data-split data-split-now>Briefing, Regeln, Live-Daten.</h1>
     <p class="lead">Alles für den Flug ab und nach Luzern-Beromünster an einem Ort: Pilot News, Platzstatus, Wind auf der Piste, Weisungen, Verfahren und Dokumente.</p>
     <div class="page-hero__meta">
-      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
-      <span class="chip"><x-icon name="wind"></x-icon>Wind <span data-wx-field="windText">--</span></span>
+      <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip" data-live="weather"><x-icon name="wind"></x-icon>Wind <span data-wx-field="windText">--</span></span>
       <button class="chip pl-copy" type="button" data-copy="122.455" aria-label="Para-Frequenz 122.455 kopieren"><x-icon name="parachute"></x-icon>Para 122.455<x-icon name="copy" class="pl-copy__icon"></x-icon></button>
     </div>
     <div class="row mt-s">
@@ -43,7 +43,7 @@
   <div class="container">
     <ul class="subnav__list">
       <li><a href="#news">Pilot News</a></li>
-      <li><a href="#live">Live-Cockpit</a></li>
+      <li data-live="status weather"><a href="#live">Live-Cockpit</a></li>
       <li><a href="#seiten">Alle Pilotenseiten</a></li>
       <li><a href="#platz">Platzdaten</a></li>
       <li><a href="#links">Portal &amp; Reservation</a></li>
@@ -87,7 +87,7 @@
   </div>
 </section>
 
-<section class="section section--chart" id="live" aria-labelledby="live-title">
+<section class="section section--chart" id="live" aria-labelledby="live-title" data-live="status weather">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
@@ -98,10 +98,10 @@
     </div>
 
     <div class="pl-cockpit">
-      <div class="instrument hud-corners pl-panel" data-reveal>
+      <div class="instrument hud-corners pl-panel" data-reveal data-live="weather">
         <div class="pl-panel__head">
           <span class="mono">LSZO LIVE</span>
-          <span class="pl-panel__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+          <span class="pl-panel__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
         </div>
         <div class="pl-panel__wind">
           <div class="readout">
@@ -117,9 +117,9 @@
           <div class="readout"><span class="readout__label">Bewölkung</span><span class="readout__value" data-wx-field="cloudText">--</span></div>
           <div class="readout"><span class="readout__label">Wolkenbasis *</span><span class="readout__value" data-wx-field="cloudbaseText">--</span></div>
           <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
-          <div class="readout"><span class="readout__label">Sonnenaufgang</span><span class="readout__value" data-sun-field="sunrise">--</span></div>
-          <div class="readout"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
-          <div class="readout"><span class="readout__label">Abenddämmerung</span><span class="readout__value" data-sun-field="dusk">--</span></div>
+          <div class="readout" data-live="status"><span class="readout__label">Sonnenaufgang</span><span class="readout__value" data-sun-field="sunrise">--</span></div>
+          <div class="readout" data-live="status"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+          <div class="readout" data-live="status"><span class="readout__label">Abenddämmerung</span><span class="readout__value" data-sun-field="dusk">--</span></div>
         </div>
         <div class="pl-hazards" aria-live="polite">
           <a class="pl-hazard notice notice--danger" href="airport-briefing.html#westwind" data-wx-hazard="west" hidden>
@@ -139,13 +139,13 @@
         <p class="pl-panel__foot">Werte aus dem Wettermodell von Open-Meteo für die Platzkoordinaten, kein METAR<span data-pl-wxtime></span>. * Wolkenbasis grob geschätzt aus Temperatur und Taupunkt. Gefahrenhinweise sind automatische Schätzungen und ersetzen weder Briefing noch eigene Beurteilung.</p>
       </div>
 
-      <div class="pl-cockpit__side">
-      <div class="card card--pad pl-card-status" data-reveal>
+      <div class="pl-cockpit__side" data-live="status weather">
+      <div class="card card--pad pl-card-status" data-reveal data-live="status">
         <p class="eyebrow eyebrow--plain">Platzstatus</p>
         <div class="mt-s" data-airfield-status></div>
       </div>
 
-      <div class="card card--pad pl-card-xwind" data-reveal>
+      <div class="card card--pad pl-card-xwind" data-reveal data-live="weather">
         <div class="row row--between">
           <p class="eyebrow eyebrow--plain">Seitenwind Piste 15/33</p>
           <a class="btn btn--text btn--sm" href="airport-briefing.html#anflug">Pistenwahl <x-icon name="arrow-right"></x-icon></a>
@@ -154,7 +154,7 @@
       </div>
       </div>
 
-      <div class="card card--pad pl-card-week" data-reveal>
+      <div class="card card--pad pl-card-week" data-reveal data-live="status">
         <div class="row row--between">
           <p class="eyebrow eyebrow--plain">Betriebszeiten, nächste 7 Tage</p>
           <a class="btn btn--text btn--sm" href="weisungen.html">Weisung Piloten 2026 <x-icon name="arrow-right"></x-icon></a>

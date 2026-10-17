@@ -18,7 +18,7 @@
     <h1 data-split data-split-now>Anflug und Abflug Piste 33.</h1>
     <p class="lead">Vom Holding Point über die Linksvolte bis zum Short Final: sechs Schlüsselpunkte mit Luftbildern, Richtpunkten und den Regeln, die dort gelten.</p>
     <div class="page-hero__meta">
-      <span class="chip"><x-icon name="wind"></x-icon><span data-wx-field="rwyText">Piste 33 primär</span></span>
+      <span class="chip" data-live="weather"><x-icon name="wind"></x-icon><span data-wx-field="rwyText">Piste 33 primär</span></span>
       <span class="chip"><x-icon name="rotate-ccw"></x-icon>Linksvolte</span>
       <span class="chip chip--warn"><x-icon name="triangle-alert"></x-icon>Landung Piste 33 einweisungspflichtig</span>
     </div>
@@ -114,7 +114,7 @@
               <text y="-23" text-anchor="middle">N</text>
             </g>
             <!-- Live-Wind -->
-            <g class="p33-wind" transform="translate(372 160)">
+            <g class="p33-wind" transform="translate(372 160)" data-live="weather">
               <circle r="24"/>
               <g data-p33-wind-arrow><path d="M0 -17 L6 -6 L2 -7 L2 16 L-2 16 L-2 -7 L-6 -6 Z"/></g>
               <text class="p33-wind__label" y="40" text-anchor="middle">WIND</text>
@@ -253,10 +253,10 @@
         <a class="pl-link" href="sprungbetrieb.html" data-reveal><x-icon name="parachute" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Regeln Sprungbetrieb</span><span class="pl-link__text">Drehlicht und Warteschlaufen</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
       </div>
     </div>
-    <div class="card card--pad p33-xwind" data-reveal>
+    <div class="card card--pad p33-xwind" data-reveal data-live="weather">
       <div class="row row--between">
         <p class="eyebrow eyebrow--plain">Live: Wind auf Piste 15/33</p>
-        <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+        <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
       </div>
       <div class="mt-s" data-xwind></div>
       <p class="notice notice--warn mt-m" data-wx-hazard="tail33" hidden><x-icon name="triangle-alert"></x-icon><span>Rückenwind auf Piste 33: grundsätzlich kein Start auf Piste 33 bei Rückenwind und nahe oder bei max. Startgewicht. <a href="airport-briefing.html#start">Airport Briefing</a></span></p>

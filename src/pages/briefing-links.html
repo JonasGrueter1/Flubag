@@ -28,13 +28,13 @@
     <h1 data-split data-split-now>Gut gebrieft in die Luft.</h1>
     <p class="lead">Die wichtigsten Adressen für die Flugvorbereitung an einem Ort: Briefing und Luftraum, Wetter, Webcams, Reservation, Behörden und die PDFs der FLUBAG. Dazu ein Kurzbriefing mit den aktuellen Werten für LSZO.</p>
     <div class="page-hero__meta">
-      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
-      <span class="chip"><x-icon name="wind"></x-icon><span data-wx-field="windText">--</span></span>
+      <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip" data-live="weather"><x-icon name="wind"></x-icon><span data-wx-field="windText">--</span></span>
       <span class="chip chip--brand"><x-icon name="link"></x-icon>19 Links</span>
     </div>
     <div class="row mt-s">
       <a class="btn btn--primary btn--lg" href="https://www.skybriefing.com/portal/de/signinnativ" target="_blank" rel="noopener" data-magnetic><x-icon name="compass"></x-icon>Skybriefing öffnen</a>
-      <a class="btn btn--ghost btn--lg" href="#kurzbriefing"><x-icon name="gauge"></x-icon>Kurzbriefing LSZO</a>
+      <a class="btn btn--ghost btn--lg" href="#kurzbriefing" data-live="status weather"><x-icon name="gauge"></x-icon>Kurzbriefing LSZO</a>
     </div>
   </div>
 </section>
@@ -42,7 +42,7 @@
 <nav class="subnav" data-subnav aria-label="Abschnitte der Briefing Links">
   <div class="container">
     <ul class="subnav__list">
-      <li><a href="#kurzbriefing">Kurzbriefing</a></li>
+      <li data-live="status weather"><a href="#kurzbriefing">Kurzbriefing</a></li>
       <li><a href="#briefing">Briefing</a></li>
       <li><a href="#wetter">Wetter</a></li>
       <li><a href="#webcams">Webcams</a></li>
@@ -55,7 +55,7 @@
 
 <section class="section section--chart" id="kurzbriefing" aria-labelledby="kb-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split" data-live="status weather">
       <div class="stack">
         <p class="eyebrow" data-reveal>Live für LSZO</p>
         <h2 id="kb-title" data-split>Kurzbriefing auf einen Blick.</h2>
@@ -64,15 +64,15 @@
     </div>
 
     <div class="bl-brief">
-      <div class="instrument hud-corners bl-panel" data-reveal>
+      <div class="instrument hud-corners bl-panel" data-reveal data-live="weather">
         <div class="bl-panel__head">
           <span class="mono">LSZO · 2146 ft</span>
           <span class="bl-panel__time mono" data-bl-time>Werte werden geladen …</span>
         </div>
 
-        <div class="bl-panel__status">
+        <div class="bl-panel__status" data-live="status">
           <span class="readout__label">Platzstatus</span>
-          <span class="status-pill bl-panel__pill" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+          <span class="status-pill bl-panel__pill" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
         </div>
 
         <div class="bl-panel__wind">
@@ -105,7 +105,7 @@
           <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
           <div class="readout"><span class="readout__label">Wolkenbasis *</span><span class="readout__value" data-wx-field="cloudbaseText">--</span></div>
           <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
-          <div class="readout"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+          <div class="readout" data-live="status"><span class="readout__label">Sonnenuntergang</span><span class="readout__value" data-sun-field="sunset">--</span></div>
         </div>
 
         <div class="bl-hazards" aria-live="polite">
@@ -133,7 +133,7 @@
       </div>
 
       <div class="bl-side">
-        <div class="card card--pad bl-side__card" data-reveal>
+        <div class="card card--pad bl-side__card" data-reveal data-live="status">
           <p class="readout__label">Heute auf dem Platz</p>
           <div data-airfield-status><p class="muted">Der Platzstatus wird aus der Weisung Piloten berechnet.</p></div>
           <a class="btn btn--text btn--sm" href="weisungen.html">Weisung Piloten 2026 <x-icon name="arrow-right"></x-icon></a>

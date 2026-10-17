@@ -105,7 +105,7 @@
       <div class="instrument hud-corners an-panel" data-reveal>
         <div class="an-panel__head">
           <span class="mono">LSZO · Luzern-Beromünster</span>
-          <span class="an-panel__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span>
+          <span class="an-panel__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
         </div>
         <div class="an-panel__grid">
           <div class="readout"><span class="readout__label">Piste</span><span class="readout__value">{{site.airfield.runway}}</span></div>
@@ -113,7 +113,7 @@
           <div class="readout"><span class="readout__label">Länge</span><span class="readout__value">{{site.airfield.runwayLength}} <small>m</small></span></div>
           <div class="readout"><span class="readout__label">Elevation</span><span class="readout__value">{{site.airfield.elevationFt}} <small>ft</small></span></div>
           <div class="readout"><span class="readout__label">Para</span><span class="readout__value">{{site.airfield.paraFrequency}}</span></div>
-          <div class="readout"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
+          <div class="readout" data-live="weather"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
         </div>
         <a class="an-panel__link" href="webcams.html">Webcams &amp; Wetter <x-icon name="arrow-right"></x-icon></a>
       </div>

@@ -43,7 +43,7 @@
 .btn--primary:hover::before { opacity: 1; }
 .btn--ghost { --btn-bg: rgba(127, 150, 190, 0.06); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .btn--ghost:hover { --btn-bg: rgba(127, 150, 190, 0.16); --btn-border: var(--text-3); }
-.page-hero .btn--ghost, .force-dark .btn--ghost, .hero .btn--ghost { --btn-border: rgba(255, 255, 255, 0.35); --btn-bg: rgba(255, 255, 255, 0.06); color: #fff; }
+.page-hero .btn--ghost, .force-dark .btn--ghost, .hero .btn--ghost, .cta-final .btn--ghost { --btn-border: rgba(255, 255, 255, 0.35); --btn-bg: rgba(255, 255, 255, 0.06); color: #fff; }
 .btn--light { --btn-bg: #fff; --btn-fg: #0b1426; --btn-border: transparent; }
 .btn--light:hover { --btn-bg: #ffe7dc; }
 .btn--text { padding: 0.4em 0; border: 0; border-radius: 0; color: var(--brand-text); }

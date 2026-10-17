@@ -97,7 +97,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
   .statusbar__icao, .statusbar__sun, .statusbar__link { display: none; }
 }
 @media (max-width: 420px) {
-  .statusbar__wx > :nth-child(n+3) { display: none; }
+  .statusbar__wx > .statusbar__temp { display: none; }
 }
 
 .nav-wrap { height: var(--header-h); display: flex; align-items: center; gap: 24px; }
@@ -305,6 +305,13 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .runway-lights circle:nth-child(5), .runway-lights circle:nth-child(6) { animation-delay: 0.3s; }
 .runway-lights circle:nth-child(7), .runway-lights circle:nth-child(8) { animation-delay: 0.45s; }
 .no-cta .cta-final { display: none; }
+@media (max-width: 640px) {
+  .cta-final { padding: 64px 0 104px; }
+  .cta-final__inner { gap: 18px; }
+  .cta-final__actions { flex-direction: column; align-items: stretch; width: min(100%, 330px); margin-top: 4px; gap: 10px; }
+  .cta-final__actions .btn--lg { padding: 0.95em 1.4em; font-size: 1rem; }
+  .cta-final__runway { height: 64px; }
+}
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--bg-2); border-top: 1px solid var(--line); padding-top: clamp(56px, 7vw, 96px); font-size: 0.95rem; }
@@ -318,7 +325,12 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .footer-contact .icon { width: 16px; height: 16px; color: var(--brand-text); }
 .footer-social { display: flex; gap: 10px; }
 .footer-title { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 14px; }
-.footer-col ul + .footer-title { margin-top: 26px; }
+/* Linkspalten als details: auf dem Desktop immer offen und nicht klickbar, unter 760 px Akkordeon */
+.footer-acc > summary { display: block; list-style: none; }
+.footer-acc > summary::-webkit-details-marker { display: none; }
+.footer-acc + .footer-acc { margin-top: 26px; }
+.footer-acc__chev { display: none; }
+@media (min-width: 761px) { .footer-acc > summary { pointer-events: none; } }
 .footer-airfield .data-list { margin-bottom: 18px; }
 .footer-status { display: inline-flex; align-items: center; gap: 10px; font-size: 0.85rem; padding: 10px 14px; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--line); }
 .footer-partners { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
@@ -333,6 +345,41 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .footer-credit { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; }
 @media (max-width: 1100px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
 @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-airfield { grid-column: 1 / -1; } }
+@media (max-width: 760px) {
+  .site-footer { padding-top: 36px; }
+  .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .footer-brand { grid-template-columns: minmax(0, 1fr) auto; gap: 14px 16px; padding-bottom: 20px; }
+  .footer-brand > .brand { grid-column: 1; }
+  .footer-social { grid-column: 2; grid-row: 1; align-self: center; }
+  .footer-address, .footer-contact { grid-column: 1 / -1; }
+  .footer-contact a { min-height: 32px; }
+  .footer-acc { border-top: 1px solid var(--line); }
+  .footer-acc + .footer-acc { margin-top: 0; }
+  .footer-acc > summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    min-height: 50px; margin: 0; cursor: pointer; color: var(--text-2); font-size: 0.76rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .footer-acc > summary:hover { color: var(--text); }
+  .footer-acc > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: var(--radius-xs); }
+  .footer-acc__chev { display: block; width: 18px; height: 18px; flex: none; color: var(--text-3); transition: transform 0.3s var(--ease-out); }
+  .footer-acc[open] > summary { color: var(--text); }
+  .footer-acc[open] .footer-acc__chev { transform: rotate(180deg); color: var(--brand-text); }
+  .footer-acc > ul { gap: 0; padding: 0 0 14px; }
+  .footer-acc > ul a { padding: 7px 0; }
+  .footer-acc > .data-list { margin: 0; padding-bottom: 14px; }
+  .footer-airfield .footer-acc { border-bottom: 1px solid var(--line); }
+  .footer-status { margin-top: 14px; justify-self: start; padding: 7px 12px; font-size: 0.8rem; }
+  .footer-airfield { display: grid; }
+  .footer-partners { margin-top: 24px; padding-top: 0; border-top: 0; }
+  .footer-partners .footer-title { margin-bottom: 10px; }
+  .partner-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .partner-row a { display: grid; place-items: center; height: 42px; padding: 6px 8px; }
+  .partner-row img { width: auto; height: auto; max-width: 100%; max-height: 26px; }
+  .footer-bottom { margin-top: 20px; padding: 16px 0 24px; gap: 6px 18px; }
+  .footer-bottom ul { gap: 4px 18px; }
+  .footer-bottom a { display: inline-block; padding: 4px 0; }
+}
 @media (min-width: 1241px) and (max-width: 1560px) {
   .nav-cta span { display: none; }
   .btn.nav-cta { padding: 0; width: 44px; height: 44px; justify-content: center; } /* .btn.: sonst gewinnt das Padding von .btn--sm */

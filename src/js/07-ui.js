@@ -108,6 +108,25 @@
     if (top) top.addEventListener('click', function () { if (F.lenis) F.lenis.scrollTo(0, { duration: 1.6 }); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
   }
 
+  // Footer: Linkspalten unter 760 px als Akkordeon (zu), darüber immer offen und ohne Tab-Stopp auf dem Titel
+  function footerAccordion() {
+    var accs = F.$$('[data-footer-acc]');
+    if (!accs.length || !window.matchMedia) return;
+    var mq = window.matchMedia('(max-width: 760px)');
+    function apply() {
+      accs.forEach(function (d) {
+        var sum = d.querySelector('summary');
+        d.open = !mq.matches;
+        if (mq.matches) sum.removeAttribute('tabindex'); else sum.setAttribute('tabindex', '-1');
+      });
+    }
+    accs.forEach(function (d) {
+      d.querySelector('summary').addEventListener('click', function (e) { if (!mq.matches) e.preventDefault(); });
+    });
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply); else if (mq.addListener) mq.addListener(apply);
+  }
+
   function subnav() {
     F.$$('[data-subnav]').forEach(function (nav) {
       var links = F.$$('a[href^="#"]', nav);
@@ -177,6 +196,6 @@
   }
 
   F.ui = {
-    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); ranges(); }
+    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); ranges(); footerAccordion(); }
   };
 })();
