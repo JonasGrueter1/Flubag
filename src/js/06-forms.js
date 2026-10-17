@@ -86,7 +86,7 @@
     window.location.href = href;
   }
 
-  function success(form, viaMail) {
+  function success(form, viaMail, msg) {
     form.classList.add('is-sent');
     var box = form.querySelector('.form-success');
     if (box) {
@@ -97,7 +97,7 @@
       box.scrollIntoView({ behavior: F.reducedMotion ? 'auto' : 'smooth', block: 'center' });
     }
     // eigener Dankestext pro Formular möglich: data-toast="..."
-    F.toast(viaMail ? 'Dein E-Mail-Programm wurde mit allen Angaben geöffnet.' : (form.getAttribute('data-toast') || 'Danke! Deine Anfrage ist bei uns angekommen.'));
+    F.toast(msg || (viaMail ? 'Dein E-Mail-Programm wurde mit allen Angaben geöffnet.' : (form.getAttribute('data-toast') || 'Danke! Deine Anfrage ist bei uns angekommen.')));
   }
 
   function submit(form) {
@@ -110,6 +110,8 @@
     data._form = form.dataset.formName || form.id || 'Kontakt';
     data._page = location.href;
     var cfg = F.config.form;
+    // Modus 'demo' (Vorschau-Version): nichts senden, nur den Ablauf zeigen
+    if (cfg.mode === 'demo') { success(form, false, 'Vorschau: Es wurde nichts gesendet. Auf der echten Website geht die Anfrage direkt an die FLUBAG.'); return; }
     if (cfg.mode === 'mailto' || location.protocol === 'file:') { mailto(form, values(form)); success(form, true); return; }
     if (btn) btn.classList.add('is-loading');
     fetch(cfg.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
