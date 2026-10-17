@@ -29,8 +29,10 @@
   function evaluate(key, m) {
     var r = RULES[key];
     var close = dusk != null ? Math.max(Math.min(dusk, r.limit), r.pause[1]) : r.limit;
+    // Landungen höchstens bis zur Abenddämmerung (kein Nachtflug)
+    var land = dusk != null ? Math.max(Math.min(dusk, r.land), close) : r.land;
     var pause = m >= r.pause[0] && m < r.pause[1];
-    var closed = m < r.open || m >= r.land;
+    var closed = m < r.open || m >= land;
     var starts = !closed && !pause && m < close;
     var landOnly = !closed && !pause && m >= close;
     var head, rows = [];
@@ -46,7 +48,7 @@
 
     if (closed) rows.push(['bad', 'Landungen', 'Keine']);
     else if (pause) rows.push(['ok', 'Landungen', 'Für Flugzeuge frei, Helikopter max. 2']);
-    else rows.push([landOnly ? 'warn' : 'ok', 'Landungen', 'Erlaubt bis ' + t(r.land) + ' Uhr']);
+    else rows.push([landOnly ? 'warn' : 'ok', 'Landungen', 'Erlaubt bis ' + t(land) + ' Uhr' + (dusk != null && dusk < r.land ? ' (Dämmerung)' : '')]);
 
     if (r.circuits == null) rows.push(['bad', 'Platzrunden', 'Keine Platzrunden erlaubt']);
     else if (starts && m < r.circuits) rows.push(['ok', 'Platzrunden', 'Erlaubt bis ' + t(Math.min(r.circuits, close)) + ' Uhr']);

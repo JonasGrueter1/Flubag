@@ -558,10 +558,11 @@
     var dusk = duskMinutes(y, m, d);
     var r = { y: y, m: m, d: d, wd: wd, holiday: hol ? hol.name : null, special: hol ? hol.special : false, sunday: sundayLike, dusk: dusk };
     if (!sundayLike) {
-      r.open = 8 * 60; r.close = Math.min(dusk, 21 * 60); r.landingsUntil = 21 * 60 + 30;
+      // Landungen bis 21:30 gelten nur, solange es nicht dunkel ist: nie nach der Abenddämmerung (kein Nachtflug)
+      r.open = 8 * 60; r.close = Math.min(dusk, 21 * 60); r.landingsUntil = Math.min(dusk, 21 * 60 + 30);
       r.pause = [12 * 60, 13 * 60]; r.circuitsUntil = Math.min(19 * 60 + 30, r.close);
     } else {
-      r.open = 9 * 60; r.close = Math.min(dusk, 20 * 60); r.landingsUntil = 21 * 60;
+      r.open = 9 * 60; r.close = Math.min(dusk, 20 * 60); r.landingsUntil = Math.min(dusk, 21 * 60);
       r.pause = [12 * 60, 14 * 60]; r.circuitsUntil = null;
     }
     if (r.close < r.pause[1]) r.close = r.pause[1];
