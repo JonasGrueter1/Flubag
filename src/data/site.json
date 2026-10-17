@@ -39,7 +39,7 @@
   },
   "partners": [
     { "name": "Airport Helicopter", "url": "http://www.airportheli.ch/", "logo": "partner/airportheli", "info": "Helikopterflüge und Ausbildung" },
-    { "name": "Paraclub Beromünster", "url": "https://www.paraclub.ch/", "logo": "partner/paraclub", "info": "Fallschirmspringen, Skydive Luzern" },
+    { "name": "Paraclub Beromünster", "url": "https://www.skydive-luzern.ch/", "logo": "partner/paraclub", "info": "Fallschirmspringen, Skydive Luzern" },
     { "name": "SG Pilatus", "url": "http://sgpilatus.ch/", "logo": "partner/sg-pilatus", "info": "Segelfluggruppe Pilatus" },
     { "name": "Motorfluggruppe Beromünster", "url": "http://www.mfgb.ch/", "logo": "partner/mfgb", "info": "Motorfluggruppe" },
     { "name": "AXA Winterthur", "url": "https://www.axa.ch/de/ueber-axa/standorte/agenturen/sempach_20176.html", "logo": "partner/axa", "info": "Agentur Sempach" },

@@ -26,6 +26,14 @@
     d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
+    // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
+    // sonst wird der Header zur Backdrop Root und der Blur (Header, Mega-Menüs) wirkt nicht.
+    function vtHeader(name) { var h = document.querySelector('[data-header]'); if (h) h.style.viewTransitionName = name; }
+    window.addEventListener('pageswap', function (e) { if (e.viewTransition) vtHeader('site-header'); });
+    window.addEventListener('pagereveal', function (e) {
+      vtHeader(e.viewTransition ? 'site-header' : '');
+      if (e.viewTransition) e.viewTransition.finished.then(function () { vtHeader(''); }, function () { vtHeader(''); });
+    });
   })();
 </script>
 <link rel="stylesheet" href="assets/css/main.css">
@@ -42,8 +50,6 @@
 <script defer src="assets/vendor/gsap/gsap.min.js"></script>
 <script defer src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
 <script defer src="assets/vendor/gsap/SplitText.min.js"></script>
-<script defer src="assets/vendor/gsap/MotionPathPlugin.min.js"></script>
-<script defer src="assets/vendor/gsap/ScrollToPlugin.min.js"></script>
 <script defer src="assets/vendor/lenis/lenis.min.js"></script>
 <script defer src="assets/vendor/suncalc/suncalc.js"></script>
 <script defer src="assets/js/data.js"></script>

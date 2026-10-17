@@ -7,7 +7,6 @@
   "scripts": {
     "build": "node tools/build.mjs",
     "images": "node tools/images.mjs",
-    "vendor": "node tools/vendor.mjs",
     "serve": "node tools/serve.mjs",
     "shot": "node tools/shot.mjs"
   },

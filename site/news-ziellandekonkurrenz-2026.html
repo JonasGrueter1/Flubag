@@ -26,6 +26,14 @@
     d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
+    // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
+    // sonst wird der Header zur Backdrop Root und der Blur (Header, Mega-Menüs) wirkt nicht.
+    function vtHeader(name) { var h = document.querySelector('[data-header]'); if (h) h.style.viewTransitionName = name; }
+    window.addEventListener('pageswap', function (e) { if (e.viewTransition) vtHeader('site-header'); });
+    window.addEventListener('pagereveal', function (e) {
+      vtHeader(e.viewTransition ? 'site-header' : '');
+      if (e.viewTransition) e.viewTransition.finished.then(function () { vtHeader(''); }, function () { vtHeader(''); });
+    });
   })();
 </script>
 <link rel="stylesheet" href="assets/css/main.css">
@@ -69,7 +77,7 @@
                 <li><a href="preise.html"><svg class="icon icon-receipt" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg><span><strong>Preise</strong><small>Miete, Fluglehrer, Taxen</small></span></a></li>
               </ul>
               <a class="megamenu__feature" href="webcams.html">
-                <img src="assets/img/hero/slide-05-1200.webp" srcset="assets/img/hero/slide-05-480.webp 480w, assets/img/hero/slide-05-960.webp 960w, assets/img/hero/slide-05-1200.webp 1200w" sizes="320px" width="1200" height="800" alt="" loading="lazy" decoding="async"></x-img>
+                <img src="assets/img/hero/slide-05-1200.webp" srcset="assets/img/hero/slide-05-480.webp 480w, assets/img/hero/slide-05-960.webp 960w, assets/img/hero/slide-05-1200.webp 1200w" sizes="320px" width="1200" height="800" alt="" loading="lazy" decoding="async">
                 <span class="megamenu__feature-text"><span class="eyebrow">Live</span><strong>Wie ist das Wetter am Platz?</strong></span>
               </a>
             </div>
@@ -88,7 +96,7 @@
                 <li><a href="http://www.gletscherpiloten.ch/" target="_blank" rel="noopener"><svg class="icon icon-mountain-snow" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 3 4 8 5-5 5 15H2L8 3z" /> <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" /> </svg><span><strong>Gletscherpiloten</strong><small>Externe Seite</small></span></a></li>
               </ul>
               <a class="megamenu__feature" href="schnupperflug.html">
-                <img src="assets/img/schnupperflug/discovery-4-1440.webp" srcset="assets/img/schnupperflug/discovery-4-480.webp 480w, assets/img/schnupperflug/discovery-4-960.webp 960w, assets/img/schnupperflug/discovery-4-1440.webp 1440w, assets/img/schnupperflug/discovery-4-1920.webp 1920w" sizes="320px" width="1920" height="1281" alt="" loading="lazy" decoding="async"></x-img>
+                <img src="assets/img/schnupperflug/discovery-4-1440.webp" srcset="assets/img/schnupperflug/discovery-4-480.webp 480w, assets/img/schnupperflug/discovery-4-960.webp 960w, assets/img/schnupperflug/discovery-4-1440.webp 1440w, assets/img/schnupperflug/discovery-4-1920.webp 1920w" sizes="320px" width="1920" height="1281" alt="" loading="lazy" decoding="async">
                 <span class="megamenu__feature-text"><span class="eyebrow">Dein erster Flug</span><strong>Übernimm das Steuer</strong></span>
               </a>
             </div>
@@ -105,7 +113,7 @@
                 <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener"><svg class="icon icon-utensils" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /> <path d="M7 2v20" /> <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /> </svg><span><strong>Restaurant Flüüger</strong><small>Direkt am Flugplatz</small></span></a></li>
               </ul>
               <a class="megamenu__feature" href="rundfluege.html">
-                <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="320px" width="2400" height="1800" alt="" loading="lazy" decoding="async"></x-img>
+                <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="320px" width="2400" height="1800" alt="" loading="lazy" decoding="async">
                 <span class="megamenu__feature-text"><span class="eyebrow">Ab CHF 120</span><strong>Die Alpen von oben</strong></span>
               </a>
             </div>
@@ -224,6 +232,7 @@
     </nav>
     <div class="mobile-menu__foot">
       <a class="btn btn--primary btn--block" href="schnupperflug.html#anfrage"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Schnupperflug anfragen</a>
+      <button class="btn btn--ghost btn--block mobile-menu__theme" type="button" data-theme-toggle><svg class="icon icon-sun theme-toggle__sun" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg><svg class="icon icon-moon theme-toggle__moon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg><span>Hell / Dunkel umschalten</span></button>
       <div class="mobile-menu__contact">
         <a href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
         <a href="mailto:flubag@flubag.ch"><svg class="icon icon-mail" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /> </svg>flubag@flubag.ch</a>
@@ -236,7 +245,7 @@
 
 
 <section class="page-hero article-hero zlk-hero">
-  <div class="page-hero__media"><img src="assets/img/news/zlk-03-1280.webp" srcset="assets/img/news/zlk-03-480.webp 480w, assets/img/news/zlk-03-960.webp 960w, assets/img/news/zlk-03-1280.webp 1280w" sizes="100vw" width="1280" height="960" alt="Helfer in Warnwesten unter einem Sonnenschirm am Tisch neben der Piste" loading="eager" fetchpriority="high"></x-img></div>
+  <div class="page-hero__media"><img src="assets/img/news/zlk-03-1280.webp" srcset="assets/img/news/zlk-03-480.webp 480w, assets/img/news/zlk-03-960.webp 960w, assets/img/news/zlk-03-1280.webp 1280w" sizes="100vw" width="1280" height="960" alt="Helfer in Warnwesten unter einem Sonnenschirm am Tisch neben der Piste" loading="eager" fetchpriority="high"></div>
   <div class="container page-hero__inner">
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="aktuelles.html">Aktuelles</a></li><li>Ziellandekonkurrenz 2026</li></ol>
     <p class="eyebrow">Event · 2026</p>
@@ -271,7 +280,7 @@
       </div>
     </div>
     <figure class="zlk-cover">
-      <div class="media-frame media-frame--tall" data-reveal="clip"><img src="assets/img/news/ziellandekonkurrenz-2026-1440.webp" srcset="assets/img/news/ziellandekonkurrenz-2026-480.webp 480w, assets/img/news/ziellandekonkurrenz-2026-960.webp 960w, assets/img/news/ziellandekonkurrenz-2026-1440.webp 1440w, assets/img/news/ziellandekonkurrenz-2026-1800.webp 1800w" sizes="(max-width: 860px) 100vw, 360px" width="1800" height="2400" alt="Pilot mit grossem Wanderpokal vor dem Hangar in Beromünster" loading="lazy" decoding="async" data-parallax="0.08"></x-img></div>
+      <div class="media-frame media-frame--tall" data-reveal="clip"><img src="assets/img/news/ziellandekonkurrenz-2026-1440.webp" srcset="assets/img/news/ziellandekonkurrenz-2026-480.webp 480w, assets/img/news/ziellandekonkurrenz-2026-960.webp 960w, assets/img/news/ziellandekonkurrenz-2026-1440.webp 1440w, assets/img/news/ziellandekonkurrenz-2026-1800.webp 1800w" sizes="(max-width: 860px) 100vw, 360px" width="1800" height="2400" alt="Pilot mit grossem Wanderpokal vor dem Hangar in Beromünster" loading="lazy" decoding="async" data-parallax="0.08"></div>
       <figcaption class="subtle">Strahlende Gesichter und ein grosser Pokal.</figcaption>
     </figure>
   </div>
@@ -341,14 +350,14 @@
       <p class="lead" data-reveal>Impressionen vom Samstag am Flugplatz. Klick auf ein Bild für die Grossansicht.</p>
     </div>
     <div class="zlk-gallery" data-gallery data-reveal-group="0.06">
-      <a class="gallery__item" href="assets/img/news/zlk-01.jpg" data-caption="Am Tisch beim Flugplatz, der Pokal steht schon bereit" data-reveal><img src="assets/img/news/zlk-01-900.webp" srcset="assets/img/news/zlk-01-480.webp 480w, assets/img/news/zlk-01-900.webp 900w" sizes="(max-width: 640px) 50vw, 33vw" width="900" height="1600" alt="Piloten sitzen unter einem Sonnenschirm am Tisch, darauf ein Pokal" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-03.jpg" data-caption="Das Team in Warnwesten auf der Wiese" data-reveal><img src="assets/img/news/zlk-03-1280.webp" srcset="assets/img/news/zlk-03-480.webp 480w, assets/img/news/zlk-03-960.webp 960w, assets/img/news/zlk-03-1280.webp 1280w" sizes="(max-width: 640px) 50vw, 33vw" width="1280" height="960" alt="Helfer in gelben Warnwesten an einem Tisch auf der Wiese neben der Piste" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-02.jpg" data-caption="Zuschauen am Pistenrand" data-reveal><img src="assets/img/news/zlk-02-1440.webp" srcset="assets/img/news/zlk-02-480.webp 480w, assets/img/news/zlk-02-960.webp 960w, assets/img/news/zlk-02-1440.webp 1440w, assets/img/news/zlk-02-1800.webp 1800w" sizes="(max-width: 640px) 50vw, 33vw" width="1800" height="2400" alt="Ein Kind schaut auf dem Rasen den Flugzeugen zu" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-04.jpg" data-caption="Im Anflug auf die Graspiste" data-reveal><img src="assets/img/news/zlk-04-1440.webp" srcset="assets/img/news/zlk-04-480.webp 480w, assets/img/news/zlk-04-960.webp 960w, assets/img/news/zlk-04-1440.webp 1440w, assets/img/news/zlk-04-1800.webp 1800w" sizes="(max-width: 640px) 50vw, 33vw" width="1800" height="2400" alt="Blick aus dem Cockpit eines gelben Flugzeugs im Anflug auf die Graspiste" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-05.jpg" data-caption="Zwei Piloten mit dem Pokal" data-reveal><img src="assets/img/news/zlk-05-1440.webp" srcset="assets/img/news/zlk-05-480.webp 480w, assets/img/news/zlk-05-960.webp 960w, assets/img/news/zlk-05-1440.webp 1440w, assets/img/news/zlk-05-1800.webp 1800w" sizes="(max-width: 640px) 50vw, 33vw" width="1800" height="2400" alt="Zwei Piloten posieren vor dem Gebäude mit einem Pokal" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-06.jpg" data-caption="Unterwegs auf dem Platz" data-reveal><img src="assets/img/news/zlk-06-480.webp" srcset="assets/img/news/zlk-06-480.webp 480w" sizes="(max-width: 640px) 50vw, 33vw" width="480" height="640" alt="Elektrofahrzeug mit gelb-schwarzem Schachbrettmuster auf dem Weg neben der Piste" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-07.jpg" data-caption="Gemeinsames Essen im Hangar" data-reveal><img src="assets/img/news/zlk-07-480.webp" srcset="assets/img/news/zlk-07-480.webp 480w" sizes="(max-width: 640px) 50vw, 33vw" width="480" height="640" alt="Lange Tafel mit Helfern und Piloten im Hangar" loading="lazy" decoding="async"></x-img></a>
-      <a class="gallery__item" href="assets/img/news/zlk-08.jpg" data-caption="Gemütliches Beisammensein" data-reveal><img src="assets/img/news/zlk-08-480.webp" srcset="assets/img/news/zlk-08-480.webp 480w" sizes="(max-width: 640px) 50vw, 33vw" width="480" height="640" alt="Gäste sitzen gemütlich zusammen am Tisch im Hangar" loading="lazy" decoding="async"></x-img></a>
+      <a class="gallery__item" href="assets/img/news/zlk-01.jpg" data-caption="Am Tisch beim Flugplatz, der Pokal steht schon bereit" data-reveal><img src="assets/img/news/zlk-01-900.webp" srcset="assets/img/news/zlk-01-480.webp 480w, assets/img/news/zlk-01-900.webp 900w" sizes="(max-width: 640px) 50vw, 33vw" width="900" height="1600" alt="Piloten sitzen unter einem Sonnenschirm am Tisch, darauf ein Pokal" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-03.jpg" data-caption="Das Team in Warnwesten auf der Wiese" data-reveal><img src="assets/img/news/zlk-03-1280.webp" srcset="assets/img/news/zlk-03-480.webp 480w, assets/img/news/zlk-03-960.webp 960w, assets/img/news/zlk-03-1280.webp 1280w" sizes="(max-width: 640px) 50vw, 33vw" width="1280" height="960" alt="Helfer in gelben Warnwesten an einem Tisch auf der Wiese neben der Piste" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-02.jpg" data-caption="Zuschauen am Pistenrand" data-reveal><img src="assets/img/news/zlk-02-1440.webp" srcset="assets/img/news/zlk-02-480.webp 480w, assets/img/news/zlk-02-960.webp 960w, assets/img/news/zlk-02-1440.webp 1440w, assets/img/news/zlk-02-1800.webp 1800w" sizes="(max-width: 640px) 50vw, 33vw" width="1800" height="2400" alt="Ein Kind schaut auf dem Rasen den Flugzeugen zu" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-04.jpg" data-caption="Im Anflug auf die Graspiste" data-reveal><img src="assets/img/news/zlk-04-1440.webp" srcset="assets/img/news/zlk-04-480.webp 480w, assets/img/news/zlk-04-960.webp 960w, assets/img/news/zlk-04-1440.webp 1440w, assets/img/news/zlk-04-1800.webp 1800w" sizes="(max-width: 640px) 50vw, 33vw" width="1800" height="2400" alt="Blick aus dem Cockpit eines gelben Flugzeugs im Anflug auf die Graspiste" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-05.jpg" data-caption="Zwei Piloten mit dem Pokal" data-reveal><img src="assets/img/news/zlk-05-1440.webp" srcset="assets/img/news/zlk-05-480.webp 480w, assets/img/news/zlk-05-960.webp 960w, assets/img/news/zlk-05-1440.webp 1440w, assets/img/news/zlk-05-1800.webp 1800w" sizes="(max-width: 640px) 50vw, 33vw" width="1800" height="2400" alt="Zwei Piloten posieren vor dem Gebäude mit einem Pokal" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-06.jpg" data-caption="Unterwegs auf dem Platz" data-reveal><img src="assets/img/news/zlk-06-480.webp" srcset="assets/img/news/zlk-06-480.webp 480w" sizes="(max-width: 640px) 50vw, 33vw" width="480" height="640" alt="Elektrofahrzeug mit gelb-schwarzem Schachbrettmuster auf dem Weg neben der Piste" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-07.jpg" data-caption="Gemeinsames Essen im Hangar" data-reveal><img src="assets/img/news/zlk-07-480.webp" srcset="assets/img/news/zlk-07-480.webp 480w" sizes="(max-width: 640px) 50vw, 33vw" width="480" height="640" alt="Lange Tafel mit Helfern und Piloten im Hangar" loading="lazy" decoding="async"></a>
+      <a class="gallery__item" href="assets/img/news/zlk-08.jpg" data-caption="Gemütliches Beisammensein" data-reveal><img src="assets/img/news/zlk-08-480.webp" srcset="assets/img/news/zlk-08-480.webp 480w" sizes="(max-width: 640px) 50vw, 33vw" width="480" height="640" alt="Gäste sitzen gemütlich zusammen am Tisch im Hangar" loading="lazy" decoding="async"></a>
     </div>
     <div class="row mt-l justify-center" data-reveal>
       <a class="btn btn--ghost" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Mehr Bilder auf Instagram</a>
@@ -369,17 +378,17 @@
     <div class="news-next" data-reveal-group>
       
       <a class="card card--glow" href="news-gratulation-ppl.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/ppl-ronnie-widmer-1440.webp" srcset="assets/img/news/ppl-ronnie-widmer-480.webp 480w, assets/img/news/ppl-ronnie-widmer-960.webp 960w, assets/img/news/ppl-ronnie-widmer-1440.webp 1440w, assets/img/news/ppl-ronnie-widmer-2048.webp 2048w" sizes="(max-width: 640px) 100vw, 33vw" width="2400" height="1800" alt="" loading="lazy" decoding="async"></x-img><span class="card__badge chip">Flugschule</span></span>
+        <span class="card__media"><img src="assets/img/news/ppl-ronnie-widmer-1440.webp" srcset="assets/img/news/ppl-ronnie-widmer-480.webp 480w, assets/img/news/ppl-ronnie-widmer-960.webp 960w, assets/img/news/ppl-ronnie-widmer-1440.webp 1440w, assets/img/news/ppl-ronnie-widmer-2048.webp 2048w" sizes="(max-width: 640px) 100vw, 33vw" width="2400" height="1800" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Flugschule</span></span>
         <span class="card__body"><span class="card__title">Gratulation zur PPL</span><span class="card__text">Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio.</span></span>
       </a>
       
       <a class="card card--glow" href="infoabende.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/infoabend-720.webp" srcset="assets/img/news/infoabend-480.webp 480w, assets/img/news/infoabend-720.webp 720w" sizes="(max-width: 640px) 100vw, 33vw" width="720" height="480" alt="" loading="lazy" decoding="async"></x-img><span class="card__badge chip">Flugschule</span></span>
+        <span class="card__media"><img src="assets/img/news/infoabend-720.webp" srcset="assets/img/news/infoabend-480.webp 480w, assets/img/news/infoabend-720.webp 720w" sizes="(max-width: 640px) 100vw, 33vw" width="720" height="480" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Flugschule</span></span>
         <span class="card__body"><span class="card__title">Infoabende "Wie werde ich Pilot"</span><span class="card__text">Träumst du davon, zu fliegen wie ein Vogel? Dann lebe deinen Traum und lerne fliegen!</span></span>
       </a>
       
       <a class="card card--glow" href="news-hangarierung.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/hangarierung-1440.webp" srcset="assets/img/news/hangarierung-480.webp 480w, assets/img/news/hangarierung-960.webp 960w, assets/img/news/hangarierung-1440.webp 1440w, assets/img/news/hangarierung-2048.webp 2048w" sizes="(max-width: 640px) 100vw, 33vw" width="2048" height="1536" alt="" loading="lazy" decoding="async"></x-img><span class="card__badge chip">Piloten</span></span>
+        <span class="card__media"><img src="assets/img/news/hangarierung-1440.webp" srcset="assets/img/news/hangarierung-480.webp 480w, assets/img/news/hangarierung-960.webp 960w, assets/img/news/hangarierung-1440.webp 1440w, assets/img/news/hangarierung-2048.webp 2048w" sizes="(max-width: 640px) 100vw, 33vw" width="2048" height="1536" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Piloten</span></span>
         <span class="card__body"><span class="card__title">Helft mit, Hangarierungsschäden zu vermeiden</span><span class="card__text">Wir bitten alle Piloten, aktiv bei der Vermeidung von Hangarierungsschäden mitzuhelfen.</span></span>
       </a>
       
@@ -479,12 +488,12 @@
   <div class="container footer-partners">
     <p class="footer-title">Partner am Flugplatz</p>
     <ul class="partner-row">
-      <li><a href="http://www.airportheli.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/airportheli-125.webp" srcset="assets/img/partner/airportheli-125.webp 125w" sizes="125px" width="125" height="33" alt="Airport Helicopter" loading="lazy" decoding="async"></x-img></a></li>
-      <li><a href="https://www.paraclub.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/paraclub-69.webp" srcset="assets/img/partner/paraclub-69.webp 69w" sizes="69px" width="69" height="33" alt="Paraclub Beromünster" loading="lazy" decoding="async"></x-img></a></li>
-      <li><a href="http://sgpilatus.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/sg-pilatus-125.webp" srcset="assets/img/partner/sg-pilatus-125.webp 125w" sizes="125px" width="125" height="33" alt="SG Pilatus" loading="lazy" decoding="async"></x-img></a></li>
-      <li><a href="http://www.mfgb.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/mfgb-125.webp" srcset="assets/img/partner/mfgb-125.webp 125w" sizes="125px" width="125" height="33" alt="Motorfluggruppe Beromünster" loading="lazy" decoding="async"></x-img></a></li>
-      <li><a href="https://www.axa.ch/de/ueber-axa/standorte/agenturen/sempach_20176.html" target="_blank" rel="noopener"><img src="assets/img/partner/axa-177.webp" srcset="assets/img/partner/axa-177.webp 177w" sizes="177px" width="177" height="38" alt="AXA Winterthur Agentur Sempach" loading="lazy" decoding="async"></x-img></a></li>
-      <li><a href="https://www.helikopterflug.ch/collections/flugzeugflug" target="_blank" rel="noopener"><img src="assets/img/partner/flugzeugflug-146.webp" srcset="assets/img/partner/flugzeugflug-146.webp 146w" sizes="146px" width="146" height="96" alt="flugzeugflug.ch" loading="lazy" decoding="async"></x-img></a></li>
+      <li><a href="http://www.airportheli.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/airportheli-125.webp" srcset="assets/img/partner/airportheli-125.webp 125w" sizes="125px" width="125" height="33" alt="Airport Helicopter" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.skydive-luzern.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/paraclub-69.webp" srcset="assets/img/partner/paraclub-69.webp 69w" sizes="69px" width="69" height="33" alt="Paraclub Beromünster" loading="lazy" decoding="async"></a></li>
+      <li><a href="http://sgpilatus.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/sg-pilatus-125.webp" srcset="assets/img/partner/sg-pilatus-125.webp 125w" sizes="125px" width="125" height="33" alt="SG Pilatus" loading="lazy" decoding="async"></a></li>
+      <li><a href="http://www.mfgb.ch/" target="_blank" rel="noopener"><img src="assets/img/partner/mfgb-125.webp" srcset="assets/img/partner/mfgb-125.webp 125w" sizes="125px" width="125" height="33" alt="Motorfluggruppe Beromünster" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.axa.ch/de/ueber-axa/standorte/agenturen/sempach_20176.html" target="_blank" rel="noopener"><img src="assets/img/partner/axa-177.webp" srcset="assets/img/partner/axa-177.webp 177w" sizes="177px" width="177" height="38" alt="AXA Winterthur Agentur Sempach" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.helikopterflug.ch/collections/flugzeugflug" target="_blank" rel="noopener"><img src="assets/img/partner/flugzeugflug-146.webp" srcset="assets/img/partner/flugzeugflug-146.webp 146w" sizes="146px" width="146" height="96" alt="flugzeugflug.ch" loading="lazy" decoding="async"></a></li>
     </ul>
   </div>
 
@@ -521,8 +530,6 @@
 <script defer src="assets/vendor/gsap/gsap.min.js"></script>
 <script defer src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
 <script defer src="assets/vendor/gsap/SplitText.min.js"></script>
-<script defer src="assets/vendor/gsap/MotionPathPlugin.min.js"></script>
-<script defer src="assets/vendor/gsap/ScrollToPlugin.min.js"></script>
 <script defer src="assets/vendor/lenis/lenis.min.js"></script>
 <script defer src="assets/vendor/suncalc/suncalc.js"></script>
 <script defer src="assets/js/data.js"></script>

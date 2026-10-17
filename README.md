@@ -13,7 +13,7 @@ Alle Inhalte, Seiten und Bilder der bisherigen www.flubag.ch sind übernommen (s
 
 ```bash
 npm install
-npm run serve      # öffnet http://localhost:8080
+npm run serve      # startet den Vorschau-Server auf http://localhost:8080
 ```
 
 ## Was ist neu
@@ -41,6 +41,20 @@ npm run serve      # öffnet http://localhost:8080
 | `tools/` | Build, Vorschau-Server, Screenshots |
 | `docs/` | Bestandsaufnahme der alten Seite, Originaltexte, Baukasten-Anleitung |
 
+## Seiten (37)
+
+| Bereich | Seiten |
+|---|---|
+| Start | index |
+| Flugplatz | geschichte, webcams, anreise, aktuelles (mit news-ziellandekonkurrenz-2026, news-gratulation-ppl, news-hangarierung), preise |
+| Flugschule | schnupperflug, ausbildung, infoabende, fluglehrer |
+| Rundflüge & Gutscheine | rundfluege, gutscheine |
+| Flotte | flotte, flugzeug-hb-cql, flugzeug-hb-cvz, flugzeug-hb-czu, flugzeug-hb-oen, flugzeug-hb-wec (aus `src/data/flotte.json` über `src/templates/flugzeug.mjs`) |
+| Piloten | piloten, weisungen, sprungbetrieb, piste-33, checkflug-flarm, parkordnung, airport-briefing, briefing-links, zollanmeldung, reporting, safety-policy, dokumente (aus `src/data/dokumente.json` über `src/templates/dokumente.mjs`) |
+| Kontakt & Rechtliches | kontakt, impressum, datenschutz, 404 |
+
+Alle Seiten liegen als `<name>.html` direkt in `site/`.
+
 ## Inhalte ändern
 
 1. Preise, Flugzeuge, Routen, Team, News: Datei in `src/data/` anpassen.
@@ -58,6 +72,11 @@ Neue Infoabend-Termine: in `src/pages/infoabende.html` eintragen (dort ist besch
 5. **Wetterdaten** kommen von Open-Meteo (frei für nicht kommerzielle Nutzung). Für den produktiven Einsatz einer Firma die Nutzungsbedingungen prüfen (günstiges Abo) oder die Anzeige abschalten.
 6. **Karten** von swisstopo (frei nutzbar mit Quellenangabe "© swisstopo", ist eingebaut).
 7. Inhalte vor dem Go-live mit FLUBAG prüfen: Preise, Termine, Rundflugpreise (aus dem Gutschein-Shop, Stand Oktober 2026), technische Daten der Flugzeuge (typische Werte der Muster, massgebend ist das Flughandbuch).
+8. Die versteckte Datei `site/.htaccess` mit hochladen (404-Seite, 301-Weiterleitungen aller alten `/de/...` Adressen, Caching).
+9. Vor dem Upload einmal `npm run build` ohne `--no-images` ausführen (erzeugt alle Bildgrössen und die Vorschaubilder für Social Media).
+10. Nach dem Upload jedes Formular einmal testweise absenden (Schnupperflug, Rundflug, Infoabend, Kontakt, Reporting). Die Absenderadresse website@flubag.ch muss im SPF-Eintrag der Domain erlaubt sein.
+11. Die Domain auf https://www.flubag.ch umleiten (canonical, `sitemap.xml` und `robots.txt` verwenden diese Adresse; eine vorbereitete Regel steht auskommentiert in `.htaccess`) und `sitemap.xml` in der Google Search Console einreichen.
+12. Externe Links prüfen: Einige Links der alten Seite waren nicht mehr erreichbar. BAZL, SUST, ECCAIRS2 und Paraclub (Website skydive-luzern.ch) sind auf die neuen Adressen umgestellt, für aviationreporting.eu/justculture gibt es noch keinen Ersatz.
 
 ## Technik
 

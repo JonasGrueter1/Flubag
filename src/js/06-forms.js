@@ -96,7 +96,8 @@
       if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
       box.scrollIntoView({ behavior: F.reducedMotion ? 'auto' : 'smooth', block: 'center' });
     }
-    F.toast(viaMail ? 'Dein E-Mail-Programm wurde mit allen Angaben geöffnet.' : 'Danke! Deine Anfrage ist bei uns angekommen.');
+    // eigener Dankestext pro Formular möglich: data-toast="..."
+    F.toast(viaMail ? 'Dein E-Mail-Programm wurde mit allen Angaben geöffnet.' : (form.getAttribute('data-toast') || 'Danke! Deine Anfrage ist bei uns angekommen.'));
   }
 
   function submit(form) {
@@ -104,7 +105,8 @@
     if (form.querySelector('.honeypot input') && form.querySelector('.honeypot input').value) { success(form, false); return; }
     var data = values(form);
     var tEl = form.querySelector('input[name="_t"]');
-    if (tEl) data._t = tEl.value;
+    // _dt: Ausfülldauer im Browser gemessen, unabhängig davon, ob die Uhr des Geräts stimmt
+    if (tEl) { data._t = tEl.value; data._dt = String(Date.now() - Number(tEl.value)); }
     data._form = form.dataset.formName || form.id || 'Kontakt';
     data._page = location.href;
     var cfg = F.config.form;

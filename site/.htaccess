@@ -2,15 +2,31 @@
 ErrorDocument 404 /404.html
 Options -Indexes
 
+# Auf https://www.flubag.ch umleiten (canonical, sitemap.xml und og:image verwenden diese Adresse).
+# Erst aktivieren (# entfernen), wenn das Zertifikat für www.flubag.ch läuft und der Hoster das nicht schon selbst macht,
+# sonst droht eine Umleitungsschleife.
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} !=on [OR]
+#   RewriteCond %{HTTP_HOST} !^www\. [NC]
+#   RewriteRule ^ https://www.flubag.ch%{REQUEST_URI} [R=301,L]
+# </IfModule>
+
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set X-Frame-Options "SAMEORIGIN"
-  <FilesMatch "\.(webp|jpg|png|svg|woff2)$">
-    Header set Cache-Control "public, max-age=31536000"
+  # Schriften ändern sich nie: 1 Jahr. Bilder: 30 Tage (ein ersetztes Bild mit gleichem Namen erscheint spätestens dann).
+  # CSS, JS, HTML: no-cache = immer kurz beim Server nachfragen (unverändert kommt ein kleines 304),
+  # sonst sehen Besucher nach einem Update neues HTML mit altem CSS/JS.
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  <FilesMatch "\.(css|js)$">
-    Header set Cache-Control "public, max-age=604800"
+  <FilesMatch "\.(webp|jpg|png|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|html|webmanifest|xml)$">
+    Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>
 

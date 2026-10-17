@@ -70,6 +70,10 @@
 [data-theme="light"] .chip--ok { color: #047857; }
 [data-theme="light"] .chip--warn { color: #92400e; }
 [data-theme="light"] .chip--bad { color: #b91c1c; }
+/* Status-Chips auf immer dunklen Flächen (Hero, force-dark): helle Variantenfarben in beiden Modi */
+.page-hero .chip--ok, .force-dark .chip--ok { color: #6ee7b7; border-color: rgba(110, 231, 183, 0.5); background: rgba(52, 211, 153, 0.08); }
+.page-hero .chip--warn, .force-dark .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }
+.page-hero .chip--bad, .force-dark .chip--bad { color: #fca5a5; border-color: rgba(252, 165, 165, 0.55); background: rgba(248, 113, 113, 0.1); }
 .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--text-3); position: relative; }
 .dot--ok { background: var(--ok); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6); animation: pulse-ok 2s infinite; }
 .dot--warn { background: var(--warn); }
@@ -282,7 +286,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .choice__card { display: grid; gap: 6px; padding: 18px; height: 100%; border-radius: var(--radius); border: 1.5px solid var(--line-strong); background: var(--surface); transition: border-color 0.25s, background-color 0.25s, transform 0.3s var(--ease-out), box-shadow 0.3s; }
 .choice:hover .choice__card { border-color: var(--text-3); transform: translateY(-2px); }
 .choice input:checked + .choice__card { border-color: var(--brand); background: rgba(230, 50, 1, 0.08); box-shadow: 0 0 0 4px rgba(230, 50, 1, 0.12); }
-.choice input:focus-visible + .choice__card { outline: 2px solid var(--sky); outline-offset: 3px; }
+.choice input:focus-visible + .choice__card { outline: 2px solid var(--focus, var(--sky)); outline-offset: 3px; }
 .choice__title { font-weight: 700; font-family: var(--font-display); font-size: 1.1rem; }
 .choice__meta { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-3); letter-spacing: 0.04em; }
 .choice__price { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--brand-text); }
@@ -341,7 +345,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 @media (max-width: 520px) { .hours-day, .hours-axis { grid-template-columns: 78px 1fr; } .hours-day__name { white-space: nowrap; } .hours-day__text, .hours-axis > :last-child { display: none; } }
 
 /* Seitenwind-Widget */
-.xwind { display: grid; grid-template-columns: minmax(0, 260px) 1fr; gap: 24px; align-items: center; }
+.xwind { display: grid; grid-template-columns: minmax(0, 200px) 1fr; gap: 20px; align-items: center; }
 .xwind__svg { width: 100%; aspect-ratio: 1; }
 .xwind__ring { fill: none; stroke: rgba(160, 190, 230, 0.25); stroke-width: 1; }
 .xwind__tick { stroke: rgba(160, 190, 230, 0.4); stroke-width: 1.5; }
@@ -353,6 +357,9 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .xwind__arrow { fill: var(--brand-hi); transition: transform 1.2s var(--ease-out); }
 .xwind__data { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
 .xwind__rec { grid-column: 1 / -1; }
+/* Pistenwerte (Gegen- und Seitenwind) sind lang: eigene Zeile über die ganze Breite */
+.xwind__data > .readout:nth-child(3), .xwind__data > .readout:nth-child(4) { grid-column: 1 / -1; }
+.xwind__data > .readout:nth-child(3) .readout__value, .xwind__data > .readout:nth-child(4) .readout__value { font-size: 1.1rem; }
 @media (max-width: 640px) { .xwind { grid-template-columns: 1fr; justify-items: center; } .xwind__svg { max-width: 240px; } .xwind__data { width: 100%; } }
 
 /* ---------- Laufband / Marquee ---------- */
@@ -474,7 +481,7 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .segmented input { position: absolute; opacity: 0; }
 .segmented span { display: block; padding: 9px 16px; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.9rem; color: var(--text-2); transition: background-color 0.25s, color 0.25s; }
 .segmented input:checked + span { background: var(--brand); color: #fff; }
-.segmented input:focus-visible + span { outline: 2px solid var(--sky); outline-offset: 2px; }
+.segmented input:focus-visible + span { outline: 2px solid var(--focus, var(--sky)); outline-offset: 2px; }
 
 /* Balken-Aufteilung */
 .bar-split { display: flex; height: 14px; border-radius: 8px; overflow: hidden; background: var(--surface-3); }
@@ -503,6 +510,9 @@ a.card:hover .card__media img { transform: scale(1.06); }
 .status-card__title { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; font-stretch: 112%; line-height: 1; }
 .status-card__text { color: var(--text-2); }
 .status-card__list { margin-top: 4px; }
+/* Lange Werte (Betriebszeiten) lieber als Ganzes auf eine eigene Zeile statt mitten im Wert umbrechen */
+.status-card__list > div { flex-wrap: wrap; row-gap: 2px; }
+.status-card__list dd { margin-left: auto; }
 .status-card__note { font-size: 0.88rem; color: var(--warn); }
 .status-card__disclaimer { font-size: 0.75rem; color: var(--text-3); line-height: 1.5; }
 

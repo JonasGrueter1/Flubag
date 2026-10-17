@@ -16,8 +16,30 @@
     });
   }
 
+  // Ankerziel fokussieren, damit der nächste Tab-Schritt im Inhalt weitergeht (Skip-Link, Subnav)
+  function focusTarget(target) {
+    if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+  // Eigene Anker (href="#...") gehören immer zur aktuellen Seite, auch mit <base href="/"> (404-Seite)
+  function ownAnchor(a) { return (a.getAttribute('href') || '').charAt(0) === '#'; }
+
+  // Ohne Lenis mit <base href="/">: "#..." Links würden sonst die Startseite laden
+  function baseAnchors() {
+    if (!document.querySelector('base[href]')) return;
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      var target = document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));
+      if (!target) return;
+      e.preventDefault();
+      location.hash = a.getAttribute('href');
+      focusTarget(target);
+    });
+  }
+
   function initLenis() {
-    if (F.reducedMotion || !window.Lenis || F.isTouch) { fixHashWithoutLenis(); return; }
+    if (F.reducedMotion || !window.Lenis || F.isTouch) { fixHashWithoutLenis(); baseAnchors(); return; }
     var lenis = new Lenis({ duration: 1.1, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
     F.lenis = lenis;
     if (F.hasGsap()) {
@@ -32,12 +54,13 @@
       var a = e.target.closest('a[href*="#"]');
       if (!a) return;
       var url = new URL(a.href, location.href);
-      if (url.pathname !== location.pathname || !url.hash || url.hash === '#') return;
+      if ((!ownAnchor(a) && url.pathname !== location.pathname) || !url.hash || url.hash === '#') return;
       var target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!target) return;
       e.preventDefault();
       lenis.scrollTo(target); // Lenis rechnet scroll-padding-top (Header, Subnav) selbst ein
-      history.pushState(null, '', url.hash);
+      history.pushState(null, '', location.pathname + location.search + url.hash); // voller Pfad: <base> nicht beachten
+      focusTarget(target);
     });
     if (location.hash) {
       var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
@@ -69,7 +92,8 @@
 
   function splitHeadings() {
     F.$$('[data-split]').forEach(function (el) {
-      if (!window.SplitText) { el.classList.add('is-split'); return; }
+      // Überschriften mit Link oder Button nicht zerlegen: SplitText würde den Link klonen und für Screenreader verstecken
+      if (!window.SplitText || el.querySelector('a, button')) { el.classList.add('is-split'); return; }
       var split = new SplitText(el, { type: 'lines', linesClass: 'split-line', mask: 'lines' });
       el.classList.add('is-split');
       var immediate = el.hasAttribute('data-split-now');
@@ -178,8 +202,6 @@
       if (F.hasGsap() && !F.reducedMotion) {
         gsap.registerPlugin(ScrollTrigger);
         if (window.SplitText) gsap.registerPlugin(SplitText);
-        if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
-        if (window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
         document.documentElement.classList.add('anim-ready');
         reveals();
         var doSplit = function () { try { splitHeadings(); } catch (e) { F.$$('[data-split]').forEach(function (el) { el.classList.add('is-split'); }); } };

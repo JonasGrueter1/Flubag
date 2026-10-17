@@ -57,7 +57,8 @@
   --line-strong: rgba(160, 190, 230, 0.26);
   --text: #edf2fa;
   --text-2: #a9b6ca;
-  --text-3: #74839b;
+  --text-3: #8592aa;
+  --focus: #7cc4ff;
   --brand-text: #ff6a3d;
   --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.75);
   --shadow-s: 0 10px 30px -14px rgba(0, 0, 0, 0.6);
@@ -81,7 +82,8 @@
   --line-strong: rgba(12, 22, 42, 0.2);
   --text: #0b1426;
   --text-2: #3e4a5e;
-  --text-3: #66728a;
+  --text-3: #5a6680;
+  --focus: #0b5cc4;
   --brand-text: #c42c00;
   --shadow: 0 30px 60px -30px rgba(20, 30, 50, 0.3);
   --shadow-s: 0 10px 24px -14px rgba(20, 30, 50, 0.3);
@@ -101,3 +103,6 @@
 
 /* Dunkle Bildflächen behalten im hellen Modus die hellen Statusfarben */
 .page-hero { --ok: #34d399; --warn: #fbbf24; --bad: #f87171; }
+/* Fokusrahmen: auf immer dunklen Flächen hellblau, im hellen Modus sonst dunkelblau (Kontrast mind. 3:1) */
+.page-hero, .hero, .cta-final, .has-hero .site-header:not(.is-scrolled):not(.menu-open) { --focus: #7cc4ff; }
+[data-theme="light"] .megamenu { --focus: #0b5cc4; }

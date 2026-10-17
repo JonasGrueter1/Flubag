@@ -120,7 +120,8 @@
       var html = '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
       var zNow = F.zurich(now);
       for (var i = 0; i < 7; i++) {
-        var d = new Date(now.getTime() + i * 86400000);
+        // Kalendertag i ab heute (Zürcher Datum, 12 Uhr UTC): rund um die Zeitumstellung keine doppelten oder fehlenden Tage
+        var d = new Date(Date.UTC(zNow.y, zNow.m - 1, zNow.d + i, 12));
         var z = F.zurich(d);
         var r = dayRules(z.y, z.m, z.d, z.wd);
         var segs = [[r.open, r.pause[0]], [r.pause[1], r.close]];

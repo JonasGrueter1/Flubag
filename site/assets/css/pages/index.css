@@ -35,7 +35,8 @@
 .hero__hud { width: min(380px, 100%); display: grid; gap: 14px; padding: 18px 20px; }
 .hero__hud-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 0.72rem; letter-spacing: 0.14em; }
 .hero__hud-status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); letter-spacing: 0.02em; font-size: 0.75rem; }
-.hero__hud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; }
+.hero__hud-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px 18px; }
+.hero__hud-grid .readout__value:not(.readout__value--text) { white-space: nowrap; }
 .readout__value--text { font-size: 0.95rem; font-family: var(--font-body); font-weight: 600; }
 .hero__hud-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; text-decoration: none; color: #ffb08e; }
 .hero__hud-link .icon { transition: transform 0.3s; }

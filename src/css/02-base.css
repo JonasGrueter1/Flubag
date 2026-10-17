@@ -59,7 +59,7 @@ address { font-style: normal; }
 hr { border: 0; border-top: 1px solid var(--line); }
 table { border-collapse: collapse; width: 100%; }
 ::selection { background: var(--brand); color: #fff; }
-:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--focus, var(--sky)); outline-offset: 3px; border-radius: 4px; }
 [hidden] { display: none !important; }
 
 .mono { font-family: var(--font-mono); font-feature-settings: "zero"; letter-spacing: 0.02em; }
@@ -78,7 +78,7 @@ table { border-collapse: collapse; width: 100%; }
   font-weight: 600; text-decoration: none; transition: top 0.2s;
 }
 .skip-link:focus { top: 16px; }
-main:focus { outline: none; }
+main:focus, [tabindex="-1"]:focus { outline: none; } /* nur per Skript fokussierte Ziele (Anker, Erfolgsmeldung) */
 
 .icon { width: 1.15em; height: 1.15em; flex: none; stroke-width: 1.9; }
 

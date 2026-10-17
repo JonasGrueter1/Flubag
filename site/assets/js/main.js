@@ -172,9 +172,13 @@
         burger.setAttribute('aria-expanded', String(openIt));
         burger.setAttribute('aria-label', openIt ? 'Menü schliessen' : 'Menü öffnen');
         document.documentElement.style.overflow = openIt ? 'hidden' : '';
+        // Seite hinter dem Menü für Tastatur und Screenreader sperren, Fokus ins Menü und beim Schliessen zurück zum Burger
+        F.$$('body > *').forEach(function (el) { if (el !== header && el !== menu && el.tagName !== 'SCRIPT') el.inert = openIt; });
+        if (openIt) { var first = menu.querySelector('summary, a'); if (first) first.focus({ preventScroll: true }); }
+        else if (menu.contains(document.activeElement) || document.activeElement === document.body) burger.focus({ preventScroll: true });
         if (F.lenis) { openIt ? F.lenis.stop() : F.lenis.start(); }
         if (openIt && F.hasGsap() && !F.reducedMotion) {
-          gsap.fromTo(menu.querySelector('.mobile-menu__bg'), { opacity: 0 }, { opacity: 0.98, duration: 0.35 });
+          gsap.fromTo(menu.querySelector('.mobile-menu__bg'), { opacity: 0 }, { opacity: 1, duration: 0.35 });
           gsap.fromTo(menu.querySelectorAll('.mm-group, .mm-link, .mobile-menu__foot, .mobile-menu__status'), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' });
         }
       }
@@ -182,7 +186,7 @@
         burger.addEventListener('click', function () { toggleMobile(); });
         F.$$('a', menu).forEach(function (a) { a.addEventListener('click', function () { toggleMobile(false); }); });
         F.$$('.mm-group[data-current]', menu).forEach(function (d) { d.open = true; });
-        window.addEventListener('resize', function () { if (window.innerWidth > 1360 && !menu.hidden) toggleMobile(false); });
+        window.addEventListener('resize', function () { if (window.innerWidth > 1240 && !menu.hidden) toggleMobile(false); });
       }
     }
   };
@@ -208,8 +212,30 @@
     });
   }
 
+  // Ankerziel fokussieren, damit der nächste Tab-Schritt im Inhalt weitergeht (Skip-Link, Subnav)
+  function focusTarget(target) {
+    if (!target.matches('a[href], button, input, select, textarea, [tabindex]')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+  // Eigene Anker (href="#...") gehören immer zur aktuellen Seite, auch mit <base href="/"> (404-Seite)
+  function ownAnchor(a) { return (a.getAttribute('href') || '').charAt(0) === '#'; }
+
+  // Ohne Lenis mit <base href="/">: "#..." Links würden sonst die Startseite laden
+  function baseAnchors() {
+    if (!document.querySelector('base[href]')) return;
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      var target = document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));
+      if (!target) return;
+      e.preventDefault();
+      location.hash = a.getAttribute('href');
+      focusTarget(target);
+    });
+  }
+
   function initLenis() {
-    if (F.reducedMotion || !window.Lenis || F.isTouch) { fixHashWithoutLenis(); return; }
+    if (F.reducedMotion || !window.Lenis || F.isTouch) { fixHashWithoutLenis(); baseAnchors(); return; }
     var lenis = new Lenis({ duration: 1.1, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
     F.lenis = lenis;
     if (F.hasGsap()) {
@@ -224,12 +250,13 @@
       var a = e.target.closest('a[href*="#"]');
       if (!a) return;
       var url = new URL(a.href, location.href);
-      if (url.pathname !== location.pathname || !url.hash || url.hash === '#') return;
+      if ((!ownAnchor(a) && url.pathname !== location.pathname) || !url.hash || url.hash === '#') return;
       var target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!target) return;
       e.preventDefault();
       lenis.scrollTo(target); // Lenis rechnet scroll-padding-top (Header, Subnav) selbst ein
-      history.pushState(null, '', url.hash);
+      history.pushState(null, '', location.pathname + location.search + url.hash); // voller Pfad: <base> nicht beachten
+      focusTarget(target);
     });
     if (location.hash) {
       var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
@@ -261,7 +288,8 @@
 
   function splitHeadings() {
     F.$$('[data-split]').forEach(function (el) {
-      if (!window.SplitText) { el.classList.add('is-split'); return; }
+      // Überschriften mit Link oder Button nicht zerlegen: SplitText würde den Link klonen und für Screenreader verstecken
+      if (!window.SplitText || el.querySelector('a, button')) { el.classList.add('is-split'); return; }
       var split = new SplitText(el, { type: 'lines', linesClass: 'split-line', mask: 'lines' });
       el.classList.add('is-split');
       var immediate = el.hasAttribute('data-split-now');
@@ -370,8 +398,6 @@
       if (F.hasGsap() && !F.reducedMotion) {
         gsap.registerPlugin(ScrollTrigger);
         if (window.SplitText) gsap.registerPlugin(SplitText);
-        if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
-        if (window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
         document.documentElement.classList.add('anim-ready');
         reveals();
         var doSplit = function () { try { splitHeadings(); } catch (e) { F.$$('[data-split]').forEach(function (el) { el.classList.add('is-split'); }); } };
@@ -622,7 +648,8 @@
       var html = '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
       var zNow = F.zurich(now);
       for (var i = 0; i < 7; i++) {
-        var d = new Date(now.getTime() + i * 86400000);
+        // Kalendertag i ab heute (Zürcher Datum, 12 Uhr UTC): rund um die Zeitumstellung keine doppelten oder fehlenden Tage
+        var d = new Date(Date.UTC(zNow.y, zNow.m - 1, zNow.d + i, 12));
         var z = F.zurich(d);
         var r = dayRules(z.y, z.m, z.d, z.wd);
         var segs = [[r.open, r.pause[0]], [r.pause[1], r.close]];
@@ -758,7 +785,8 @@
       if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
       box.scrollIntoView({ behavior: F.reducedMotion ? 'auto' : 'smooth', block: 'center' });
     }
-    F.toast(viaMail ? 'Dein E-Mail-Programm wurde mit allen Angaben geöffnet.' : 'Danke! Deine Anfrage ist bei uns angekommen.');
+    // eigener Dankestext pro Formular möglich: data-toast="..."
+    F.toast(viaMail ? 'Dein E-Mail-Programm wurde mit allen Angaben geöffnet.' : (form.getAttribute('data-toast') || 'Danke! Deine Anfrage ist bei uns angekommen.'));
   }
 
   function submit(form) {
@@ -766,7 +794,8 @@
     if (form.querySelector('.honeypot input') && form.querySelector('.honeypot input').value) { success(form, false); return; }
     var data = values(form);
     var tEl = form.querySelector('input[name="_t"]');
-    if (tEl) data._t = tEl.value;
+    // _dt: Ausfülldauer im Browser gemessen, unabhängig davon, ob die Uhr des Geräts stimmt
+    if (tEl) { data._t = tEl.value; data._dt = String(Date.now() - Number(tEl.value)); }
     data._form = form.dataset.formName || form.id || 'Kontakt';
     data._page = location.href;
     var cfg = F.config.form;

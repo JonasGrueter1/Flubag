@@ -62,7 +62,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
   position: fixed; inset: 0 0 auto 0; z-index: 200;
   color: var(--text);
   transition: transform 0.5s var(--ease-out), background-color 0.4s, border-color 0.4s, color 0.4s;
-  view-transition-name: site-header;
+  /* view-transition-name nur während des Seitenwechsels (layout.html), sonst wirkt backdrop-filter nicht */
 }
 .site-header::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
@@ -121,7 +121,8 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .mainnav__trigger .icon { width: 15px; height: 15px; transition: transform 0.35s var(--ease-out); }
 .mainnav__trigger:hover, .mainnav__link:hover, .mainnav__item.is-open > .mainnav__trigger { background: rgba(127, 150, 190, 0.14); }
 .mainnav__item.is-open > .mainnav__trigger .icon { transform: rotate(180deg); }
-.mainnav__item[data-current] > .mainnav__trigger, .mainnav__item[data-current] > .mainnav__link { color: var(--brand-hi); }
+.mainnav__item[data-current] > .mainnav__trigger, .mainnav__item[data-current] > .mainnav__link { color: var(--brand-text); }
+.has-hero .site-header:not(.is-scrolled):not(.menu-open) .mainnav__item[data-current] > :is(.mainnav__trigger, .mainnav__link) { color: var(--brand-hi); }
 .mainnav__item[data-current] > .mainnav__trigger::after, .mainnav__item[data-current] > .mainnav__link::after {
   content: ""; position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; border-radius: 50%; background: var(--brand-hi); transform: translateX(-50%);
 }
@@ -168,7 +169,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .megamenu__feature--wx { flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 18px; gap: 12px; color: var(--text); background: radial-gradient(120% 100% at 100% 0%, rgba(230, 50, 1, 0.25), transparent 60%), var(--surface-2); border: 1px solid var(--line); }
 .megamenu__feature--wx::after { display: none; }
 .mini-wind { display: grid; gap: 4px; }
-.mini-wind__val { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; }
+.mini-wind__val { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; white-space: nowrap; } /* "340°/06 kt G14" passt so in die 240 px Karte */
 .mini-wind__rwy { font-size: 0.85rem; color: var(--text-2); }
 
 .nav-actions { display: flex; align-items: center; gap: 10px; margin-left: 8px; }
@@ -193,14 +194,19 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .menu-open .burger span:nth-child(2) { opacity: 0; }
 .menu-open .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-@media (max-width: 1360px) {
+@media (max-width: 1240px) {
   .mainnav { display: none; }
   .burger { display: inline-block; }
   .nav-actions { margin-left: auto; }
 }
+/* Laptops (1241 bis 1360 px): Hauptnavigation etwas kompakter, damit sie in eine Zeile passt */
+@media (min-width: 1241px) and (max-width: 1360px) {
+  .brand__sub { display: none; }
+  .mainnav__trigger, .mainnav__link { padding: 10px 8px; font-size: 0.9rem; }
+}
 @media (max-width: 520px) {
   .nav-cta span { display: none; }
-  .nav-cta { padding: 0; width: 44px; height: 44px; justify-content: center; }
+  .btn.nav-cta { padding: 0; width: 44px; height: 44px; justify-content: center; } /* .btn.: sonst gewinnt das Padding von .btn--sm */
   .brand__sub { display: none; }
   .brand__logo { width: 48px; }
   .theme-toggle { display: none; }
@@ -208,7 +214,7 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 
 /* ---------- Mobile Menu ---------- */
 .mobile-menu { position: fixed; inset: 0; z-index: 190; }
-.mobile-menu__bg { position: absolute; inset: 0; background: var(--bg); opacity: 0.98; }
+.mobile-menu__bg { position: absolute; inset: 0; background: var(--bg); }
 .mobile-menu__inner {
   position: relative; height: 100%; overflow-y: auto; overscroll-behavior: contain;
   padding: calc(var(--header-h) + var(--statusbar-h) + 16px) var(--gutter) 40px;
@@ -231,6 +237,8 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .mm-group a .icon { width: 14px; height: 14px; }
 .mobile-menu__foot { margin-top: auto; display: grid; gap: 18px; }
 .mobile-menu__contact { display: grid; gap: 10px; }
+/* Hell/Dunkel im Menü nur auf dem Handy: dort fehlt der Umschalter im Header */
+@media (min-width: 521px) { .btn.mobile-menu__theme { display: none; } }
 .mobile-menu__contact a { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-2); }
 
 /* ---------- Page Hero (Unterseiten) ---------- */
@@ -325,9 +333,9 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 .footer-credit { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; }
 @media (max-width: 1100px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
 @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-airfield { grid-column: 1 / -1; } }
-@media (min-width: 1361px) and (max-width: 1560px) {
+@media (min-width: 1241px) and (max-width: 1560px) {
   .nav-cta span { display: none; }
-  .nav-cta { padding: 0; width: 44px; height: 44px; justify-content: center; }
+  .btn.nav-cta { padding: 0; width: 44px; height: 44px; justify-content: center; } /* .btn.: sonst gewinnt das Padding von .btn--sm */
   .nav-wrap { gap: 16px; }
 }
 .nav-cta .icon { width: 20px; height: 20px; }

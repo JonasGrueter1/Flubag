@@ -48,8 +48,6 @@ function copyVendor() {
     'gsap/gsap.min.js': 'gsap/dist/gsap.min.js',
     'gsap/ScrollTrigger.min.js': 'gsap/dist/ScrollTrigger.min.js',
     'gsap/SplitText.min.js': 'gsap/dist/SplitText.min.js',
-    'gsap/MotionPathPlugin.min.js': 'gsap/dist/MotionPathPlugin.min.js',
-    'gsap/ScrollToPlugin.min.js': 'gsap/dist/ScrollToPlugin.min.js',
     'lenis/lenis.min.js': 'lenis/dist/lenis.min.js',
     'leaflet/leaflet.js': 'leaflet/dist/leaflet.js',
     'leaflet/leaflet.css': 'leaflet/dist/leaflet.css',
@@ -75,7 +73,10 @@ function copyStatic() {
 // ---------------------------------------------------------------- Bilder
 const IMG = {}; // key -> { w, h, widths: [], ext, fallback }
 const CACHE_FILE = path.join(NM, '.cache/flubag-images.json');
-async function buildImages() {
+const OG_DIRS = /^(hero|rundflug|flotte|schnupperflug|news)\//;
+// Vorschaubild für Social Media (og:image), 1200 x 630
+const makeOg = (f, to) => sharp(f).flatten({ background: '#ffffff' }).resize(1200, 630, { fit: 'cover', position: 'attention' }).jpeg({ quality: 80 }).toFile(to);
+async function buildImages(ogKeys) {
   const cache = fs.existsSync(CACHE_FILE) ? JSON.parse(read(CACHE_FILE)) : {};
   const base = path.join(SRC, 'images');
   for (const f of walk(base)) {
@@ -87,9 +88,10 @@ async function buildImages() {
     let info = cache[key];
     const outDir = path.join(OUT, 'assets/img', path.dirname(key));
     const name = path.basename(key);
+    const ogFile = path.join(outDir, `${name}-og.jpg`);
+    const wantOg = OG_DIRS.test(key) || ogKeys.has(key);
     const fresh = info && info.mtime === stat.mtimeMs && info.widths.every((w) => fs.existsSync(path.join(outDir, `${name}-${w}.webp`))) && fs.existsSync(path.join(outDir, `${name}.${info.fallbackExt}`));
-    if (!fresh) {
-      if (SKIP_IMAGES && info) { IMG[key] = info; continue; }
+    if (!fresh && !(SKIP_IMAGES && info)) {
       const meta = await sharp(f).metadata();
       const w = meta.width, h = meta.height;
       const steps = graphic ? [w] : [480, 960, 1440, 2048].filter((s) => s < w).concat(w <= 2048 ? [w] : []);
@@ -101,12 +103,12 @@ async function buildImages() {
       const fallbackExt = isPng ? 'png' : 'jpg';
       const fb = sharp(f).resize({ width: Math.min(w, 1600), withoutEnlargement: true });
       await (isPng ? fb.png({ compressionLevel: 9 }) : fb.jpeg({ quality: 80, mozjpeg: true })).toFile(path.join(outDir, `${name}.${fallbackExt}`));
-      if (/^(hero|rundflug|flotte|schnupperflug|news)\//.test(key)) {
-        await sharp(f).resize(1200, 630, { fit: 'cover', position: 'attention' }).jpeg({ quality: 80 }).toFile(path.join(outDir, `${name}-og.jpg`));
-      }
+      if (wantOg) await makeOg(f, ogFile);
       info = { w, h, widths, fallbackExt, mtime: stat.mtimeMs };
       cache[key] = info;
     }
+    // fehlendes og:image Bild (Ordner oben oder "ogImage" einer Seite) nachliefern, auch mit --no-images (geht schnell)
+    if (wantOg && !fs.existsSync(ogFile)) { fs.mkdirSync(outDir, { recursive: true }); await makeOg(f, ogFile); }
     IMG[key] = info;
   }
   write(CACHE_FILE, JSON.stringify(cache));
@@ -131,7 +133,9 @@ function imgTag(attrs) {
     decoding: 'async',
   };
   if (attrs.loading === 'eager') delete out.decoding;
-  const extra = Object.entries(attrs).filter(([k]) => !['src', 'sizes', 'alt', 'loading'].includes(k));
+  // data-defer: Quelle erst per JS setzen (z.B. weitere Slides eines Sliders)
+  if ('data-defer' in attrs) { out['data-src'] = out.src; out['data-srcset'] = out.srcset; delete out.src; delete out.srcset; delete out.loading; }
+  const extra = Object.entries(attrs).filter(([k]) => !['src', 'sizes', 'alt', 'loading', 'data-defer'].includes(k));
   if (attrs.alt === undefined) warn(`Bild ohne alt: ${key}`);
   return `<img ${[...Object.entries(out), ...extra].map(([k, v]) => v === true ? k : `${k}="${esc(v)}"`).join(' ')}>`;
 }
@@ -243,7 +247,7 @@ function expand(html, ctx, depth = 0) {
   if (depth > 0) return html;
   html = blocks(html, ctx);
   html = substitute(html, ctx);
-  html = html.replace(/<x-img\s([^>]*?)\/?>/g, (_, a) => imgTag(parseAttrs(a)));
+  html = html.replace(/<x-img\s([^>]*?)\/?>/g, (_, a) => imgTag(parseAttrs(a))).replace(/<\/x-img>/g, '');
   html = html.replace(/<x-icon\s([^>]*?)\/?>(<\/x-icon>)?/g, (_, a) => { const at = parseAttrs(a); return iconSvg(at.name, at.class || ''); });
   return html;
 }
@@ -297,7 +301,8 @@ function renderPage(p, layout, allFiles) {
   const vendorCss = meta.vendor.flatMap((v) => VENDOR[v]?.css || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('');
   const vendorJs = meta.vendor.flatMap((v) => VENDOR[v]?.js || []).map((h) => `<script defer src="${h}"></script>`).join('');
   const fullTitle = name === 'index' ? `${SITE.shortName} | ${SITE.tagline}` : `${meta.title} | ${SITE.shortName} ${SITE.tagline}`;
-  const og = meta.ogImage && IMG[meta.ogImage] ? `assets/img/${meta.ogImage}-og.jpg` : 'assets/img/hero/slide-00-og.jpg';
+  const og = meta.ogImage && IMG[meta.ogImage] && fs.existsSync(path.join(OUT, 'assets/img', `${meta.ogImage}-og.jpg`)) ? `assets/img/${meta.ogImage}-og.jpg` : 'assets/img/hero/slide-00-og.jpg';
+  if (meta.ogImage && og.endsWith('slide-00-og.jpg') && meta.ogImage !== 'hero/slide-00') warn(`og:image fehlt in ${p.file}: ${meta.ogImage}`);
   let html = expand(layout, { ...ctx, content: '%%CONTENT%%' })
     .replace(/%%TITLE%%/g, esc(fullTitle))
     .replace(/%%DESCRIPTION%%/g, esc(meta.description || ''))
@@ -325,10 +330,10 @@ const t0 = Date.now();
 fs.mkdirSync(OUT, { recursive: true });
 copyVendor();
 copyStatic();
-await buildImages();
+const pages = await collectPages();
+await buildImages(new Set(pages.map((p) => p.meta.ogImage).filter(Boolean)));
 bundle();
 const layout = read(path.join(SRC, 'layout.html'));
-const pages = await collectPages();
 const allFiles = new Set(pages.map((p) => p.file));
 let built = 0;
 for (const p of pages) {

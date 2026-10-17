@@ -192,6 +192,7 @@
     mapEl._init = true;
     var L = window.L, home = [47.19, 8.2047];
     var map = L.map(mapEl, { center: home, zoom: 12, minZoom: 9, maxZoom: 17, scrollWheelZoom: false, dragging: !F.isTouch, touchZoom: true });
+    if (map.attributionControl) map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
     L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', { maxNativeZoom: 18, maxZoom: 18, attribution: '© swisstopo' }).addTo(map);
     var ring = L.circle(home, { radius: 3000, color: '#e63201', weight: 2.5, dashArray: '8 6', fillColor: '#e63201', fillOpacity: 0.1 }).addTo(map);
     L.circleMarker(home, { radius: 7, color: '#fff', weight: 2, fillColor: '#e63201', fillOpacity: 1 }).addTo(map)

@@ -69,6 +69,7 @@
     });
     L.control.zoom({ position: 'topleft', zoomInTitle: 'Hineinzoomen', zoomOutTitle: 'Herauszoomen' }).addTo(map);
     L.control.scale({ position: 'bottomright', imperial: false, maxWidth: 110 }).addTo(map);
+    if (map.attributionControl) map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
     var base = 'https://wmts.geo.admin.ch/1.0.0/';
     var tiles = { karte: ['ch.swisstopo.pixelkarte-farbe', 'jpeg', 18], luftbild: ['ch.swisstopo.swissimage', 'jpeg', 19], icao: ['ch.bazl.luftfahrtkarten-icao', 'png', 12] };
     var loaded = 0, failed = 0;

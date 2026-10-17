@@ -62,9 +62,13 @@
         burger.setAttribute('aria-expanded', String(openIt));
         burger.setAttribute('aria-label', openIt ? 'Menü schliessen' : 'Menü öffnen');
         document.documentElement.style.overflow = openIt ? 'hidden' : '';
+        // Seite hinter dem Menü für Tastatur und Screenreader sperren, Fokus ins Menü und beim Schliessen zurück zum Burger
+        F.$$('body > *').forEach(function (el) { if (el !== header && el !== menu && el.tagName !== 'SCRIPT') el.inert = openIt; });
+        if (openIt) { var first = menu.querySelector('summary, a'); if (first) first.focus({ preventScroll: true }); }
+        else if (menu.contains(document.activeElement) || document.activeElement === document.body) burger.focus({ preventScroll: true });
         if (F.lenis) { openIt ? F.lenis.stop() : F.lenis.start(); }
         if (openIt && F.hasGsap() && !F.reducedMotion) {
-          gsap.fromTo(menu.querySelector('.mobile-menu__bg'), { opacity: 0 }, { opacity: 0.98, duration: 0.35 });
+          gsap.fromTo(menu.querySelector('.mobile-menu__bg'), { opacity: 0 }, { opacity: 1, duration: 0.35 });
           gsap.fromTo(menu.querySelectorAll('.mm-group, .mm-link, .mobile-menu__foot, .mobile-menu__status'), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' });
         }
       }
@@ -72,7 +76,7 @@
         burger.addEventListener('click', function () { toggleMobile(); });
         F.$$('a', menu).forEach(function (a) { a.addEventListener('click', function () { toggleMobile(false); }); });
         F.$$('.mm-group[data-current]', menu).forEach(function (d) { d.open = true; });
-        window.addEventListener('resize', function () { if (window.innerWidth > 1360 && !menu.hidden) toggleMobile(false); });
+        window.addEventListener('resize', function () { if (window.innerWidth > 1240 && !menu.hidden) toggleMobile(false); });
       }
     }
   };

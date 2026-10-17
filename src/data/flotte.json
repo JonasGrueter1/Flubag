@@ -34,7 +34,7 @@
       "Garmin GTX 328 Transponder"
     ],
     "facts": [
-      "Von 1958 bis 1977 wurden rund 23 000 Cessna 150 gebaut. Sie gehört zu den erfolgreichsten Schulflugzeugen überhaupt.",
+      "Von 1958 bis 1977 wurden knapp 24 000 Cessna 150 gebaut, inklusive der Lizenzbauten von Reims. Sie gehört zu den erfolgreichsten Schulflugzeugen überhaupt.",
       "Das F im Typ steht für die Lizenzfertigung bei Reims Aviation in Frankreich.",
       "Auf der Cessna 150 kostet die Schnupperstunde mit Fluglehrer CHF 420."
     ],
@@ -77,8 +77,8 @@
       "Garmin GTX 328 Transponder"
     ],
     "facts": [
-      "Die Cessna 172 ist das meistgebaute Flugzeug der Geschichte: über 45 000 Exemplare seit 1956.",
-      "HB-CQL fliegt laut Flughandbuch mit einer 180 PS Motorisierung statt den serienmässigen 160 PS.",
+      "Die Cessna 172 ist das meistgebaute Flugzeug der Geschichte: über 44 000 Exemplare seit 1956.",
+      "HB-CQL fliegt laut Flughandbuch mit einer 180 PS Motorisierung statt der serienmässigen 160 PS.",
       "Mit der C172 kannst du bis zu 3 Personen mitnehmen, perfekt für Rundflüge."
     ],
     "portal": "https://pilots.flubag.ch/node/2"
@@ -123,7 +123,7 @@
     ],
     "facts": [
       "Die 182S kam 1997 auf den Markt, als Cessna nach über zehn Jahren Pause wieder einmotorige Kolbenflugzeuge baute.",
-      "Der Verstellpropeller passt den Anstellwinkel der Blätter automatisch an. Das gibt Leistung beim Start und spart Treibstoff im Reiseflug.",
+      "Der Verstellpropeller passt den Blattwinkel automatisch an. Das gibt Leistung beim Start und spart Treibstoff im Reiseflug.",
       "Für die Skylane brauchst du eine eigene Einweisung (Familiarization)."
     ],
     "portal": "https://pilots.flubag.ch/node/5"
@@ -178,7 +178,7 @@
     "nickname": "Swiss Made",
     "seats": 2,
     "built": null,
-    "builtNote": "gebaut von Lightwing AG in Stans NW",
+    "builtNote": "gebaut von der Light Wing AG in Stans NW",
     "role": [
       "Schulung",
       "Reise",
