@@ -10,6 +10,8 @@ const chf = (v, dec) => {
 };
 // Dokumenttitel der alten Seite enthalten " - " als Trenner: als Doppelpunkt darstellen
 const docTitle = (t) => esc(String(t).replace(/\s+[-–—]\s+/g, ': '));
+// Bindestrich-Wörter (z.B. "J-3") nicht am Bindestrich umbrechen
+const nb = (t) => esc(t).replace(/(\S+-\S+)/g, '<span class="nowrap">$1</span>');
 const has = (v) => v !== null && v !== undefined && v !== '';
 const fmtMin = (m) => `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')} min`;
 
@@ -205,7 +207,7 @@ ${a.facts && a.facts.length ? `<section class="section section--alt section--glo
       </div>
       <div class="rate-card ac-rate-card" data-reveal>
         <div class="rate-card__head">
-          <div><p class="rate-card__reg">${esc(a.reg)}</p><p class="rate-card__type">${esc(a.variant)}</p></div>
+          <div><p class="rate-card__reg">${esc(a.reg)}</p><p class="rate-card__type">${nb(a.variant)}</p></div>
           <span class="chip chip--brand"><x-icon name="fuel"></x-icon>Benzinzuschlag ${num(a.fuel)} %</span>
         </div>
         <div class="rate-card__prices">

@@ -32,6 +32,9 @@
     });
   }
   if (list && type) {
+    // Ohne JS zeigt die Liste alle Punkte (data-type="alle"), mit JS gilt die gewählte Luftfahrzeugart
+    var checked = type.querySelector('input[name="sp-typ"]:checked');
+    list.setAttribute('data-type', checked ? checked.value : 'motor');
     type.addEventListener('change', function (e) {
       if (e.target.name === 'sp-typ') list.setAttribute('data-type', e.target.value);
     });

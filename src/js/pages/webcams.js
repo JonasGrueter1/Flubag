@@ -122,9 +122,11 @@
         var isBest = calm ? n === 33 : n === best;
         box.classList.toggle('is-best', isBest);
         box.classList.toggle('is-tail', !calm && h < 0);
+        // Bezeichnung passend zur grösseren Komponente: fast reiner Querwind heisst "Seitenwind"
+        var kind = (Math.abs(h) <= 2 && Math.abs(x) > Math.abs(h)) ? 'Seitenwind' : (h < 0 ? 'Rückenwind' : 'Gegenwind');
         if (calm) { tag.className = 'chip' + (n === 33 ? ' chip--ok' : ''); tag.textContent = n === 33 ? 'Primärpiste' : 'Windstill'; }
-        else if (isBest) { tag.className = 'chip chip--ok'; tag.textContent = 'Gegenwind'; }
-        else { tag.className = 'chip' + (h < 0 ? ' chip--warn' : ''); tag.textContent = h < 0 ? 'Rückenwind' : 'Gegenwind'; }
+        else if (isBest) { tag.className = 'chip chip--ok'; tag.textContent = kind; }
+        else { tag.className = 'chip' + (kind === 'Rückenwind' ? ' chip--warn' : ''); tag.textContent = kind; }
       });
     };
     [dirIn, spdIn].forEach(function (i) { i.addEventListener('input', update); });

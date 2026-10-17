@@ -11,8 +11,8 @@
     var inSeason = md >= 515 && md <= 915;
     chip.className = 'chip pl-chip-wrap' + (inSeason ? ' chip--warn' : '');
     chip.innerHTML = F.icon('calendar') + (inSeason
-      ? 'Saison läuft (Mitte Mai bis Mitte September)'
-      : 'Ausserhalb der Saison Mitte Mai bis Mitte September');
+      ? 'Saison: bei guter Witterung täglich Sprungbetrieb'
+      : 'Ausserhalb der Saison: trotzdem immer mit Sprungbetrieb rechnen');
     chip.title = 'Es muss immer mit Fallschirmsprungbetrieb gerechnet werden.';
   }
 

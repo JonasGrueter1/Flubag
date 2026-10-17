@@ -122,13 +122,19 @@
         });
         F.$('.duel-row__hint', row).textContent = diffText(m, a, b);
       });
-      var s = [];
       var dv = b.specs.cruiseKmh - a.specs.cruiseKmh;
-      if (dv) s.push('Die ' + (dv > 0 ? b.reg : a.reg) + ' ist im Reiseflug rund ' + F.num(Math.abs(dv)) + ' km/h schneller');
       var dp = b.price1 - a.price1;
-      if (dp) s.push((s.length ? 'die ' : 'Die ') + (dp > 0 ? a.reg : b.reg) + ' kostet ' + F.chf(Math.abs(dp)) + ' pro Stunde weniger (Preis 1)');
-      else s.push((s.length ? 'beide ' : 'Beide ') + 'kosten gleich viel (Preis 1)');
-      F.$('[data-duel-summary]', rowsEl).textContent = s.join(', ') + '.';
+      var fast = dv ? (dv > 0 ? b.reg : a.reg) : '';
+      var cheap = dp ? (dp > 0 ? a.reg : b.reg) : '';
+      var speedTxt = 'im Reiseflug rund ' + F.num(Math.abs(dv)) + ' km/h schneller';
+      var priceTxt = 'kostet ' + F.chf(Math.abs(dp)) + ' pro Stunde weniger (Preis 1)';
+      var txt;
+      if (fast && cheap && fast === cheap) txt = 'Die ' + fast + ' ist ' + speedTxt + ' und ' + priceTxt;
+      else if (fast && cheap) txt = 'Die ' + fast + ' ist ' + speedTxt + ', die ' + cheap + ' ' + priceTxt;
+      else if (fast) txt = 'Die ' + fast + ' ist ' + speedTxt + ', bei gleichem Mietpreis (Preis 1)';
+      else if (cheap) txt = 'Beide sind im Reiseflug gleich schnell, die ' + cheap + ' ' + priceTxt;
+      else txt = 'Beide sind gleich schnell und kosten gleich viel (Preis 1)';
+      F.$('[data-duel-summary]', rowsEl).textContent = txt + '.';
     }
     duel.addEventListener('change', function (e) { if (e.target.name === 'duel-a' || e.target.name === 'duel-b') render(); });
     var swap = F.$('[data-duel-swap]', duel);

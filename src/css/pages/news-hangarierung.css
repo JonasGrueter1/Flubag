@@ -1,5 +1,11 @@
 /* Hangarierung: Regel-Box und interaktiver Schiebetür-Check */
 .hangar-hero .page-hero__media img { object-position: 50% 55%; }
+/* Nebelbild ist sehr hell: Overlay etwas kräftiger, damit Eyebrow und Lead lesbar bleiben */
+.hangar-hero::after {
+  background:
+    linear-gradient(180deg, rgba(6, 11, 22, 0.62) 0%, rgba(6, 11, 22, 0.32) 38%, rgba(6, 11, 22, 0.9) 100%),
+    linear-gradient(90deg, rgba(6, 11, 22, 0.78) 0%, rgba(6, 11, 22, 0.12) 70%);
+}
 .hangar-title { hyphens: manual; -webkit-hyphens: manual; }
 .hangar-body { align-items: center; }
 
@@ -52,3 +58,7 @@
   .door-check__label { font-size: 17px; letter-spacing: 0.02em; }
   .door-check__label--zone { font-size: 15px; }
 }
+
+/* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
+.page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
+.page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }

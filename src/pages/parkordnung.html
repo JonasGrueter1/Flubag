@@ -28,6 +28,10 @@
       <span class="chip chip--warn"><x-icon name="parachute"></x-icon>4, 8, 11, 14 gesperrt bei Sprungbetrieb</span>
       <span class="chip"><x-icon name="fan"></x-icon>Propellerwind nie in den Hangar</span>
     </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#plan" data-magnetic><x-icon name="map"></x-icon>Zum Plan</a>
+      <a class="btn btn--ghost btn--lg" href="#check"><x-icon name="parking-meter"></x-icon>Welche Felder sind frei?</a>
+    </div>
   </div>
 </section>
 
@@ -88,8 +92,8 @@
           </div>
         </div>
       </div>
-      <div class="po-grid" data-po-grid aria-live="polite"></div>
-      <p class="po-summary" data-po-summary></p>
+      <div class="po-grid" data-po-grid></div>
+      <p class="po-summary" data-po-summary aria-live="polite"></p>
       <ul class="po-notes" data-po-notes></ul>
       <p class="po-disclaimer subtle">Hilfsmittel nach Plan und Airport Briefing. Massgebend sind Plan, Markierungen vor Ort und Flugplatzleitung.</p>
     </div>
@@ -131,7 +135,7 @@
       <div class="po-hangar__badge instrument hud-corners" data-reveal="scale">
         <span class="readout__label">Faustregel</span>
         <span class="po-hangar__value">+<span data-count="2">2</span> m</span>
-        <span class="mono subtle">aus den Schiebetüren</span>
+        <span class="mono subtle">weiter schieben oder ziehen</span>
       </div>
     </div>
     <div class="stack-l">
@@ -160,6 +164,7 @@
       <a class="pl-link" href="airport-briefing.html" data-reveal><x-icon name="book-open" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Airport Briefing</span><span class="pl-link__text">Gefahren, Sprungbetrieb, Start und Landung</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
       <a class="pl-link" href="piste-33.html" data-reveal><x-icon name="plane-landing" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Anflug und Abflug Piste 33</span><span class="pl-link__text">Sechs Schritte mit Luftbildern</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
       <a class="pl-link" href="sprungbetrieb.html" data-reveal><x-icon name="parachute" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Regeln Sprungbetrieb</span><span class="pl-link__text">Motorflugzeuge und Helikopter</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
+      <a class="pl-link" href="weisungen.html" data-reveal><x-icon name="scale" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Weisung Piloten 2026</span><span class="pl-link__text">Betriebszeiten und Feiertage</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
     </div>
   </div>
 </section>

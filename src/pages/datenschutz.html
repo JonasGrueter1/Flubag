@@ -96,9 +96,9 @@
     <article class="legal-row" id="formulare" aria-labelledby="formulare-title">
       <header class="legal-row__head" data-reveal><span class="legal-row__num mono">03</span><h2 id="formulare-title" class="legal-row__title">Formulare und E-Mail</h2></header>
       <div class="prose" data-reveal>
-        <p>Auf dieser Website kannst du uns über Formulare schreiben, zum Beispiel für Kontakt, Schnupperflug, Rundflug und Infoabend. Dabei bearbeiten wir die Angaben, die du selbst eingibst, etwa Name, E-Mail-Adresse, Telefonnummer, Wunschtermin und deine Nachricht.</p>
+        <p>Auf dieser Website kannst du uns über Formulare schreiben, zum Beispiel für Kontakt, Schnupperflug, Rundflug, Infoabend und die Ereignismeldung (Reporting) an die FLUBAG. Dabei bearbeiten wir die Angaben, die du selbst eingibst, etwa Name, E-Mail-Adresse, Telefonnummer, Wunschtermin und deine Nachricht. Eine Ereignismeldung kannst du auch ohne Name und Kontakt, also anonym, abschicken.</p>
         <ul>
-          <li><strong>Zweck:</strong> Wir verwenden deine Angaben ausschliesslich, um deine Anfrage zu bearbeiten, einen Termin zu vereinbaren und dich dafür zu kontaktieren. Angaben wie das Körpergewicht beim Schnupperflug brauchen wir nur für die Gewichts- und Schwerpunktberechnung des Flugzeugs.</li>
+          <li><strong>Zweck:</strong> Wir verwenden deine Angaben ausschliesslich, um deine Anfrage zu bearbeiten, einen Termin zu vereinbaren und dich dafür zu kontaktieren. Angaben wie das Körpergewicht beim Schnupperflug oder das Gesamtgewicht beim Rundflug brauchen wir nur für die Gewichts- und Schwerpunktberechnung des Flugzeugs.</li>
           <li><strong>Übermittlung:</strong> Die Angaben werden verschlüsselt an unseren Webserver gesendet und von dort per E-Mail an <a href="mailto:{{site.email}}">{{site.email}}</a> weitergeleitet. Klappt das nicht, öffnet sich dein E-Mail-Programm mit einer vorbereiteten Nachricht. Diese sendest du dann selbst über deinen E-Mail-Anbieter.</li>
           <li><strong>Spam-Schutz:</strong> Wir nutzen ein unsichtbares Kontrollfeld und eine Zeitprüfung, keine externen Captcha-Dienste. Um Missbrauch zu verhindern, speichert der Server beim Absenden kurzzeitig einen Prüfwert (Hash) deiner IP-Adresse mit dem Zeitpunkt. So lassen sich höchstens zehn Anfragen pro Stunde senden.</li>
           <li><strong>Aufbewahrung:</strong> Wir bewahren deine Anfrage so lange auf, wie es für die Bearbeitung nötig ist. Kommt ein Flug oder eine Ausbildung zustande, gelten die gesetzlichen Aufbewahrungspflichten, zum Beispiel für die Buchhaltung.</li>
@@ -129,6 +129,7 @@
             <tbody>
               <tr><td><code>flubag-theme</code></td><td>Merkt sich, ob du den hellen oder dunklen Modus gewählt hast.</td><td>localStorage, bis du ihn löschst</td></tr>
               <tr><td><code>flubag-gift</code></td><td>Entwurf deines Gutscheins im Gutschein-Designer (Auswahl, Betrag, Namen und Widmung), damit nichts verloren geht.</td><td>localStorage, bis du ihn löschst</td></tr>
+              <tr><td><code>flubag-briefing-favs</code></td><td>Deine Favoriten im Schnellzugriff der Seite Briefing Links.</td><td>localStorage, bis du ihn löschst</td></tr>
               <tr><td><code>flubag-intro</code></td><td>Merkt sich, dass die Intro-Animation der Startseite schon gelaufen ist.</td><td>sessionStorage, bis du den Tab schliesst</td></tr>
               <tr><td><code>flubag-wx-v1</code></td><td>Zwischenspeicher der Wetterdaten, damit sie nicht bei jedem Seitenwechsel neu geladen werden (10 Minuten gültig).</td><td>sessionStorage, bis du den Tab schliesst</td></tr>
             </tbody>
@@ -190,7 +191,7 @@
         <span class="service__icon"><x-icon name="map"></x-icon></span>
         <div class="service__body">
           <div class="service__top"><h3 class="service__name">swisstopo</h3><span class="chip chip--warn">lädt automatisch</span></div>
-          <p>Kartenkacheln (Landeskarte, Luftbild, ICAO-Karte) des Bundesamts für Landestopografie in den Karten auf den Seiten <a href="anreise.html">Anreise</a> und <a href="rundfluege.html">Rundflüge</a>. Technisch bedingt erhält der Kartenserver deine IP-Adresse.</p>
+          <p>Kartenkacheln (Landeskarte, Luftbild, ICAO-Karte) des Bundesamts für Landestopografie in den Karten auf den Seiten <a href="anreise.html">Anreise</a>, <a href="rundfluege.html">Rundflüge</a> und <a href="weisungen.html">Weisung Piloten</a>. Technisch bedingt erhält der Kartenserver deine IP-Adresse.</p>
           <a class="service__link" href="https://www.swisstopo.admin.ch/" target="_blank" rel="noopener">swisstopo.admin.ch <x-icon name="arrow-up-right"></x-icon></a>
         </div>
       </article>
@@ -198,7 +199,7 @@
         <span class="service__icon"><x-icon name="camera"></x-icon></span>
         <div class="service__body">
           <div class="service__top"><h3 class="service__name">Webcams</h3><span class="chip chip--warn">lädt automatisch</span></div>
-          <p>Die Webcam-Bilder Süd und West kommen direkt vom Server der FLUBAG (flubag.ch). Das Bild der Paraclub-Webcam auf der Seite <a href="webcams.html">Webcams</a> wird vom Server des Paraclub Beromünster geladen, der dabei ebenfalls deine IP-Adresse erhält.</p>
+          <p>Die Webcam-Bilder Süd und West auf der Startseite und den Seiten Webcams und Briefing Links kommen direkt vom Server der FLUBAG (flubag.ch). Das Bild der Paraclub-Webcam auf der Seite <a href="webcams.html">Webcams</a> wird vom Server des Paraclub Beromünster geladen, der dabei ebenfalls deine IP-Adresse erhält.</p>
         </div>
       </article>
       <article class="service" data-reveal>

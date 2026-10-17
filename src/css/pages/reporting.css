@@ -186,3 +186,7 @@ body:has(.site-header.is-hidden) .rp-filter { top: 72px; }
   .rp-call--main { padding: 18px; }
   .rp-list li { grid-template-columns: 28px 1fr; }
 }
+
+/* Hero bleibt auch im hellen Modus dunkel: Chip-Farben dort hell halten (sonst dunkelrot/-grün auf Dunkelblau) */
+.page-hero .chip--bad, [data-theme="light"] .page-hero .chip--bad { color: #fca5a5; border-color: rgba(252, 165, 165, 0.55); background: rgba(248, 113, 113, 0.1); }
+.page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; border-color: rgba(110, 231, 183, 0.5); background: rgba(52, 211, 153, 0.08); }

@@ -147,3 +147,12 @@ a.pl-hazard:hover { transform: translateX(4px); }
 [data-theme="light"] .pl-rules--warn > li.is-warn::before { color: #b91c1c; }
 [data-theme="light"] .po-summary .mono { color: #047857; }
 [data-theme="light"] .pl-hazard--none .icon, [data-theme="light"] .pl-radar .icon { color: #059669; }
+
+/* Seitenwind-Widget: Werte für Piste 33 und 15 über die volle Breite, damit "6 kt Gegenw. · 2 kt von links" nicht mehrfach umbricht */
+.xwind__data > .readout:nth-child(3),
+.xwind__data > .readout:nth-child(4) { grid-column: 1 / -1; }
+@media (min-width: 641px) {
+  .xwind { grid-template-columns: minmax(0, 200px) 1fr; gap: 20px; }
+  .xwind__data > .readout:nth-child(3) .readout__value,
+  .xwind__data > .readout:nth-child(4) .readout__value { font-size: 1.1rem; }
+}

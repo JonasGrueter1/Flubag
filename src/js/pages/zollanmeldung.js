@@ -26,9 +26,9 @@
   function nowMs() { var z = F.zurich(new Date()); return Date.UTC(z.y, z.m - 1, z.d, z.h, z.min); }
   function iso(p) { return p.y + '-' + F.pad(p.m) + '-' + F.pad(p.d); }
   function hm(p) { return F.pad(p.h) + ':' + F.pad(p.min); }
-  function dur(min) {
+  function dur(min, dativ) {
     var h = Math.floor(min / 60), m = min % 60;
-    if (h >= 48) return Math.floor(h / 24) + ' Tagen';
+    if (h >= 48) return Math.floor(h / 24) + (dativ ? ' Tagen' : ' Tage');
     return (h ? h + ' h ' : '') + m + ' min';
   }
 
@@ -78,7 +78,7 @@
     if (plan < now) {
       count.className = 'zl-out__count is-late'; count.textContent = 'Die geplante Zeit liegt in der Vergangenheit';
     } else if (diff < 0) {
-      count.className = 'zl-out__count is-late'; count.textContent = 'Frist seit ' + dur(-diff) + ' abgelaufen. Bitte sofort anrufen.';
+      count.className = 'zl-out__count is-late'; count.textContent = 'Frist seit ' + dur(-diff, true) + ' abgelaufen. Bitte sofort anrufen.';
     } else {
       count.className = 'zl-out__count' + (diff < 30 ? ' is-soon' : ''); count.textContent = (diff === 0 ? 'Jetzt abschicken' : 'Noch ' + dur(diff) + ' bis zur Frist');
     }

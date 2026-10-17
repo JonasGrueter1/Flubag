@@ -110,7 +110,8 @@
         'Landetaxen (' + s.lands + '): ' + money(r.land),
         'Total: ' + money(r.total)
       ].join('\n');
-      if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { F.toast('Schätzung kopiert'); }, function () { F.toast('Kopieren nicht möglich'); });
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { F.toast('Schätzung kopiert'); }, function () { F.toast('Kopieren nicht möglich'); });
+      else F.toast('Kopieren nicht möglich');
     }
   });
 

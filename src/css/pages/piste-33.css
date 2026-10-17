@@ -106,3 +106,9 @@
   .p33-step__num { width: 46px; height: 46px; }
   .p33-step__head { gap: 14px; }
 }
+
+/* Live-Wind in der halben Spalte: kleinere Kompassrose, damit die Pistenwerte auf eine Zeile passen */
+@media (min-width: 641px) {
+  .p33-xwind .xwind { grid-template-columns: minmax(0, 180px) 1fr; gap: 20px; }
+  .p33-xwind .xwind__data .readout__value { font-size: 1.1rem; }
+}

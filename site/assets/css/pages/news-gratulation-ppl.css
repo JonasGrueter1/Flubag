@@ -60,3 +60,7 @@
   .ppl-hero.article-hero .page-hero__inner > h1 { max-width: 7em; }
   .ppl-hero.article-hero .page-hero__inner > .lead { max-width: 38ch; }
 }
+
+/* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
+.page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
+.page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }

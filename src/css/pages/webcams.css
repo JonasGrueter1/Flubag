@@ -40,8 +40,8 @@
 @media (prefers-reduced-motion: reduce) { .wc-cam.is-live .wc-cam__progress > span { animation: none; } }
 
 /* ---------- Wetter ---------- */
-.wc-wx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(14px, 2vw, 22px); align-items: stretch; }
-.wc-panel { display: grid; gap: 22px; align-content: start; padding: clamp(22px, 2.6vw, 34px); }
+.wc-wx { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(14px, 2vw, 22px); align-items: stretch; }
+.wc-panel { display: grid; gap: 22px; grid-template-rows: auto auto auto 1fr; align-content: start; padding: clamp(22px, 2.6vw, 34px); }
 .wc-panel__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 0.74rem; letter-spacing: 0.1em; }
 .wc-panel__hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: center; }
 .wc-icon:not(.is-set) { opacity: 0.3; }
@@ -54,11 +54,14 @@
 .wc-windrose__ring { fill: none; stroke: currentColor; stroke-opacity: 0.25; stroke-width: 1.5; }
 .wc-windrose__n { font-family: var(--font-mono); font-size: 9px; fill: currentColor; opacity: 0.6; text-anchor: middle; dominant-baseline: middle; }
 .wc-windrose__arrow { fill: var(--brand-hi); transform-origin: 50px 50px; transition: transform 1.2s var(--ease-out); }
-.wc-panel__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px 16px; padding-top: 20px; border-top: 1px solid rgba(160, 190, 230, 0.16); }
+.wc-panel__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 20px 16px; padding-top: 20px; border-top: 1px solid rgba(160, 190, 230, 0.16); }
 [data-theme="light"] .wc-panel__grid { border-top-color: var(--line); }
 .wc-panel__grid .readout__value { font-size: 1.05rem; overflow-wrap: anywhere; }
-.wc-panel__note { font-size: 0.78rem; opacity: 0.65; line-height: 1.5; }
+.wc-panel__note { align-self: end; font-size: 0.78rem; opacity: 0.65; line-height: 1.5; }
 .wc-xwind { gap: 18px; }
+.wc-xwind .xwind { grid-template-columns: minmax(0, 190px) minmax(0, 1fr); gap: 22px; }
+.wc-xwind .xwind__data { gap: 14px 18px; }
+.wc-xwind .xwind__data .readout__value { font-size: 1rem; }
 .wc-xwind__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
 .wc-xwind__head .mono { font-size: 0.78rem; }
 @media (max-width: 1100px) { .wc-wx { grid-template-columns: 1fr; } }

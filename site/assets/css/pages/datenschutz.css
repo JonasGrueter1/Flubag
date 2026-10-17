@@ -152,3 +152,7 @@
 
 /* Dunkle Panels auch im hellen Modus satt (statt halbtransparent) */
 .legal-plate.instrument, .storage-panel.instrument { background: linear-gradient(180deg, #101b2f, #080e1b); }
+
+/* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
+.page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
+.page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }

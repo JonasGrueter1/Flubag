@@ -16,6 +16,7 @@
   var INFO = {
     'flubag-theme': 'Hell- oder Dunkelmodus',
     'flubag-gift': 'Entwurf im Gutschein-Designer',
+    'flubag-briefing-favs': 'Favoriten auf der Seite Briefing Links',
     'flubag-intro': 'Intro der Startseite gesehen',
     'flubag-wx-v1': 'Wetterdaten, 10 Minuten Zwischenspeicher'
   };

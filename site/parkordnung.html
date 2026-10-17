@@ -256,6 +256,10 @@
       <span class="chip chip--warn"><svg class="icon icon-parachute" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11a10 9 0 0 1 20 0"/><path d="M2 11c1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0"/><path d="M2 11l8 7M7 11l3.5 7M17 11l-3.5 7M22 11l-8 7"/><rect x="10" y="17.5" width="4" height="4.5" rx="1"/></svg>4, 8, 11, 14 gesperrt bei Sprungbetrieb</span>
       <span class="chip"><svg class="icon icon-fan" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z" /> <path d="M12 12v.01" /> </svg>Propellerwind nie in den Hangar</span>
     </div>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#plan" data-magnetic><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Zum Plan</a>
+      <a class="btn btn--ghost btn--lg" href="#check"><svg class="icon icon-parking-meter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 15h2" /> <path d="M12 12v3" /> <path d="M12 19v3" /> <path d="M15.282 19a1 1 0 0 0 .948-.68l2.37-6.988a7 7 0 1 0-13.2 0l2.37 6.988a1 1 0 0 0 .948.68z" /> <path d="M9 9a3 3 0 1 1 6 0" /> </svg>Welche Felder sind frei?</a>
+    </div>
   </div>
 </section>
 
@@ -316,8 +320,8 @@
           </div>
         </div>
       </div>
-      <div class="po-grid" data-po-grid aria-live="polite"></div>
-      <p class="po-summary" data-po-summary></p>
+      <div class="po-grid" data-po-grid></div>
+      <p class="po-summary" data-po-summary aria-live="polite"></p>
       <ul class="po-notes" data-po-notes></ul>
       <p class="po-disclaimer subtle">Hilfsmittel nach Plan und Airport Briefing. Massgebend sind Plan, Markierungen vor Ort und Flugplatzleitung.</p>
     </div>
@@ -359,7 +363,7 @@
       <div class="po-hangar__badge instrument hud-corners" data-reveal="scale">
         <span class="readout__label">Faustregel</span>
         <span class="po-hangar__value">+<span data-count="2">2</span> m</span>
-        <span class="mono subtle">aus den Schiebetüren</span>
+        <span class="mono subtle">weiter schieben oder ziehen</span>
       </div>
     </div>
     <div class="stack-l">
@@ -388,6 +392,7 @@
       <a class="pl-link" href="airport-briefing.html" data-reveal><svg class="icon icon-book-open pl-link__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v16" /> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /> </svg><span class="pl-link__body"><span class="pl-link__title">Airport Briefing</span><span class="pl-link__text">Gefahren, Sprungbetrieb, Start und Landung</span></span><svg class="icon icon-arrow-right pl-link__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
       <a class="pl-link" href="piste-33.html" data-reveal><svg class="icon icon-plane-landing pl-link__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg><span class="pl-link__body"><span class="pl-link__title">Anflug und Abflug Piste 33</span><span class="pl-link__text">Sechs Schritte mit Luftbildern</span></span><svg class="icon icon-arrow-right pl-link__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
       <a class="pl-link" href="sprungbetrieb.html" data-reveal><svg class="icon icon-parachute pl-link__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11a10 9 0 0 1 20 0"/><path d="M2 11c1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0"/><path d="M2 11l8 7M7 11l3.5 7M17 11l-3.5 7M22 11l-8 7"/><rect x="10" y="17.5" width="4" height="4.5" rx="1"/></svg><span class="pl-link__body"><span class="pl-link__title">Regeln Sprungbetrieb</span><span class="pl-link__text">Motorflugzeuge und Helikopter</span></span><svg class="icon icon-arrow-right pl-link__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+      <a class="pl-link" href="weisungen.html" data-reveal><svg class="icon icon-scale pl-link__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /> </svg><span class="pl-link__body"><span class="pl-link__title">Weisung Piloten 2026</span><span class="pl-link__text">Betriebszeiten und Feiertage</span></span><svg class="icon icon-arrow-right pl-link__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
     </div>
   </div>
 </section>

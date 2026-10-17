@@ -130,7 +130,7 @@
       var km = distKm(me, HOME), brg = bearing(me, HOME);
       var dirs = ['Norden', 'Nordosten', 'Osten', 'Südosten', 'Süden', 'Südwesten', 'Westen', 'Nordwesten'];
       var nm = km / 1.852;
-      say('Luftlinie <strong>' + (km < 10 ? km.toFixed(1) : Math.round(km)).toString().replace('.', ',') + ' km</strong> (' + Math.round(nm) + ' NM). Der Flugplatz liegt von dir aus Richtung ' + dirs[Math.round(brg / 45) % 8] + ' (' + F.pad3(Math.round(brg)) + '°). Die Strecke auf der Strasse ist länger.');
+      say('Luftlinie <strong>' + (km < 10 ? km.toFixed(1) : Math.round(km)).toString() + ' km</strong> (' + Math.round(nm) + ' NM). Der Flugplatz liegt von dir aus Richtung ' + dirs[Math.round(brg / 45) % 8] + ' (' + F.pad3(Math.round(brg)) + '°). Die Strecke auf der Strasse ist länger.');
       initMap();
       if (map && window.L) {
         if (meLayer) map.removeLayer(meLayer);

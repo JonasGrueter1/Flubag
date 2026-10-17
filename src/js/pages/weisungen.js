@@ -106,7 +106,7 @@
         var e = evaluate(key, m);
         if (curs[key]) curs[key].style.left = pct(m) + '%';
         verdicts[key].innerHTML =
-          '<h3 class="wz-verdict__title"><span>' + RULES[key].label + '</span><span class="chip chip--' + e.head[0] + '">' + e.head[1] + '</span></h3>' +
+          '<h3 class="wz-verdict__title"><span>' + RULES[key].label + '</span> <span class="visually-hidden">um ' + t(m) + ' Uhr: </span><span class="chip chip--' + e.head[0] + '">' + e.head[1] + '</span></h3>' +
           '<ul>' + e.rows.map(function (r) {
             return '<li><span class="dot dot--' + r[0] + '"></span><b>' + r[1] + '</b><span>' + F.escape(r[2]) + '</span></li>';
           }).join('') + '</ul>';

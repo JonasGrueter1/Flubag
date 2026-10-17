@@ -27,6 +27,7 @@ const AIRPORT_PAGES = {
   'Airport Briefing': 'airport-briefing.html',
   'Briefing Links': 'briefing-links.html',
   'Reporting': 'reporting.html',
+  'Safety Policy': 'safety-policy.html',
 };
 
 // "Section 9, Part 2" -> 9.2 ; Dokumente ohne Abschnittsnummer bleiben vorne
@@ -136,7 +137,7 @@ export function pages(DATA) {
     const page = AIRPORT_PAGES[s];
     return `
         <div class="dk-sub dk-sub--ap" data-dk-subsec>
-          <h5 class="dk-sub__title">${esc(s)}<span class="dk-sub__n mono">${list.length}</span>${page ? `<a class="dk-sub__page" href="${page}">Zur Seite <x-icon name="arrow-right"></x-icon></a>` : ''}</h5>
+          <h4 class="dk-sub__title">${esc(s)}<span class="dk-sub__n mono">${list.length}</span>${page ? `<a class="dk-sub__page" href="${page}">Zur Seite <x-icon name="arrow-right"></x-icon></a>` : ''}</h4>
           <ul class="dk-list">
           ${list.map((d) => item(d, { meta: [s] })).join('\n          ')}
           </ul>
@@ -256,7 +257,7 @@ export function pages(DATA) {
       <div class="stack">
         <p class="eyebrow">Pilotenportal</p>
         <h2 id="portal-title" class="dk-portal__title">pilots.flubag.ch</h2>
-        <p class="lead">Die Dokumente dieser Bibliothek stammen aus dem Pilotenportal der FLUBAG. Dort sind sie nach Flugzeugen, Syllabi, Familiarization und Newsletter geordnet. Piloten mit Zugang melden sich mit ihrem Login an.</p>
+        <p class="lead">Die Handbücher, Checklisten, Syllabi, Familiarizations und Newsletter dieser Bibliothek stammen aus dem Pilotenportal der FLUBAG. Dort sind sie nach Flugzeugen, Syllabi, Familiarization und Newsletter geordnet. Piloten mit Zugang melden sich mit ihrem Login an.</p>
         <div class="row">
           <a class="btn btn--primary" href="${esc(portal)}" target="_blank" rel="noopener"><x-icon name="arrow-up-right"></x-icon>Pilotenportal öffnen</a>
           <a class="btn btn--ghost" href="https://pilots.flubag.ch/user/login" target="_blank" rel="noopener"><x-icon name="log-in"></x-icon>Login</a>
