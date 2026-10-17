@@ -58,12 +58,14 @@ export function pages(DATA) {
           </li>`;
   };
 
+  // Kopf einer Gruppe: summary des Akkordeons (nur Inline-Inhalt und Überschrift erlaubt)
   const groupHead = (g, n) => `
-      <header class="dk-group__head">
+      <summary class="dk-group__head">
         <span class="dk-group__icon"><x-icon name="${g.icon}"></x-icon></span>
-        <div class="dk-group__intro"><h3 id="g-${g.id}" class="dk-group__title">${g.label}</h3><p class="dk-group__text">${g.text}</p></div>
+        <span class="dk-group__intro"><h3 id="g-${g.id}" class="dk-group__title">${g.label}</h3><span class="dk-group__text">${g.text}</span></span>
         <span class="dk-group__n mono"><span data-dk-gn>${n}</span> <span data-dk-gw>${n === 1 ? 'Datei' : 'Dateien'}</span></span>
-      </header>`;
+        <span class="dk-chev" aria-hidden="true"></span>
+      </summary>`;
 
   // ---------- Flugzeuge ----------
   const planes = fleet.map((a) => {
@@ -81,23 +83,28 @@ export function pages(DATA) {
             </ul>
           </div>`;
     }).join('');
+    const mini = SECTIONS.map((sec) => { const k = own.filter((d) => d.section === sec.key).length; return k ? `${sec.key} ${k}` : ''; }).filter(Boolean).join(' · ');
     return `
-      <article class="dk-plane" id="flugzeug-${a.id}" data-dk-plane="${a.id}" data-dk-subsec-group aria-labelledby="dk-${a.id}" data-reveal>
-        <header class="dk-plane__head">
-          <div class="dk-plane__img"><x-img src="${a.image}" alt="${esc(a.variant)} ${a.reg}" sizes="160px"></x-img></div>
-          <div class="dk-plane__name">
-            <p class="dk-plane__reg mono">${a.reg} · ${own.length} Dokumente</p>
+      <details class="dk-plane" id="flugzeug-${a.id}" data-dk-plane="${a.id}" data-dk-subsec-group>
+        <summary class="dk-plane__head">
+          <span class="dk-plane__img"><x-img src="${a.image}" alt="${esc(a.variant)} ${a.reg}" sizes="120px"></x-img></span>
+          <span class="dk-plane__name">
+            <span class="dk-plane__reg mono">${a.reg} · <span data-dk-pn>${own.length}</span> Dokumente</span>
             <h4 id="dk-${a.id}" class="dk-plane__type">${esc(a.type)}</h4>
-            <p class="dk-plane__variant">${esc(a.variant)} · ${a.seats} Plätze</p>
-          </div>
+            <span class="dk-plane__variant">${esc(a.variant)} · ${a.seats} Plätze</span>
+          </span>
+          <span class="dk-plane__mini mono">${esc(mini)}</span>
+          <span class="dk-chev" aria-hidden="true"></span>
+        </summary>
+        <div class="dk-plane__body">
           <div class="dk-plane__links">
             <a class="btn btn--ghost btn--sm" href="flugzeug-${a.id}.html"><x-icon name="plane"></x-icon>Zum Flugzeug</a>
             ${a.portal ? `<a class="btn btn--text btn--sm" href="${esc(a.portal)}" target="_blank" rel="noopener">Im Pilotenportal <x-icon name="arrow-up-right"></x-icon></a>` : ''}
           </div>
-        </header>
-        <div class="dk-plane__secs">${secs}
+          <div class="dk-plane__secs">${secs}
+          </div>
         </div>
-      </article>`;
+      </details>`;
   }).join('');
 
   // ---------- Syllabi und Familiarization als Karten ----------
@@ -173,32 +180,29 @@ export function pages(DATA) {
     <h1 data-split data-split-now>Dokumente &amp; Newsletter.</h1>
     <p class="lead">Flughandbücher, Checklisten und Handbücher der Flotte, Syllabi, Familiarization, alle Newsletter und die Dokumente zum Flugplatz. Durchsuchbar an einem Ort, als PDF oder Excel.</p>
     <div class="page-hero__meta">
-      <span class="chip"><x-icon name="files"></x-icon><span data-count="${total}">${total}</span>&nbsp;Dokumente</span>
+      <span class="chip"><x-icon name="files"></x-icon>${total}&nbsp;Dokumente</span>
       <span class="chip"><x-icon name="plane"></x-icon>${fleet.length} Flugzeuge</span>
+      <a class="chip dk-hero__portal" href="#pilotenportal"><x-icon name="log-in"></x-icon>Pilotenportal</a>
       ${latest ? `<a class="chip chip--brand dk-hero__latest" href="${esc(latest.d.url)}" target="_blank" rel="noopener"><x-icon name="newspaper"></x-icon>Neu: Newsletter ${latest.year}/${latest.no}</a>` : ''}
-    </div>
-    <div class="row mt-s">
-      <a class="btn btn--primary btn--lg" href="#bibliothek" data-magnetic><x-icon name="search"></x-icon>Bibliothek durchsuchen</a>
-      <a class="btn btn--ghost btn--lg" href="#pilotenportal"><x-icon name="log-in"></x-icon>Pilotenportal</a>
     </div>
   </div>
 </section>
 
-<section class="section dk-lib" id="bibliothek" aria-labelledby="lib-title">
+<section class="section dk-sec dk-lib" id="bibliothek" aria-labelledby="lib-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split dk-head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Bibliothek</p>
         <h2 id="lib-title" data-split>Alle Unterlagen, ein Suchfeld.</h2>
       </div>
-      <p class="lead" data-reveal>Kennzeichen, Typ, Stichwort oder Jahr eintippen, zum Beispiel «HB-CQL», «Checklist», «Mass» oder «2024». Die Filter grenzen nach Gruppe und Flugzeug ein.</p>
+      <p class="lead" data-reveal>Kennzeichen, Typ, Stichwort oder Jahr eintippen, zum Beispiel «HB-CQL», «Checklist», «Mass» oder «2024». Die Filter grenzen nach Gruppe und Flugzeug ein, die Gruppen lassen sich auf- und zuklappen.</p>
     </div>
 
     <div class="dk-toolbar" data-dk-toolbar hidden>
       <div class="dk-search">
         <label class="visually-hidden" for="dk-q">Dokumente durchsuchen</label>
         <x-icon name="search"></x-icon>
-        <input class="input" id="dk-q" type="search" placeholder="Suchen: HB-CQL, Checklist, Newsletter 2024 …" autocomplete="off" data-dk-q>
+        <input class="input" id="dk-q" type="search" placeholder="Suchen, z.B. HB-CQL, Checklist, 2024" autocomplete="off" data-dk-q>
         <kbd class="dk-search__kbd" aria-hidden="true">/</kbd>
       </div>
       <div class="dk-chips" role="group" aria-label="Nach Gruppe filtern">
@@ -214,32 +218,42 @@ export function pages(DATA) {
     </div>
 
     <div class="dk-groups">
-      <section class="dk-group" id="flugzeuge" data-dk-sec="flugzeug" aria-labelledby="g-flugzeuge">${groupHead(GROUPS[0], count('flugzeug'))}
+      <details class="dk-group" id="flugzeuge" data-dk-sec="flugzeug" open>${groupHead(GROUPS[0], count('flugzeug'))}
+      <div class="dk-group__body">
       <div class="dk-planes">${planes}
       </div>
-      </section>
+      </div>
+      </details>
 
-      <section class="dk-group" id="syllabi" data-dk-sec="syllabus" aria-labelledby="g-syllabi">${groupHead(GROUPS[1], count('syllabus'))}
-      <ul class="dk-list dk-list--cards" style="--n: ${count('syllabus')}" data-dk-subsec data-reveal-group="0.06">
+      <details class="dk-group" id="syllabi" data-dk-sec="syllabus">${groupHead(GROUPS[1], count('syllabus'))}
+      <div class="dk-group__body">
+      <ul class="dk-list dk-list--cards" style="--n: ${count('syllabus')}" data-dk-subsec>
         ${cards('syllabus', 'Syllabus', /^Syllabus\s+/)}
       </ul>
-      </section>
+      </div>
+      </details>
 
-      <section class="dk-group" id="familiarization" data-dk-sec="familiarization" aria-labelledby="g-familiarization">${groupHead(GROUPS[2], count('familiarization'))}
-      <ul class="dk-list dk-list--cards" style="--n: ${count('familiarization')}" data-dk-subsec data-reveal-group="0.06">
+      <details class="dk-group" id="familiarization" data-dk-sec="familiarization">${groupHead(GROUPS[2], count('familiarization'))}
+      <div class="dk-group__body">
+      <ul class="dk-list dk-list--cards" style="--n: ${count('familiarization')}" data-dk-subsec>
         ${cards('familiarization', 'Familiarization', /^Familiarization\s+/)}
       </ul>
-      </section>
+      </div>
+      </details>
 
-      <section class="dk-group" id="newsletter" data-dk-sec="newsletter" aria-labelledby="g-newsletter">${groupHead(GROUPS[3], count('newsletter'))}
+      <details class="dk-group" id="newsletter" data-dk-sec="newsletter">${groupHead(GROUPS[3], count('newsletter'))}
+      <div class="dk-group__body">
       <div class="dk-years">${newsHtml}
       </div>
-      </section>
+      </div>
+      </details>
 
-      <section class="dk-group" id="flugplatz" data-dk-sec="flugplatz" aria-labelledby="g-flugplatz">${groupHead(GROUPS[4], count('flugplatz'))}
+      <details class="dk-group" id="flugplatz" data-dk-sec="flugplatz">${groupHead(GROUPS[4], count('flugplatz'))}
+      <div class="dk-group__body">
       <div class="dk-ap">${apSecs}
       </div>
-      </section>
+      </div>
+      </details>
     </div>
 
     <div class="dk-empty" data-dk-empty hidden>
@@ -251,7 +265,7 @@ export function pages(DATA) {
   </div>
 </section>
 
-<section class="section section--alt section--glow" id="pilotenportal" aria-labelledby="portal-title">
+<section class="section section--alt section--glow dk-sec" id="pilotenportal" aria-labelledby="portal-title">
   <div class="container">
     <div class="dk-portal" data-reveal>
       <div class="stack">
@@ -273,9 +287,9 @@ export function pages(DATA) {
   </div>
 </section>
 
-<section class="section" aria-labelledby="mehr-title">
+<section class="section dk-sec" aria-labelledby="mehr-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head dk-head">
       <p class="eyebrow" data-reveal>Im Pilotenbereich</p>
       <h2 id="mehr-title" data-split>Mehr für Piloten.</h2>
     </div>

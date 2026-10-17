@@ -16,10 +16,6 @@
   var today = F.status.dayRules(now.y, now.m, now.d, now.wd);
   var dusk = window.SunCalc ? today.dusk : null;
 
-  // Uhrzeiger in der Hero-Grafik
-  var hand = $('.wz-deco__hand');
-  if (hand) hand.style.transform = 'rotate(' + (now.minutes / 1440 * 360) + 'deg)';
-
   // ---------- Tagesleiste Werktag / Sonntag ----------
   var RULES = {
     werktag: { open: 480, limit: 1260, land: 1290, pause: [720, 780], circuits: 1170, label: 'Montag bis Samstag' },

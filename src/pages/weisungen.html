@@ -9,13 +9,6 @@
 } -->
 
 <section class="page-hero page-hero--chart page-hero--compact wz-hero">
-  <svg class="page-hero__deco wz-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-    <circle cx="200" cy="200" r="176" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="2 44.08" opacity="0.6"/>
-    <circle cx="200" cy="200" r="160" fill="none" stroke="currentColor" stroke-width="2" opacity="0.35"/>
-    <path class="wz-deco__arc" d="M338.56 280 A160 160 0 1 1 86.86 86.86" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
-    <circle cx="200" cy="200" r="6" fill="currentColor"/>
-    <path class="wz-deco__hand" d="M200 200 L200 70" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-  </svg>
   <div class="container page-hero__inner">
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Weisung Piloten 2026</li></ol>
     <p class="eyebrow">Gültig für den Flugbetrieb 2026</p>
@@ -26,10 +19,6 @@
       <span class="chip"><x-icon name="clock"></x-icon>Mo bis Sa ab 08:00</span>
       <span class="chip"><x-icon name="calendar"></x-icon>So ab 09:00</span>
       <span class="chip chip--warn"><x-icon name="volume-x"></x-icon>Mittagspause ohne Starts</span>
-    </div>
-    <div class="row mt-s">
-      <a class="btn btn--primary btn--lg" href="#zeiten" data-magnetic><x-icon name="clock"></x-icon>Betriebszeiten</a>
-      <a class="btn btn--ghost btn--lg" href="#feiertage"><x-icon name="calendar"></x-icon>Feiertage mit Daten</a>
     </div>
   </div>
 </section>
@@ -49,25 +38,16 @@
 </nav>
 
 <section class="section" id="grundlage" aria-labelledby="grundlage-title">
-  <div class="container split split--wide-left split--top">
+  <div class="container wz-intro">
     <div class="stack">
       <p class="eyebrow" data-reveal>Grundlage</p>
       <h2 id="grundlage-title" data-split>Eine Vereinbarung mit zwei Gemeinden.</h2>
       <p class="lead" data-reveal>Die Flubag hat am 13. Dezember 2010 mit den Gemeinden Neudorf und Beromünster eine Vereinbarung betreffend des Betriebs des Flugplatzes Luzern-Beromünster unterzeichnet.</p>
       <p data-reveal>Die vorliegenden Weisungen sind ein Auszug aus dem Betriebsreglement und dieser Vereinbarung und enthalten diejenigen Festlegungen, die von jedem Piloten individuell zu befolgen sind.</p>
-      <div class="notice notice--brand" data-reveal>
-        <x-icon name="scale"></x-icon>
-        <div><p><strong>Zusätzliche Weisungen jederzeit möglich.</strong></p><p>Zur Einhaltung der Bestimmungen der Vereinbarung mit den Gemeinden, namentlich des jährlichen Lärmkontingents und der Bewegungszahlen, kann die Flubag bei Bedarf jederzeit zusätzliche Weisungen verfügen.</p></div>
-      </div>
     </div>
-    <div class="instrument hud-corners wz-facts" data-reveal="scale">
-      <div class="wz-facts__head"><span class="mono">LSZO · Weisung</span><span class="status-pill wz-facts__pill"><span class="dot dot--ok"></span>2026</span></div>
-      <div class="wz-facts__grid">
-        <div class="readout"><span class="readout__label">Vereinbarung seit</span><span class="readout__value"><span data-count="2010" data-count-nosep data-count-from="1966">2010</span></span><span class="wz-facts__sub">13. Dezember 2010</span></div>
-        <div class="readout"><span class="readout__label">Gemeinden</span><span class="readout__value"><span data-count="2">2</span></span><span class="wz-facts__sub">Neudorf und Beromünster</span></div>
-        <div class="readout"><span class="readout__label">Feiertage mit Sonntagsregel</span><span class="readout__value"><span data-count="17">17</span></span><span class="wz-facts__sub">davon 5 mit Zusatzregel</span></div>
-        <div class="readout"><span class="readout__label">Rundflug mindestens</span><span class="readout__value"><span data-count="15">15</span><small> min</small></span><span class="wz-facts__sub">pro Rundflug</span></div>
-      </div>
+    <div class="notice notice--brand" data-reveal>
+      <x-icon name="scale"></x-icon>
+      <div><p><strong>Zusätzliche Weisungen jederzeit möglich.</strong></p><p>Zur Einhaltung der Bestimmungen der Vereinbarung mit den Gemeinden, namentlich des jährlichen Lärmkontingents und der Bewegungszahlen, kann die Flubag bei Bedarf jederzeit zusätzliche Weisungen verfügen.</p></div>
     </div>
   </div>
 </section>
@@ -79,10 +59,34 @@
         <p class="eyebrow" data-reveal>Betriebszeiten</p>
         <h2 id="zeiten-title" data-split>Werktag und Sonntag auf einen Blick.</h2>
       </div>
-      <p class="lead" data-reveal>Zieh den Regler auf eine Uhrzeit und sieh sofort, was an einem Werktag und was an einem Sonntag oder Feiertag gilt. Die Abenddämmerung ist für heute berechnet.</p>
+      <p class="lead" data-reveal>Betriebszeiten und Einschränkungen gemäss Weisung. Darunter zeigt der Zeitregler, was zu einer bestimmten Uhrzeit gilt. Die Abenddämmerung ist für heute berechnet.</p>
+    </div>
+
+    <div class="grid grid-2 wz-rules-grid" data-reveal-group="0.1">
+      <article class="card card--pad wz-rules" data-reveal>
+        <div class="wz-rules__head"><span class="wz-rules__icon"><x-icon name="briefcase"></x-icon></span><div><p class="eyebrow eyebrow--plain">Werktage</p><h3>Betriebszeiten Montag bis Samstag</h3></div></div>
+        <p class="wz-rules__time">08.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 21.00 Uhr, Landungen bis 21.30 Uhr</p>
+        <h4 class="wz-rules__sub">Einschränkungen</h4>
+        <ul class="checklist">
+          <li><x-icon name="clock"></x-icon><span>Zwischen 12.00 und 13.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
+          <li><x-icon name="rotate-ccw"></x-icon><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>Nach 19.30 h keine Platzrunden erlaubt.</strong></span></li>
+          <li><x-icon name="helicopter"></x-icon><span>Helikopter: Nach 18.00 Uhr maximal 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
+        </ul>
+      </article>
+      <article class="card card--pad wz-rules wz-rules--sun" data-reveal>
+        <div class="wz-rules__head"><span class="wz-rules__icon"><x-icon name="sun"></x-icon></span><div><p class="eyebrow eyebrow--plain">Sonntag</p><h3>Betriebszeiten Sonntag</h3></div></div>
+        <p class="wz-rules__time">09.00 Uhr bis 12.00 Uhr, 14.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 20.00 Uhr, Landungen bis 21.00 Uhr</p>
+        <h4 class="wz-rules__sub">Einschränkungen</h4>
+        <ul class="checklist">
+          <li><x-icon name="clock"></x-icon><span>Zwischen 12.00 und 14.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
+          <li><x-icon name="rotate-ccw"></x-icon><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>keine Platzrunden erlaubt.</strong></span></li>
+          <li><x-icon name="helicopter"></x-icon><span>Helikopter: Nach 18.00 h max. 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
+        </ul>
+      </article>
     </div>
 
     <div class="wz-board instrument hud-corners" data-wz-board data-reveal>
+      <h3 class="wz-board__title">Was gilt um welche Uhrzeit?</h3>
       <div class="wz-board__top">
         <div class="range wz-range">
           <div class="range__head"><label for="wz-time" class="readout__label">Uhrzeit</label><span class="range__value" data-wz-time-out>12:00</span></div>
@@ -136,50 +140,24 @@
       <p class="wz-board__foot">Berechnet aus dieser Weisung. Ohne Gewähr: Massgebend sind Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>
     </div>
 
-    <div class="grid grid-2 mt-l" data-reveal-group="0.1">
-      <article class="card card--pad wz-rules" data-reveal>
-        <div class="wz-rules__head"><span class="wz-rules__icon"><x-icon name="briefcase"></x-icon></span><div><p class="eyebrow eyebrow--plain">Werktage</p><h3>Betriebszeiten Montag bis Samstag</h3></div></div>
-        <p class="wz-rules__time">08.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 21.00 Uhr, Landungen bis 21.30 Uhr</p>
-        <h4 class="wz-rules__sub">Einschränkungen</h4>
-        <ul class="checklist">
-          <li><x-icon name="clock"></x-icon><span>Zwischen 12.00 und 13.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
-          <li><x-icon name="rotate-ccw"></x-icon><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>Nach 19.30 h keine Platzrunden erlaubt.</strong></span></li>
-          <li><x-icon name="helicopter"></x-icon><span>Helikopter: Nach 18.00 Uhr maximal 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
-        </ul>
-      </article>
-      <article class="card card--pad wz-rules wz-rules--sun" data-reveal>
-        <div class="wz-rules__head"><span class="wz-rules__icon"><x-icon name="sun"></x-icon></span><div><p class="eyebrow eyebrow--plain">Sonntag</p><h3>Betriebszeiten Sonntag</h3></div></div>
-        <p class="wz-rules__time">09.00 Uhr bis 12.00 Uhr, 14.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 20.00 Uhr, Landungen bis 21.00 Uhr</p>
-        <h4 class="wz-rules__sub">Einschränkungen</h4>
-        <ul class="checklist">
-          <li><x-icon name="clock"></x-icon><span>Zwischen 12.00 und 14.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
-          <li><x-icon name="rotate-ccw"></x-icon><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>keine Platzrunden erlaubt.</strong></span></li>
-          <li><x-icon name="helicopter"></x-icon><span>Helikopter: Nach 18.00 h max. 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="woche" aria-labelledby="woche-title" data-live="status">
-  <div class="container split split--wide-right split--top">
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Live</p>
-        <h2 id="woche-title" data-split>Die nächsten sieben Tage.</h2>
-        <p class="lead" data-reveal>Die Betriebszeiten der kommenden Woche, mit Abenddämmerung, Mittagspause und Feiertagen automatisch berechnet.</p>
+    <div class="wz-live" id="woche" data-live="status">
+      <div class="wz-live__head" data-reveal>
+        <h3 id="woche-title">Die nächsten sieben Tage.</h3>
+        <p class="muted">Die Betriebszeiten der kommenden Woche, mit Abenddämmerung, Mittagspause und Feiertagen automatisch berechnet.</p>
       </div>
-      <div class="card wz-status" data-airfield-status data-reveal></div>
-    </div>
-    <div class="instrument hud-corners wz-week" data-reveal="scale">
-      <div class="wz-week__head"><span class="readout__label">Betriebszeiten · Zeit Zürich</span><span class="status-pill"><span class="dot dot--ok"></span>live</span></div>
-      <div class="hours-week" data-hours-week></div>
-      <p class="wz-week__foot">Grün: Starts erlaubt. Gelb schraffiert: Mittagspause ohne Starts. Sonn- und Feiertage mit 12:00 bis 14:00 Pause. * Feiertag.</p>
+      <div class="wz-live__grid">
+        <div class="card wz-status" data-airfield-status data-reveal></div>
+        <div class="instrument hud-corners wz-week" data-reveal="scale">
+          <div class="wz-week__head"><span class="readout__label">Betriebszeiten · Zeit Zürich</span><span class="status-pill"><span class="dot dot--ok"></span>live</span></div>
+          <div class="hours-week" data-hours-week></div>
+          <p class="wz-week__foot">Grün: Starts erlaubt. Gelb schraffiert: Mittagspause ohne Starts. Sonn- und Feiertage mit 12:00 bis 14:00 Pause. * Feiertag.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section section--alt section--chart" id="feiertage" aria-labelledby="feiertage-title">
+<section class="section section--chart" id="feiertage" aria-labelledby="feiertage-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
@@ -218,36 +196,34 @@
           <li>Eidgenössischer Bettag</li>
           <li>Weihnachten (25. Dezember)</li>
         </ul>
-        <div class="notice notice--warn mt-m">
-          <x-icon name="timer"></x-icon>
-          <div><p>Erlaubt: Flüge ab 60 Minuten Dauer oder Flüge von und nach andern Plätzen.</p></div>
-        </div>
       </article>
     </div>
 
-    <div class="wz-cal mt-l" data-reveal>
-      <div class="wz-cal__head">
-        <div class="stack">
-          <h3>Die Daten im Kalender</h3>
-          <p class="muted">Bewegliche Feiertage wie Ostern, Auffahrt, Pfingsten, Fronleichnam und Bettag werden automatisch berechnet.</p>
-        </div>
-        <div class="segmented" role="radiogroup" aria-label="Jahr wählen" data-wz-years></div>
-      </div>
+    <div class="wz-cal" data-reveal>
       <p class="wz-cal__next" data-wz-next hidden></p>
-      <div class="table-wrap">
-        <table class="table wz-table">
-          <caption class="visually-hidden">Feiertage mit Sonntagsregel und ihre Daten</caption>
-          <thead><tr><th scope="col">Datum</th><th scope="col">Feiertag</th><th scope="col">Regel</th><th scope="col" class="num">Status</th></tr></thead>
-          <tbody data-wz-holidays>
-            <tr><td colspan="4" class="muted">Die Daten werden berechnet. Ohne JavaScript gelten die Listen oben.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <details class="wz-cal__more">
+        <summary><x-icon name="calendar"></x-icon><span>Alle Feiertage mit Datum anzeigen</span><span class="wz-cal__hint muted">Bewegliche Feiertage automatisch berechnet</span></summary>
+        <div class="wz-cal__body">
+          <div class="wz-cal__head">
+            <p class="muted">Bewegliche Feiertage wie Ostern, Auffahrt, Pfingsten, Fronleichnam und Bettag werden automatisch berechnet.</p>
+            <div class="segmented" role="radiogroup" aria-label="Jahr wählen" data-wz-years></div>
+          </div>
+          <div class="table-wrap">
+            <table class="table wz-table">
+              <caption class="visually-hidden">Feiertage mit Sonntagsregel und ihre Daten</caption>
+              <thead><tr><th scope="col">Datum</th><th scope="col">Feiertag</th><th scope="col">Regel</th><th scope="col" class="num">Status</th></tr></thead>
+              <tbody data-wz-holidays>
+                <tr><td colspan="4" class="muted">Die Daten werden berechnet. Ohne JavaScript gelten die Listen oben.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </section>
 
-<section class="section" id="absetzflugzeug" aria-labelledby="absetz-title">
+<section class="section section--alt" id="absetzflugzeug" aria-labelledby="absetz-title">
   <div class="container split split--top">
     <div class="stack sticky">
       <p class="eyebrow" data-reveal>Fallschirm-Absetzflugzeug</p>
@@ -266,7 +242,7 @@
   </div>
 </section>
 
-<section class="section section--alt" id="helikopter" aria-labelledby="heli-title">
+<section class="section" id="helikopter" aria-labelledby="heli-title">
   <div class="container split split--wide-right">
     <div class="stack">
       <p class="eyebrow" data-reveal>Helikopter</p>
@@ -284,25 +260,24 @@
   </div>
 </section>
 
-<section class="section" id="diverses" aria-labelledby="diverses-title">
+<section class="section section--alt" id="diverses" aria-labelledby="diverses-title">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow" data-reveal>Diverse Bestimmungen</p>
       <h2 id="diverses-title" data-split>Leise fliegen ist Teamarbeit.</h2>
-      <p class="lead" data-reveal>Sechs Bestimmungen, die einen lärmarmen und nachbarschaftsfreundlichen Flugbetrieb sichern.</p>
     </div>
-    <div class="grid grid-3 wz-misc" data-reveal-group="0.07">
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">01</span><x-icon name="volume-1" class="wz-misc__icon"></x-icon><p>Die Piloten treffen ständig die notwendigen und möglichen betrieblichen Vorkehrungen, um einen lärmarmen Betrieb zu fördern und umzusetzen, insbesondere betreffend Einhalten der Volten und Optimierung der Flugverfahren.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">02</span><x-icon name="ban" class="wz-misc__icon"></x-icon><p>Es sind keine Bewegungen mit Flugzeugen der Lärmklasse A erlaubt.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">03</span><x-icon name="church" class="wz-misc__icon"></x-icon><p>Während der Dauer von Beerdigungen sind Starts und Landungen über Neudorf zu unterlassen. Entsprechende Ankündigungen erfolgen im C-Büro.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">04</span><x-icon name="plane-landing" class="wz-misc__icon"></x-icon><p>Lärmintensive STOL-Anflüge und STOL-Starts sind auf ein Minimum zu beschränken (Notfall / Schulung).</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">05</span><x-icon name="route" class="wz-misc__icon"></x-icon><p>Für Rundflüge in der Umgebung des Flugplatzes sind verschiedene Flugwege abwechslungsweise zu befliegen.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">06</span><x-icon name="timer" class="wz-misc__icon"></x-icon><p>Die einzelnen Rundflüge müssen mindestens 15 Minuten betragen.</p></article>
-    </div>
+    <ol class="wz-misc" data-reveal-group="0.06">
+      <li data-reveal><x-icon name="volume-1" class="wz-misc__icon"></x-icon><p>Die Piloten treffen ständig die notwendigen und möglichen betrieblichen Vorkehrungen, um einen lärmarmen Betrieb zu fördern und umzusetzen, insbesondere betreffend Einhalten der Volten und Optimierung der Flugverfahren.</p></li>
+      <li data-reveal><x-icon name="ban" class="wz-misc__icon"></x-icon><p>Es sind keine Bewegungen mit Flugzeugen der Lärmklasse A erlaubt.</p></li>
+      <li data-reveal><x-icon name="church" class="wz-misc__icon"></x-icon><p>Während der Dauer von Beerdigungen sind Starts und Landungen über Neudorf zu unterlassen. Entsprechende Ankündigungen erfolgen im C-Büro.</p></li>
+      <li data-reveal><x-icon name="plane-landing" class="wz-misc__icon"></x-icon><p>Lärmintensive STOL-Anflüge und STOL-Starts sind auf ein Minimum zu beschränken (Notfall / Schulung).</p></li>
+      <li data-reveal><x-icon name="route" class="wz-misc__icon"></x-icon><p>Für Rundflüge in der Umgebung des Flugplatzes sind verschiedene Flugwege abwechslungsweise zu befliegen.</p></li>
+      <li data-reveal><x-icon name="timer" class="wz-misc__icon"></x-icon><p>Die einzelnen Rundflüge müssen mindestens 15 Minuten betragen.</p></li>
+    </ol>
   </div>
 </section>
 
-<section class="section section--alt section--tight" aria-labelledby="mehr-title">
+<section class="section section--tight" aria-labelledby="mehr-title">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow" data-reveal>Weiterführend</p>

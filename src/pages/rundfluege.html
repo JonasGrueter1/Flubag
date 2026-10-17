@@ -15,14 +15,14 @@
       <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Rundflüge &amp; Gutscheine</li><li>Rundflüge</li></ol>
       <p class="eyebrow">Rundflüge ab Luzern-Beromünster</p>
       <h1 id="rf-title" data-split data-split-now>Die Alpen zum Greifen nah.</h1>
-      <p class="lead">Lehn dich zurück und schau hinunter: auf Seen, Städte, Gletscher und Viertausender. Fünf Routen von 20 Minuten über Luzern bis zum grossen Alpenflug zum Matterhorn. Bis zu drei Gäste an Bord, am Steuer ein erfahrener Pilot.</p>
+      <p class="lead">Lehn dich zurück und schau hinunter: auf Seen, Städte, Gletscher und Viertausender. Am Steuer sitzt ein erfahrener Pilot.</p>
       <div class="page-hero__meta">
         <span class="chip"><x-icon name="timer"></x-icon>20 bis 90 Minuten</span>
         <span class="chip"><x-icon name="users"></x-icon>1 bis 3 Passagiere</span>
         <span class="chip chip--brand"><x-icon name="tag"></x-icon>ab CHF 120 pro Person</span>
       </div>
-      <div class="row mt-s">
-        <a class="btn btn--primary btn--lg" href="#karte" data-magnetic><x-icon name="route"></x-icon>Route wählen</a>
+      <div class="row">
+        <a class="btn btn--primary btn--lg" href="#karte"><x-icon name="route"></x-icon>Route wählen</a>
         <a class="btn btn--ghost btn--lg" href="gutscheine.html#gestalten"><x-icon name="gift"></x-icon>Als Gutschein verschenken</a>
       </div>
     </div>
@@ -35,277 +35,211 @@
       </ol>
     </aside>
   </div>
-  <a class="scroll-cue" href="#karte" aria-label="Weiter zur Routenkarte"><span></span></a>
+  <a class="scroll-cue" href="#karte" aria-label="Weiter zu den Routen"><span></span></a>
 </section>
 
 <nav class="subnav" data-subnav aria-label="Inhalt dieser Seite">
   <div class="container">
     <ul class="subnav__list">
-      <li><a href="#karte">Routenkarte</a></li>
-      <!-- @each data.rundfluege as r -->
-      <li><a href="#{{r.id}}">{{r.name}}</a></li>
-      <!-- @end -->
+      <li><a href="#karte">Routen &amp; Karte</a></li>
       <li><a href="#infos">Gut zu wissen</a></li>
       <li><a href="#gutscheine">Gutscheine</a></li>
       <li><a href="#anfrage">Anfrage</a></li>
-      <li><a href="#faq">FAQ</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Routenkarte -->
-<section class="section section--chart rf-map-section" id="karte" aria-labelledby="karte-title">
+<!-- Routen: Auswahl, Details und Karte in einem -->
+<section class="section section--chart rf-sec" id="karte" aria-labelledby="karte-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split rf-head">
       <div class="stack">
-        <p class="eyebrow" data-reveal>Routenkarte</p>
+        <p class="eyebrow" data-reveal>Fünf Routen</p>
         <h2 id="karte-title" data-split>Wähle deine Route.</h2>
       </div>
-      <p class="lead" data-reveal>Tippe auf eine Route und flieg sie auf der Karte ab. Die Linien zeigen den typischen Flugweg. Die genaue Route besprichst du vor dem Start mit deinem Piloten, sie wird zudem dem Wetter angepasst.</p>
+      <p class="lead" data-reveal>Die Linie auf der Karte zeigt den typischen Flugweg. Die genaue Route besprichst du vor dem Start mit deinem Piloten, sie wird zudem dem Wetter angepasst.</p>
     </div>
 
-    <div class="rf-explorer" data-rf-explorer data-reveal>
-      <div class="rf-picker" role="group" aria-label="Route auf der Karte zeigen">
-        <button class="rf-pick rf-pick--all" type="button" data-rf-pick="all" aria-pressed="true">
-          <span class="rf-pick__num mono"><x-icon name="map"></x-icon></span>
-          <span class="rf-pick__body"><span class="rf-pick__name">Alle Routen</span><span class="rf-pick__meta mono">Übersicht</span></span>
-        </button>
+    <div class="rf-tour" data-rf-tour data-reveal>
+      <div class="rf-tabs" role="tablist" aria-label="Rundflug-Routen" data-rf-tabs hidden>
         <!-- @each data.rundfluege as r -->
-        <button class="rf-pick" type="button" data-rf-pick="{{r.id}}" aria-pressed="false">
-          <span class="rf-pick__num mono">0{{loop.number}}</span>
-          <span class="rf-pick__body">
-            <span class="rf-pick__name">{{r.name}}</span>
-            <span class="rf-pick__meta mono">{{r.duration}} min · {{r.price | chf}} · <span data-rf-dist="{{r.id}}">ca. … km</span></span>
-          </span>
-          <span class="rf-pick__go" aria-hidden="true"><x-icon name="play"></x-icon></span>
+        <button class="rf-tab" type="button" role="tab" id="tab-{{r.id}}" aria-controls="{{r.id}}" aria-selected="false" tabindex="-1" data-rf-tab="{{r.id}}">
+          <span class="rf-tab__num mono" aria-hidden="true">0{{loop.number}}</span>
+          <span class="rf-tab__name">{{r.name}}</span>
+          <span class="rf-tab__meta mono">{{r.duration}} min · {{r.price | chf}}</span>
         </button>
         <!-- @end -->
       </div>
 
-      <div class="rf-mapwrap">
-        <div class="map rf-map" data-rf-map role="region" aria-label="Karte mit den fünf Rundflug-Routen ab Luzern-Beromünster" tabindex="0">
-          <div class="rf-map__fallback" data-rf-fallback aria-hidden="true"></div>
-        </div>
-        <div class="map-layers rf-layers" role="group" aria-label="Kartentyp">
-          <button type="button" data-rf-layer="karte" aria-pressed="true">Landeskarte</button>
-          <button type="button" data-rf-layer="luftbild" aria-pressed="false">Luftbild</button>
-          <button type="button" data-rf-layer="icao" aria-pressed="false">ICAO</button>
-        </div>
-        <p class="rf-map__hint mono" data-rf-touch-hint hidden>Karte mit zwei Fingern verschieben und zoomen</p>
-        <p class="rf-map__offline chip" data-rf-offline hidden><x-icon name="wifi-off"></x-icon>Kartenhintergrund nicht verfügbar</p>
+      <div class="rf-stage">
+        <div class="rf-panels">
+          <!-- @each data.rundfluege as r -->
+          <article class="rf-route" id="{{r.id}}" data-rf-route="{{r.id}}" aria-labelledby="{{r.id}}-title">
+            <div class="media-frame rf-route__frame">
+              <!-- @if r.id == "luzern" --><x-img src="{{r.image}}" alt="Luftaufnahme der Luzerner Altstadt mit Reuss, Kapellbrücke und Seebecken" sizes="(max-width: 1023px) 100vw, 620px"></x-img><!-- @endif -->
+              <!-- @if r.id == "pilatus-rigi" --><x-img src="{{r.image}}" alt="Blick unter dem Flügel hindurch auf die Rigi mit dem Sendeturm, dahinter die Alpen" sizes="(max-width: 1023px) 100vw, 620px"></x-img><!-- @endif -->
+              <!-- @if r.id == "titlis" --><x-img src="{{r.image}}" alt="Verschneite Gletscher und Grate am Titlis aus der Luft" sizes="(max-width: 1023px) 100vw, 620px"></x-img><!-- @endif -->
+              <!-- @if r.id == "eiger-moench-jungfrau" --><x-img src="{{r.image}}" alt="Verschneite Gipfel im Berner Oberland unter dem Flügel des Flugzeugs" sizes="(max-width: 1023px) 100vw, 620px"></x-img><!-- @endif -->
+              <!-- @if r.id == "matterhorn" --><x-img src="{{r.image}}" alt="Blick aus dem Cockpit über Wolken und Gletscher zum Matterhorn" sizes="(max-width: 1023px) 100vw, 620px"></x-img><!-- @endif -->
+            </div>
 
-        <div class="rf-hud instrument force-dark" data-rf-hud aria-live="polite">
-          <div class="rf-hud__id">
-            <span class="mono rf-hud__code" data-rf-hud-code>LSZO · 5 ROUTEN</span>
-            <p class="rf-hud__title" data-rf-hud-title>Alle Routen</p>
-            <p class="rf-hud__note" data-rf-hud-note>Wähle eine Route, das Flugzeug fliegt sie für dich ab.</p>
-          </div>
-          <div class="rf-hud__grid">
-            <div class="readout"><span class="readout__label">Dauer</span><span class="readout__value" data-rf-hud-dur>20 bis 90 <small>min</small></span></div>
-            <div class="readout"><span class="readout__label">Preis p.P.</span><span class="readout__value" data-rf-hud-price><small>ab</small> CHF 120</span></div>
-            <div class="readout"><span class="readout__label">Distanz ca.</span><span class="readout__value" data-rf-hud-dist>…</span></div>
-          </div>
-          <div class="rf-hud__side">
-            <button class="rf-hud__replay" type="button" data-rf-replay hidden><x-icon name="rotate-ccw"></x-icon><span>Nochmals</span></button>
-            <div class="rf-hud__actions" data-rf-hud-actions hidden>
-              <a class="btn btn--primary btn--sm" href="#anfrage" data-rf-request="" data-rf-hud-request><x-icon name="calendar"></x-icon>Anfragen</a>
-              <a class="btn btn--ghost btn--sm" href="#karte" data-rf-hud-details>Details <x-icon name="arrow-down"></x-icon></a>
+            <div class="rf-route__body">
+              <p class="eyebrow">Route 0{{loop.number}} · {{r.title}}</p>
+              <h3 class="rf-route__title" id="{{r.id}}-title">{{r.name}}</h3>
+              <p class="rf-route__teaser">{{r.teaser}}</p>
+              <p class="rf-route__text">{{r.text}}</p>
+
+              <ul class="rf-highlights" aria-label="Unterwegs zu sehen">
+                <!-- @each r.highlights as h -->
+                <li><x-icon name="map-pin"></x-icon>{{h}}</li>
+                <!-- @end -->
+              </ul>
+
+              <dl class="rf-facts">
+                <div class="rf-fact"><dt>Dauer</dt><dd>{{r.duration}} <small>min</small></dd></div>
+                <div class="rf-fact"><dt>Preis pro Person</dt><dd><small>CHF</small> {{r.price}}</dd></div>
+                <div class="rf-fact rf-fact--km"><dt>Distanz ca.</dt><dd><span data-rf-km="{{r.id}}">…</span> <small>km</small></dd></div>
+              </dl>
+
+              <div class="row rf-route__actions">
+                <a class="btn btn--primary" href="#anfrage" data-rf-request="{{r.id}}"><x-icon name="calendar"></x-icon>Termin anfragen</a>
+                <a class="btn btn--ghost" href="{{r.shop}}" target="_blank" rel="noopener"><x-icon name="gift"></x-icon>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
+              </div>
+
+              <p class="rf-gift"><x-icon name="gift"></x-icon><span>
+                <!-- @if r.id == "luzern" -->Verschenke einen Rundflug über Luzern: Die Beschenkten überfliegen das Seetal und schauen voraus auf das Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.<!-- @endif -->
+                <!-- @if r.id == "pilatus-rigi" -->Verschenke 30 Minuten über dem satten Grün der Innerschweiz: vom gut zugänglichen Flugplatz Luzern-Beromünster über den glitzernden Sempachersee zu Rigi und Pilatus, den beiden Hausbergen Luzerns, und zurück.<!-- @endif -->
+                <!-- @if r.id == "titlis" -->Verschenke den Flug in die Innerschweizer Berge. Ob Mythen oder Titlis: Beide Steinmassive sind sehr sehenswert.<!-- @endif -->
+                <!-- @if r.id == "eiger-moench-jungfrau" -->Verschenke das UNESCO Welterbe von oben: Die Beschenkten werden bei diesem Flug Mund und Augen offen halten und Berge, Seen und Landschaften sehen, die sie verzaubern werden.<!-- @endif -->
+                <!-- @if r.id == "matterhorn" -->Verschenke den grossen Alpenflug: Den Abschluss machen der verwinkelte Vierwaldstättersee, der emporsteigende Pilatus und die Rigi. Ein Erlebnis, das keine Wünsche offen lässt.<!-- @endif -->
+              </span></p>
+            </div>
+          </article>
+          <!-- @end -->
+        </div>
+
+        <div class="rf-mapcol">
+          <div class="rf-mapwrap">
+            <div class="map rf-map" data-rf-map role="region" aria-label="Karte mit den fünf Rundflug-Routen ab Luzern-Beromünster" tabindex="0">
+              <div class="rf-map__fallback" data-rf-fallback aria-hidden="true"></div>
+            </div>
+            <div class="map-layers rf-layers" role="group" aria-label="Kartentyp">
+              <button type="button" data-rf-layer="karte" aria-pressed="true">Landeskarte</button>
+              <button type="button" data-rf-layer="luftbild" aria-pressed="false">Luftbild</button>
+              <button type="button" data-rf-layer="icao" aria-pressed="false">ICAO</button>
+            </div>
+            <p class="rf-map__hint mono" data-rf-touch-hint hidden>Karte mit zwei Fingern verschieben und zoomen</p>
+            <p class="rf-map__offline chip" data-rf-offline hidden><x-icon name="wifi-off"></x-icon>Kartenhintergrund nicht verfügbar</p>
+            <div class="rf-hud instrument force-dark" data-rf-hud>
+              <div class="rf-hud__id">
+                <span class="mono rf-hud__code" data-rf-hud-code>ROUTE 01 · LSZO</span>
+                <span class="rf-hud__title" data-rf-hud-title>Luzern</span>
+              </div>
+              <button class="rf-hud__replay" type="button" data-rf-replay><x-icon name="play"></x-icon><span data-rf-replay-label>Abfliegen</span></button>
+              <span class="rf-hud__bar" aria-hidden="true"><span class="rf-hud__fill" data-rf-hud-fill></span></span>
             </div>
           </div>
-          <span class="rf-hud__bar" aria-hidden="true"><span class="rf-hud__fill" data-rf-hud-fill></span></span>
+          <div class="rf-legend">
+            <ul aria-label="Legende">
+              <li><span class="rf-legend__sym rf-legend__sym--home" aria-hidden="true"></span>LSZO Beromünster: Start und Landung</li>
+              <li><span class="rf-legend__sym rf-legend__sym--line" aria-hidden="true"></span>Typischer Flugweg</li>
+              <li><span class="rf-legend__sym rf-legend__sym--trail" aria-hidden="true"></span>Bereits abgeflogen</li>
+              <li><span class="rf-legend__sym rf-legend__sym--wp" aria-hidden="true"></span>Wegpunkt mit Sehenswürdigkeit</li>
+            </ul>
+            <p class="rf-legend__note subtle">Distanzen sind Schätzungen: Luftlinie über die eingezeichneten Wegpunkte. Die tatsächliche Strecke hängt von Route, Wind und Wetter ab. Kartengrundlage © swisstopo.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="rf-legend">
-        <p class="rf-legend__title mono">Legende</p>
-        <ul>
-          <li><span class="rf-legend__sym rf-legend__sym--home" aria-hidden="true"></span>LSZO Beromünster: Start und Landung</li>
-          <li><span class="rf-legend__sym rf-legend__sym--line" aria-hidden="true"></span>Typischer Flugweg</li>
-          <li><span class="rf-legend__sym rf-legend__sym--trail" aria-hidden="true"></span>Bereits abgeflogen</li>
-          <li><span class="rf-legend__sym rf-legend__sym--wp" aria-hidden="true"></span>Wegpunkt mit Sehenswürdigkeit</li>
-        </ul>
-        <p class="rf-legend__note subtle">Distanzen sind Schätzungen: Luftlinie über die eingezeichneten Wegpunkte. Kartengrundlage © swisstopo.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Die fünf Routen -->
-<div class="rf-routes">
-  <!-- @each data.rundfluege as r -->
-  <article class="section rf-route<!-- @if loop.number == "2" --> section--alt<!-- @endif --><!-- @if loop.number == "4" --> section--alt<!-- @endif -->" id="{{r.id}}" data-rf-route="{{r.id}}" aria-labelledby="{{r.id}}-title">
-    <div class="container rf-route__grid">
-      <div class="rf-route__media">
-        <div class="media-frame rf-route__frame" data-reveal="clip">
-          <!-- @if r.id == "luzern" --><x-img src="{{r.image}}" alt="Luftaufnahme der Luzerner Altstadt mit Reuss, Kapellbrücke und Seebecken" sizes="(max-width: 860px) 100vw, 50vw" data-parallax="0.1"></x-img><!-- @endif -->
-          <!-- @if r.id == "pilatus-rigi" --><x-img src="{{r.image}}" alt="Blick unter dem Flügel hindurch auf die Rigi mit dem Sendeturm, dahinter die Alpen" sizes="(max-width: 860px) 100vw, 50vw" data-parallax="0.1"></x-img><!-- @endif -->
-          <!-- @if r.id == "titlis" --><x-img src="{{r.image}}" alt="Verschneite Gletscher und Grate am Titlis aus der Luft" sizes="(max-width: 860px) 100vw, 50vw" data-parallax="0.1"></x-img><!-- @endif -->
-          <!-- @if r.id == "eiger-moench-jungfrau" --><x-img src="{{r.image}}" alt="Verschneite Gipfel im Berner Oberland unter dem Flügel des Flugzeugs" sizes="(max-width: 860px) 100vw, 50vw" data-parallax="0.1"></x-img><!-- @endif -->
-          <!-- @if r.id == "matterhorn" --><x-img src="{{r.image}}" alt="Blick aus dem Cockpit über Wolken und Gletscher zum Matterhorn" sizes="(max-width: 860px) 100vw, 50vw" data-parallax="0.1"></x-img><!-- @endif -->
-          <span class="rf-route__badge chip"><x-icon name="timer"></x-icon>{{r.duration}} min</span>
-        </div>
-        <div class="rf-route__sketch" data-rf-sketch="{{r.id}}" data-reveal="fade" aria-hidden="true"></div>
-        <span class="rf-route__num" aria-hidden="true">0{{loop.number}}</span>
-      </div>
-
-      <div class="rf-route__body">
-        <p class="eyebrow" data-reveal>Route 0{{loop.number}} · {{r.title}}</p>
-        <h2 class="rf-route__title" id="{{r.id}}-title" data-split>{{r.name}}</h2>
-        <p class="lead rf-route__teaser" data-reveal>{{r.teaser}}</p>
-        <p class="rf-route__text" data-reveal>{{r.text}}</p>
-
-        <ul class="rf-highlights" aria-label="Unterwegs zu sehen" data-reveal-group="0.06">
-          <!-- @each r.highlights as h -->
-          <li data-reveal><x-icon name="map-pin"></x-icon>{{h}}</li>
-          <!-- @end -->
-        </ul>
-
-        <div class="rf-facts" data-reveal>
-          <div class="rf-fact"><span class="rf-fact__label">Dauer</span><span class="rf-fact__value"><span data-count="{{r.duration}}">{{r.duration}}</span><small>min</small></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Preis pro Person</span><span class="rf-fact__value"><small>CHF</small><span data-count="{{r.price}}">{{r.price}}</span></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Distanz (geschätzt)</span><span class="rf-fact__value"><small>ca.</small><span data-rf-km="{{r.id}}">…</span><small>km</small></span></div>
-        </div>
-
-        <div class="rf-calc" data-rf-calc="{{r.id}}" data-price="{{r.price}}" data-reveal>
-          <div class="rf-calc__q">
-            <span class="rf-calc__label" id="{{r.id}}-pers"><x-icon name="users"></x-icon>Anzahl Personen</span>
-            <div class="segmented rf-calc__seg" role="radiogroup" aria-labelledby="{{r.id}}-pers">
-              <label><input type="radio" name="calc-{{r.id}}" value="1" checked><span>1</span></label>
-              <label><input type="radio" name="calc-{{r.id}}" value="2"><span>2</span></label>
-              <label><input type="radio" name="calc-{{r.id}}" value="3"><span>3</span></label>
-            </div>
-          </div>
-          <div class="rf-calc__total">
-            <span class="rf-calc__label" data-rf-calc-note>Total für 1 Person</span>
-            <output class="rf-calc__sum" data-rf-calc-sum aria-live="polite">{{r.price | chf}}</output>
-          </div>
-        </div>
-
-        <div class="row rf-route__actions" data-reveal>
-          <a class="btn btn--primary" href="#anfrage" data-rf-request="{{r.id}}" data-magnetic><x-icon name="calendar"></x-icon>Termin anfragen</a>
-          <a class="btn btn--ghost" href="{{r.shop}}" target="_blank" rel="noopener"><x-icon name="gift"></x-icon>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
-          <a class="btn btn--text" href="#karte" data-rf-show="{{r.id}}"><x-icon name="map"></x-icon>Auf der Karte</a>
-        </div>
-
-        <p class="rf-gift" data-reveal><x-icon name="gift"></x-icon><span>
-          <!-- @if r.id == "luzern" -->Verschenke einen Rundflug über Luzern: Die Beschenkten überfliegen das Seetal und schauen voraus auf das Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.<!-- @endif -->
-          <!-- @if r.id == "pilatus-rigi" -->Verschenke 30 Minuten über dem satten Grün der Innerschweiz: vom gut zugänglichen Flugplatz Luzern-Beromünster über den glitzernden Sempachersee zu Rigi und Pilatus, den beiden Hausbergen Luzerns, und zurück.<!-- @endif -->
-          <!-- @if r.id == "titlis" -->Verschenke den Flug in die Innerschweizer Berge. Ob Mythen oder Titlis: Beide Steinmassive sind sehr sehenswert.<!-- @endif -->
-          <!-- @if r.id == "eiger-moench-jungfrau" -->Verschenke das UNESCO Welterbe von oben: Die Beschenkten werden bei diesem Flug Mund und Augen offen halten und Berge, Seen und Landschaften sehen, die sie verzaubern werden.<!-- @endif -->
-          <!-- @if r.id == "matterhorn" -->Verschenke den grossen Alpenflug: Den Abschluss machen der verwinkelte Vierwaldstättersee, der emporsteigende Pilatus und die Rigi. Ein Erlebnis, das keine Wünsche offen lässt.<!-- @endif -->
-        </span></p>
-      </div>
-    </div>
-  </article>
-  <!-- @end -->
-</div>
-
-<!-- Gut zu wissen -->
-<section class="section section--alt section--glow" id="infos" aria-labelledby="infos-title">
+<!-- Gut zu wissen und häufige Fragen -->
+<section class="section section--alt rf-sec" id="infos" aria-labelledby="infos-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split rf-head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Gut zu wissen</p>
         <h2 id="infos-title" data-split>Einsteigen, anschnallen, staunen.</h2>
       </div>
       <p class="lead" data-reveal>Für einen Rundflug brauchst du keine Vorkenntnisse. Um Wetter, Route, Gewicht und Schwerpunkt kümmert sich dein Pilot.</p>
     </div>
-    <div class="grid grid-3 rf-info" data-reveal-group="0.08">
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <x-icon name="plane" class="card__icon"></x-icon>
-        <h3 class="card__title">Cessna mit bis zu 3 Passagieren</h3>
-        <p class="card__text">Ihr fliegt in einer vierplätzigen Cessna: vorne links der Pilot, dazu bis zu drei Gäste. Der Preis gilt pro Person.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <x-icon name="user-check" class="card__icon"></x-icon>
-        <h3 class="card__title">Erfahrene Piloten</h3>
-        <p class="card__text">Unsere Rundflüge fliegen Privat- und Berufspiloten im Nebenamt. Du lehnst dich zurück und geniesst die Aussicht, um das Fliegen kümmert sich der Pilot.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <x-icon name="calendar-check" class="card__icon"></x-icon>
-        <h3 class="card__title">Nach Voranmeldung</h3>
-        <p class="card__text">Rundflüge finden nach Voranmeldung statt. Schick uns deine <a class="brand-text" href="#anfrage">Anfrage</a> oder ruf uns an: <a class="brand-text nowrap" href="tel:{{site.phoneHref}}">{{site.phone}}</a>.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <x-icon name="runway" class="card__icon"></x-icon>
-        <h3 class="card__title">Start und Landung in Beromünster</h3>
-        <p class="card__text">Jeder Rundflug beginnt und endet auf der Graspiste des Flugplatzes Luzern-Beromünster. Vorher oder nachher lockt das Restaurant Flüüger direkt am Flugplatz. <a class="brand-text" href="anreise.html">Anreise</a></p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <x-icon name="route" class="card__icon"></x-icon>
-        <h3 class="card__title">Route nach Absprache</h3>
-        <p class="card__text">Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst. Geflogen wird nur, wenn das Wetter passt.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <x-icon name="scale" class="card__icon"></x-icon>
-        <h3 class="card__title">Gewicht und Schwerpunkt</h3>
-        <p class="card__text">Vor jedem Flug berechnet der Pilot Gewicht und Schwerpunkt. Deshalb fragen wir in der Anfrage nach dem Gesamtgewicht aller Passagiere.</p>
-      </div>
-    </div>
 
-    <div class="rf-fleet mt-l" data-reveal-group="0.1">
-      <!-- @each data.flotte as a --><!-- @if a.id == "hb-cql" -->
-      <a class="rf-fleet__item card card--glow" href="flugzeug-{{a.id}}.html" data-reveal>
-        <span class="rf-fleet__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 640px) 40vw, 240px"></x-img></span>
-        <span class="rf-fleet__body"><span class="mono brand-text">{{a.reg}} · {{a.seats}} Plätze</span><span class="card__title">{{a.variant}}</span><span class="card__text">Reisegeschwindigkeit rund {{a.specs.cruiseKmh}} km/h</span></span>
-        <x-icon name="arrow-up-right" class="rf-fleet__go"></x-icon>
-      </a>
-      <!-- @endif --><!-- @end -->
-      <!-- @each data.flotte as a --><!-- @if a.id == "hb-czu" -->
-      <a class="rf-fleet__item card card--glow" href="flugzeug-{{a.id}}.html" data-reveal>
-        <span class="rf-fleet__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 640px) 40vw, 240px"></x-img></span>
-        <span class="rf-fleet__body"><span class="mono brand-text">{{a.reg}} · {{a.seats}} Plätze</span><span class="card__title">{{a.variant}}</span><span class="card__text">Reisegeschwindigkeit rund {{a.specs.cruiseKmh}} km/h</span></span>
-        <x-icon name="arrow-up-right" class="rf-fleet__go"></x-icon>
-      </a>
-      <!-- @endif --><!-- @end -->
-      <p class="rf-fleet__note muted" data-reveal>Für Rundflüge stehen in unserer <a class="brand-text" href="flotte.html">Flotte</a> die vierplätzigen Cessna 172 und Cessna 182 bereit.</p>
+    <div class="rf-know">
+      <div class="rf-know__main">
+        <ul class="rf-points" data-reveal-group="0.06">
+          <li class="rf-point" data-reveal>
+            <x-icon name="plane" class="rf-point__icon"></x-icon>
+            <div><h3 class="rf-point__title">Bis zu 3 Passagiere</h3><p>Ihr fliegt in einer vierplätzigen Cessna: vorne links der Pilot, dazu bis zu drei Gäste. Der Preis gilt pro Person.</p></div>
+          </li>
+          <li class="rf-point" data-reveal>
+            <x-icon name="user-check" class="rf-point__icon"></x-icon>
+            <div><h3 class="rf-point__title">Erfahrene Piloten</h3><p>Unsere Rundflüge fliegen Privat- und Berufspiloten im Nebenamt. Du lehnst dich zurück und geniesst die Aussicht, um das Fliegen kümmert sich der Pilot.</p></div>
+          </li>
+          <li class="rf-point" data-reveal>
+            <x-icon name="calendar-check" class="rf-point__icon"></x-icon>
+            <div><h3 class="rf-point__title">Nach Voranmeldung</h3><p>Rundflüge finden nach Voranmeldung statt. Schick uns deine <a href="#anfrage">Anfrage</a> oder ruf uns an: <a class="nowrap" href="tel:{{site.phoneHref}}">{{site.phone}}</a>.</p></div>
+          </li>
+          <li class="rf-point" data-reveal>
+            <x-icon name="runway" class="rf-point__icon"></x-icon>
+            <div><h3 class="rf-point__title">Start und Landung in Beromünster</h3><p>Jeder Rundflug beginnt und endet auf der Graspiste des Flugplatzes Luzern-Beromünster. Vorher oder nachher lockt das Restaurant Flüüger direkt am Flugplatz. <a href="anreise.html">Anreise</a></p></div>
+          </li>
+        </ul>
+
+        <div class="rf-fleet" data-reveal>
+          <p class="rf-fleet__note muted">Für Rundflüge stehen in unserer <a href="flotte.html">Flotte</a> die vierplätzigen Cessna 172 und Cessna 182 bereit.</p>
+          <div class="rf-fleet__list">
+            <!-- @each data.flotte as a --><!-- @if a.id == "hb-cql" -->
+            <a class="rf-fleet__item" href="flugzeug-{{a.id}}.html">
+              <span class="rf-fleet__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="120px"></x-img></span>
+              <span class="rf-fleet__body"><span class="mono brand-text">{{a.reg}} · {{a.seats}} Plätze</span><span class="rf-fleet__name">{{a.variant}}</span><span class="rf-fleet__text">Reisegeschwindigkeit rund {{a.specs.cruiseKmh}} km/h</span></span>
+              <x-icon name="arrow-up-right" class="rf-fleet__go"></x-icon>
+            </a>
+            <!-- @endif --><!-- @end -->
+            <!-- @each data.flotte as a --><!-- @if a.id == "hb-czu" -->
+            <a class="rf-fleet__item" href="flugzeug-{{a.id}}.html">
+              <span class="rf-fleet__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="120px"></x-img></span>
+              <span class="rf-fleet__body"><span class="mono brand-text">{{a.reg}} · {{a.seats}} Plätze</span><span class="rf-fleet__name">{{a.variant}}</span><span class="rf-fleet__text">Reisegeschwindigkeit rund {{a.specs.cruiseKmh}} km/h</span></span>
+              <x-icon name="arrow-up-right" class="rf-fleet__go"></x-icon>
+            </a>
+            <!-- @endif --><!-- @end -->
+          </div>
+        </div>
+      </div>
+
+      <div class="rf-know__faq" id="faq">
+        <h3 class="rf-know__title">Häufige Fragen</h3>
+        <div class="accordion" data-reveal>
+          <details class="acc"><summary>Kann ich die Route mitbestimmen?</summary><div class="acc__body"><p>Ja. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst. Beim Rundflug Titlis geht es zum Beispiel entweder an den Mythen vorbei oder zum Titlis.</p></div></details>
+          <details class="acc"><summary>Was passiert bei schlechtem Wetter?</summary><div class="acc__body"><p>Geflogen wird nur, wenn das Wetter passt. Sonst vereinbaren wir mit dir einen neuen Termin.</p></div></details>
+          <details class="acc"><summary>Warum fragt ihr nach dem Gewicht?</summary><div class="acc__body"><p>Vor jedem Flug berechnet der Pilot Gewicht und Schwerpunkt des Flugzeugs. Dafür braucht er das Gesamtgewicht aller Passagiere, deshalb fragen wir in der Anfrage danach.</p></div></details>
+          <details class="acc"><summary>Ich habe einen Gutschein. Wie buche ich?</summary><div class="acc__body"><p>Füll das <a href="#anfrage">Anfrageformular</a> aus und trag die Gutscheinnummer ein, oder ruf uns an unter <a class="nowrap" href="tel:{{site.phoneHref}}">{{site.phone}}</a>.</p></div></details>
+          <details class="acc"><summary>Warum fliegen Rundflüge nicht immer gleich?</summary><div class="acc__body"><p>Für einen möglichst lärmarmen Betrieb werden für Rundflüge in der Umgebung des Flugplatzes verschiedene Flugwege abwechslungsweise beflogen. Zudem dauert jeder Rundflug mindestens 15 Minuten.</p></div></details>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Gutscheine und Schnupperflug -->
-<section class="section rf-voucher" id="gutscheine" aria-labelledby="gutscheine-title">
-  <div class="container split">
-    <div class="rf-voucher__visual" data-reveal="scale">
-      <div class="pass" data-tilt="10" data-rf-pass aria-hidden="true">
-        <div class="pass__main">
-          <div class="pass__top"><span class="pass__brand"><img src="logo.svg" alt="">FLUBAG</span><span class="pass__label">Boarding Pass</span></div>
-          <div class="pass__route"><span class="pass__code">LSZO</span><span class="pass__line"><x-icon name="plane"></x-icon></span><span class="pass__code">LSZO</span></div>
-          <div class="pass__grid">
-            <div><p class="pass__label">Passagier</p><p class="pass__value">Für dich</p></div>
-            <div><p class="pass__label">Flug</p><p class="pass__value" data-rf-pass-name>Eiger, Mönch &amp; Jungfrau</p></div>
-            <div><p class="pass__label">Dauer</p><p class="pass__value" data-rf-pass-dur>60 min</p></div>
-          </div>
-          <p class="pass__msg">"Schenken. Abheben. Erleben."</p>
-        </div>
-        <div class="pass__stub">
-          <div><p class="pass__label">Start</p><p class="pass__value">Beromünster</p></div>
-          <p class="pass__price" data-rf-pass-price>CHF 290</p>
-          <div class="pass__barcode"></div>
-        </div>
-      </div>
-    </div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Gutscheine</p>
-        <h2 id="gutscheine-title" data-split>Schenken. Abheben. Erleben.</h2>
-        <p class="lead" data-reveal>Jeden Rundflug gibt es als Gutschein: online bestellen und direkt ausdrucken. Für das neue Zuhause, Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
-      </div>
-      <ul class="checklist" data-reveal-group>
-        <li data-reveal><x-icon name="check"></x-icon>print@home als PDF oder Postversand</li>
-        <li data-reveal><x-icon name="check"></x-icon>Gutschein aufs Smartphone laden (voucher2mobile)</li>
-        <li data-reveal><x-icon name="check"></x-icon>Wertgutschein mit freier Wahl: einlösbar für alle unsere Rundflüge und Schnupperflüge</li>
+<section class="section rf-sec" id="gutscheine" aria-labelledby="gutscheine-title">
+  <div class="container rf-voucher">
+    <div class="rf-voucher__text">
+      <p class="eyebrow" data-reveal>Gutscheine</p>
+      <h2 id="gutscheine-title" data-split>Schenken. Abheben. Erleben.</h2>
+      <p class="lead" data-reveal>Jeden Rundflug gibt es als Gutschein: online bestellen und direkt ausdrucken. Für das neue Zuhause, Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
+      <ul class="checklist" data-reveal>
+        <li><x-icon name="check"></x-icon>print@home als PDF oder Postversand</li>
+        <li><x-icon name="check"></x-icon>Gutschein aufs Smartphone laden (voucher2mobile)</li>
+        <li><x-icon name="check"></x-icon>Wertgutschein mit freier Wahl: einlösbar für alle unsere Rundflüge und Schnupperflüge</li>
       </ul>
       <div class="row" data-reveal>
         <a class="btn btn--primary" href="gutscheine.html#gestalten"><x-icon name="gift"></x-icon>Gutschein gestalten</a>
-        <a class="btn btn--text" href="{{site.shop}}" target="_blank" rel="noopener">Direkt zum Shop <x-icon name="arrow-up-right"></x-icon></a>
+        <a class="btn btn--text" href="{{site.shop}}" target="_blank" rel="noopener">Direkt zum Shop <x-icon name="arrow-up-right"></x-icon><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a>
       </div>
     </div>
-  </div>
-
-  <div class="container mt-xl">
     <a class="rf-discovery tile" href="schnupperflug.html" data-reveal>
-      <x-img src="schnupperflug/discovery-4" alt="Flugschülerin mit Karte am Steuer, daneben der Fluglehrer" sizes="(max-width: 860px) 100vw, 1320px"></x-img>
+      <x-img src="schnupperflug/discovery-4" alt="Flugschülerin mit Karte am Steuer, daneben der Fluglehrer" sizes="(max-width: 860px) 100vw, 640px"></x-img>
       <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
       <span class="tile__eyebrow">Schnupperflug · ab {{data.preise.schnupperflug.0.price | chf}}</span>
       <span class="tile__title">Lieber selbst ans Steuer?</span>
@@ -315,9 +249,9 @@
 </section>
 
 <!-- Anfrage -->
-<section class="section section--chart" id="anfrage" aria-labelledby="anfrage-title">
+<section class="section section--chart rf-sec" id="anfrage" aria-labelledby="anfrage-title">
   <div class="container split split--top rf-form-split">
-    <div class="stack-l sticky">
+    <div class="stack-l sticky rf-form-intro">
       <div class="stack">
         <p class="eyebrow" data-reveal>Rundflug anfragen</p>
         <h2 id="anfrage-title" data-split>Wann hebst du ab?</h2>
@@ -345,8 +279,8 @@
           <label class="choice">
             <input type="radio" name="rundflug" value="{{r.title}}" data-route="{{r.id}}" data-price="{{r.price}}" data-label="Rundflug" required>
             <span class="choice__card">
-              <span class="rf-choice__top"><span class="mono rf-choice__num">0{{loop.number}}</span><span class="choice__meta">{{r.duration}} min</span></span>
-              <span class="choice__title">{{r.name}}</span>
+              <span class="mono rf-choice__num">0{{loop.number}}</span>
+              <span class="rf-choice__body"><span class="choice__title">{{r.name}}</span><span class="choice__meta">{{r.duration}} min</span></span>
               <span class="choice__price">{{r.price | chf}} <small>p.P.</small></span>
             </span>
           </label>
@@ -357,25 +291,25 @@
       <fieldset class="rf-form__set">
         <legend class="h3"><span class="rf-form__step mono">02</span>Wer fliegt mit?</legend>
         <div class="form-grid">
-          <div class="field span-2">
+          <div class="field">
             <span class="field__label" id="rf-pers-label">Anzahl Personen <span class="req">*</span></span>
             <div class="segmented rf-persons" role="radiogroup" aria-labelledby="rf-pers-label">
-              <label><input type="radio" name="personen" value="1" data-label="Anzahl Personen" checked required><span>1 Person</span></label>
-              <label><input type="radio" name="personen" value="2" data-label="Anzahl Personen"><span>2 Personen</span></label>
-              <label><input type="radio" name="personen" value="3" data-label="Anzahl Personen"><span>3 Personen</span></label>
+              <label><input type="radio" name="personen" value="1" data-label="Anzahl Personen" checked required><span>1</span></label>
+              <label><input type="radio" name="personen" value="2" data-label="Anzahl Personen"><span>2</span></label>
+              <label><input type="radio" name="personen" value="3" data-label="Anzahl Personen"><span>3</span></label>
             </div>
           </div>
-          <div class="field span-2">
+          <div class="field">
             <label class="field__label" for="rf-gewicht">Gesamtgewicht aller Passagiere (kg) <span class="req">*</span></label>
-            <input class="input" type="number" id="rf-gewicht" name="gesamtgewicht" min="20" max="450" step="1" inputmode="numeric" required>
-            <p class="field__help">Für die Berechnung von Gewicht und Schwerpunkt. Bitte möglichst genau.</p>
+            <input class="input" type="number" id="rf-gewicht" name="gesamtgewicht" min="20" max="450" step="1" inputmode="numeric" aria-describedby="rf-gewicht-help" required>
           </div>
+          <p class="field__help span-2" id="rf-gewicht-help">Für die Berechnung von Gewicht und Schwerpunkt. Bitte möglichst genau.</p>
         </div>
       </fieldset>
 
       <fieldset class="rf-form__set">
         <legend class="h3"><span class="rf-form__step mono">03</span>Wann möchtest du fliegen?</legend>
-        <div class="form-grid">
+        <div class="form-grid rf-when">
           <div class="field">
             <label class="field__label" for="rf-datum">Wunschdatum <span class="req">*</span></label>
             <input class="input" type="date" id="rf-datum" name="datum" data-future required>
@@ -384,7 +318,7 @@
             <label class="field__label" for="rf-alt">Alternativdatum</label>
             <input class="input" type="date" id="rf-alt" name="alternativdatum" data-future>
           </div>
-          <div class="field span-2">
+          <div class="field">
             <label class="field__label" for="rf-zeit">Tageszeit</label>
             <select class="select" id="rf-zeit" name="tageszeit">
               <option>Flexibel</option><option>Vormittag</option><option>Nachmittag</option><option>Abend</option>
@@ -414,15 +348,14 @@
           </div>
           <div class="field span-2">
             <label class="field__label" for="rf-msg">Nachricht</label>
-            <textarea class="textarea" id="rf-msg" name="nachricht" placeholder="Anlass, Wünsche zur Route, Fragen …"></textarea>
+            <textarea class="textarea" id="rf-msg" name="nachricht" rows="3" placeholder="Anlass, Wünsche zur Route, Fragen …"></textarea>
           </div>
         </div>
       </fieldset>
 
-      <div class="summary-box rf-summary">
-        <p class="rf-summary__title mono">Deine Anfrage</p>
-        <dl class="data-list" data-summary="rundflug, personen, gesamtgewicht, datum, alternativdatum, tageszeit, name, email, telefon, gutschein"></dl>
-        <div class="price-total"><span class="muted" data-rf-total-note>Preis total</span><strong data-rf-total>CHF 0</strong></div>
+      <div class="rf-total">
+        <span class="rf-total__label"><span class="mono">Preis total</span><span class="muted" data-rf-total-note>Bitte Route wählen</span></span>
+        <strong class="rf-total__sum is-empty" data-rf-total aria-live="polite"></strong>
         <input type="hidden" name="preis" value="" data-label="Preis total" data-rf-total-input>
       </div>
 
@@ -442,25 +375,5 @@
         <button class="btn btn--ghost" type="button" data-form-reset>Neue Anfrage</button>
       </div>
     </form>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section" id="faq" aria-labelledby="faq-title">
-  <div class="container--narrow">
-    <div class="section-head section-head--center">
-      <p class="eyebrow" data-reveal>Häufige Fragen</p>
-      <h2 id="faq-title" data-split>Noch Fragen?</h2>
-    </div>
-    <div class="accordion" data-reveal>
-      <details class="acc"><summary>Wie viele Personen können mitfliegen?</summary><div class="acc__body"><p>Bis zu drei Passagiere fliegen zusammen mit dem Piloten in der vierplätzigen Cessna. Der Preis gilt pro Person, zum Beispiel beim Rundflug Luzern {{data.rundfluege.0.price | chf}} pro Person.</p></div></details>
-      <details class="acc"><summary>Kann ich die Route mitbestimmen?</summary><div class="acc__body"><p>Ja. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst. Beim Rundflug Titlis geht es zum Beispiel entweder an den Mythen vorbei oder zum Titlis.</p></div></details>
-      <details class="acc"><summary>Was passiert bei schlechtem Wetter?</summary><div class="acc__body"><p>Geflogen wird nur, wenn das Wetter passt. Sonst vereinbaren wir mit dir einen neuen Termin.</p></div></details>
-      <details class="acc"><summary>Warum fragt ihr nach dem Gewicht?</summary><div class="acc__body"><p>Vor jedem Flug berechnet der Pilot Gewicht und Schwerpunkt des Flugzeugs. Dafür braucht er das Gesamtgewicht aller Passagiere.</p></div></details>
-      <details class="acc"><summary>Wer fliegt das Flugzeug?</summary><div class="acc__body"><p>Unsere Rundflüge fliegen Privat- und Berufspiloten im Nebenamt.</p></div></details>
-      <details class="acc"><summary>Ich habe einen Gutschein. Wie buche ich?</summary><div class="acc__body"><p>Füll das <a href="#anfrage">Anfrageformular</a> aus und trag die Gutscheinnummer ein, oder ruf uns an unter <a class="nowrap" href="tel:{{site.phoneHref}}">{{site.phone}}</a>.</p></div></details>
-      <details class="acc"><summary>Warum fliegen Rundflüge nicht immer gleich?</summary><div class="acc__body"><p>Für einen möglichst lärmarmen Betrieb werden für Rundflüge in der Umgebung des Flugplatzes verschiedene Flugwege abwechslungsweise beflogen. Zudem dauert jeder Rundflug mindestens 15 Minuten.</p></div></details>
-      <details class="acc"><summary>Wie genau sind die Distanzen auf dieser Seite?</summary><div class="acc__body"><p>Es sind Schätzungen: die Luftlinie über die eingezeichneten Wegpunkte. Die tatsächliche Strecke hängt von Route, Wind und Wetter ab.</p></div></details>
-    </div>
   </div>
 </section>

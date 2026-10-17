@@ -5,7 +5,7 @@
   "ogImage": "hero/slide-00"
 } -->
 
-<section class="page-hero">
+<section class="page-hero pr-hero">
   <div class="page-hero__media"><x-img src="hero/slide-00" alt="Cessna im Flug über den Voralpen" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
   <div class="container page-hero__inner">
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="flotte.html">Flotte</a></li><li>Preise</li></ol>
@@ -22,7 +22,6 @@
       <a class="btn btn--ghost btn--lg" href="{{site.reservation}}" target="_blank" rel="noopener"><x-icon name="calendar"></x-icon>Flugzeug reservieren</a>
     </div>
   </div>
-  <a class="scroll-cue" href="#flugzeuge" aria-label="Zu den Mietpreisen"><span></span></a>
 </section>
 
 <nav class="subnav" data-subnav aria-label="Inhalt dieser Seite">
@@ -49,19 +48,16 @@
       <p class="lead" data-reveal>Mietpreise pro Minute und pro Stunde, jeweils zu Preis 1 und Preis 2. Dazu kommt der Benzinzuschlag des jeweiligen Flugzeugs.</p>
     </div>
 
-    <div class="pr-rates" data-reveal-group>
+    <div class="pr-rates" data-reveal>
       <!-- @each data.flotte as a -->
-      <article class="rate-card pr-rate" id="miete-{{a.id}}" data-reveal>
-        <div class="pr-rate__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img></div>
-        <div class="rate-card__head">
-          <div>
-            <p class="rate-card__reg">{{a.reg}}</p>
-            <h3 class="rate-card__type">{{a.type}}</h3>
-            <p class="pr-rate__variant">{{a.variant}} · {{a.seats}} Plätze</p>
-          </div>
-          <span class="pr-fuel" title="Benzinzuschlag"><x-icon name="fuel"></x-icon><span><small>Benzin</small>+{{a.fuel}}%</span></span>
+      <article class="pr-rate" id="miete-{{a.id}}">
+        <div class="pr-rate__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 760px) 84px, 120px"></x-img></div>
+        <div class="pr-rate__name">
+          <p class="rate-card__reg">{{a.reg}}</p>
+          <h3 class="rate-card__type"><a class="pr-rate__link" href="flugzeug-{{a.id}}.html">{{a.type}}</a></h3>
+          <p class="pr-rate__variant">{{a.variant}} · {{a.seats}} Plätze</p>
         </div>
-        <div class="rate-card__prices">
+        <div class="pr-rate__prices">
           <div class="rate">
             <p class="rate__label">Preis 1</p>
             <p class="rate__hour">{{a.price1 | chf}}<small> / Std.</small></p>
@@ -74,53 +70,27 @@
           </div>
         </div>
         <div class="pr-rate__foot">
-          <p class="pr-rate__surcharge">Benzinzuschlag: <strong>{{a.fuel}}%</strong></p>
+          <p class="pr-fuel"><x-icon name="fuel"></x-icon><span><small>Benzinzuschlag</small>+{{a.fuel}}%</span></p>
           <div class="pr-rate__links">
             <button class="btn btn--ghost btn--sm" type="button" data-calc-pick="{{a.id}}"><x-icon name="calculator"></x-icon>Berechnen</button>
-            <a class="btn btn--text btn--sm" href="flugzeug-{{a.id}}.html">Zum Flugzeug <x-icon name="arrow-right"></x-icon></a>
+            <a class="btn btn--text btn--sm" href="flugzeug-{{a.id}}.html" aria-label="Zum Flugzeug {{a.reg}}">Zum Flugzeug <x-icon name="arrow-right"></x-icon></a>
           </div>
         </div>
       </article>
       <!-- @end -->
-      <aside class="pr-rates__note card card--pad card--glow" data-reveal>
-        <x-icon name="receipt" class="pr-rates__note-icon"></x-icon>
-        <p class="pr-rates__note-big">{{data.preise.note}}</p>
-        <p class="muted">* {{data.preise.price2Note}}</p>
-        <a class="btn btn--primary btn--sm" href="#rechner"><x-icon name="calculator"></x-icon>Zum Kostenrechner</a>
-      </aside>
     </div>
-  </div>
-</section>
 
-<section class="section section--alt section--glow" id="preis-2" aria-labelledby="preis2-title">
-  <div class="container split split--top">
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Preis 2</p>
-        <h2 id="preis2-title" data-split>Wer viel fliegt, fliegt günstiger.</h2>
-        <p class="lead" data-reveal>Preis 2 gilt nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000 pro Kalenderjahr.</p>
+    <div class="pr-p2" id="preis-2" data-reveal>
+      <div class="pr-p2__text">
+        <h3 class="pr-p2__title">Wer viel fliegt, fliegt günstiger.</h3>
+        <p>* {{data.preise.price2Note}} Beim Piper L-4 sind Preis 1 und Preis 2 gleich hoch.</p>
+        <p class="pr-p2__note"><x-icon name="receipt"></x-icon><strong>{{data.preise.note}}</strong></p>
       </div>
-      <div class="stats stats--2" data-reveal>
-        <div class="stat"><span class="stat__label">nach Erreichen der</span><span class="stat__value"><span data-count="25">25</span>.</span><span class="pr-stat__text">Flugstunde</span></div>
-        <div class="stat"><span class="stat__label">oder ab einem Umsatz von</span><span class="stat__value"><small>CHF </small><span data-count="5000" data-count-nosep>5000</span></span><span class="pr-stat__text">pro Kalenderjahr</span></div>
+      <div class="pr-p2__stats">
+        <div class="pr-p2__stat"><span class="pr-p2__label">nach Erreichen der</span><span class="pr-p2__value">25.</span><span class="pr-p2__sub">Flugstunde</span></div>
+        <div class="pr-p2__stat"><span class="pr-p2__label">oder ab einem Umsatz von</span><span class="pr-p2__value"><small>CHF </small>5000</span><span class="pr-p2__sub">pro Kalenderjahr</span></div>
       </div>
-      <p class="muted" data-reveal>Beim Piper L-4 sind Preis 1 und Preis 2 gleich hoch.</p>
     </div>
-    <figure class="pr-chart instrument hud-corners" data-reveal="scale" aria-labelledby="pr-chart-cap">
-      <figcaption id="pr-chart-cap" class="pr-chart__cap"><span class="readout__label">Stundenpreis im Vergleich</span><span class="pr-chart__legend"><span><i class="pr-chart__sw pr-chart__sw--1"></i>Preis 1</span><span><i class="pr-chart__sw pr-chart__sw--2"></i>Preis 2</span></span></figcaption>
-      <ul class="pr-chart__list">
-        <!-- @each data.flotte as a -->
-        <li class="pr-chart__row">
-          <span class="pr-chart__name"><b>{{a.reg}}</b><small>{{a.type}}</small></span>
-          <span class="pr-chart__bars">
-            <span class="pr-chart__bar pr-chart__bar--1" style="--v: {{a.price1}}"><span>{{a.price1 | chf}}</span></span>
-            <span class="pr-chart__bar pr-chart__bar--2" style="--v: {{a.price2}}"><span>{{a.price2 | chf}}</span></span>
-          </span>
-        </li>
-        <!-- @end -->
-      </ul>
-      <p class="pr-chart__note">Preise pro Stunde in CHF, exkl. MwSt. und Benzinzuschlag.</p>
-    </figure>
   </div>
 </section>
 
@@ -215,7 +185,10 @@
           <li><i class="pr-c3"></i><span>Fluglehrer <small data-calc-note="fi"></small></span><b data-calc-val="fi">CHF 0.00</b></li>
           <li><i class="pr-c4"></i><span>Landetaxen <small data-calc-note="land"></small></span><b data-calc-val="land">CHF 0.00</b></li>
         </ul>
-        <p class="pr-out__disclaimer"><x-icon name="info"></x-icon><span>Unverbindliche Schätzung, alle Beträge in CHF exkl. MwSt. Massgebend ist die Abrechnung der FLUBAG. Der Benzinzuschlag ist hier als Prozentsatz auf die Flugzeugmiete gerechnet, die Landetaxe nach dem maximalen Abfluggewicht (MTOW) des Flugzeugs.</span></p>
+        <details class="pr-out__disclaimer">
+          <summary><x-icon name="info"></x-icon>Unverbindliche Schätzung, alle Beträge in CHF exkl. MwSt.</summary>
+          <p>Massgebend ist die Abrechnung der FLUBAG. Der Benzinzuschlag ist hier als Prozentsatz auf die Flugzeugmiete gerechnet, die Landetaxe nach dem maximalen Abfluggewicht (MTOW) des Flugzeugs.</p>
+        </details>
         <div class="row pr-out__actions">
           <button class="btn btn--primary btn--sm" type="button" data-calc-copy><x-icon name="copy"></x-icon>Schätzung kopieren</button>
           <a class="btn btn--ghost btn--sm" href="{{site.reservation}}" target="_blank" rel="noopener"><x-icon name="calendar"></x-icon>Reservieren</a>
@@ -226,28 +199,24 @@
 </section>
 
 <section class="section" id="fluglehrer" aria-labelledby="fluglehrer-title">
-  <div class="container split split--wide-right">
-    <div class="media-frame media-frame--tall" data-reveal="clip"><x-img src="schnupperflug/discovery-3" alt="Flugschülerin geht im Cockpit die Checkliste durch" sizes="(max-width: 860px) 100vw, 42vw" data-parallax="0.1"></x-img></div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Fluglehrer</p>
-        <h2 id="fluglehrer-title" data-split>Jemand Erfahrenes an deiner Seite.</h2>
-        <p class="lead" data-reveal>Ob Schulung, Umschulung oder Training: Die Fluglehrerkosten gelten pro Minute oder pro Stunde, auf Flubag-Flugzeugen und auf Fremd-Flugzeugen.</p>
-      </div>
-      <div class="grid grid-2 pr-fi" data-reveal-group>
-        <!-- @each data.preise.fluglehrer as f -->
-        <div class="pr-fi__card<!-- @if loop.first --> pr-fi__card--main<!-- @endif -->" data-reveal>
-          <x-icon name="<!-- @if loop.first -->plane<!-- @else -->plane-landing<!-- @endif -->" class="pr-fi__icon"></x-icon>
-          <h3 class="pr-fi__title">{{f.label}}</h3>
-          <p class="pr-fi__hour">{{f.perHour | chf}}<small> / Std.</small></p>
-          <p class="pr-fi__min">{{f.perMin | chf2}} pro Min.</p>
-        </div>
-        <!-- @end -->
-      </div>
+  <div class="container pr-fi-wrap">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Fluglehrer</p>
+      <h2 id="fluglehrer-title" data-split>Jemand Erfahrenes an deiner Seite.</h2>
+      <p class="lead" data-reveal>Ob Schulung, Umschulung oder Training: Die Fluglehrerkosten gelten pro Minute oder pro Stunde, auf Flubag-Flugzeugen und auf Fremd-Flugzeugen.</p>
       <div class="row" data-reveal>
-        <a class="btn btn--ghost" href="fluglehrer.html"><x-icon name="users"></x-icon>Unsere Fluglehrer</a>
-        <a class="btn btn--text" href="ausbildung.html#kosten">Kosten der Ausbildung <x-icon name="arrow-right"></x-icon></a>
+        <a class="btn btn--ghost btn--sm" href="fluglehrer.html"><x-icon name="users"></x-icon>Unsere Fluglehrer</a>
+        <a class="btn btn--text btn--sm" href="ausbildung.html#kosten">Kosten der Ausbildung <x-icon name="arrow-right"></x-icon></a>
       </div>
+    </div>
+    <div class="pr-fi" data-reveal-group>
+      <!-- @each data.preise.fluglehrer as f -->
+      <div class="pr-fi__card<!-- @if loop.first --> pr-fi__card--main<!-- @endif -->" data-reveal>
+        <h3 class="pr-fi__title"><x-icon name="<!-- @if loop.first -->plane<!-- @else -->plane-landing<!-- @endif -->" class="pr-fi__icon"></x-icon>{{f.label}}</h3>
+        <p class="pr-fi__hour">{{f.perHour | chf}}<small> / Std.</small></p>
+        <p class="pr-fi__min">{{f.perMin | chf2}} pro Min.</p>
+      </div>
+      <!-- @end -->
     </div>
   </div>
 </section>
@@ -263,13 +232,13 @@
     </div>
 
     <div class="pr-fees" data-reveal-group>
-      <article class="pr-fee-card pr-fee-card--wide" data-reveal>
+      <article class="pr-fee-card" data-reveal>
         <header class="pr-fee-card__head"><x-icon name="plane-landing"></x-icon><h3>Flugzeuge</h3></header>
-        <ol class="pr-weights">
-          <li class="pr-weight" style="--h: 0.45"><span class="pr-weight__bar"></span><span class="pr-weight__price">CHF {{data.preise.landetaxen.0.price}}</span><span class="pr-weight__label">{{data.preise.landetaxen.0.label}}</span></li>
-          <li class="pr-weight" style="--h: 0.62"><span class="pr-weight__bar"></span><span class="pr-weight__price">CHF {{data.preise.landetaxen.1.price}}</span><span class="pr-weight__label">{{data.preise.landetaxen.1.label}}</span></li>
-          <li class="pr-weight" style="--h: 1"><span class="pr-weight__bar"></span><span class="pr-weight__price">CHF {{data.preise.landetaxen.2.price}}</span><span class="pr-weight__label">{{data.preise.landetaxen.2.label}}</span></li>
-        </ol>
+        <dl class="pr-feelist">
+          <div><dt>{{data.preise.landetaxen.0.label}}</dt><dd>CHF {{data.preise.landetaxen.0.price}}</dd></div>
+          <div><dt>{{data.preise.landetaxen.1.label}}</dt><dd>CHF {{data.preise.landetaxen.1.price}}</dd></div>
+          <div><dt>{{data.preise.landetaxen.2.label}}</dt><dd>CHF {{data.preise.landetaxen.2.price}}</dd></div>
+        </dl>
       </article>
       <article class="pr-fee-card" data-reveal>
         <header class="pr-fee-card__head"><x-icon name="graduation-cap"></x-icon><h3>Schulung</h3></header>
@@ -278,59 +247,54 @@
           <div><dt>{{data.preise.landetaxen.4.label}}</dt><dd>CHF {{data.preise.landetaxen.4.price}}</dd></div>
         </dl>
       </article>
-      <article class="pr-fee-card pr-fee-card--brand" data-reveal>
-        <header class="pr-fee-card__head"><x-icon name="calendar"></x-icon><h3>Jahrespauschale</h3></header>
-        <p class="pr-fee-card__big">CHF {{data.preise.landetaxen.5.price}}</p>
-        <p class="pr-fee-card__text">{{data.preise.landetaxen.5.label}}</p>
-      </article>
-      <article class="pr-fee-card pr-fee-card--wide" data-reveal>
+      <article class="pr-fee-card" data-reveal>
         <header class="pr-fee-card__head"><x-icon name="helicopter"></x-icon><h3>Helikopter</h3></header>
-        <dl class="pr-feelist pr-feelist--cols">
+        <dl class="pr-feelist">
           <div><dt>{{data.preise.landetaxen.6.label}}</dt><dd>CHF {{data.preise.landetaxen.6.price}}</dd></div>
           <div><dt>{{data.preise.landetaxen.7.label}}</dt><dd>{{data.preise.landetaxen.7.price}}</dd></div>
           <div><dt>{{data.preise.landetaxen.8.label}}</dt><dd>CHF {{data.preise.landetaxen.8.price}}</dd></div>
         </dl>
       </article>
+      <article class="pr-fee-card pr-fee-card--brand" data-reveal>
+        <header class="pr-fee-card__head"><x-icon name="calendar"></x-icon><h3>Jahrespauschale</h3></header>
+        <p class="pr-fee-card__big">CHF {{data.preise.landetaxen.5.price}}</p>
+        <p class="pr-fee-card__text">{{data.preise.landetaxen.5.label}}</p>
+      </article>
+    </div>
+
+    <div class="pr-misc-wrap" id="gebuehren">
+      <div class="pr-misc__head" data-reveal>
+        <p class="eyebrow">Abstellgebühren und Verschiedenes</p>
+        <h2 class="pr-misc__h" id="gebuehren-title">Parkieren, Zoll, Tanken.</h2>
+      </div>
+      <div class="pr-misc" data-reveal-group>
+        <article class="pr-fee-card" data-reveal>
+          <header class="pr-fee-card__head"><x-icon name="parking-meter"></x-icon><h3>Abstellgebühren</h3></header>
+          <dl class="pr-feelist">
+            <!-- @each data.preise.abstellgebuehren as g -->
+            <div><dt>{{g.label}}</dt><dd>CHF {{g.price}}</dd></div>
+            <!-- @end -->
+          </dl>
+        </article>
+        <article class="pr-fee-card" data-reveal>
+          <header class="pr-fee-card__head"><x-icon name="globe"></x-icon><h3>{{data.preise.verschiedenes.0.label}}</h3></header>
+          <p class="pr-misc__big">CHF {{data.preise.verschiedenes.0.price}}</p>
+          <a class="btn btn--text btn--sm" href="anreise.html#flugzeug">Ablauf der Zollanmeldung <x-icon name="arrow-right"></x-icon></a>
+        </article>
+        <article class="pr-fee-card" data-reveal>
+          <header class="pr-fee-card__head"><x-icon name="fuel"></x-icon><h3>{{data.preise.verschiedenes.1.label}}</h3></header>
+          <p class="pr-fee-card__text">{{data.preise.verschiedenes.1.price}}</p>
+        </article>
+      </div>
+      <div class="notice notice--brand pr-notice" data-reveal>
+        <x-icon name="receipt"></x-icon>
+        <div><p><strong>{{data.preise.note}}</strong> Das gilt für Flugzeugmiete, Fluglehrer, Landetaxen, Abstellgebühren und Zollabfertigung. Fragen zur Abrechnung beantwortet dir das <span class="nowrap">C-Büro</span> unter <a class="nowrap" href="tel:{{site.phoneHref}}">{{site.phone}}</a> oder <a href="mailto:{{site.email}}">{{site.email}}</a>.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="gebuehren" aria-labelledby="gebuehren-title">
-  <div class="container">
-    <div class="section-head">
-      <p class="eyebrow" data-reveal>Abstellgebühren und Verschiedenes</p>
-      <h2 id="gebuehren-title" data-split>Parkieren, Zoll, Tanken.</h2>
-    </div>
-    <div class="grid grid-3 pr-misc" data-reveal-group>
-      <article class="card card--pad pr-misc__card" data-reveal>
-        <span class="card__icon"><x-icon name="parking-meter"></x-icon></span>
-        <h3 class="card__title">Abstellgebühren</h3>
-        <dl class="pr-feelist">
-          <!-- @each data.preise.abstellgebuehren as g -->
-          <div><dt>{{g.label}}</dt><dd>CHF {{g.price}}</dd></div>
-          <!-- @end -->
-        </dl>
-      </article>
-      <article class="card card--pad pr-misc__card" data-reveal>
-        <span class="card__icon"><x-icon name="globe"></x-icon></span>
-        <h3 class="card__title">{{data.preise.verschiedenes.0.label}}</h3>
-        <p class="pr-misc__big">CHF {{data.preise.verschiedenes.0.price}}</p>
-        <a class="btn btn--text btn--sm" href="anreise.html#flugzeug">Ablauf der Zollanmeldung <x-icon name="arrow-right"></x-icon></a>
-      </article>
-      <article class="card card--pad pr-misc__card" data-reveal>
-        <span class="card__icon"><x-icon name="fuel"></x-icon></span>
-        <h3 class="card__title">{{data.preise.verschiedenes.1.label}}</h3>
-        <p class="card__text">{{data.preise.verschiedenes.1.price}}</p>
-      </article>
-    </div>
-    <div class="notice notice--brand mt-l" data-reveal>
-      <x-icon name="receipt"></x-icon>
-      <div><p><strong>{{data.preise.note}}</strong></p><p>Das gilt für Flugzeugmiete, Fluglehrer, Landetaxen, Abstellgebühren und Zollabfertigung. Fragen zur Abrechnung beantwortet dir das <span class="nowrap">C-Büro</span> unter <a class="nowrap" href="tel:{{site.phoneHref}}">{{site.phone}}</a> oder <a href="mailto:{{site.email}}">{{site.email}}</a>.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--alt section--glow" id="erlebnisfluege" aria-labelledby="erlebnis-title">
+<section class="section section--glow" id="erlebnisfluege" aria-labelledby="erlebnis-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">

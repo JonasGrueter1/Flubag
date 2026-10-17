@@ -1,6 +1,6 @@
 <!--meta {
   "title": "Startseite",
-  "description": "FLUBAG am Flugplatz Luzern-Beromünster: Schnupperflüge, Pilotenausbildung PPL und LAPL, Rundflüge über Pilatus, Titlis und Matterhorn. Seit 1966.",
+  "description": "FLUBAG am Flugplatz Luzern-Beromünster: Schnupperflüge, Fluggutscheine, Pilotenausbildung PPL und LAPL, Rundflüge über Pilatus, Titlis und Matterhorn. Seit 1966.",
   "nav": "",
   "ogImage": "hero/slide-00",
   "bodyClass": "is-home",
@@ -18,14 +18,6 @@
     "sameAs": ["https://www.facebook.com/flubagluzernberomuenster/", "https://www.instagram.com/flugplatzberomuenster/"]
   }
 } -->
-
-<div class="intro" data-intro hidden aria-hidden="true">
-  <div class="intro__runway">
-    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
-  <div class="intro__logo"><!-- @include logo --></div>
-  <p class="intro__text mono">LSZO · CLEARED FOR TAKE-OFF</p>
-</div>
 
 <section class="hero force-dark" aria-label="Willkommen">
   <div class="hero__slides" data-hero-slides>
@@ -55,55 +47,43 @@
         <button type="button" aria-label="Bild 1"><span></span></button><button type="button" aria-label="Bild 2"><span></span></button><button type="button" aria-label="Bild 3"><span></span></button><button type="button" aria-label="Bild 4"><span></span></button><button type="button" aria-label="Bild 5"><span></span></button><button type="button" aria-label="Bild 6"><span></span></button>
       </div>
     </div>
-    <aside class="hero__hud instrument hud-corners" aria-label="Live am Flugplatz" data-hero-in data-live="weather">
-      <div class="hero__hud-head"><span class="mono">LSZO LIVE</span><span class="hero__hud-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span></div>
-      <div class="hero__hud-grid">
-        <div class="readout"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
-        <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
-        <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
-        <div class="readout" data-live="status"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
-      </div>
-      <a class="hero__hud-link" href="webcams.html">Webcams &amp; Wetter <x-icon name="arrow-right"></x-icon></a>
-    </aside>
+    <a class="hero-pass" href="gutscheine.html#gestalten" data-hero-in>
+      <span class="hero-pass__card">
+        <span class="hero-pass__main">
+          <span class="hero-pass__top"><span class="hero-pass__brand"><img src="logo.svg" alt="" width="30" height="20">FLUBAG</span><span class="hero-pass__route" aria-hidden="true">LSZO <x-icon name="plane"></x-icon> ALPS</span></span>
+          <span class="hero-pass__title">Fluggutschein verschenken</span>
+          <span class="hero-pass__text">Rundflug, Schnupperflug oder Wertgutschein. Online gestalten, zuhause ausdrucken.</span>
+        </span>
+        <span class="hero-pass__stub"><x-icon name="gift"></x-icon><span class="hero-pass__go">Gestalten <x-icon name="arrow-right"></x-icon></span></span>
+      </span>
+    </a>
   </div>
   <a class="hero__scroll" href="#erleben" aria-label="Weiter nach unten"><span></span></a>
 </section>
 
-<div class="marquee" aria-label="Flugplatzdaten LSZO">
-  <div class="marquee__track">
-    <span class="marquee__item"><x-icon name="plane"></x-icon>LSZO Luzern-Beromünster</span>
-    <span class="marquee__item"><x-icon name="compass"></x-icon>47°11'24" N · 008°12'17" E</span>
-    <span class="marquee__item"><x-icon name="mountain"></x-icon>Elevation 2146 ft</span>
-    <span class="marquee__item"><x-icon name="runway"></x-icon>Piste 15/33 · Gras · 510 m</span>
-    <span class="marquee__item"><x-icon name="parachute"></x-icon>Para 122.455</span>
-    <span class="marquee__item"><x-icon name="calendar"></x-icon>Gegründet 14.02.1966</span>
-    <span class="marquee__item"><x-icon name="users"></x-icon>10 Fluglehrer · 5 Flugzeuge</span>
-  </div>
-</div>
-
-<section class="section" id="erleben">
+<section class="section home-sec" id="erleben" aria-labelledby="ways-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
         <p class="eyebrow" data-reveal>Was willst du erleben?</p>
-        <h2 data-split>Drei Wege in die Luft.</h2>
+        <h2 id="ways-title" data-split>Drei Wege in die Luft.</h2>
       </div>
-      <p class="lead" data-reveal>Selbst ans Steuer, entspannt die Alpen geniessen oder gleich die eigene Lizenz machen. Bei uns startest du auf der Graspiste mitten im Luzerner Hinterland.</p>
+      <p class="lead" data-reveal>Selbst ans Steuer, jemandem ein Flugerlebnis schenken oder gleich die eigene Lizenz machen. Bei uns startest du auf der Graspiste mitten im Luzerner Hinterland.</p>
     </div>
-    <div class="grid grid-3 tiles" data-reveal-group="0.12">
+    <div class="grid grid-3 tiles" data-reveal-group="0.1">
       <a class="tile" href="schnupperflug.html" data-reveal>
         <x-img src="schnupperflug/discovery-4" alt="Flugschülerin mit Fluglehrer im Cockpit" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
         <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
         <span class="tile__eyebrow">01 · ab CHF 420</span>
-        <span class="tile__title">Selber fliegen</span>
-        <span class="tile__text">Schnupperflug mit Fluglehrer am Doppelsteuer. Keine Vorkenntnisse nötig.</span>
+        <span class="tile__title">Schnupperflug</span>
+        <span class="tile__text">Selber fliegen, mit Fluglehrer am Doppelsteuer. Keine Vorkenntnisse nötig.</span>
       </a>
-      <a class="tile" href="rundfluege.html" data-reveal>
-        <x-img src="rundflug/eiger-moench-jungfrau" alt="Blick aus dem Cockpit auf verschneite Alpengipfel" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
+      <a class="tile" href="gutscheine.html" data-reveal>
+        <x-img src="rundflug/wertgutschein" alt="Blick aus dem Flugzeug auf den Pilatus über dem Nebelmeer" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
         <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
-        <span class="tile__eyebrow">02 · ab CHF 120 p.P.</span>
-        <span class="tile__title">Rundflug</span>
-        <span class="tile__text">Luzern, Pilatus, Titlis, Jungfrau oder Matterhorn. Bis zu drei Gäste an Bord.</span>
+        <span class="tile__eyebrow">02 · Als Geschenk</span>
+        <span class="tile__title">Gutschein verschenken</span>
+        <span class="tile__text">Rundflug, Schnupperflug oder Wertgutschein. Online kaufen und zuhause ausdrucken.</span>
       </a>
       <a class="tile" href="ausbildung.html" data-reveal>
         <x-img src="hero/slide-03" alt="Fluglehrer erklärt Gästen das Flugzeug" sizes="(max-width: 640px) 100vw, 33vw"></x-img>
@@ -116,112 +96,53 @@
   </div>
 </section>
 
-<section class="section section--alt section--glow about">
-  <div class="container split split--wide-right">
-    <div class="about__media">
-      <div class="media-frame media-frame--tall" data-reveal="clip"><x-img src="hero/slide-05" alt="Cessna auf der Graspiste des Flugplatzes, im Hintergrund Beromünster" sizes="(max-width: 860px) 100vw, 45vw" data-parallax="0.12"></x-img></div>
-      <div class="about__badge instrument hud-corners" data-reveal="scale">
-        <span class="readout__label">Piste</span>
-        <span class="about__badge-value">15/33</span>
-        <span class="mono subtle">Gras · 510 × 30 m</span>
-      </div>
-    </div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Der Flugplatz</p>
-        <h2 data-split>Ein Flugplatz mit Charakter.</h2>
-        <p class="lead" data-reveal>Seit 1966 betreibt die FLUBAG Flugbetriebs AG den Flugplatz Luzern-Beromünster. Hier sind Flugschule und Rundflüge zu Hause, dazu Helikopter, Fallschirmspringer und Segelflieger unserer Partner am Flugplatz.</p>
-        <p class="muted" data-reveal>Unser Team aus nebenamtlichen Fluglehrern und Rundflugpiloten teilt eine Leidenschaft: Menschen für das Fliegen zu begeistern. Dazu gehören fünf eigene Flugzeuge, vom Schulflugzeug Cessna 150 bis zur legendären Piper Cub.</p>
-      </div>
-      <div class="stats stats--2" data-reveal>
-        <div class="stat"><span class="stat__value" data-count="1966" data-count-from="1900" data-count-nosep>1966</span><span class="stat__label">Gegründet</span></div>
-        <div class="stat"><span class="stat__value" data-count="5">5</span><span class="stat__label">Flugzeuge</span></div>
-        <div class="stat"><span class="stat__value" data-count="10">10</span><span class="stat__label">Fluglehrer</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="2146" data-count-nosep>2146</span><small>ft</small></span><span class="stat__label">Platzhöhe</span></div>
-      </div>
-      <div class="row" data-reveal>
-        <a class="btn btn--ghost" href="geschichte.html"><x-icon name="history"></x-icon>Geschichte &amp; Team</a>
-        <a class="btn btn--text" href="anreise.html">Anreise <x-icon name="arrow-right"></x-icon></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="routes" data-hscroll aria-labelledby="routes-title">
-  <div class="routes__inner">
-    <div class="container routes__head">
-      <p class="eyebrow" data-reveal>Rundflüge</p>
-      <h2 id="routes-title" data-split>Die Schweiz von oben.</h2>
-      <p class="lead" data-reveal>Fünf Routen, von 20 Minuten über Luzern bis zum grossen Alpenflug zum Matterhorn. Bis zu drei Gäste, ein erfahrener Pilot.</p>
-    </div>
-    <div class="routes__track" data-hscroll-track>
-      <!-- @each data.rundfluege as r -->
-      <a class="route-card" href="rundfluege.html#{{r.id}}">
-        <span class="route-card__media"><x-img src="{{r.image}}" alt="Rundflug {{r.name}}" sizes="(max-width: 900px) 85vw, 420px"></x-img></span>
-        <span class="route-card__num mono">0{{loop.number}}</span>
-        <span class="route-card__body">
-          <span class="route-card__meta"><span class="chip"><x-icon name="timer"></x-icon>{{r.duration}} min</span><span class="chip chip--brand">{{r.price | chf}} p.P.</span></span>
-          <span class="route-card__title">{{r.name}}</span>
-          <span class="route-card__text">{{r.teaser}}</span>
-        </span>
-      </a>
-      <!-- @end -->
-      <a class="route-card route-card--cta" href="gutscheine.html#gestalten">
-        <span class="route-card__body">
-          <x-icon name="gift"></x-icon>
-          <span class="route-card__title">Als Geschenk?</span>
-          <span class="route-card__text">Jeden Rundflug gibt es als Gutschein zum Ausdrucken.</span>
-          <span class="btn btn--light btn--sm">Gutschein gestalten <x-icon name="arrow-right"></x-icon></span>
-        </span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="section fleet-teaser" aria-labelledby="fleet-title">
+<section class="section home-sec gift-band force-dark" id="gutschein" aria-labelledby="gift-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="gift-band__head">
       <div class="stack">
-        <p class="eyebrow" data-reveal>Unsere Flotte</p>
-        <h2 id="fleet-title" data-split>Fünf Flugzeuge, fünf Charaktere.</h2>
+        <p class="eyebrow" data-reveal>Neu: Gutscheine online</p>
+        <h2 id="gift-title" data-split>Verschenk ein Stück Himmel.</h2>
       </div>
-      <p class="lead" data-reveal>Vom gutmütigen Schulflugzeug über die Reisemaschine mit Autopilot bis zur gelben Legende mit Heckrad.</p>
+      <div class="gift-band__intro">
+        <p class="lead" data-reveal>Fluggutscheine ab Luzern-Beromünster für Rundflüge und Schnupperflüge oder als Wertgutschein: jederzeit bequem online kaufen und direkt zuhause ausdrucken, auf Wunsch auch per Post. Perfekt für Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
+        <ul class="gift-band__facts" data-reveal>
+          <li><x-icon name="check"></x-icon>Persönliche Widmung bis 160 Zeichen</li>
+          <li><x-icon name="check"></x-icon>print@home oder Postversand</li>
+          <li><x-icon name="check"></x-icon>Wertgutscheine von CHF 20 bis 3000</li>
+        </ul>
+        <div class="row" data-reveal>
+          <a class="btn btn--primary" href="gutscheine.html#gestalten"><x-icon name="gift"></x-icon>Gutschein gestalten</a>
+          <a class="btn btn--ghost" href="{{site.shop}}" target="_blank" rel="noopener">Direkt zum Shop <x-icon name="arrow-up-right"></x-icon></a>
+        </div>
+      </div>
     </div>
-    <div class="fleet-switch" data-fleet-switch data-reveal>
-      <div class="fleet-switch__list" role="tablist" aria-label="Flugzeug wählen">
-        <!-- @each data.flotte as a -->
-        <button class="fleet-switch__tab" role="tab" type="button" aria-selected="{{loop.first}}" data-fleet="{{a.id}}">
-          <span class="mono fleet-switch__reg">{{a.reg}}</span>
-          <span class="fleet-switch__type">{{a.type}}</span>
-          <span class="fleet-switch__nick">{{a.nickname}}</span>
-        </button>
-        <!-- @end -->
-      </div>
-      <!-- @each data.flotte as a -->
-      <article class="fleet-switch__panel" data-fleet-panel="{{a.id}}"<!-- @if !loop.first --> hidden<!-- @endif -->>
-        <div class="fleet-switch__media">
-          <x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 860px) 100vw, 55vw"></x-img>
-          <span class="fleet-switch__badge mono">{{a.reg}}</span>
-        </div>
-        <div class="fleet-switch__info">
-          <h3>{{a.variant}}</h3>
-          <p class="muted">{{a.intro}}</p>
-          <div class="specs">
-            <div class="spec"><span class="spec__label">Plätze</span><span class="spec__value">{{a.seats}}</span></div>
-            <div class="spec"><span class="spec__label">Reise</span><span class="spec__value">{{a.specs.cruiseKmh}} <small>km/h</small></span></div>
-            <div class="spec"><span class="spec__label">Miete ab</span><span class="spec__value">{{a.price2 | num}} <small>CHF/h</small></span></div>
-          </div>
-          <a class="btn btn--ghost" href="flugzeug-{{a.id}}.html">Alles zur {{a.reg}} <x-icon name="arrow-right"></x-icon></a>
-        </div>
-      </article>
+
+    <div class="gift-band__sub" data-reveal>
+      <h3 class="gift-band__subtitle"><x-icon name="route"></x-icon>Geschenkideen: Rundflüge</h3>
+      <p class="gift-band__subtext">Fünf Routen, von 20 Minuten über Luzern bis zum grossen Alpenflug zum Matterhorn. Bis zu drei Gäste, ein erfahrener Pilot.</p>
+      <a class="btn btn--text gift-band__all" href="rundfluege.html">Alle Rundflüge <x-icon name="arrow-right"></x-icon></a>
+    </div>
+    <ul class="routes" role="list" data-reveal>
+      <!-- @each data.rundfluege as r -->
+      <li>
+        <a class="route-card" href="rundfluege.html#{{r.id}}">
+          <span class="route-card__media"><x-img src="{{r.image}}" alt="Rundflug {{r.name}}" sizes="(max-width: 900px) 72vw, 260px"></x-img></span>
+          <span class="route-card__num mono">0{{loop.number}}</span>
+          <span class="route-card__body">
+            <span class="route-card__title">{{r.name}}</span>
+            <span class="route-card__text">{{r.teaser}}</span>
+            <span class="route-card__meta"><span class="chip"><x-icon name="timer"></x-icon>{{r.duration}} min</span><span class="chip chip--brand">{{r.price | chf}} p.P.</span></span>
+          </span>
+        </a>
+      </li>
       <!-- @end -->
-    </div>
+    </ul>
   </div>
 </section>
 
-<section class="section section--chart training" aria-labelledby="training-title">
+<section class="section home-sec section--chart training" id="ausbildung" aria-labelledby="training-title">
   <div class="container split split--top">
-    <div class="stack-l sticky">
+    <div class="stack-l training__intro">
       <div class="stack">
         <p class="eyebrow" data-reveal>Pilot werden</p>
         <h2 id="training-title" data-split>Vom ersten Flug zur eigenen Lizenz.</h2>
@@ -229,16 +150,17 @@
       </div>
       <div class="training__price instrument hud-corners force-dark" data-reveal>
         <span class="readout__label">PPL komplett, inkl. Theorie</span>
-        <span class="training__price-value">rund CHF <span data-count="21850">21850</span></span>
+        <span class="training__price-value">rund {{data.preise.ausbildung.total | chf}}</span>
         <span class="mono subtle">Erfahrungswert FLUBAG, individuell verschieden</span>
       </div>
       <div class="row" data-reveal>
         <a class="btn btn--primary" href="ausbildung.html#rechner"><x-icon name="calculator"></x-icon>Kosten berechnen</a>
         <a class="btn btn--ghost" href="infoabende.html"><x-icon name="calendar"></x-icon>Infoabend</a>
+        <a class="btn btn--text" href="ausbildung.html">Alles zur Ausbildung <x-icon name="arrow-right"></x-icon></a>
       </div>
     </div>
-    <ol class="steps" data-steps>
-      <li class="step"><span class="step__num">01</span><div class="step__body"><h3 class="step__title">Schnupperflug</h3><p>Du sitzt selbst am Steuer. Schon dieser Flug kann an die Ausbildung angerechnet werden.</p></div></li>
+    <ol class="steps training__steps" data-steps>
+      <li class="step"><span class="step__num">01</span><div class="step__body"><h3 class="step__title">Schnupperflug</h3><p>Du sitzt selbst am Steuer. Schon dieser Flug kann an die Ausbildung angerechnet werden. <a class="brand-text" href="schnupperflug.html">Zum Schnupperflug</a></p></div></li>
       <li class="step"><span class="step__num">02</span><div class="step__body"><h3 class="step__title">Medical und Theorie</h3><p>Fliegerärztliche Untersuchung und Theorie, von Aerodynamik bis Luftfahrtgesetz, zum Beispiel bei Safety Wings.</p></div></li>
       <li class="step"><span class="step__num">03</span><div class="step__body"><h3 class="step__title">Ab-initio und erster Alleinflug</h3><p>Starten, landen, Notverfahren. Und dann der magische Moment: du fliegst allein.</p></div></li>
       <li class="step"><span class="step__num">04</span><div class="step__body"><h3 class="step__title">Navigation und Alpeneinweisung</h3><p>Streckenflüge, zweimal über die Alpen und ein Solo-Navigationsflug über 250 km.</p></div></li>
@@ -247,91 +169,105 @@
   </div>
 </section>
 
-<section class="section voucher-teaser" aria-labelledby="voucher-title">
-  <div class="container split">
-    <div class="voucher-teaser__visual" data-reveal="scale">
-      <div class="pass" data-tilt="10" aria-hidden="true">
-        <div class="pass__main">
-          <div class="pass__top"><span class="pass__brand"><img src="logo.svg" alt="">FLUBAG</span><span class="pass__label">Boarding Pass</span></div>
-          <div class="pass__route"><span class="pass__code">LSZO</span><span class="pass__line"><x-icon name="plane"></x-icon></span><span class="pass__code">ALPS</span></div>
-          <div class="pass__grid">
-            <div><p class="pass__label">Passagier</p><p class="pass__value">Für dich</p></div>
-            <div><p class="pass__label">Flug</p><p class="pass__value">Matterhorn</p></div>
-            <div><p class="pass__label">Dauer</p><p class="pass__value">90 min</p></div>
-          </div>
-          <p class="pass__msg">"Happy Birthday und guten Flug!"</p>
+<section class="section home-sec section--alt about" id="flugplatz" aria-labelledby="about-title">
+  <div class="container">
+    <div class="split split--wide-right about__split">
+      <div class="about__media" data-reveal="fade">
+        <div class="media-frame about__frame"><x-img src="hero/slide-05" alt="Cessna auf der Graspiste des Flugplatzes, im Hintergrund Beromünster" sizes="(max-width: 860px) 100vw, 45vw"></x-img></div>
+        <div class="about__badge instrument hud-corners">
+          <span class="readout__label">Piste</span>
+          <span class="about__badge-value">15/33</span>
+          <span class="mono subtle">Gras · 510 × 30 m</span>
         </div>
-        <div class="pass__stub">
-          <div><p class="pass__label">Gate</p><p class="pass__value">Piste 33</p></div>
-          <p class="pass__price">CHF 430</p>
-          <div class="pass__barcode"></div>
+      </div>
+      <div class="stack-l">
+        <div class="stack">
+          <p class="eyebrow" data-reveal>Der Flugplatz</p>
+          <h2 id="about-title" data-split>Ein Flugplatz mit Charakter.</h2>
+          <p class="lead" data-reveal>Seit 1966 betreibt die FLUBAG Flugbetriebs AG den Flugplatz Luzern-Beromünster. Hier sind Flugschule und Rundflüge zu Hause, dazu Helikopter, Fallschirmspringer und Segelflieger unserer Partner am Flugplatz.</p>
+          <p class="muted" data-reveal>Unser Team aus nebenamtlichen Fluglehrern und Rundflugpiloten teilt eine Leidenschaft: Menschen für das Fliegen zu begeistern. Dazu gehören fünf eigene Flugzeuge, vom Schulflugzeug Cessna 150 bis zur legendären Piper Cub.</p>
+        </div>
+        <div class="stats about__stats" data-reveal>
+          <div class="stat"><span class="stat__value">1966</span><span class="stat__label">Gegründet</span></div>
+          <div class="stat"><span class="stat__value">5</span><span class="stat__label">Flugzeuge</span></div>
+          <div class="stat"><span class="stat__value">10</span><span class="stat__label">Fluglehrer</span></div>
+          <div class="stat"><span class="stat__value">2146<small>ft</small></span><span class="stat__label">Platzhöhe</span></div>
+        </div>
+        <div class="row" data-reveal>
+          <a class="btn btn--ghost" href="geschichte.html"><x-icon name="history"></x-icon>Geschichte &amp; Team</a>
+          <a class="btn btn--text" href="anreise.html">Anreise <x-icon name="arrow-right"></x-icon></a>
         </div>
       </div>
     </div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Neu: Gutscheine online</p>
-        <h2 id="voucher-title" data-split>Verschenk ein Stück Himmel.</h2>
-        <p class="lead" data-reveal>Fluggutscheine ab Luzern-Beromünster für Rundflüge und Schnupperflüge oder als Wertgutschein: jederzeit bequem online kaufen und direkt zuhause ausdrucken, auf Wunsch auch per Post. Perfekt für Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
+
+    <div class="fleet-row">
+      <div class="fleet-row__head" data-reveal>
+        <div class="stack">
+          <p class="eyebrow">Unsere Flotte</p>
+          <h3 id="fleet-title" class="fleet-row__title">Fünf Flugzeuge, fünf Charaktere.</h3>
+        </div>
+        <p class="muted fleet-row__lead">Vom gutmütigen Schulflugzeug über die Reisemaschine mit Autopilot bis zur gelben Legende mit Heckrad.</p>
+        <a class="btn btn--text" href="flotte.html">Zur Flotte <x-icon name="arrow-right"></x-icon></a>
       </div>
-      <ul class="checklist" data-reveal-group>
-        <li data-reveal><x-icon name="check"></x-icon>Persönliche Widmung bis 160 Zeichen</li>
-        <li data-reveal><x-icon name="check"></x-icon>print@home oder Postversand</li>
-        <li data-reveal><x-icon name="check"></x-icon>Wertgutscheine von CHF 20 bis 3000</li>
+      <ul class="fleet-row__list" role="list" data-reveal>
+        <!-- @each data.flotte as a -->
+        <li>
+          <a class="plane-card" href="flugzeug-{{a.id}}.html">
+            <span class="plane-card__media"><x-img src="{{a.image}}" alt="{{a.variant}} {{a.reg}} der FLUBAG" sizes="(max-width: 760px) 60vw, 250px"></x-img><span class="plane-card__reg mono">{{a.reg}}</span></span>
+            <span class="plane-card__body">
+              <span class="plane-card__type">{{a.type}}</span>
+              <span class="plane-card__nick">{{a.nickname}}</span>
+              <span class="plane-card__meta mono">{{a.seats}} Plätze · <span class="nowrap">Miete ab {{a.price2 | chf}}/h</span></span>
+            </span>
+          </a>
+        </li>
+        <!-- @end -->
       </ul>
-      <div class="row" data-reveal>
-        <a class="btn btn--primary" href="gutscheine.html#gestalten"><x-icon name="gift"></x-icon>Gutschein gestalten</a>
-        <a class="btn btn--text" href="{{site.shop}}" target="_blank" rel="noopener">Direkt zum Shop <x-icon name="arrow-up-right"></x-icon></a>
-      </div>
     </div>
   </div>
 </section>
 
-<section class="section section--alt live" aria-labelledby="live-title">
+<section class="section home-sec news" id="aktuelles" aria-labelledby="news-title">
   <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Live am Flugplatz</p>
-        <h2 id="live-title" data-split>Wie sieht's aus in Beromünster?</h2>
-      </div>
-      <p class="lead" data-reveal data-live="status weather">Webcam, Wind auf der Piste und Platzstatus nach den aktuellen Betriebszeiten. Automatisch aktualisiert.</p>
-    </div>
-    <div class="live__grid">
-      <a class="live__cam card" href="webcams.html" data-reveal>
-        <span class="card__media card__media--wide">
-          <img src="https://flubag.ch/webcam/cam-south000.jpg" alt="Live Webcam LSZO Richtung Holding Point Piste 33" loading="lazy" data-webcam data-fallback="assets/img/flugplatz/webcam-sued-960.webp" width="1600" height="1200">
-          <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
-        </span>
-        <span class="card__body"><span class="card__title">Webcam Süd</span><span class="card__text">Blick Richtung Holding Point Piste 33</span></span>
-      </a>
-      <div class="card card--pad" data-reveal data-live="status">
-        <p class="eyebrow eyebrow--plain">Platzstatus</p>
-        <div class="mt-s" data-airfield-status></div>
-      </div>
-      <div class="card card--pad live__wind" data-reveal data-live="weather">
-        <p class="eyebrow eyebrow--plain">Wind auf der Piste</p>
-        <div class="mt-s" data-xwind></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section news" aria-labelledby="news-title">
-  <div class="container">
-    <div class="section-head section-head--split">
+    <div class="news__head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Aktuelles</p>
         <h2 id="news-title" data-split>Neues vom Platz.</h2>
       </div>
-      <div class="row" data-reveal><a class="btn btn--ghost" href="aktuelles.html">Alle News <x-icon name="arrow-right"></x-icon></a></div>
+      <a class="btn btn--ghost" href="aktuelles.html" data-reveal>Alle News <x-icon name="arrow-right"></x-icon></a>
     </div>
-    <div class="grid grid-4" data-reveal-group>
+    <ul class="news__list" role="list" data-reveal-group="0.08">
       <!-- @each data.news as n -->
-      <a class="card card--glow" href="{{n.file}}" data-reveal>
-        <span class="card__media"><x-img src="{{n.image}}" alt="" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"></x-img><span class="card__badge chip">{{n.category}}</span></span>
-        <span class="card__body"><span class="card__title">{{n.title}}</span><span class="card__text">{{n.teaser}}</span></span>
-      </a>
+      <li data-reveal>
+        <a class="news-item" href="{{n.file}}">
+          <span class="news-item__media"><x-img src="{{n.image}}" alt="" sizes="(max-width: 640px) 112px, 200px"></x-img></span>
+          <span class="news-item__body">
+            <span class="news-item__cat mono">{{n.category}}</span>
+            <span class="news-item__title">{{n.title}}</span>
+            <span class="news-item__text">{{n.teaser}}</span>
+          </span>
+          <span class="news-item__go" aria-hidden="true"><x-icon name="arrow-right"></x-icon></span>
+        </a>
+      </li>
       <!-- @end -->
+    </ul>
+  </div>
+</section>
+
+<section class="section home-sec section--alt cam-strip" id="webcam" aria-labelledby="cam-title">
+  <div class="container cam-strip__inner">
+    <a class="cam-strip__media" href="webcams.html" data-reveal="fade">
+      <img src="https://flubag.ch/webcam/cam-south000.jpg" alt="Live Webcam LSZO Richtung Holding Point Piste 33" loading="lazy" data-webcam data-fallback="assets/img/flugplatz/webcam-sued-960.webp" width="1600" height="1200">
+      <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
+    </a>
+    <div class="cam-strip__body" data-reveal>
+      <p class="eyebrow">Live am Flugplatz</p>
+      <h2 id="cam-title" class="cam-strip__title">Webcam und Wetter am Flugplatz.</h2>
+      <p class="muted">Wie sieht's aus in Beromünster? Die Webcam Süd blickt Richtung Holding Point Piste 33. Alle Webcams und das aktuelle Wetter findest du auf der Webcam-Seite.</p>
+      <div class="cam-strip__links">
+        <a class="btn btn--ghost" href="webcams.html"><x-icon name="camera"></x-icon>Webcams &amp; Wetter</a>
+        <a class="cam-strip__pilots" href="piloten.html"><x-icon name="plane"></x-icon>Für Piloten: Platzstatus, Wind, Weisungen <x-icon name="arrow-right"></x-icon></a>
+      </div>
     </div>
   </div>
 </section>

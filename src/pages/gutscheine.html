@@ -11,7 +11,7 @@
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="rundfluege.html">Rundflüge</a></li><li>Gutscheine</li></ol>
     <p class="eyebrow">Gutscheine</p>
     <h1 class="gift-hero__title" data-split data-split-now>Schenken. <span class="gift-hero__accent">Abheben.</span> Erleben.</h1>
-    <p class="lead">Fluggutscheine ab Luzern-Beromünster: Verschenk einen Rundflug über Luzern und die Alpen, einen Schnupperflug am Steuer oder einen Wertgutschein mit freier Wahl. Jederzeit online bestellen und direkt ausdrucken.</p>
+    <p class="lead">Fluggutscheine ab Luzern-Beromünster: ein Rundflug über Luzern und die Alpen, ein Schnupperflug am Steuer oder ein Wertgutschein mit freier Wahl. Für Geburtstag, Weihnachten, Hochzeit, das neue Zuhause oder einfach so. Jederzeit online bestellen und direkt ausdrucken.</p>
     <div class="page-hero__meta">
       <span class="chip"><x-icon name="printer"></x-icon>print@home: PDF sofort</span>
       <span class="chip"><x-icon name="mail"></x-icon>oder Postversand</span>
@@ -23,7 +23,6 @@
       <a class="btn btn--ghost btn--lg" href="{{site.shop}}" target="_blank" rel="noopener">Direkt zum Shop <x-icon name="arrow-up-right"></x-icon></a>
     </div>
   </div>
-  <a class="scroll-cue" href="#gestalten" aria-label="Weiter zum Gutschein-Konfigurator"><span></span></a>
 </section>
 
 <nav class="subnav" data-subnav aria-label="Auf dieser Seite">
@@ -37,19 +36,6 @@
     </ul>
   </div>
 </nav>
-
-<div class="gift-occasions" aria-label="Anlässe für einen Fluggutschein">
-  <p class="gift-occasions__label mono">Perfekt für</p>
-  <div class="marquee marquee--big gift-marquee">
-    <div class="marquee__track">
-      <span class="marquee__item">Neues Zuhause</span>
-      <span class="marquee__item">Geburtstag</span>
-      <span class="marquee__item">Weihnachten</span>
-      <span class="marquee__item">Hochzeit</span>
-      <span class="marquee__item">Einfach so</span>
-    </div>
-  </div>
-</div>
 
 <!-- ================= Konfigurator ================= -->
 <section class="section gift-config-section" id="gestalten" aria-labelledby="config-title" data-gift>
@@ -286,42 +272,33 @@
 </section>
 
 <!-- ================= So funktioniert's ================= -->
-<section class="section section--alt section--glow gift-how" id="so-gehts" aria-labelledby="how-title">
+<section class="section section--alt gift-how" id="so-gehts" aria-labelledby="how-title">
   <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow" data-reveal>So funktioniert's</p>
-      <h2 id="how-title" data-split>In drei Schritten zum Geschenk.</h2>
+    <div class="section-head section-head--split">
+      <div class="stack">
+        <p class="eyebrow" data-reveal>So funktioniert's</p>
+        <h2 id="how-title" data-split>In drei Schritten zum Geschenk.</h2>
+      </div>
       <p class="lead" data-reveal>Gutscheine kaufst du einfach und bequem jederzeit online und druckst sie zuhause aus. Oder du lässt sie dir per Post schicken.</p>
     </div>
-    <ol class="gift-how__list" data-gift-how>
-      <li class="gift-how__track" aria-hidden="true"><span class="gift-how__fill"></span><span class="gift-how__plane"><x-icon name="plane"></x-icon></span></li>
-      <li class="gift-how__step" data-reveal>
-        <span class="gift-how__num">01</span>
-        <div class="gift-how__card">
-          <span class="gift-how__icon"><x-icon name="gift"></x-icon></span>
-          <h3 class="gift-how__title">Auswählen und persönlich machen</h3>
-          <p>Wähle im Gutschein-Shop einen Rundflug für 1 bis 3 Personen, einen Schnupperflug oder einen Wertgutschein. Dann trägst du ein, für wen der Gutschein ist, von wem er kommt, und schreibst eine Widmung mit bis zu 160 Zeichen.</p>
-        </div>
+    <ol class="gift-how__list" data-reveal-group="0.08">
+      <li class="gift-how__card" data-reveal>
+        <div class="gift-how__head"><span class="gift-how__num" aria-hidden="true">1</span><h3 class="gift-how__title">Auswählen und persönlich machen</h3></div>
+        <p>Wähle im Gutschein-Shop einen Rundflug für 1 bis 3 Personen, einen Schnupperflug oder einen Wertgutschein. Dann trägst du ein, für wen der Gutschein ist, von wem er kommt, und schreibst eine Widmung mit bis zu 160 Zeichen.</p>
       </li>
-      <li class="gift-how__step" data-reveal>
-        <span class="gift-how__num">02</span>
-        <div class="gift-how__card">
-          <span class="gift-how__icon"><x-icon name="printer"></x-icon></span>
-          <h3 class="gift-how__title">Bestellen und erhalten</h3>
+      <li class="gift-how__card" data-reveal>
+        <div class="gift-how__head"><span class="gift-how__num" aria-hidden="true">2</span><h3 class="gift-how__title">Bestellen und erhalten</h3></div>
+        <div class="gift-how__row">
           <p>Mit print@home erhältst du den Gutschein sofort als PDF und druckst ihn direkt aus. Oder du wählst den Postversand. Gutscheine lassen sich ausserdem aufs Smartphone laden (voucher2mobile).</p>
           <figure class="gift-how__sample">
-            <x-img src="misc/voucher-icon" alt="Muster eines FLUBAG PDF-Gutscheins mit Fotos, Titel und Text" sizes="88px"></x-img>
-            <figcaption class="mono">Muster PDF-Gutschein</figcaption>
+            <x-img src="misc/voucher-icon" alt="Muster eines FLUBAG PDF-Gutscheins mit Fotos, Titel und Text" sizes="64px"></x-img>
+            <figcaption class="mono">Muster PDF</figcaption>
           </figure>
         </div>
       </li>
-      <li class="gift-how__step" data-reveal>
-        <span class="gift-how__num">03</span>
-        <div class="gift-how__card">
-          <span class="gift-how__icon"><x-icon name="plane-takeoff"></x-icon></span>
-          <h3 class="gift-how__title">Einlösen und abheben</h3>
-          <p>Die Beschenkten melden sich bei uns und geben bei der Anfrage die Gutscheinnummer an, zum Beispiel im <a href="schnupperflug.html#anfrage">Schnupperflug-</a> oder im <a href="rundfluege.html#anfrage">Rundflug-Formular</a>. Den Termin vereinbaren wir persönlich, geflogen wird, wenn das Wetter passt.</p>
-        </div>
+      <li class="gift-how__card" data-reveal>
+        <div class="gift-how__head"><span class="gift-how__num" aria-hidden="true">3</span><h3 class="gift-how__title">Einlösen und abheben</h3></div>
+        <p>Die Beschenkten melden sich bei uns und geben bei der Anfrage die Gutscheinnummer an, zum Beispiel im <a href="schnupperflug.html#anfrage">Schnupperflug-</a> oder im <a href="rundfluege.html#anfrage">Rundflug-Formular</a>. Den Termin vereinbaren wir persönlich, geflogen wird, wenn das Wetter passt.</p>
       </li>
     </ol>
   </div>
@@ -338,35 +315,28 @@
       <p class="lead" data-reveal>Fünf Rundflüge, der Schnupperflug am Steuer und der Wertgutschein mit freier Wahl. Jeder Gutschein führt dich direkt zur passenden Seite im Shop.</p>
     </div>
 
-    <div class="gift-cards" data-reveal-group="0.08">
+    <div class="gift-cards" data-reveal-group="0.06">
       <!-- @each data.rundfluege as r -->
-      <article class="gift-card card card--glow" id="gutschein-{{r.id}}" data-reveal>
+      <article class="gift-card card" id="gutschein-{{r.id}}" data-reveal>
         <div class="gift-card__media">
-          <x-img src="{{r.image}}" alt="Ausblick beim Rundflug {{r.name}}" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img>
+          <x-img src="{{r.image}}" alt="Ausblick beim Rundflug {{r.name}}" sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img>
           <span class="card__badge chip"><x-icon name="timer"></x-icon>{{r.duration}} min</span>
-          <span class="gift-card__price-tag"><small>pro Person</small>{{r.price | chf}}</span>
         </div>
         <div class="card__body">
-          <p class="gift-card__kind mono">Rundflug-Gutschein · 0{{loop.number}}</p>
           <h3 class="card__title gift-card__title">{{r.title}}</h3>
-          <!-- @if r.id == "luzern" -->
-          <p class="card__text">Verschenke einen Rundflug über Luzern. Die Cessna mit 3 Passagierplätzen hebt in Luzern-Beromünster ab. Die Beschenkten überfliegen das Seetal mit Sicht auf Hallwiler-, Baldegger- und Sempachersee, vor sich das wunderschöne Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.</p>
-          <!-- @endif -->
-          <!-- @if r.id == "pilatus-rigi" -->
-          <p class="card__text">Ab dem gut zugänglichen Flugplatz Luzern-Beromünster startet der Flug Richtung Luzerner Seebecken. Dabei geht es über das glitzernde Wasser des Sempachersees und das satte Grün der Innerschweiz. Die Sicht schweift zu Rigi und Pilatus: Die beiden Hausberge Luzerns überraschen mit Grösse und Schönheit. Nach 30 Minuten Flugzeit endet der Flug wieder in Luzern-Beromünster.</p>
-          <!-- @endif -->
-          <!-- @if r.id == "titlis" -->
-          <p class="card__text">Der Flug startet im höher gelegenen Beromünster. Dem Nebel hoffentlich entflohen, geht es Richtung Innerschweiz. Die glitzernden Seen und grünen Landschaften werden von den Luzerner Hausbergen Rigi und Pilatus zusätzlich verschönert. Zurück geht es entweder an den Mythen vorbei, mit Sicht auf Zuger-, Hallwiler- und Baldeggersee, oder zum schneebestäubten Titlis. Beide Steinmassive sind sehr sehenswert. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst.</p>
-          <!-- @endif -->
-          <!-- @if r.id == "eiger-moench-jungfrau" -->
-          <p class="card__text">Top of Europe: das UNESCO Welterbe von oben sehen, ein Traum, der in Erfüllung gehen kann. In der vierplätzigen Cessna sind das Jungfraujoch und der Konkordiaplatz zu sehen, dazu geht es über Eiger und Mönch. Das Dreigestirn wird umrahmt von weiteren Zwei- und Dreitausendern wie der Scheidegg, dem Engelhorn oder dem Stanserhorn. Bei diesem Flug halten die Beschenkten Mund und Augen offen: Berge, Seen und Landschaften, die verzaubern.</p>
-          <!-- @endif -->
-          <!-- @if r.id == "matterhorn" -->
-          <p class="card__text">Der Start in Beromünster erfolgt stressfrei und unkompliziert. Mit der vierplätzigen Cessna zeigt sich die Welt von oben, mit beliebten Skigebieten und verschiedenen Städten. Das mediterrane Flair von Thuner- und Brienzersee kommt mit auf die Reise zum Matterhorn. Abgerundet wird der Flug über das Gomsertal, den Grimselpass und die Melchsee-Frutt. Der verwinkelte Vierwaldstättersee mit dem emporsteigenden Pilatus und der Rigi macht den Abschluss zu einem Erlebnis, das keine Wünsche offen lässt.</p>
-          <!-- @endif -->
           <ul class="gift-card__tags" aria-label="Höhepunkte">
             <!-- @each r.highlights as h --><li>{{h}}</li><!-- @end -->
           </ul>
+          <details class="gift-card__more">
+            <summary>Flugbeschreibung lesen</summary>
+            <div class="gift-card__more-body">
+              <!-- @if r.id == "luzern" --><p>Verschenke einen Rundflug über Luzern. Die Cessna mit 3 Passagierplätzen hebt in Luzern-Beromünster ab. Die Beschenkten überfliegen das Seetal mit Sicht auf Hallwiler-, Baldegger- und Sempachersee, vor sich das wunderschöne Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.</p><!-- @endif -->
+              <!-- @if r.id == "pilatus-rigi" --><p>Ab dem gut zugänglichen Flugplatz Luzern-Beromünster startet der Flug Richtung Luzerner Seebecken. Dabei geht es über das glitzernde Wasser des Sempachersees und das satte Grün der Innerschweiz. Die Sicht schweift zu Rigi und Pilatus: Die beiden Hausberge Luzerns überraschen mit Grösse und Schönheit. Nach 30 Minuten Flugzeit endet der Flug wieder in Luzern-Beromünster.</p><!-- @endif -->
+              <!-- @if r.id == "titlis" --><p>Der Flug startet im höher gelegenen Beromünster. Dem Nebel hoffentlich entflohen, geht es Richtung Innerschweiz. Die glitzernden Seen und grünen Landschaften werden von den Luzerner Hausbergen Rigi und Pilatus zusätzlich verschönert. Zurück geht es entweder an den Mythen vorbei, mit Sicht auf Zuger-, Hallwiler- und Baldeggersee, oder zum schneebestäubten Titlis. Beide Steinmassive sind sehr sehenswert. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst.</p><!-- @endif -->
+              <!-- @if r.id == "eiger-moench-jungfrau" --><p>Top of Europe: das UNESCO Welterbe von oben sehen, ein Traum, der in Erfüllung gehen kann. In der vierplätzigen Cessna sind das Jungfraujoch und der Konkordiaplatz zu sehen, dazu geht es über Eiger und Mönch. Das Dreigestirn wird umrahmt von weiteren Zwei- und Dreitausendern wie der Scheidegg, dem Engelhorn oder dem Stanserhorn. Bei diesem Flug halten die Beschenkten Mund und Augen offen: Berge, Seen und Landschaften, die verzaubern.</p><!-- @endif -->
+              <!-- @if r.id == "matterhorn" --><p>Der Start in Beromünster erfolgt stressfrei und unkompliziert. Mit der vierplätzigen Cessna zeigt sich die Welt von oben, mit beliebten Skigebieten und verschiedenen Städten. Das mediterrane Flair von Thuner- und Brienzersee kommt mit auf die Reise zum Matterhorn. Abgerundet wird der Flug über das Gomsertal, den Grimselpass und die Melchsee-Frutt. Der verwinkelte Vierwaldstättersee mit dem emporsteigenden Pilatus und der Rigi macht den Abschluss zu einem Erlebnis, das keine Wünsche offen lässt.</p><!-- @endif -->
+            </div>
+          </details>
           <div class="gift-card__foot">
             <p class="gift-card__price"><strong>{{r.price | chf}}</strong><span>pro Person, 1 bis 3 Personen</span></p>
             <div class="gift-card__actions">
@@ -378,21 +348,22 @@
       </article>
       <!-- @end -->
 
-      <article class="gift-card card card--glow" id="gutschein-schnupperflug" data-reveal>
+      <article class="gift-card card" id="gutschein-schnupperflug" data-reveal>
         <div class="gift-card__media">
-          <x-img src="rundflug/schnupperflug-gutschein" alt="Flugschülerin am Steuer einer Cessna, daneben der Fluglehrer" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img>
+          <x-img src="rundflug/schnupperflug-gutschein" alt="Flugschülerin am Steuer einer Cessna, daneben der Fluglehrer" sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 420px"></x-img>
           <span class="card__badge chip"><x-icon name="timer"></x-icon>60 oder 90 min</span>
-          <span class="gift-card__price-tag"><small>ab</small>CHF 420</span>
         </div>
         <div class="card__body">
-          <p class="gift-card__kind mono">Selber fliegen · 06</p>
           <h3 class="card__title gift-card__title">Schnupperflug verschenken</h3>
-          <p class="card__text">Du möchtest einen Schnupperflug verschenken? An jemanden, der schon lange davon träumt, einmal selbst ein Flugzeug zu steuern, abzuheben und auf die Welt hinunterzuschauen? Dann ist dieser Gutschein genau das Richtige. Mit einem erfahrenen Fluglehrer am Doppelsteuer, im zweiplätzigen Schulflugzeug Cessna 150 oder in der vierplätzigen Cessna 172. Vorkenntnisse sind keine nötig. <a class="brand-text" href="schnupperflug.html">Alles zum Schnupperflug</a></p>
           <ul class="gift-card__options" aria-label="Varianten und Preise inklusive Fluglehrer">
             <!-- @each data.preise.schnupperflug as o -->
             <li><a class="gift-option" href="#gestalten" data-gift-pick="schnupperflug" data-schnupper="{{o.shop}}"><span class="gift-option__what">{{o.aircraft}} · {{o.minutes}} min</span><span class="gift-option__price">{{o.price | chf}}</span></a></li>
             <!-- @end -->
           </ul>
+          <details class="gift-card__more">
+            <summary>Mehr zum Schnupperflug</summary>
+            <div class="gift-card__more-body"><p>Du möchtest einen Schnupperflug verschenken? An jemanden, der schon lange davon träumt, einmal selbst ein Flugzeug zu steuern, abzuheben und auf die Welt hinunterzuschauen? Dann ist dieser Gutschein genau das Richtige. Mit einem erfahrenen Fluglehrer am Doppelsteuer, im zweiplätzigen Schulflugzeug Cessna 150 oder in der vierplätzigen Cessna 172. Vorkenntnisse sind keine nötig. <a class="brand-text" href="schnupperflug.html">Alles zum Schnupperflug</a></p></div>
+          </details>
           <div class="gift-card__foot">
             <p class="gift-card__price"><strong>ab CHF 420</strong><span>inkl. Fluglehrer</span></p>
             <div class="gift-card__actions">
@@ -403,14 +374,12 @@
         </div>
       </article>
 
-      <article class="gift-card gift-card--wide card card--glow" id="gutschein-wertgutschein" data-reveal>
+      <article class="gift-card gift-card--wide card" id="gutschein-wertgutschein" data-reveal>
         <div class="gift-card__media">
-          <x-img src="rundflug/wertgutschein" alt="Blick aus dem Flugzeug auf einen Bergrücken mit Sendemast über dem Nebelmeer" sizes="(max-width: 860px) 100vw, 640px"></x-img>
+          <x-img src="rundflug/wertgutschein" alt="Blick aus dem Flugzeug auf einen Bergrücken mit Sendemast über dem Nebelmeer" sizes="(max-width: 760px) 100vw, 420px"></x-img>
           <span class="card__badge chip"><x-icon name="sparkles"></x-icon>Freie Wahl</span>
-          <span class="gift-card__price-tag"><small>von</small>CHF 20 bis 3000</span>
         </div>
         <div class="card__body">
-          <p class="gift-card__kind mono">Wertgutschein · 07</p>
           <h3 class="card__title gift-card__title">Wertgutschein</h3>
           <p class="card__text">Abheben und erleben! Verschenke unseren Wertgutschein. Die Beschenkten haben die freie Wahl und können ihn für alle unsere Rundflüge und Schnupperflüge einlösen.</p>
           <ul class="gift-card__amounts" aria-label="Beträge">
@@ -439,7 +408,7 @@
         <x-icon name="shopping-bag"></x-icon>
         <p><strong>Alle Gutscheine auf einen Blick:</strong> Im Gutschein-Shop bestellst du jederzeit online, mit print@home oder Postversand.</p>
       </div>
-      <a class="btn btn--ghost" href="{{site.shop}}" target="_blank" rel="noopener">Zum Gutschein-Shop <x-icon name="arrow-up-right"></x-icon></a>
+      <a class="btn btn--ghost btn--sm" href="{{site.shop}}" target="_blank" rel="noopener">Zum Gutschein-Shop <x-icon name="arrow-up-right"></x-icon></a>
     </div>
   </div>
 </section>
@@ -468,12 +437,11 @@
         </div>
       </div>
 
-      <div class="gift-contact card card--pad" data-reveal>
-        <p class="eyebrow eyebrow--plain">Fragen zum Gutschein?</p>
-        <p class="muted">Wir helfen dir gerne weiter, ob beim Aussuchen, Bestellen oder Einlösen.</p>
+      <div class="gift-contact" data-reveal>
+        <p><strong>Fragen zum Gutschein?</strong> Wir helfen dir gerne weiter, ob beim Aussuchen, Bestellen oder Einlösen.</p>
         <div class="row">
-          <a class="btn btn--primary" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
-          <a class="btn btn--ghost" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
+          <a class="btn btn--ghost btn--sm" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
+          <a class="btn btn--ghost btn--sm" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
         </div>
       </div>
     </div>
@@ -481,8 +449,8 @@
     <div class="stack" id="fragen">
       <p class="eyebrow" data-reveal>Häufige Fragen</p>
       <h2 class="gift-faq__title" data-split>Gut zu wissen.</h2>
-      <div class="accordion mt-m" data-reveal>
-        <details class="acc" open><summary>Wie löse ich meinen Gutschein ein?</summary><div class="acc__body"><p>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Am einfachsten trägst du sie direkt im <a class="brand-text" href="schnupperflug.html#anfrage">Schnupperflug-Formular</a> oder im <a class="brand-text" href="rundfluege.html#anfrage">Rundflug-Formular</a> ein, das gilt auch für den Wertgutschein. Oder du erreichst uns unter <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a> und per E-Mail an <a class="brand-text" href="mailto:{{site.email}}">{{site.email}}</a>. Den Termin vereinbaren wir persönlich mit dir.</p></div></details>
+      <div class="accordion" data-reveal>
+        <details class="acc"><summary>Wie löse ich meinen Gutschein ein?</summary><div class="acc__body"><p>Melde dich bei uns und gib bei der Anfrage die Gutscheinnummer an. Am einfachsten trägst du sie direkt im <a class="brand-text" href="schnupperflug.html#anfrage">Schnupperflug-Formular</a> oder im <a class="brand-text" href="rundfluege.html#anfrage">Rundflug-Formular</a> ein, das gilt auch für den Wertgutschein. Oder du erreichst uns unter <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a> und per E-Mail an <a class="brand-text" href="mailto:{{site.email}}">{{site.email}}</a>. Den Termin vereinbaren wir persönlich mit dir.</p></div></details>
         <details class="acc"><summary>Wie erhalte ich den Gutschein?</summary><div class="acc__body"><p>Du hast die Wahl: Mit print@home bekommst du den Gutschein sofort als PDF und druckst ihn direkt aus. Oder du lässt ihn per Post schicken. Gutscheine lassen sich ausserdem aufs Smartphone laden (voucher2mobile).</p></div></details>
         <details class="acc"><summary>Kann ich den Gutschein personalisieren?</summary><div class="acc__body"><p>Ja. Im Shop gibst du an, für wen der Gutschein ist und von wem er kommt, und schreibst eine persönliche Widmung mit maximal 160 Zeichen. Im <a class="brand-text" href="#gestalten">Gutschein-Konfigurator</a> kannst du vorher in Ruhe ausprobieren, wie das wirkt.</p></div></details>
         <details class="acc"><summary>Wie viele Personen können beim Rundflug mitfliegen?</summary><div class="acc__body"><p>Bis zu drei. Die Cessna hat drei Passagierplätze, der Preis gilt pro Person. Im Shop wählst du 1 bis 3 Personen.</p></div></details>

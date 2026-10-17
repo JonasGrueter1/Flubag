@@ -629,7 +629,8 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
   .footer-acc > ul a { padding: 7px 0; }
   .footer-acc > .data-list { margin: 0; padding-bottom: 14px; }
   .footer-airfield .footer-acc { border-bottom: 1px solid var(--line); }
-  .footer-status { margin-top: 14px; justify-self: start; padding: 7px 12px; font-size: 0.8rem; }
+  /* Platzstatus steht auf dem Handy schon in der Statusleiste und im Menü */
+  .footer-status { display: none; }
   .footer-airfield { display: grid; }
   .footer-partners { margin-top: 24px; padding-top: 0; border-top: 0; }
   .footer-partners .footer-title { margin-bottom: 10px; }

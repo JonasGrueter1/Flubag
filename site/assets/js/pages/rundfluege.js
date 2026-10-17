@@ -1,5 +1,5 @@
-/* Rundflüge: Hero-Slides, Routenkarte (Leaflet + swisstopo), Flugzeug fliegt die Route ab,
-   Routen-Skizzen, Personenrechner, Boarding Pass und Anfrage mit Live-Preis. */
+/* Rundflüge: Hero-Bilder, Routenwahl (Tabs) mit Karte (Leaflet + swisstopo), das Flugzeug fliegt
+   die gewählte Route ab, Anfrage mit Live-Preis. Ohne JavaScript stehen alle Routen untereinander. */
 (function () {
   'use strict';
   var F = window.FLUBAG;
@@ -21,7 +21,6 @@
     ['Grimselpass', 46.5617, 8.3372], ['Melchsee-Frutt', 46.775, 8.27], ['Vierwaldstättersee', 46.98, 8.4]
   ];
   var OVERVIEW = ['Luzern', 'Pilatus', 'Rigi', 'Titlis', 'Eiger', 'Matterhorn'];
-  var SKETCH = ['Luzern', 'Hallwilersee', 'Baldeggersee', 'Sempachersee', 'Pilatus', 'Rigi', 'Titlis', 'Mythen', 'Stanserhorn', 'Eiger', 'Thunersee', 'Matterhorn', 'Grimselpass'];
 
   // ------------------------------------------------------------------ Geometrie
   function hav(a, b) {
@@ -41,25 +40,14 @@
     r._km = cum[cum.length - 1];
     r._kmR = Math.round(r._km / 5) * 5;
   });
-  var minKm = Math.min.apply(null, ROUTES.map(function (r) { return r._kmR; }));
-  var maxKm = Math.max.apply(null, ROUTES.map(function (r) { return r._kmR; }));
-  var minDur = Math.min.apply(null, ROUTES.map(function (r) { return r.duration; }));
-  var maxDur = Math.max.apply(null, ROUTES.map(function (r) { return r.duration; }));
-  var minPrice = Math.min.apply(null, ROUTES.map(function (r) { return r.price; }));
 
-  // Distanzen sofort einsetzen (vor dem Start der Animationen, damit data-count greift)
+  // Geschätzte Distanzen sofort einsetzen
   F.$$('[data-rf-km]').forEach(function (el) {
     var r = byId[el.getAttribute('data-rf-km')];
-    if (!r) return;
-    el.textContent = r._kmR;
-    el.setAttribute('data-count', String(r._kmR));
-  });
-  F.$$('[data-rf-dist]').forEach(function (el) {
-    var r = byId[el.getAttribute('data-rf-dist')];
-    if (r) el.textContent = 'ca. ' + r._kmR + ' km';
+    if (r) el.textContent = r._kmR;
   });
 
-  // ------------------------------------------------------------------ Skizzen (SVG, auch Fallback ohne Leaflet)
+  // ------------------------------------------------------------------ Skizze aller Routen (Ersatz, wenn Leaflet fehlt)
   var SVGNS = 'http://www.w3.org/2000/svg';
   function sketch(routes, opts) {
     opts = opts || {};
@@ -78,15 +66,15 @@
     svg.setAttribute('class', 'rf-sketch');
     svg.setAttribute('aria-hidden', 'true');
     svg.setAttribute('focusable', 'false');
-    var labels = {}, segs = [];
+    var labels = {}, boxes = [], fs = opts.font || 9, cw = fs * 0.62;
     routes.forEach(function (r) {
-      for (var s = 1; s < r.path.length; s++) segs.push([xy(r.path[s - 1]), xy(r.path[s])]);
       var d = r.path.map(function (p, i) { var q = xy(p); return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' ');
-      var base = document.createElementNS(SVGNS, 'path');
-      base.setAttribute('d', d); base.setAttribute('class', 'rf-sketch__base');
-      var draw = document.createElementNS(SVGNS, 'path');
-      draw.setAttribute('d', d); draw.setAttribute('class', 'rf-sketch__draw'); draw.setAttribute('pathLength', '1');
-      svg.appendChild(base); svg.appendChild(draw);
+      ['rf-sketch__base', 'rf-sketch__draw'].forEach(function (cls) {
+        var path = document.createElementNS(SVGNS, 'path');
+        path.setAttribute('d', d); path.setAttribute('class', cls);
+        path.setAttribute('data-route', r.id);
+        svg.appendChild(path);
+      });
       r.path.forEach(function (p, i) {
         if (i === 0 || i === r.path.length - 1) return;
         var q = xy(p), c = document.createElementNS(SVGNS, 'circle');
@@ -97,46 +85,17 @@
         if (n && (!opts.only || opts.only.indexOf(n) > -1)) labels[n] = q;
       });
     });
-    // Beschriftungen platzieren: rechts, links, oben oder unten, ohne Überlappung
-    var fs = opts.font || 9, cw = fs * 0.62, boxes = [];
-    var h = xy(HOME);
-    function hit(b) {
-      if (b.x < 1 || b.x + b.w > W - 1 || b.y < 1 || b.y + b.h > H - 1) return true;
-      return boxes.some(function (o) { return b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y; });
-    }
-    // Kreuzt eine Strecke der Route das Beschriftungs-Rechteck?
-    function cross(a, c, d, e) {
-      var d1 = (e[0] - d[0]) * (a[1] - d[1]) - (e[1] - d[1]) * (a[0] - d[0]);
-      var d2 = (e[0] - d[0]) * (c[1] - d[1]) - (e[1] - d[1]) * (c[0] - d[0]);
-      var d3 = (c[0] - a[0]) * (d[1] - a[1]) - (c[1] - a[1]) * (d[0] - a[0]);
-      var d4 = (c[0] - a[0]) * (e[1] - a[1]) - (c[1] - a[1]) * (e[0] - a[0]);
-      return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
-    }
-    function onLine(b) {
-      var x0 = b.x - 1, y0 = b.y - 1, x1 = b.x + b.w + 1, y1 = b.y + b.h + 1;
-      var edges = [[[x0, y0], [x1, y0]], [[x1, y0], [x1, y1]], [[x1, y1], [x0, y1]], [[x0, y1], [x0, y0]]];
-      var inside = function (p) { return p[0] > x0 && p[0] < x1 && p[1] > y0 && p[1] < y1; };
-      return segs.some(function (s) {
-        if (inside(s[0]) || inside(s[1])) return true;
-        return edges.some(function (e) { return cross(s[0], s[1], e[0], e[1]); });
-      });
-    }
+    // Beschriftungen rechts, links, oben oder unten, ohne Überlappung
     function place(name, q, cls, gap) {
       var w = name.length * cw, hh = fs + 2;
       var cand = [
         { x: q[0] + gap, y: q[1] - hh / 2, a: 'start' }, { x: q[0] - gap - w, y: q[1] - hh / 2, a: 'end' },
-        { x: q[0] - w / 2, y: q[1] - gap - hh, a: 'middle' }, { x: q[0] - w / 2, y: q[1] + gap, a: 'middle' },
-        { x: q[0] + gap * 0.7, y: q[1] - gap * 0.7 - hh, a: 'start' }, { x: q[0] - gap * 0.7 - w, y: q[1] - gap * 0.7 - hh, a: 'end' },
-        { x: q[0] + gap * 0.7, y: q[1] + gap * 0.7, a: 'start' }, { x: q[0] - gap * 0.7 - w, y: q[1] + gap * 0.7, a: 'end' }
+        { x: q[0] - w / 2, y: q[1] - gap - hh, a: 'middle' }, { x: q[0] - w / 2, y: q[1] + gap, a: 'middle' }
       ];
-      // zuerst eine Position ohne Linie darunter, sonst die erste freie (Schrift hat einen Halo)
-      var free = cand.filter(function (c) { return !hit({ x: c.x, y: c.y, w: w, h: hh }); });
-      var clean = free.filter(function (c) { return !onLine({ x: c.x, y: c.y, w: w, h: hh }); });
-      var pick = clean[0] || free[0];
-      if (pick) cand = [pick];
       for (var i = 0; i < cand.length; i++) {
         var c = cand[i], b = { x: c.x, y: c.y, w: w, h: hh };
-        if (hit(b)) continue;
+        if (b.x < 1 || b.x + b.w > W - 1 || b.y < 1 || b.y + b.h > H - 1) continue;
+        if (boxes.some(function (o) { return b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y; })) continue;
         boxes.push(b);
         var t = document.createElementNS(SVGNS, 'text');
         t.setAttribute('x', (c.a === 'start' ? c.x : c.a === 'end' ? c.x + w : c.x + w / 2).toFixed(1));
@@ -148,7 +107,7 @@
         return;
       }
     }
-    var r0 = opts.home || 5;
+    var h = xy(HOME), r0 = opts.home || 5;
     boxes.push({ x: h[0] - r0, y: h[1] - r0, w: 2 * r0, h: 2 * r0 });
     place('LSZO', h, 'rf-sketch__label rf-sketch__label--home', r0 + 4);
     Object.keys(labels).forEach(function (n) { place(n, labels[n], 'rf-sketch__label', 5); });
@@ -158,15 +117,6 @@
     svg.appendChild(home);
     return svg;
   }
-  F.$$('[data-rf-sketch]').forEach(function (box) {
-    var r = byId[box.getAttribute('data-rf-sketch')];
-    if (!r) return;
-    box.appendChild(sketch([r], { w: 200, h: 200, pad: 26, only: SKETCH }));
-    var cap = document.createElement('span');
-    cap.className = 'rf-route__sketch-cap mono';
-    cap.textContent = 'ca. ' + r._kmR + ' km · ' + r.duration + ' min';
-    box.appendChild(cap);
-  });
 
   // ------------------------------------------------------------------ Hero: Bilder der Routen überblenden
   (function heroSlides() {
@@ -211,7 +161,6 @@
     var saveData = navigator.connection && navigator.connection.saveData;
     if (reduced || saveData || window.matchMedia('(max-width: 760px)').matches) return;
     window.addEventListener('load', function () {
-      // Bilder erst nach dem Laden der Seite nachladen, dann wechseln
       slides.slice(1).forEach(function (fig) {
         var src = F.$('#' + fig.getAttribute('data-route-slide') + ' .rf-route__frame img');
         var img = fig.querySelector('img');
@@ -230,15 +179,6 @@
     });
   })();
 
-  // ------------------------------------------------------------------ Boarding Pass (Gutschein-Teaser)
-  function updatePass(r) {
-    if (!r) return;
-    var set = function (sel, v) { var el = F.$(sel); if (el) el.textContent = v; };
-    set('[data-rf-pass-name]', r.name);
-    set('[data-rf-pass-dur]', r.duration + ' min');
-    set('[data-rf-pass-price]', F.chf(r.price));
-  }
-
   // ------------------------------------------------------------------ Zahl weich hochzählen
   function tween(el, to, fmt) {
     var from = +(el.getAttribute('data-v') || 0);
@@ -247,23 +187,6 @@
     var o = { v: from };
     gsap.to(o, { v: to, duration: 0.6, ease: 'power3.out', onUpdate: function () { el.textContent = fmt(Math.round(o.v)); } });
   }
-
-  // ------------------------------------------------------------------ Personenrechner pro Route
-  function calcPersons(id) {
-    var box = F.$('[data-rf-calc="' + id + '"]');
-    var c = box && box.querySelector('input:checked');
-    return c ? +c.value : 1;
-  }
-  F.$$('[data-rf-calc]').forEach(function (box) {
-    var price = +box.getAttribute('data-price');
-    var sum = F.$('[data-rf-calc-sum]', box), note = F.$('[data-rf-calc-note]', box);
-    sum.setAttribute('data-v', price);
-    box.addEventListener('change', function () {
-      var n = calcPersons(box.getAttribute('data-rf-calc'));
-      note.textContent = 'Total für ' + n + (n === 1 ? ' Person' : ' Personen');
-      tween(sum, price * n, F.chf);
-    });
-  });
 
   // ------------------------------------------------------------------ Anfrage-Formular: Route vorwählen, Live-Preis
   var form = F.$('form[data-form-name="Rundflug-Anfrage"]');
@@ -283,25 +206,20 @@
     var r = formRoute(), n = formPersons();
     totalEl.classList.toggle('is-empty', !r);
     if (!r) {
-      totalNote.textContent = 'Preis total';
-      totalEl.textContent = 'Bitte Route wählen';
+      totalNote.textContent = 'Bitte Route wählen';
+      totalEl.textContent = '';
       totalEl.setAttribute('data-v', 0);
       totalInput.value = '';
       return;
     }
-    totalNote.textContent = n + ' × ' + F.chf(r.price) + ' (' + r.duration + ' min)';
+    totalNote.textContent = n + ' × ' + F.chf(r.price) + ' (' + r.name + ', ' + r.duration + ' min)';
     tween(totalEl, r.price * n, F.chf);
     totalInput.value = F.chf(r.price * n) + ' (' + n + ' × ' + F.chf(r.price) + ')';
-    updatePass(r);
   }
-  function preselect(id, persons) {
+  function preselect(id) {
     if (!form || !byId[id]) return;
     var radio = form.querySelector('input[name="rundflug"][data-route="' + id + '"]');
     if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
-    if (persons) {
-      var p = form.querySelector('input[name="personen"][value="' + persons + '"]');
-      if (p) { p.checked = true; p.dispatchEvent(new Event('change', { bubbles: true })); }
-    }
     var card = radio && radio.closest('.choice');
     if (card && !reduced) { card.classList.remove('is-flash'); void card.offsetWidth; card.classList.add('is-flash'); }
   }
@@ -312,47 +230,27 @@
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-rf-request]');
-    if (!a) return;
-    var id = a.getAttribute('data-rf-request');
-    if (id) preselect(id, calcPersons(id));
+    if (a && a.getAttribute('data-rf-request')) preselect(a.getAttribute('data-rf-request'));
   });
 
-  // ------------------------------------------------------------------ Routenkarte
-  var explorer = F.$('[data-rf-explorer]');
+  // ------------------------------------------------------------------ Karte
   var mapEl = F.$('[data-rf-map]');
-  var pickBtns = F.$$('[data-rf-pick]');
   var hud = {
-    code: F.$('[data-rf-hud-code]'), title: F.$('[data-rf-hud-title]'), dur: F.$('[data-rf-hud-dur]'),
-    price: F.$('[data-rf-hud-price]'), dist: F.$('[data-rf-hud-dist]'), fill: F.$('[data-rf-hud-fill]'),
-    actions: F.$('[data-rf-hud-actions]'), request: F.$('[data-rf-hud-request]'), details: F.$('[data-rf-hud-details]'),
-    note: F.$('[data-rf-hud-note]'), replay: F.$('[data-rf-replay]')
+    code: F.$('[data-rf-hud-code]'), title: F.$('[data-rf-hud-title]'), fill: F.$('[data-rf-hud-fill]'),
+    replay: F.$('[data-rf-replay]'), label: F.$('[data-rf-replay-label]')
   };
   var map = null, current = null, flight = null, layers = {}, activeLayer = 'karte';
-  var wpLayer = null, overviewLayer = null, plane = null, planeRot = null, trail = null;
+  var wpLayer = null, plane = null, trail = null, touched = false;
 
   function renderHud(r) {
-    if (!hud.title) return;
-    if (!r) {
-      hud.code.textContent = 'LSZO · ' + ROUTES.length + ' ROUTEN';
-      hud.title.textContent = 'Alle Routen';
-      hud.dur.innerHTML = minDur + ' bis ' + maxDur + ' <small>min</small>';
-      hud.price.innerHTML = '<small>ab</small> ' + F.chf(minPrice);
-      hud.dist.innerHTML = minKm + ' bis ' + maxKm + ' <small>km</small>';
-      hud.actions.hidden = true;
-      hud.replay.hidden = true;
-      hud.fill.style.width = '0%';
-      hud.note.textContent = 'Wähle eine Route, das Flugzeug fliegt sie für dich ab.';
-      return;
-    }
+    if (!r || !hud.title) return;
     hud.code.textContent = 'ROUTE 0' + (r._i + 1) + ' · LSZO';
     hud.title.textContent = r.name;
-    hud.dur.innerHTML = r.duration + ' <small>min</small>';
-    hud.price.innerHTML = F.escape(F.chf(r.price));
-    hud.dist.innerHTML = r._kmR + ' <small>km</small>';
-    hud.actions.hidden = false;
-    hud.request.setAttribute('data-rf-request', r.id);
-    hud.details.setAttribute('href', '#' + r.id);
-    hud.note.textContent = r.highlights.join(' · ');
+    hud.label.textContent = 'Abfliegen';
+    hud.replay.setAttribute('aria-label', 'Route ' + r.name + ' auf der Karte abfliegen');
+    hud.fill.style.width = '0%';
+    // Ersatzskizze ohne Leaflet: gewählte Route hervorheben
+    F.$$('.rf-map__fallback .rf-sketch__draw').forEach(function (el) { el.classList.toggle('is-on', el.getAttribute('data-route') === r.id); });
   }
 
   var PLANE_SVG = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
@@ -367,17 +265,20 @@
   function isWide() { return window.matchMedia('(min-width: 1024px)').matches; }
   function fitOpts() {
     var hudEl = F.$('[data-rf-hud]');
-    var overlay = hudEl && getComputedStyle(hudEl).position === 'absolute';
-    var bottom = overlay ? hudEl.offsetHeight + 34 : 30;
-    var side = isWide() ? 48 : 22;
-    return { paddingTopLeft: [isWide() ? 70 : side, 66], paddingBottomRight: [side, bottom], maxZoom: 12 };
+    var bottom = (hudEl ? hudEl.offsetHeight : 0) + 40;
+    var side = isWide() ? 40 : 22;
+    return { paddingTopLeft: [isWide() ? 64 : side, 64], paddingBottomRight: [side, bottom], maxZoom: 12 };
   }
-  var touched = false;
   function refit() {
-    if (!map || touched) return;
+    if (!map || touched || !current) return;
     map.invalidateSize({ pan: false });
-    map.fitBounds(current ? current._bounds : map._rfAll, fitOpts());
+    map.fitBounds(current._bounds, fitOpts());
     setTimeout(declutter, 30);
+  }
+  function mapInView() {
+    if (!mapEl) return false;
+    var b = mapEl.getBoundingClientRect();
+    return b.bottom > 120 && b.top < window.innerHeight - 120;
   }
 
   function setLayer(name) {
@@ -389,7 +290,7 @@
     F.$$('[data-rf-layer]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-rf-layer') === name)); });
   }
 
-  function initMap(viaSelect) {
+  function initMap() {
     if (map || !mapEl) return !!map;
     if (!window.L) { fallback(); return false; }
     var L = window.L;
@@ -400,7 +301,7 @@
     if (map.attributionControl) map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
     var wide = isWide();
     L.control.zoom({ position: wide ? 'topleft' : 'bottomright', zoomInTitle: 'Hineinzoomen', zoomOutTitle: 'Herauszoomen' }).addTo(map);
-    L.control.scale({ position: wide ? 'topleft' : 'bottomleft', imperial: false, maxWidth: 120 }).addTo(map);
+    if (wide) L.control.scale({ position: 'topleft', imperial: false, maxWidth: 120 }).addTo(map);
     var base = 'https://wmts.geo.admin.ch/1.0.0/';
     var tiles = { karte: ['ch.swisstopo.pixelkarte-farbe', 'jpeg', 18], luftbild: ['ch.swisstopo.swissimage', 'jpeg', 19], icao: ['ch.bazl.luftfahrtkarten-icao', 'png', 12] };
     var loaded = 0, failed = 0;
@@ -421,29 +322,19 @@
     });
     setLayer(activeLayer);
 
-    // Routen: Glow, gestrichelte Linie, unsichtbare breite Klickfläche
-    var all = L.latLngBounds([]);
+    // Routen: Glow, gestrichelte Linie, unsichtbare breite Klickfläche (wählt die Route aus)
     ROUTES.forEach(function (r) {
       r._glow = L.polyline(r.path, { className: 'rf-line-glow', interactive: false, weight: 14, color: '#ff5a26' }).addTo(map);
       r._case = L.polyline(r.path, { className: 'rf-line-case', interactive: false, weight: 6, color: '#0b1426', lineJoin: 'round', lineCap: 'round' }).addTo(map);
       r._line = L.polyline(r.path, { className: 'rf-line', interactive: false, weight: 3, color: '#e63201', lineJoin: 'round', lineCap: 'round' }).addTo(map);
       r._hit = L.polyline(r.path, { className: 'rf-line-hit', weight: 20, opacity: 0, color: '#000' }).addTo(map);
       r._hit.bindTooltip(r.name + ' · ' + r.duration + ' min', { sticky: true, direction: 'top', className: 'wp-label', offset: [0, -8] });
-      r._hit.on('click', function () { select(r.id); });
+      r._hit.on('click', function () { activate(r.id, { animate: true, user: true }); });
       r._bounds = r._line.getBounds();
-      all.extend(r._bounds);
     });
-    map._rfAll = all;
+    // Ansicht setzen, bevor Linien nach vorne geholt werden (Leaflet zeichnet erst mit Ansicht)
+    map.fitBounds(current ? current._bounds : L.latLngBounds(ROUTES.map(function (r) { return r._bounds; })), fitOpts());
     trail = L.polyline([], { className: 'rf-trail', interactive: false, weight: 4, color: '#ffb08e', lineCap: 'round', lineJoin: 'round' }).addTo(map);
-
-    // Übersichts-Beschriftungen
-    overviewLayer = L.layerGroup().addTo(map);
-    POI.forEach(function (p) {
-      if (OVERVIEW.indexOf(p[0]) < 0) return;
-      L.marker([p[1], p[2]], { icon: L.divIcon({ className: 'rf-wp', html: '<span class="wp-marker"></span>', iconSize: [10, 10] }), keyboard: false, interactive: false })
-        .bindTooltip(p[0], { permanent: true, direction: 'right', className: 'wp-label rf-label', offset: [6, 0] })
-        .addTo(overviewLayer);
-    });
     wpLayer = L.layerGroup().addTo(map);
     map.on('zoomend moveend', declutter);
 
@@ -455,8 +346,6 @@
     // Flugzeug
     plane = L.marker(HOME, { icon: L.divIcon({ className: 'rf-plane', html: '<span class="rf-plane__rot">' + PLANE_SVG + '</span>', iconSize: [46, 46], iconAnchor: [23, 23] }), keyboard: false, interactive: false, zIndexOffset: 1000 });
 
-    map.fitBounds(all, fitOpts());
-    setTimeout(declutter, 30);
     mapEl.classList.add('is-ready');
     // Grösse kann sich nach dem Laden der Schriften ändern: neu einpassen, solange niemand die Karte bewegt hat
     mapEl.addEventListener('pointerdown', function () { touched = true; });
@@ -482,7 +371,7 @@
         setTimeout(function () { hint.hidden = true; }, 2200);
       }, { passive: true });
     }
-    if (!viaSelect) { if (current) select(current.id, { instant: true, noFly: true }); else renderHud(null); }
+    if (current) select(current.id, { instant: true, noFly: true });
     return true;
   }
 
@@ -491,6 +380,8 @@
     if (!box || box.firstChild) return;
     mapEl.classList.add('is-fallback');
     box.appendChild(sketch(ROUTES, { w: 600, h: 640, pad: 40, dot: 3.5, home: 7, font: 13, only: OVERVIEW }));
+    if (hud.replay) hud.replay.hidden = true;
+    renderHud(current);
   }
 
   // Dauerhafte Beschriftungen, die sich überlappen, ausblenden (wichtige zuerst)
@@ -513,7 +404,8 @@
   }
 
   function stopFlight() {
-    if (flight) { cancelAnimationFrame(flight.raf); clearTimeout(flight.wait); flight = null; }
+    if (flight) { cancelAnimationFrame(flight.raf); flight = null; }
+    if (mapEl) mapEl.classList.remove('is-flying');
   }
 
   function headingBetween(a, b) {
@@ -540,7 +432,6 @@
     var ang = headingBetween(r.path[0], r.path[1]) || 0;
     plane.setLatLng(r.path[0]).addTo(map);
     var rotEl = plane.getElement() && plane.getElement().querySelector('.rf-plane__rot');
-    hud.replay.hidden = true;
     mapEl.classList.add('is-flying');
     function place(p) {
       var e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; // weich starten und landen
@@ -558,14 +449,12 @@
     }
     function done() {
       mapEl.classList.remove('is-flying');
-      hud.replay.hidden = false;
-      hud.replay.querySelector('span').textContent = 'Nochmals';
-      hud.note.textContent = 'Gelandet in Beromünster. In echt dauert dieser Flug ' + r.duration + ' Minuten.';
+      hud.label.textContent = 'Nochmals';
       flight = null;
     }
     if (reduced) { place(1); trail.setLatLngs(r.path); done(); return; }
     var t0 = null;
-    flight = { raf: 0, wait: 0 };
+    flight = { raf: 0 };
     function frame(ts) {
       if (!flight) return;
       if (t0 == null) t0 = ts;
@@ -576,45 +465,30 @@
     flight.raf = requestAnimationFrame(frame);
   }
 
+  // Route auf der Karte zeigen (und auf Wunsch abfliegen)
   function select(id, opts) {
     opts = opts || {};
-    var r = id && id !== 'all' ? byId[id] : null;
+    var r = byId[id];
+    if (!r) return;
     current = r;
     touched = false;
-    pickBtns.forEach(function (b) {
-      var on = b.getAttribute('data-rf-pick') === (r ? r.id : 'all');
-      b.setAttribute('aria-pressed', String(on));
-      if (on && opts.fromPicker && b.parentElement.scrollWidth > b.parentElement.clientWidth) {
-        var box = b.parentElement;
-        box.scrollTo({ left: b.offsetLeft - (box.clientWidth - b.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
-      }
-    });
     renderHud(r);
-    if (r) updatePass(r);
-    if (!map && !initMap(true)) return;
+    if (!map) return;
     var L = window.L;
     stopFlight();
     ROUTES.forEach(function (x) {
       pathCls(x._line, 'is-active', x === r);
-      pathCls(x._line, 'is-dim', r && x !== r);
-      pathCls(x._case, 'is-dim', r && x !== r);
+      pathCls(x._line, 'is-dim', x !== r);
+      pathCls(x._case, 'is-dim', x !== r);
       pathCls(x._case, 'is-active', x === r);
       pathCls(x._glow, 'is-active', x === r);
     });
-    trail.setLatLngs([]);
-    wpLayer.clearLayers();
-    mapEl.classList.toggle('has-route', !!r);
-    if (!r) {
-      if (plane) map.removeLayer(plane);
-      if (!map.hasLayer(overviewLayer)) overviewLayer.addTo(map);
-      if (opts.instant || reduced) map.fitBounds(map._rfAll, fitOpts()); else map.flyToBounds(map._rfAll, Object.assign({ duration: 1 }, fitOpts()));
-      setTimeout(declutter, 30);
-      return;
-    }
     r._case.bringToFront();
     r._line.bringToFront();
+    r._hit.bringToFront();
+    trail.setLatLngs([]);
     trail.bringToFront();
-    map.removeLayer(overviewLayer);
+    wpLayer.clearLayers();
     var midLon = r._bounds.getCenter().lng;
     r.path.forEach(function (p, i) {
       if (i === 0 || i === r.path.length - 1) return;
@@ -625,18 +499,10 @@
       m.addTo(wpLayer);
     });
     setTimeout(declutter, 0);
-    if (plane) {
-      plane.setLatLng(r.path[0]).addTo(map);
-      var rot0 = plane.getElement() && plane.getElement().querySelector('.rf-plane__rot');
-      if (rot0) rot0.style.transform = 'rotate(' + (headingBetween(r.path[0], r.path[1]) || 0).toFixed(1) + 'deg)';
-    }
-    hud.fill.style.width = '0%';
-    if (opts.noFly) {
-      map.fitBounds(r._bounds, fitOpts());
-      hud.replay.hidden = false;
-      hud.replay.querySelector('span').textContent = 'Abfliegen';
-      return;
-    }
+    plane.setLatLng(r.path[0]).addTo(map);
+    var rot0 = plane.getElement() && plane.getElement().querySelector('.rf-plane__rot');
+    if (rot0) rot0.style.transform = 'rotate(' + (headingBetween(r.path[0], r.path[1]) || 0).toFixed(1) + 'deg)';
+    if (opts.noFly) { map.fitBounds(r._bounds, fitOpts()); return; }
     var go = function () { if (current === r) fly(r); };
     if (opts.instant || reduced) { map.fitBounds(r._bounds, fitOpts()); go(); return; }
     map.flyToBounds(r._bounds, Object.assign({ duration: 1.1 }, fitOpts()));
@@ -646,25 +512,114 @@
     setTimeout(start, 1500);
   }
 
-  pickBtns.forEach(function (b) {
-    b.addEventListener('click', function () { select(b.getAttribute('data-rf-pick'), { fromPicker: true }); });
-  });
   F.$$('[data-rf-layer]').forEach(function (b) {
     b.addEventListener('click', function () { if (!map) initMap(); setLayer(b.getAttribute('data-rf-layer')); });
   });
-  if (hud.replay) hud.replay.addEventListener('click', function () { if (current) fly(current); });
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest('[data-rf-show]');
-    if (a) select(a.getAttribute('data-rf-show'));
+  if (hud.replay) hud.replay.addEventListener('click', function () {
+    if (!map) initMap();
+    if (current && map) fly(current);
   });
 
+  // ------------------------------------------------------------------ Routenwahl: Tabs (WAI-ARIA Tabs, Pfeiltasten, Pos1/Ende)
+  var tour = F.$('[data-rf-tour]');
+  var tablist = F.$('[data-rf-tabs]');
+  var tabs = F.$$('[data-rf-tab]');
+  var panels = F.$$('[data-rf-route]');
+  var active = null;
+
+  function activate(id, opts) {
+    opts = opts || {};
+    if (!byId[id] || !tabs.length || id === active) return;
+    active = id;
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-rf-tab') === id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      if (on && opts.focus) t.focus();
+    });
+    panels.forEach(function (p) {
+      var on = p.getAttribute('data-rf-route') === id;
+      if (on && p.hidden && opts.animate && !reduced) { p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering'); }
+      p.hidden = !on;
+    });
+    // Karte: sichtbar = abfliegen, sonst nur zeigen (Handy: Karte steht unter der Beschreibung)
+    current = byId[id];
+    if (map) select(id, { noFly: !opts.user || !mapInView() });
+    else renderHud(current);
+    if (opts.user && F.motion && F.motion.refresh) F.motion.refresh();
+  }
+
+  if (tablist && tabs.length && panels.length) {
+    tablist.hidden = false;
+    tour.classList.add('is-tabs');
+    panels.forEach(function (p) {
+      p.setAttribute('role', 'tabpanel');
+      p.setAttribute('aria-labelledby', 'tab-' + p.getAttribute('data-rf-route'));
+      p.tabIndex = 0;
+    });
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { activate(t.getAttribute('data-rf-tab'), { animate: true, user: true }); });
+      t.addEventListener('keydown', function (e) {
+        var n = tabs.length, j = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % n;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + n) % n;
+        else if (e.key === 'Home') j = 0;
+        else if (e.key === 'End') j = n - 1;
+        if (j === null) return;
+        e.preventDefault();
+        activate(tabs[j].getAttribute('data-rf-tab'), { focus: true, animate: true, user: true });
+      });
+    });
+    // Nach dem Laden die übrigen Routenbilder vorladen, damit der Wechsel ohne Warten klappt
+    window.addEventListener('load', function () {
+      setTimeout(function () { F.$$('.rf-route__frame img').forEach(function (img) { img.loading = 'eager'; }); }, 1500);
+    });
+  }
+
+  // Route über Anker (rundfluege.html#titlis), Parameter (?route=titlis) oder Startwert
+  function hashRoute() { var id = decodeURIComponent((location.hash || '').slice(1)); return byId[id] ? id : null; }
+  var params = new URLSearchParams(location.search);
+  var pre = byId[params.get('route')] ? params.get('route') : hashRoute();
+  activate(pre || ROUTES[0].id);
+  current = byId[pre || ROUTES[0].id];
+  renderHud(current);
+  if (pre && form) F.ready(function () { if (!formRoute()) preselect(pre); });
+
+  function scrollToRoute(id) {
+    var t = document.getElementById(id);
+    if (!t) return;
+    if (F.lenis) F.lenis.scrollTo(t); else t.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
+    t.focus({ preventScroll: true });
+  }
+  // Links auf eine Route (Hero, Startseite, Menü): erst die Route öffnen, dann hinscrollen.
+  // Läuft in der Capture-Phase vor dem allgemeinen Anker-Scrollen, das sonst ein verstecktes Ziel ansteuern würde.
+  document.addEventListener('click', function (e) {
+    if (!tabs.length || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest && e.target.closest('a[href*="#"]');
+    if (!a) return;
+    var url = new URL(a.href, location.href);
+    var id = decodeURIComponent(url.hash.slice(1));
+    if (!byId[id] || url.pathname !== location.pathname) return;
+    e.preventDefault();
+    e.stopPropagation();
+    activate(id, { animate: true, user: true });
+    scrollToRoute(id);
+    if (history.pushState) history.pushState(null, '', location.pathname + location.search + '#' + id);
+  }, true);
+  function onHash() {
+    var id = hashRoute();
+    if (id && id !== active) { activate(id, { user: true }); scrollToRoute(id); }
+  }
+  window.addEventListener('hashchange', onHash);
+  window.addEventListener('popstate', onHash);
+
   // Karte erst laden, wenn sie in die Nähe kommt (spart Kacheln beim ersten Laden)
-  if (explorer && mapEl) {
+  if (mapEl) {
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (en) {
         if (en.some(function (x) { return x.isIntersecting; })) { io.disconnect(); initMap(); }
       }, { rootMargin: '400px 0px' });
-      io.observe(explorer);
+      io.observe(mapEl);
     } else {
       F.ready(initMap);
     }
@@ -682,17 +637,4 @@
     t.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
     if (history.pushState) history.pushState(null, '', '#' + id);
   });
-
-  // Vorauswahl über Anker (rundfluege.html#titlis) oder Parameter (?route=titlis)
-  var params = new URLSearchParams(location.search);
-  var pre = params.get('route') || decodeURIComponent((location.hash || '').slice(1));
-  if (byId[pre]) {
-    current = byId[pre];
-    renderHud(current);
-    updatePass(current);
-    pickBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-rf-pick') === pre)); });
-    if (form) F.ready(function () { if (!formRoute()) preselect(pre); });
-  } else {
-    renderHud(null);
-  }
 })();

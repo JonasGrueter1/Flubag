@@ -8,31 +8,19 @@
 <section class="page-hero ausb-hero">
   <div class="page-hero__media"><x-img src="hero/slide-04" alt="Cessna im Flug über dem Aletschgletscher" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
   <div class="container page-hero__inner ausb-hero__inner">
-    <div class="ausb-hero__content">
-      <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Fliegen lernen</li><li>Ausbildung PPL &amp; LAPL</li></ol>
-      <p class="eyebrow">Ausbildung PPL &amp; LAPL</p>
-      <h1 data-split data-split-now>Werde Pilotin. Werde Pilot.</h1>
-      <p class="lead">Auf dem Flugplatz Luzern-Beromünster, mitten in der Schweiz, bilden wir dich auf einmotorigen Flugzeugen aus: zur Privatpilotenlizenz PPL oder zur LAPL. Vom ersten Schnupperflug bis zur Flugprüfung.</p>
-      <div class="page-hero__meta">
-        <span class="chip"><x-icon name="graduation-cap"></x-icon>PPL(A) oder LAPL(A)</span>
-        <span class="chip"><x-icon name="plane"></x-icon>Cessna 150 und/oder 172</span>
-        <span class="chip chip--brand"><x-icon name="tag"></x-icon>rund {{data.preise.ausbildung.total | chf}} inkl. Theorie</span>
-      </div>
-      <div class="row mt-s">
-        <a class="btn btn--primary btn--lg" href="#rechner" data-magnetic><x-icon name="calculator"></x-icon>Kosten berechnen</a>
-        <a class="btn btn--ghost btn--lg" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Mit einem Schnupperflug starten</a>
-      </div>
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Fliegen lernen</li><li>Ausbildung PPL &amp; LAPL</li></ol>
+    <p class="eyebrow">Ausbildung PPL &amp; LAPL</p>
+    <h1 data-split data-split-now>Werde Pilotin. Werde Pilot.</h1>
+    <p class="lead">Auf dem Flugplatz Luzern-Beromünster, mitten in der Schweiz, bilden wir dich auf einmotorigen Flugzeugen aus: zur Privatpilotenlizenz PPL oder zur LAPL. Vom ersten Schnupperflug bis zur Flugprüfung.</p>
+    <div class="page-hero__meta">
+      <span class="chip ausb-hero__chip-opt"><x-icon name="graduation-cap"></x-icon>PPL(A) oder LAPL(A)</span>
+      <span class="chip ausb-hero__chip-opt"><x-icon name="plane"></x-icon>Cessna 150 und/oder 172</span>
+      <span class="chip chip--brand"><x-icon name="tag"></x-icon>rund {{data.preise.ausbildung.total | chf}} inkl. Theorie</span>
     </div>
-    <aside class="ausb-hero__hud instrument hud-corners force-dark" aria-label="Ausbildung auf einen Blick">
-      <div class="ausb-hero__hud-head"><span class="mono">FLIGHT PLAN · PPL(A)</span><span class="mono ausb-hero__hud-dep">LSZO</span></div>
-      <div class="ausb-hero__hud-grid">
-        <div class="readout"><span class="readout__label">Schritte</span><span class="readout__value">9</span></div>
-        <div class="readout"><span class="readout__label">Flugstunden</span><span class="readout__value">ca. 55 <small>h</small></span></div>
-        <div class="readout"><span class="readout__label">Instruktion</span><span class="readout__value">100 <small>h</small></span></div>
-        <div class="readout"><span class="readout__label">Lizenz ab</span><span class="readout__value">17 <small>J.</small></span></div>
-      </div>
-      <a class="ausb-hero__hud-link" href="#ablauf">Zum Ablauf <x-icon name="arrow-right"></x-icon></a>
-    </aside>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#rechner"><x-icon name="calculator"></x-icon>Kosten berechnen</a>
+      <a class="btn btn--ghost btn--lg" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Mit einem Schnupperflug starten</a>
+    </div>
   </div>
   <a class="ausb-hero__scroll" href="#ueberblick" aria-label="Weiter nach unten"><span></span></a>
 </section>
@@ -41,12 +29,10 @@
   <div class="container">
     <ul class="subnav__list">
       <li><a href="#ueberblick">Überblick</a></li>
-      <li><a href="#kosten">Kosten</a></li>
-      <li><a href="#rechner">Kostenrechner</a></li>
+      <li><a href="#kosten">Kosten und Rechner</a></li>
       <li><a href="#ablauf">9 Schritte</a></li>
       <li><a href="#vergleich">PPL oder LAPL</a></li>
       <li><a href="#check">Bereit?</a></li>
-      <li><a href="#funk">Funkalphabet</a></li>
       <li><a href="#unterlagen">Unterlagen</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
@@ -55,15 +41,8 @@
 
 <!-- Überblick -->
 <section class="section" id="ueberblick" aria-labelledby="ueberblick-title">
-  <div class="container split split--wide-right">
-    <div class="ausb-intro__media">
-      <div class="media-frame media-frame--tall" data-reveal="clip"><x-img src="hero/slide-03" alt="Fluglehrer bespricht mit drei Gästen die Karte vor der Cessna HB-CGF" sizes="(max-width: 860px) 100vw, 45vw" data-parallax="0.1"></x-img></div>
-      <div class="ausb-intro__badge instrument hud-corners" data-reveal="scale">
-        <span class="readout__label">Lizenzen</span>
-        <span class="ausb-intro__badge-value">PPL · LAPL</span>
-        <span class="mono subtle">einmotorige Flugzeuge</span>
-      </div>
-    </div>
+  <div class="container split ausb-intro">
+    <div class="media-frame ausb-intro__media" data-reveal="clip"><x-img src="hero/slide-03" alt="Fluglehrer bespricht mit drei Gästen die Karte vor der Cessna HB-CGF" sizes="(max-width: 860px) 100vw, 45vw"></x-img></div>
     <div class="stack-l">
       <div class="stack">
         <p class="eyebrow" data-reveal>Flugschule FLUBAG</p>
@@ -71,11 +50,11 @@
         <p class="lead" data-reveal>Die praktische Ausbildung findet auf der <span class="nowrap">C-150</span> und/oder der <span class="nowrap">C-172</span> statt, je nach Wunsch und Verfügbarkeit. Deine Fluglehrer begleiten dich vom ersten Schnupperflug bis zur Prüfung.</p>
         <p class="muted" data-reveal>Parallel zum Fliegen absolvierst du die Theorie, zum Beispiel in den laufend angebotenen Kursen bei <a class="brand-text" href="{{site.safetyWings}}" target="_blank" rel="noopener">Safety Wings</a>. Dort lernst du alles von Aerodynamik über Motoren und Flugzeugzellen bis zu Wetter und Luftfahrtgesetz.</p>
       </div>
-      <div class="stats stats--2" data-reveal>
-        <div class="stat"><span class="stat__value" data-count="9">9</span><span class="stat__label">Schritte zur Lizenz</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="55">55</span><small>h</small></span><span class="stat__label">Flugstunden, ca.</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="100">100</span><small>h</small></span><span class="stat__label">Instruktionszeit</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="16">16</span><small>Jahre</small></span><span class="stat__label">Erster Alleinflug ab</span></div>
+      <div class="stats ausb-stats" data-reveal>
+        <div class="stat"><span class="stat__value">9</span><span class="stat__label">Schritte zur Lizenz</span></div>
+        <div class="stat"><span class="stat__value">55<small>h</small></span><span class="stat__label">Flugstunden, ca.</span></div>
+        <div class="stat"><span class="stat__value">100<small>h</small></span><span class="stat__label">Instruktionszeit</span></div>
+        <div class="stat"><span class="stat__value">16<small>Jahre</small></span><span class="stat__label">Erster Alleinflug ab</span></div>
       </div>
       <div class="row" data-reveal>
         <a class="btn btn--ghost" href="fluglehrer.html"><x-icon name="users"></x-icon>Unsere Fluglehrer</a>
@@ -85,167 +64,137 @@
   </div>
 </section>
 
-<!-- Kosten -->
-<section class="section section--alt section--glow" id="kosten" aria-labelledby="kosten-title">
+<!-- Kosten und Kostenrechner -->
+<section class="section section--alt" id="kosten" aria-labelledby="kosten-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
         <p class="eyebrow" data-reveal>Kosten</p>
         <h2 id="kosten-title" data-split>Was kostet der Weg ins Cockpit?</h2>
       </div>
-      <p class="lead" data-reveal>Ehrliche Zahlen aus unserer Flugschule: Theorie und Praxis, einzeln aufgelistet. Der tatsächliche Aufwand ist individuell.</p>
+      <p class="lead" data-reveal>Ehrliche Zahlen aus unserer Flugschule, Theorie und Praxis einzeln aufgelistet. Mit dem Rechner schätzt du deine eigene Variante.</p>
     </div>
 
-    <div class="ausb-costs">
-      <article class="card card--pad card--glow ausb-cost" data-reveal>
-        <div class="ausb-cost__head">
-          <x-icon name="book-open" class="card__icon"></x-icon>
+    <div class="ausb-pay">
+      <article class="card card--pad ausb-costs" aria-labelledby="costs-title" data-reveal>
+        <div class="ausb-costs__head">
+          <x-icon name="receipt" class="card__icon"></x-icon>
           <div>
-            <p class="mono subtle">Teil 1</p>
-            <h3 class="card__title">Theoretische Ausbildung</h3>
+            <p class="mono subtle ausb-kicker">Erfahrungswerte FLUBAG</p>
+            <h3 class="card__title" id="costs-title">Kosten der Ausbildung</h3>
           </div>
         </div>
-        <p class="ausb-cost__price"><small>rund</small> {{data.preise.ausbildung.theorie | chf}}</p>
-        <p class="card__text">Die genauen Ausbildungskosten für die theoretische Ausbildung entnimmst du den Angaben der Theorie-Flugschule. In der Regel belaufen sich die Theoriekosten auf rund {{data.preise.ausbildung.theorie | chf}}.</p>
-        <p class="card__text">Theoriekurse werden laufend bei Safety Wings angeboten.</p>
-        <ul class="ausb-topics" aria-label="Themen der Theorie">
-          <li>Aerodynamik</li><li>Motoren</li><li>Flugzeugzellen</li><li>Wetter</li><li>Luftfahrtgesetz</li>
-        </ul>
-        <div class="ausb-share" data-share data-share-part="{{data.preise.ausbildung.theorie}}" data-share-total="{{data.preise.ausbildung.total}}">
-          <div class="ausb-share__head"><span class="readout__label">Anteil an den Gesamtkosten</span><b data-share-out>rund 14 %</b></div>
-          <div class="bar-split" aria-hidden="true"><span style="flex-grow: {{data.preise.ausbildung.theorie}}; background: var(--ok)"></span><span style="flex-grow: {{data.preise.ausbildung.praxisTotal}}; background: var(--line-strong)"></span></div>
-          <p class="field__help">Theorie rund {{data.preise.ausbildung.theorie | chf}} von total rund {{data.preise.ausbildung.total | chf}}. Die Theorie absolvierst du parallel zur Ab-initio-Phase.</p>
-        </div>
-        <div class="card__foot">
-          <a class="btn btn--ghost btn--sm" href="{{site.safetyWings}}" target="_blank" rel="noopener">Zu Safety Wings <x-icon name="arrow-up-right"></x-icon></a>
-        </div>
-      </article>
-
-      <article class="card card--pad card--glow ausb-cost ausb-cost--wide" data-reveal>
-        <div class="ausb-cost__head">
-          <x-icon name="plane" class="card__icon"></x-icon>
-          <div>
-            <p class="mono subtle">Teil 2</p>
-            <h3 class="card__title">Praktische Ausbildung</h3>
-          </div>
-        </div>
-        <p class="card__text">Die praktische Ausbildung findet auf <span class="nowrap">C-150</span> und/oder <span class="nowrap">C-172</span> statt, je nach Wunsch und Verfügbarkeit. Die aufgeführten Kosten basieren auf Erfahrungswerten mit entsprechendem Vorauszahlungsrabatt sowie Beroflyer und können nach unten oder oben variieren. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden.</p>
         <div class="table-wrap ausb-table">
           <table class="table">
-            <caption class="visually-hidden">Kosten der praktischen Ausbildung (Erfahrungswerte FLUBAG)</caption>
-            <thead><tr><th scope="col">Position</th><th scope="col" class="num">Kosten</th></tr></thead>
+            <caption class="visually-hidden">Kosten der Ausbildung zur PPL (Erfahrungswerte FLUBAG)</caption>
+            <thead><tr><th scope="col">Praktische Ausbildung</th><th scope="col" class="num">Kosten</th></tr></thead>
             <tbody>
               <!-- @each data.preise.ausbildung.items as it -->
               <tr><td>{{it.label}}</td><td class="num">{{it.price | chf}}</td></tr>
               <!-- @end -->
             </tbody>
-            <tfoot><tr><td>Total praktische Ausbildung</td><td class="num">{{data.preise.ausbildung.praxisTotal | chf}}</td></tr></tfoot>
+            <tbody class="ausb-table__sum">
+              <tr class="ausb-table__sub"><th scope="row">Total praktische Ausbildung</th><td class="num">{{data.preise.ausbildung.praxisTotal | chf}}</td></tr>
+              <tr><th scope="row">Theoretische Ausbildung, rund</th><td class="num">{{data.preise.ausbildung.theorie | chf}}</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Kosten gesamt inkl. Theorie, rund</th><td class="num">{{data.preise.ausbildung.total | chf}}</td></tr></tfoot>
           </table>
         </div>
-        <div class="row">
-          <span class="chip chip--ok"><x-icon name="receipt"></x-icon>Schulungsflüge sind nicht MWSt-pflichtig</span>
-          <span class="chip"><x-icon name="piggy-bank"></x-icon>mit Vorauszahlungsrabatt sowie Beroflyer</span>
+        <dl class="ausb-notes">
+          <div>
+            <dt>Praktische Ausbildung</dt>
+            <dd>Die praktische Ausbildung findet auf <span class="nowrap">C-150</span> und/oder <span class="nowrap">C-172</span> statt, je nach Wunsch und Verfügbarkeit. Die aufgeführten Kosten basieren auf Erfahrungswerten mit entsprechendem Vorauszahlungsrabatt sowie Beroflyer und können nach unten oder oben variieren. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden. Schulungsflüge sind nicht MWSt-pflichtig.</dd>
+          </div>
+          <div>
+            <dt>Theoretische Ausbildung</dt>
+            <dd>Die genauen Ausbildungskosten für die theoretische Ausbildung entnimmst du den Angaben der Theorie-Flugschule. In der Regel belaufen sich die Theoriekosten auf rund {{data.preise.ausbildung.theorie | chf}}. Theoriekurse werden laufend bei <a class="brand-text" href="{{site.safetyWings}}" target="_blank" rel="noopener">Safety Wings</a> angeboten.</dd>
+          </div>
+          <div>
+            <dt>Kosten gesamt</dt>
+            <dd>Wie aus den obigen Angaben zu entnehmen ist, beläuft sich die gesamte Ausbildung mit allen anfallenden Kosten inklusive Theorie auf rund {{data.preise.ausbildung.total | chf}}.</dd>
+          </div>
+        </dl>
+        <div class="card__foot">
+          <a class="btn btn--text btn--sm" href="preise.html">Alle Preise <x-icon name="arrow-right"></x-icon></a>
         </div>
       </article>
-    </div>
 
-    <div class="ausb-total instrument hud-corners force-dark" data-reveal>
-      <div class="ausb-total__text">
-        <p class="readout__label">Kosten gesamt, inkl. Theorie</p>
-        <p class="ausb-total__value"><small>rund</small> CHF <span data-count="{{data.preise.ausbildung.total}}">{{data.preise.ausbildung.total | num}}</span></p>
-        <p class="ausb-total__note">Wie aus den obigen Angaben zu entnehmen ist, beläuft sich die gesamte Ausbildung mit allen anfallenden Kosten inklusive Theorie auf rund {{data.preise.ausbildung.total | chf}}.</p>
-      </div>
-      <div class="ausb-total__actions">
-        <a class="btn btn--primary" href="#rechner" data-magnetic><x-icon name="calculator"></x-icon>Selbst berechnen</a>
-        <a class="btn btn--ghost" href="preise.html">Alle Preise <x-icon name="arrow-right"></x-icon></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Kostenrechner -->
-<section class="section section--chart" id="rechner" aria-labelledby="rechner-title">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Kostenrechner</p>
-        <h2 id="rechner-title" data-split>Rechne dir deinen Flugplan.</h2>
-      </div>
-      <p class="lead" data-reveal>Lizenz, Flugzeug, Flugstunden und Tempo wählen. Der Rechner schätzt Kosten und Dauer auf Basis der FLUBAG Erfahrungswerte.</p>
-    </div>
-
-    <div class="calc" data-calc>
-      <form class="calc__controls form-panel" data-calc-form aria-label="Eingaben Kostenrechner" data-reveal>
-        <fieldset class="calc__group">
-          <legend class="calc__label">Lizenz</legend>
-          <div class="segmented calc__seg">
-            <label><input type="radio" name="lizenz" value="PPL" checked><span>PPL(A)</span></label>
-            <label><input type="radio" name="lizenz" value="LAPL"><span>LAPL(A)</span></label>
+      <div class="calc" id="rechner" data-calc role="region" aria-labelledby="rechner-title">
+        <form class="calc__controls form-panel" data-calc-form aria-label="Eingaben Kostenrechner" data-reveal>
+          <div class="calc__top">
+            <x-icon name="calculator" class="calc__icon"></x-icon>
+            <div>
+              <h3 class="card__title" id="rechner-title">Kostenrechner</h3>
+              <p class="calc__intro">Kosten und Dauer nach deiner Wahl, auf Basis der FLUBAG Erfahrungswerte.</p>
+            </div>
           </div>
-          <p class="field__help" data-calc-licinfo>Privatpilotenlizenz, weltweit (ICAO) anerkannt. EASA Mindestflugzeit 45 h.</p>
-        </fieldset>
 
-        <fieldset class="calc__group">
-          <legend class="calc__label">Flugzeug</legend>
-          <div class="segmented calc__seg">
-            <label><input type="radio" name="flugzeug" value="C150" checked><span>Cessna 150</span></label>
-            <label><input type="radio" name="flugzeug" value="C172"><span>Cessna 172</span></label>
+          <div class="calc__pair">
+            <fieldset class="calc__group">
+              <legend class="calc__label">Lizenz</legend>
+              <div class="segmented calc__seg">
+                <label><input type="radio" name="lizenz" value="PPL" checked><span>PPL(A)</span></label>
+                <label><input type="radio" name="lizenz" value="LAPL"><span>LAPL(A)</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="calc__group">
+              <legend class="calc__label">Flugzeug</legend>
+              <div class="segmented calc__seg">
+                <label><input type="radio" name="flugzeug" value="C150" checked><span>Cessna 150</span></label>
+                <label><input type="radio" name="flugzeug" value="C172"><span>Cessna 172</span></label>
+              </div>
+            </fieldset>
           </div>
-          <p class="field__help" data-calc-planeinfo>Das zweiplätzige Schulflugzeug.</p>
-        </fieldset>
 
-        <div class="range calc__group">
-          <div class="range__head"><label class="calc__label" for="calc-hours">Flugstunden</label><output class="range__value" for="calc-hours" data-calc-hours-out>55 h</output></div>
-          <div class="calc__track">
-            <input type="range" id="calc-hours" name="stunden" min="45" max="90" step="1" value="55" data-calc-hours aria-describedby="calc-hours-help">
-            <span class="calc__notch" data-calc-notch aria-hidden="true"></span>
+          <div class="range calc__group">
+            <div class="range__head"><label class="calc__label" for="calc-hours">Flugstunden</label><output class="range__value" for="calc-hours" data-calc-hours-out>55 h</output></div>
+            <div class="calc__track">
+              <input type="range" id="calc-hours" name="stunden" min="45" max="90" step="1" value="55" data-calc-hours aria-describedby="calc-hours-help">
+              <span class="calc__notch" data-calc-notch aria-hidden="true"></span>
+            </div>
+            <div class="calc__ticks" aria-hidden="true"><span data-calc-min>Min. 45 h</span><span>90 h</span></div>
+            <p class="field__help"><span id="calc-hours-help" data-calc-hourshelp>Das Minimum gibt EASA vor. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden.</span> <button class="calc__std" type="button" data-calc-std><span data-calc-std-label>Erfahrungswert 55 h übernehmen</span></button></p>
           </div>
-          <div class="calc__ticks" aria-hidden="true"><span data-calc-min>Min. 45 h</span><span>90 h</span></div>
-          <p class="field__help" id="calc-hours-help" data-calc-hourshelp>Das Minimum gibt EASA vor. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden.</p>
-          <button class="chip calc__std" type="button" data-calc-std><x-icon name="target"></x-icon><span data-calc-std-label>Erfahrungswert 55 h übernehmen</span></button>
+
+          <div class="range calc__group">
+            <div class="range__head"><label class="calc__label" for="calc-week">Lektionen pro Woche</label><output class="range__value" for="calc-week" data-calc-week-out>2 pro Woche</output></div>
+            <input type="range" id="calc-week" name="woche" min="1" max="5" step="1" value="2" data-calc-week>
+            <div class="calc__ticks" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+          </div>
+
+          <div class="calc__row">
+            <label class="check calc__check"><input type="checkbox" name="theorie" value="ja" checked data-calc-theory><span><strong>Theorie einrechnen</strong> <span class="nowrap">(rund {{data.preise.ausbildung.theorie | chf}})</span></span></label>
+            <button class="btn btn--text btn--sm calc__reset" type="reset"><x-icon name="rotate-ccw"></x-icon>Zurücksetzen</button>
+          </div>
+        </form>
+
+        <div class="calc__result instrument force-dark" data-reveal>
+          <div class="calc__head">
+            <span class="mono calc__head-label">Geschätzte Kosten</span>
+            <span class="chip chip--brand" data-calc-tag>PPL · C150 · 55 h</span>
+          </div>
+          <p class="calc__total" aria-live="polite"><span class="calc__cur">CHF</span><span class="calc__num" data-calc-total>21’850</span></p>
+          <p class="mono calc__sub">rund, unverbindliche Schätzung</p>
+          <div class="bar-split calc__bar" data-calc-bar aria-hidden="true"></div>
+          <ul class="legend calc__legend" data-calc-legend aria-label="Aufteilung der Kosten"></ul>
+          <div class="calc__duration">
+            <div class="readout"><span class="readout__label">Dauer, ca.</span><span class="readout__value" data-calc-months>6 <small>Monate</small></span></div>
+            <div class="readout"><span class="readout__label">Wochen</span><span class="readout__value" data-calc-weeks>28</span></div>
+            <div class="readout"><span class="readout__label">Instruktion, ca.</span><span class="readout__value" data-calc-perhour>100 <small>h</small></span></div>
+          </div>
+          <div class="calc__actions">
+            <button class="btn btn--ghost btn--sm" type="button" data-calc-copy><x-icon name="copy"></x-icon>Ergebnis kopieren</button>
+            <a class="btn btn--primary btn--sm" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Jetzt schnuppern</a>
+          </div>
         </div>
 
-        <div class="range calc__group">
-          <div class="range__head"><label class="calc__label" for="calc-week">Lektionen pro Woche</label><output class="range__value" for="calc-week" data-calc-week-out>2 pro Woche</output></div>
-          <input type="range" id="calc-week" name="woche" min="1" max="5" step="1" value="2" data-calc-week>
-          <div class="calc__ticks calc__ticks--5" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-        </div>
-
-        <label class="check calc__check"><input type="checkbox" name="theorie" value="ja" checked data-calc-theory><span><strong>Theorie einrechnen</strong> (rund {{data.preise.ausbildung.theorie | chf}}, z.B. bei Safety Wings)</span></label>
-
-        <button class="btn btn--text btn--sm calc__reset" type="reset"><x-icon name="rotate-ccw"></x-icon>Zurücksetzen</button>
-      </form>
-
-      <div class="calc__result instrument hud-corners force-dark" data-reveal>
-        <div class="calc__head">
-          <span class="mono calc__head-label">Geschätzte Kosten</span>
-          <span class="chip chip--brand" data-calc-tag>PPL · C150 · 55 h</span>
-        </div>
-        <p class="calc__total" aria-live="polite"><span class="calc__cur">CHF</span><span class="calc__num" data-calc-total>21’850</span></p>
-        <p class="mono calc__sub">rund, unverbindliche Schätzung</p>
-
-        <div class="bar-split calc__bar" data-calc-bar aria-hidden="true"></div>
-        <ul class="legend calc__legend" data-calc-legend aria-label="Aufteilung der Kosten"></ul>
-
-        <div class="calc__duration">
-          <div class="readout"><span class="readout__label">Dauer, ca.</span><span class="readout__value" data-calc-months>7 <small>Monate</small></span></div>
-          <div class="readout"><span class="readout__label">Wochen</span><span class="readout__value" data-calc-weeks>28</span></div>
-          <div class="readout"><span class="readout__label">Instruktion, ca.</span><span class="readout__value" data-calc-perhour>100 <small>h</small></span></div>
-        </div>
-        <div class="calc__months" data-calc-monthbar aria-hidden="true"></div>
-
-        <div class="calc__actions">
-          <button class="btn btn--ghost btn--sm" type="button" data-calc-copy><x-icon name="copy"></x-icon>Ergebnis kopieren</button>
-          <a class="btn btn--primary btn--sm" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Jetzt schnuppern</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="notice notice--brand calc__notice" data-reveal>
-      <x-icon name="info"></x-icon>
-      <div>
-        <p><strong>Unverbindliche Schätzung auf Basis der FLUBAG Erfahrungswerte.</strong> Grundlage sind die Kosten oben (rund 55 Flugstunden und 100 Stunden Instruktionszeit, mit Vorauszahlungsrabatt sowie Beroflyer). Flugzeug, Fluglehrer und Landegebühren rechnet der Rechner im gleichen Verhältnis auf deine Flugstunden um, die Cessna 172 im Verhältnis der Mietpreise (Preis 1). Prüfung, Fliegerarzt und Theorie sind Pauschalen, auch für die LAPL.</p>
-        <p>Die Dauer ist rein rechnerisch: Annahme eine Lektion entspricht etwa einer Flugstunde, ohne Pausen wegen Wetter oder Ferien. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden.</p>
+        <details class="calc__how">
+          <summary><x-icon name="info"></x-icon>So rechnet der Rechner</summary>
+          <div class="calc__how-body">
+            <p><strong>Unverbindliche Schätzung auf Basis der FLUBAG Erfahrungswerte.</strong> Grundlage sind die Kosten in der Tabelle (rund 55 Flugstunden und 100 Stunden Instruktionszeit, mit Vorauszahlungsrabatt sowie Beroflyer). Flugzeug, Fluglehrer und Landegebühren rechnet der Rechner im gleichen Verhältnis auf deine Flugstunden um, die Cessna 172 im Verhältnis der Mietpreise (Preis 1). Prüfung, Fliegerarzt und Theorie sind Pauschalen, auch für die LAPL. Die EASA Mindestflugzeit beträgt 45 h für die PPL und 30 h für die LAPL, für die LAPL rechnen wir mit der Annahme von 40 Flugstunden.</p>
+            <p>Die Dauer ist rein rechnerisch: Annahme eine Lektion entspricht etwa einer Flugstunde, ohne Pausen wegen Wetter oder Ferien. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -253,110 +202,85 @@
 
 <!-- Ablauf -->
 <section class="section" id="ablauf" aria-labelledby="ablauf-title">
-  <div class="container split split--top ausb-flow">
-    <div class="stack-l sticky">
+  <div class="container">
+    <div class="ausb-flow__head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Ablauf der Ausbildung</p>
         <h2 id="ablauf-title" data-split>In 9 Schritten zur eigenen Lizenz.</h2>
         <p class="lead" data-reveal>Vom Schnupperflug bis zur Flugprüfung: So läuft deine Ausbildung bei uns ab.</p>
+        <div class="row" data-reveal>
+          <a class="btn btn--primary" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Schritt 1 starten</a>
+          <a class="btn btn--ghost" href="infoabende.html"><x-icon name="calendar"></x-icon>Infoabend</a>
+        </div>
       </div>
-      <div class="ausb-progress instrument hud-corners" data-reveal aria-hidden="true">
-        <div class="ausb-progress__top"><span class="readout__label">Dein Fortschritt</span><span class="mono ausb-progress__count"><span data-flow-count>0</span> / 9</span></div>
-        <div class="ausb-progress__track"><span class="ausb-progress__fill" data-flow-fill></span><span class="ausb-progress__plane"><x-icon name="plane"></x-icon></span></div>
-        <p class="ausb-progress__label" data-flow-label>Bereit zum Start</p>
-      </div>
-      <div class="row" data-reveal>
-        <a class="btn btn--primary" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Schritt 1 starten</a>
-        <a class="btn btn--ghost" href="infoabende.html"><x-icon name="calendar"></x-icon>Infoabend</a>
-      </div>
+      <div class="media-frame ausb-flow__media" data-reveal="clip"><x-img src="hero/slide-01" alt="Cessna hebt im Gegenlicht von der Graspiste ab" sizes="(max-width: 860px) 100vw, 45vw"></x-img></div>
     </div>
 
-    <ol class="steps ausb-steps" data-steps>
-      <li class="step" data-flow-title="Schnupperflug">
-        <span class="step__num">01</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 1</p>
-          <h3 class="step__title">Reserviere deinen Schnupperflug</h3>
+    <ol class="ausb-timeline" data-reveal-group="0.06">
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">01</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Reserviere deinen Schnupperflug</h3>
           <p>Vereinbare mit uns deine 1. Lektion (oder Schnupperflug), in welcher du selbst das Steuer führen kannst. Dein Fluglehrer wird auch alle deine Fragen beantworten und dir zeigen, wie du das Flugzeug durch die Lüfte führen kannst (1. Lektion Schnupperflug 60 Min. C-150 für CHF 420). Schon dieser Flug kann zur Flugausbildung angerechnet werden.</p>
-          <div class="step__media"><x-img src="schnupperflug/discovery-0" alt="Fluglehrer zeigt einer Flugschülerin vor dem Start den Flügel der Cessna" sizes="(max-width: 860px) 100vw, 50vw"></x-img></div>
-          <p><a class="btn btn--text btn--sm" href="schnupperflug.html">Schnupperflug ansehen <x-icon name="arrow-right"></x-icon></a></p>
+          <a class="ausb-step__link" href="schnupperflug.html">Schnupperflug ansehen <x-icon name="arrow-right"></x-icon></a>
         </div>
       </li>
-      <li class="step" data-flow-title="Nächste Lektionen">
-        <span class="step__num">02</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 2</p>
-          <h3 class="step__title">Reserviere die nächste(n) Lektion(en)</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">02</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Reserviere die nächste(n) Lektion(en)</h3>
           <p>Du bekommst die Checklisten, Flugpraxis-Theoriebücher, Navigationsmaterial, Flugbuch und Adressen der Fliegerärzte. Wir verlangen auch eine zurückzahlbare Kaution, damit du bequem monatlich die Rechnungen zahlen kannst. Dein Fluglehrer zeigt dir, was du für die Vorbereitung deiner Fluglektion brauchst.</p>
-          <ul class="ausb-kit" aria-label="Das bekommst du">
-            <li><x-icon name="clipboard-check"></x-icon>Checklisten</li>
-            <li><x-icon name="book-open"></x-icon>Flugpraxis-Theoriebücher</li>
-            <li><x-icon name="map"></x-icon>Navigationsmaterial</li>
-            <li><x-icon name="notebook-pen"></x-icon>Flugbuch</li>
-            <li><x-icon name="stethoscope"></x-icon>Adressen der Fliegerärzte</li>
-          </ul>
         </div>
       </li>
-      <li class="step" data-flow-title="Medical">
-        <span class="step__num">03</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 3</p>
-          <h3 class="step__title">Kontaktiere einen der Ärzte und absolviere die Untersuchung</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">03</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Kontaktiere einen der Ärzte und absolviere die Untersuchung</h3>
           <p>Wenn du nur hobbymässig fliegen wirst, ist einer der Ärzte in Luzern die richtige Adresse. Sollte aber deine langfristige Vision eine Berufslizenz sein, dann empfiehlt es sich, die medizinische Untersuchung in einem der fliegerärztlichen Zentren zu machen.</p>
         </div>
       </li>
-      <li class="step" data-flow-title="Ab initio">
-        <span class="step__num">04</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 4</p>
-          <h3 class="step__title">Die Ab-initio-Phase der Flugausbildung</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">04</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Die Ab-initio-Phase der Flugausbildung</h3>
           <p>Ab initio heisst so etwa «von Anfang an». Du lernst die Basismanöver, Notverfahren, Normalverfahren, das Starten und das Landen. Auf unserem Flugplatz wirst du auch bis zu einem gewissen Punkt mit dem Funk vertraut gemacht. Während dieser Zeit absolvierst du auch die Theorieausbildung. Hier lernst du alles von Aerodynamik über Motoren und Flugzeugzellen bis zu Wetter und Luftfahrtgesetz.</p>
-          <div class="step__media"><x-img src="schnupperflug/discovery-3" alt="Fluglehrer und Flugschülerin gehen im Cockpit die Checkliste durch" sizes="(max-width: 860px) 100vw, 50vw"></x-img></div>
         </div>
       </li>
-      <li class="step" data-flow-title="Erster Alleinflug">
-        <span class="step__num">05</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 5</p>
-          <h3 class="step__title">Der erste Alleinflug</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">05</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Der erste Alleinflug</h3>
           <p class="ausb-quote">Das ist der magische Moment, an den sich jeder Flieger, von Chuck Yeager bis zum 17-jährigen Jungen oder Mädchen, immer erinnern wird: der erste Alleinflug.</p>
-          <div class="step__media"><x-img src="hero/slide-01" alt="Cessna hebt im Gegenlicht von der Graspiste ab" sizes="(max-width: 860px) 100vw, 50vw"></x-img></div>
         </div>
       </li>
-      <li class="step" data-flow-title="Festigung">
-        <span class="step__num">06</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 6</p>
-          <h3 class="step__title">Die Festigungsphase in Flugplatznähe</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">06</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Die Festigungsphase in Flugplatznähe</h3>
           <p>Weitere Alleinflüge, Notverfahren, ungewöhnliche Fluglagen. In diesem Abschnitt wächst dein Selbstvertrauen als Flugzeugführer. Jeder Soloflug muss von deinem Fluglehrer autorisiert werden. Du lernst, das Wetter einzuschätzen und auch bei nicht optimalen Sichtverhältnissen oder im Regen zu fliegen.</p>
         </div>
       </li>
-      <li class="step" data-flow-title="Navigation">
-        <span class="step__num">07</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 7</p>
-          <h3 class="step__title">Navigation</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">07</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Navigation</h3>
           <p>Als Erstes werden Navigationsflüge in einfachem Gelände ausgeführt, und später geht es sogar zweimal über die Alpen: Du fliegst die sogenannte Alpeneinweisung. Hier muss der Pilot nicht nur das Flugzeug unter Kontrolle halten und navigieren, sondern sich auch in den Bergen zurechtfinden und darf in kein falsches Tal ohne Ausgang einfliegen. Die Krönung dieses Abschnitts ist ein Solo-Navigationsflug über 250 km.</p>
-          <div class="step__media"><x-img src="hero/slide-00" alt="Cessna im Flug über den Voralpen" sizes="(max-width: 860px) 100vw, 50vw"></x-img></div>
-          <div class="row"><span class="chip"><x-icon name="mountain-snow"></x-icon>2 × über die Alpen</span><span class="chip chip--brand"><x-icon name="route"></x-icon>Solo über 250 km</span></div>
         </div>
       </li>
-      <li class="step" data-flow-title="Feinschliff">
-        <span class="step__num">08</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 8</p>
-          <h3 class="step__title">Festigungsphase vor der Prüfung</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">08</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Festigungsphase vor der Prüfung</h3>
           <p>Alle Übungen werden wiederholt und «aufpoliert», damit du die Toleranzen, die während der Prüfung verlangt werden, wirklich und sicher einhalten kannst. Während dieser Zeit bist du teils mit deinem Fluglehrer und teils allein in der Luft. Alle Mängel werden nochmals durchgeübt und dann noch alleine geflogen.</p>
         </div>
       </li>
-      <li class="step" data-flow-title="Lizenz!">
-        <span class="step__num">09</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 9</p>
-          <h3 class="step__title">Die Flugprüfung</h3>
+      <li class="ausb-step ausb-step--last" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">09</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Die Flugprüfung</h3>
           <p>Dein Fluglehrer wird dich für die praktische Abschlussprüfung empfehlen. Nachdem du dem Flugprüfer bewiesen hast, dass du mindestens so gut fliegen kannst wie er, wird er eine temporäre Bewilligung ausstellen, mit der du schon selber fliegen und Passagiere mitnehmen darfst. Die restlichen Formulare und Prüfungsresultate werden dem BAZL geschickt, und innert kurzer Zeit bekommst du deine eigene PPL.</p>
           <figure class="ausb-proud">
-            <div class="step__media"><x-img src="news/ppl-ronnie-widmer" alt="Ronnie Widmer und Expertin Isabelle Peccoraio nach der bestandenen PPL-Prüfung vor einer Cessna" sizes="(max-width: 860px) 100vw, 50vw"></x-img></div>
+            <div class="ausb-proud__img"><x-img src="news/ppl-ronnie-widmer" alt="Ronnie Widmer und Expertin Isabelle Peccoraio nach der bestandenen PPL-Prüfung vor einer Cessna" sizes="200px"></x-img></div>
             <figcaption><span class="chip chip--ok"><x-icon name="badge-check"></x-icon>Geschafft</span><span>Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio. <a href="news-gratulation-ppl.html">Zur News</a></span></figcaption>
           </figure>
         </div>
@@ -410,19 +334,18 @@
 
 <!-- Bereit fürs Cockpit -->
 <section class="section section--glow" id="check" aria-labelledby="check-title">
-  <div class="container split split--top">
-    <div class="stack-l sticky">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Selbsttest</p>
-        <h2 id="check-title" data-split>Bereit fürs Cockpit?</h2>
-        <p class="lead" data-reveal>Vier kurze Fragen, eine ehrliche Einschätzung. Danach weisst du, was dein nächster Schritt ist.</p>
-      </div>
-      <div class="media-frame media-frame--wide hide-mobile ausb-quiz-media" data-reveal="clip"><x-img src="schnupperflug/discovery-2" alt="Flugschülerin und Fluglehrer im Cockpit während des Fluges" sizes="(max-width: 860px) 100vw, 45vw" data-parallax="0.08"></x-img></div>
+  <div class="container ausb-check">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Selbsttest</p>
+      <h2 id="check-title" data-split>Bereit fürs Cockpit?</h2>
+      <p class="lead" data-reveal>Vier kurze Fragen, eine ehrliche Einschätzung. Danach weisst du, was dein nächster Schritt ist.</p>
     </div>
 
     <div class="quiz form-panel" data-quiz data-reveal>
-      <div class="quiz__progress" aria-hidden="true"><span class="quiz__progress-fill" data-quiz-fill></span></div>
-      <p class="mono quiz__count"><span data-quiz-count>0</span> von 4 beantwortet</p>
+      <div class="quiz__top">
+        <p class="mono quiz__count"><span data-quiz-count>0</span> von 4 beantwortet</p>
+        <div class="quiz__progress" aria-hidden="true"><span class="quiz__progress-fill" data-quiz-fill></span></div>
+      </div>
 
       <fieldset class="quiz__q">
         <legend class="quiz__legend"><span class="quiz__num mono">01</span>Wie alt bist du?</legend>
@@ -462,11 +385,7 @@
 
       <div class="quiz__result" data-quiz-result hidden aria-live="polite">
         <div class="quiz__result-head">
-          <svg class="quiz__gauge" viewBox="0 0 120 120" aria-hidden="true">
-            <circle class="quiz__gauge-bg" cx="60" cy="60" r="50"></circle>
-            <circle class="quiz__gauge-val" cx="60" cy="60" r="50" data-quiz-gauge></circle>
-          </svg>
-          <span class="quiz__gauge-icon"><x-icon name="plane-takeoff"></x-icon></span>
+          <span class="quiz__result-icon"><x-icon name="plane-takeoff"></x-icon></span>
           <div>
             <p class="mono quiz__result-kicker" data-quiz-kicker>Cleared for take-off</p>
             <h3 class="quiz__result-title" data-quiz-title>Startklar!</h3>
@@ -475,40 +394,11 @@
         <ul class="checklist quiz__list" data-quiz-list></ul>
         <template data-quiz-icons><span data-i="ok"><x-icon name="check"></x-icon></span><span data-i="info"><x-icon name="info"></x-icon></span></template>
         <div class="row">
-          <a class="btn btn--primary" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Schnupperflug buchen</a>
-          <a class="btn btn--ghost" href="infoabende.html"><x-icon name="calendar"></x-icon>Zum Infoabend</a>
+          <a class="btn btn--primary btn--sm" href="schnupperflug.html"><x-icon name="plane-takeoff"></x-icon>Schnupperflug buchen</a>
+          <a class="btn btn--ghost btn--sm" href="infoabende.html"><x-icon name="calendar"></x-icon>Zum Infoabend</a>
           <button class="btn btn--text btn--sm" type="button" data-quiz-reset><x-icon name="rotate-ccw"></x-icon>Neu starten</button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Funkalphabet -->
-<section class="section section--chart" id="funk" aria-labelledby="funk-title">
-  <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow" data-reveal>Funkalphabet</p>
-      <h2 id="funk-title" data-split>Buchstabier deinen Namen wie ein Pilot.</h2>
-      <p class="lead" data-reveal>Am Funk zählt jeder Buchstabe. Darum buchstabieren Piloten weltweit mit dem ICAO Alphabet. Mit dem Funk wirst du schon in der <span class="nowrap">Ab-initio-Phase</span> vertraut. Probier es aus:</p>
-    </div>
-
-    <div class="funk instrument hud-corners force-dark" data-funk data-reveal>
-      <div class="funk__input">
-        <label class="visually-hidden" for="funk-name">Dein Name</label>
-        <x-icon name="radio"></x-icon>
-        <input class="funk__field" id="funk-name" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="Dein Name" value="LSZO" data-funk-input>
-        <button class="btn btn--primary btn--sm funk__speak" type="button" data-funk-speak hidden aria-label="Anhören"><x-icon name="volume-2"></x-icon><span class="funk__speak-label">Anhören</span></button>
-      </div>
-      <div class="funk__examples" role="group" aria-label="Beispiele">
-        <span class="mono subtle">Beispiele:</span>
-        <button type="button" class="chip" data-funk-example="LSZO">LSZO</button>
-        <button type="button" class="chip" data-funk-example="HB-CVZ">HB-CVZ</button>
-        <button type="button" class="chip" data-funk-example="Beromünster">Beromünster</button>
-      </div>
-      <ol class="funk__out" data-funk-out aria-live="polite" aria-label="Buchstabiert im ICAO Alphabet"></ol>
-      <p class="funk__spoken mono" data-funk-spoken></p>
-      <p class="funk__hint">Umlaute werden aufgelöst: Ä wird zu AE, Ö zu OE, Ü zu UE. Zahlen sprechen Piloten übrigens auch speziell aus, zum Beispiel «Tree» für 3 und «Niner» für 9.</p>
     </div>
   </div>
 </section>
@@ -524,76 +414,74 @@
       <p class="lead" data-reveal>Die Syllabi beschreiben Aufbau und Inhalte unserer Ausbildungen. Für die Einweisung auf ein Flugzeugmuster gibt es zu jedem einen Familiarization-Fragebogen.</p>
     </div>
 
-    <h3 class="ausb-subhead" data-reveal><x-icon name="graduation-cap"></x-icon>Syllabi</h3>
-    <div class="grid grid-4 ausb-syllabi" data-reveal-group>
-      <!-- @each data.dokumente as d --><!-- @if d.group == "syllabus" -->
-      <a class="card card--pad card--glow ausb-syl" href="{{d.url}}" target="_blank" rel="noopener" data-reveal>
-        <x-icon name="file-text" class="card__icon"></x-icon>
-        <span class="mono subtle ausb-syl__meta">Syllabus · PDF</span>
-        <span class="card__title">{{d.title}}</span>
-        <span class="ausb-syl__go">Öffnen <x-icon name="arrow-up-right"></x-icon></span>
-      </a>
-      <!-- @endif --><!-- @end -->
+    <div class="ausb-docs">
+      <div class="ausb-docs__col" data-reveal>
+        <h3 class="ausb-subhead"><x-icon name="graduation-cap"></x-icon>Syllabi</h3>
+        <ul class="doc-list ausb-doclist">
+          <!-- @each data.dokumente as d --><!-- @if d.group == "syllabus" -->
+          <li><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="file-text" class="doc__icon"></x-icon><span class="ausb-doc__text"><span class="doc__title">{{d.title}}</span><span class="doc__meta">Syllabus · PDF</span></span><x-icon name="arrow-up-right" class="doc__go"></x-icon></a></li>
+          <!-- @endif --><!-- @end -->
+        </ul>
+      </div>
+      <div class="ausb-docs__col" data-reveal>
+        <h3 class="ausb-subhead"><x-icon name="clipboard-check"></x-icon>Familiarization-Fragebögen</h3>
+        <ul class="doc-list ausb-doclist">
+          <!-- @each data.dokumente as d --><!-- @if d.group == "familiarization" -->
+          <li><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="clipboard-check" class="doc__icon"></x-icon><span class="ausb-doc__text"><span class="doc__title">{{d.title}}</span><span class="doc__meta">Student Questionnaire · PDF</span></span><x-icon name="arrow-up-right" class="doc__go"></x-icon></a></li>
+          <!-- @endif --><!-- @end -->
+        </ul>
+      </div>
+      <div class="ausb-docs__col ausb-more" data-reveal>
+        <h3 class="ausb-subhead"><x-icon name="sparkles"></x-icon>Nach der Lizenz geht es weiter</h3>
+        <!-- @each data.dokumente as d --><!-- @if d.title == "Syllabus Night Rating (NIT)" -->
+        <a class="ausb-mini ausb-night" href="{{d.url}}" target="_blank" rel="noopener">
+          <span class="ausb-night__stars" aria-hidden="true"></span>
+          <x-icon name="moon-star" class="ausb-mini__icon"></x-icon>
+          <span class="ausb-mini__eyebrow">Night Rating · NIT</span>
+          <span class="ausb-mini__title">Fliegen bei Nacht</span>
+          <span class="ausb-mini__text">Mit der Nachtflugberechtigung (Night Rating, NIT) erweiterst du deine Lizenz um das Fliegen bei Nacht. Den Syllabus dazu findest du hier.</span>
+          <x-icon name="arrow-up-right" class="ausb-mini__go"></x-icon>
+        </a>
+        <!-- @endif --><!-- @end -->
+        <a class="ausb-mini ausb-glacier" href="{{site.gletscherpiloten}}" target="_blank" rel="noopener">
+          <x-img src="rundflug/eiger-moench-jungfrau" alt="Blick aus dem Cockpit auf verschneite Alpengipfel" sizes="(max-width: 860px) 100vw, 400px"></x-img>
+          <span class="ausb-mini__eyebrow">Externe Seite</span>
+          <span class="ausb-mini__title">Gletscherpiloten</span>
+          <span class="ausb-mini__text">Lust auf die Berge? Bei den Gletscherpiloten erfährst du mehr über die Fliegerei im Hochgebirge.</span>
+          <x-icon name="arrow-up-right" class="ausb-mini__go"></x-icon>
+        </a>
+      </div>
     </div>
-
-    <h3 class="ausb-subhead mt-l" data-reveal><x-icon name="clipboard-check"></x-icon>Familiarization-Fragebögen</h3>
-    <ul class="doc-list ausb-docs" data-reveal-group="0.05">
-      <!-- @each data.dokumente as d --><!-- @if d.group == "familiarization" -->
-      <li data-reveal><a class="doc" href="{{d.url}}" target="_blank" rel="noopener"><x-icon name="clipboard-check" class="doc__icon"></x-icon><span class="ausb-doc__text"><span class="doc__title">{{d.title}}</span><span class="doc__meta">Student Questionnaire · PDF</span></span><x-icon name="arrow-up-right" class="doc__go"></x-icon></a></li>
-      <!-- @endif --><!-- @end -->
-    </ul>
     <div class="row mt-m" data-reveal>
       <a class="btn btn--ghost" href="dokumente.html"><x-icon name="folder-open"></x-icon>Alle Dokumente</a>
       <a class="btn btn--text" href="{{site.pilotsPortal}}" target="_blank" rel="noopener">Pilotenportal <x-icon name="arrow-up-right"></x-icon></a>
-    </div>
-
-    <div class="ausb-more">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Weiterbildung</p>
-        <h3 class="h2" data-split>Nach der Lizenz geht es weiter.</h3>
-      </div>
-      <div class="grid grid-2 mt-m" data-reveal-group="0.12">
-        <!-- @each data.dokumente as d --><!-- @if d.title == "Syllabus Night Rating (NIT)" -->
-        <a class="ausb-night" href="{{d.url}}" target="_blank" rel="noopener" data-reveal>
-          <span class="ausb-night__stars" aria-hidden="true"></span>
-          <x-icon name="moon-star" class="ausb-night__icon"></x-icon>
-          <span class="tile__eyebrow">Night Rating · NIT</span>
-          <span class="tile__title">Fliegen bei Nacht.</span>
-          <span class="tile__text">Mit der Nachtflugberechtigung (Night Rating, NIT) erweiterst du deine Lizenz um das Fliegen bei Nacht. Den Syllabus dazu findest du hier.</span>
-          <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
-        </a>
-        <!-- @endif --><!-- @end -->
-        <a class="tile ausb-glacier" href="{{site.gletscherpiloten}}" target="_blank" rel="noopener" data-reveal>
-          <x-img src="rundflug/eiger-moench-jungfrau" alt="Blick aus dem Cockpit auf verschneite Alpengipfel" sizes="(max-width: 640px) 100vw, 50vw"></x-img>
-          <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
-          <span class="tile__eyebrow">Externe Seite</span>
-          <span class="tile__title">Gletscherpiloten.</span>
-          <span class="tile__text">Lust auf die Berge? Bei den Gletscherpiloten erfährst du mehr über die Fliegerei im Hochgebirge.</span>
-        </a>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="section" id="faq" aria-labelledby="faq-title">
-  <div class="container--narrow">
+  <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow" data-reveal>Häufige Fragen</p>
       <h2 id="faq-title" data-split>Gut zu wissen.</h2>
     </div>
-    <div class="accordion" data-reveal>
-      <details class="acc"><summary>Wie alt muss ich sein?</summary><div class="acc__body"><p>Den ersten Alleinflug darfst du ab 16 Jahren machen, die Lizenz (PPL oder LAPL) gibt es ab 17 Jahren.</p></div></details>
-      <details class="acc"><summary>Was kostet die Ausbildung zur PPL?</summary><div class="acc__body"><p>Nach unseren Erfahrungswerten rund {{data.preise.ausbildung.total | chf}} inklusive Theorie: rund {{data.preise.ausbildung.theorie | chf}} für die Theorie und {{data.preise.ausbildung.praxisTotal | chf}} für die praktische Ausbildung. Der tatsächliche Aufwand ist individuell. Mit dem <a class="brand-text" href="#rechner">Kostenrechner</a> kannst du deine eigene Variante schätzen.</p></div></details>
-      <details class="acc"><summary>Wie lange dauert die Ausbildung?</summary><div class="acc__body"><p>Das hängt vor allem davon ab, wie oft du fliegst. Die EASA Mindestflugzeit beträgt 45 Stunden für die PPL und 30 Stunden für die LAPL. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden. Wie viele Monate das bei deinem Tempo ergibt, zeigt dir der <a class="brand-text" href="#rechner">Rechner</a>.</p></div></details>
-      <details class="acc"><summary>Was ist der Unterschied zwischen PPL und LAPL?</summary><div class="acc__body"><p>Die PPL ist weltweit (ICAO) anerkannt, die LAPL in den EASA Staaten. Mit der LAPL fliegst du Flugzeuge bis 2000 kg MTOM und mit maximal 3 Passagieren, dafür ist die Mindestflugzeit kürzer. Alle Unterschiede findest du im <a class="brand-text" href="#vergleich">Vergleich</a>.</p></div></details>
-      <details class="acc"><summary>Brauche ich eine ärztliche Untersuchung?</summary><div class="acc__body"><p>Ja. Für die PPL brauchst du ein Medical der Klasse 2, für die LAPL ein LAPL Medical. Wenn du nur hobbymässig fliegen wirst, ist einer der Ärzte in Luzern die richtige Adresse. Ist deine langfristige Vision eine Berufslizenz, empfiehlt sich die Untersuchung in einem der fliegerärztlichen Zentren. Die Adressen der Fliegerärzte bekommst du von uns.</p></div></details>
-      <details class="acc"><summary>Wo mache ich die Theorie?</summary><div class="acc__body"><p>Theoriekurse werden laufend bei <a class="brand-text" href="{{site.safetyWings}}" target="_blank" rel="noopener">Safety Wings</a> angeboten. Die genauen Kosten entnimmst du den Angaben der Theorie-Flugschule, in der Regel sind es rund {{data.preise.ausbildung.theorie | chf}}.</p></div></details>
-      <details class="acc"><summary>Auf welchen Flugzeugen lerne ich fliegen?</summary><div class="acc__body"><p>Auf der Cessna 150 und/oder der Cessna 172, je nach Wunsch und Verfügbarkeit. Mehr zu den Flugzeugen findest du bei der <a class="brand-text" href="flotte.html">Flotte</a>.</p></div></details>
-      <details class="acc"><summary>Wie bezahle ich die Ausbildung?</summary><div class="acc__body"><p>Wir verlangen eine zurückzahlbare Kaution, damit du bequem monatlich die Rechnungen zahlen kannst. Unsere Kostenangaben basieren auf Erfahrungswerten mit Vorauszahlungsrabatt sowie Beroflyer. Schulungsflüge sind nicht MWSt-pflichtig.</p></div></details>
-      <details class="acc"><summary>Zählt der Schnupperflug schon zur Ausbildung?</summary><div class="acc__body"><p>Ja. Schon der Schnupperflug (1. Lektion, 60 Minuten auf der C-150 für CHF 420) kann zur Flugausbildung angerechnet werden. <a class="brand-text" href="schnupperflug.html">Zum Schnupperflug</a></p></div></details>
-      <details class="acc"><summary>Wann darf ich Passagiere mitnehmen?</summary><div class="acc__body"><p>Nach der bestandenen Flugprüfung stellt dir der Flugprüfer eine temporäre Bewilligung aus, mit der du schon selber fliegen und Passagiere mitnehmen darfst. Die Lizenz selbst bekommst du kurz darauf vom BAZL.</p></div></details>
-      <details class="acc"><summary>Wo erfahre ich mehr?</summary><div class="acc__body"><p>An unseren <a class="brand-text" href="infoabende.html">Infoabenden «Wie werde ich Pilot»</a> beantworten wir alle Fragen rund um die Ausbildung. Oder ruf uns an: <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a>.</p></div></details>
+    <div class="ausb-faq" data-reveal>
+      <div class="accordion">
+        <details class="acc"><summary>Wie alt muss ich sein?</summary><div class="acc__body"><p>Den ersten Alleinflug darfst du ab 16 Jahren machen, die Lizenz (PPL oder LAPL) gibt es ab 17 Jahren.</p></div></details>
+        <details class="acc"><summary>Was kostet die Ausbildung zur PPL?</summary><div class="acc__body"><p>Nach unseren Erfahrungswerten rund {{data.preise.ausbildung.total | chf}} inklusive Theorie: rund {{data.preise.ausbildung.theorie | chf}} für die Theorie und {{data.preise.ausbildung.praxisTotal | chf}} für die praktische Ausbildung. Der tatsächliche Aufwand ist individuell. Mit dem <a class="brand-text" href="#rechner">Kostenrechner</a> kannst du deine eigene Variante schätzen.</p></div></details>
+        <details class="acc"><summary>Wie lange dauert die Ausbildung?</summary><div class="acc__body"><p>Das hängt vor allem davon ab, wie oft du fliegst. Die EASA Mindestflugzeit beträgt 45 Stunden für die PPL und 30 Stunden für die LAPL. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden. Wie viele Monate das bei deinem Tempo ergibt, zeigt dir der <a class="brand-text" href="#rechner">Rechner</a>.</p></div></details>
+        <details class="acc"><summary>Was ist der Unterschied zwischen PPL und LAPL?</summary><div class="acc__body"><p>Die PPL ist weltweit (ICAO) anerkannt, die LAPL in den EASA Staaten. Mit der LAPL fliegst du Flugzeuge bis 2000 kg MTOM und mit maximal 3 Passagieren, dafür ist die Mindestflugzeit kürzer. Alle Unterschiede findest du im <a class="brand-text" href="#vergleich">Vergleich</a>.</p></div></details>
+        <details class="acc"><summary>Brauche ich eine ärztliche Untersuchung?</summary><div class="acc__body"><p>Ja. Für die PPL brauchst du ein Medical der Klasse 2, für die LAPL ein LAPL Medical. Wenn du nur hobbymässig fliegen wirst, ist einer der Ärzte in Luzern die richtige Adresse. Ist deine langfristige Vision eine Berufslizenz, empfiehlt sich die Untersuchung in einem der fliegerärztlichen Zentren. Die Adressen der Fliegerärzte bekommst du von uns.</p></div></details>
+        <details class="acc"><summary>Wo mache ich die Theorie?</summary><div class="acc__body"><p>Theoriekurse werden laufend bei <a class="brand-text" href="{{site.safetyWings}}" target="_blank" rel="noopener">Safety Wings</a> angeboten. Die genauen Kosten entnimmst du den Angaben der Theorie-Flugschule, in der Regel sind es rund {{data.preise.ausbildung.theorie | chf}}.</p></div></details>
+      </div>
+      <div class="accordion">
+        <details class="acc"><summary>Auf welchen Flugzeugen lerne ich fliegen?</summary><div class="acc__body"><p>Auf der Cessna 150 und/oder der Cessna 172, je nach Wunsch und Verfügbarkeit. Mehr zu den Flugzeugen findest du bei der <a class="brand-text" href="flotte.html">Flotte</a>.</p></div></details>
+        <details class="acc"><summary>Wie bezahle ich die Ausbildung?</summary><div class="acc__body"><p>Wir verlangen eine zurückzahlbare Kaution, damit du bequem monatlich die Rechnungen zahlen kannst. Unsere Kostenangaben basieren auf Erfahrungswerten mit Vorauszahlungsrabatt sowie Beroflyer. Schulungsflüge sind nicht MWSt-pflichtig.</p></div></details>
+        <details class="acc"><summary>Zählt der Schnupperflug schon zur Ausbildung?</summary><div class="acc__body"><p>Ja. Schon der Schnupperflug (1. Lektion, 60 Minuten auf der C-150 für CHF 420) kann zur Flugausbildung angerechnet werden. <a class="brand-text" href="schnupperflug.html">Zum Schnupperflug</a></p></div></details>
+        <details class="acc"><summary>Wann darf ich Passagiere mitnehmen?</summary><div class="acc__body"><p>Nach der bestandenen Flugprüfung stellt dir der Flugprüfer eine temporäre Bewilligung aus, mit der du schon selber fliegen und Passagiere mitnehmen darfst. Die Lizenz selbst bekommst du kurz darauf vom BAZL.</p></div></details>
+        <details class="acc"><summary>Wo erfahre ich mehr?</summary><div class="acc__body"><p>An unseren <a class="brand-text" href="infoabende.html">Infoabenden «Wie werde ich Pilot»</a> beantworten wir alle Fragen rund um die Ausbildung. Oder ruf uns an: <a class="brand-text" href="tel:{{site.phoneHref}}">{{site.phone}}</a>.</p></div></details>
+      </div>
     </div>
   </div>
 </section>

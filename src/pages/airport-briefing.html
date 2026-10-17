@@ -7,7 +7,7 @@
   "css": ["piloten"]
 } -->
 
-<section class="page-hero">
+<section class="page-hero ab-hero">
   <div class="page-hero__media"><x-img src="hero/slide-05" alt="Cessna auf der Graspiste des Flugplatzes Luzern-Beromünster, im Hintergrund das Dorf" sizes="100vw" loading="eager" fetchpriority="high"></x-img></div>
   <div class="container page-hero__inner">
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Airport Briefing</li></ol>
@@ -20,8 +20,8 @@
       <span class="chip chip--warn"><x-icon name="triangle-alert"></x-icon>Landung Piste 33 einweisungspflichtig</span>
     </div>
     <div class="row mt-s">
-      <a class="btn btn--primary btn--lg" href="https://www.flubag.ch/sites/default/files/page/attachment/FLUBAG%20Airport%20Briefing%2002021.08.pdf" target="_blank" rel="noopener" data-magnetic><x-icon name="download"></x-icon>Druckversion (PDF)</a>
-      <a class="btn btn--ghost btn--lg" href="#anflug" data-live="weather"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
+      <a class="btn btn--primary" href="https://www.flubag.ch/sites/default/files/page/attachment/FLUBAG%20Airport%20Briefing%2002021.08.pdf" target="_blank" rel="noopener"><x-icon name="download"></x-icon>Druckversion (PDF)</a>
+      <a class="btn btn--ghost" href="#anflug" data-live="weather"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
     </div>
   </div>
 </section>
@@ -42,13 +42,15 @@
 </nav>
 
 <section class="section" id="ueberblick" aria-labelledby="ueberblick-title">
-  <div class="container split split--top">
-    <div class="stack-l">
+  <div class="container">
+    <div class="section-head section-head--split">
       <div class="stack">
         <p class="eyebrow" data-reveal>Auf einen Blick</p>
         <h2 id="ueberblick-title" data-split>Das Wichtigste vor dem Flug.</h2>
-        <p class="lead" data-reveal>Die Kernpunkte dieses Briefings in Kürze. Jeder Punkt führt zum ausführlichen Abschnitt weiter unten.</p>
       </div>
+      <p class="lead" data-reveal>Die Kernpunkte dieses Briefings in Kürze. Jeder Punkt führt zum ausführlichen Abschnitt weiter unten.</p>
+    </div>
+    <div class="ab-overview">
       <ul class="ab-key" data-reveal-group="0.06">
         <li data-reveal><a href="#anflug"><x-icon name="runway"></x-icon><span><strong>Piste 33 primär</strong> für Starts und Landungen. Das Landen auf Piste 33 ist einweisungspflichtig.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
         <li data-reveal><a href="#westwind"><x-icon name="wind"></x-icon><span><strong>Starker Westwind:</strong> Turbulenzen und Abwinde beim Start und Steigflug auf Piste 33.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
@@ -57,9 +59,8 @@
         <li data-reveal><a href="#parkordnung"><x-icon name="fan"></x-icon><span><strong>Propellerwind</strong> nie in den Hangar und grundsätzlich nicht Richtung Restaurant.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
         <li data-reveal><a href="#start"><x-icon name="plane-takeoff"></x-icon><span><strong>Kein Start auf Piste 33</strong> bei Rückenwind und nahe oder bei max. Startgewicht.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
       </ul>
-    </div>
 
-    <aside class="instrument hud-corners ab-live sticky" aria-label="Live am Flugplatz" data-reveal data-live="weather">
+    <aside class="instrument hud-corners ab-live" aria-label="Live am Flugplatz" data-reveal data-live="weather">
       <div class="pl-panel__head">
         <span class="mono">LSZO LIVE</span>
         <span class="pl-panel__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>

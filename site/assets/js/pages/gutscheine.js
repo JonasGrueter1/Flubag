@@ -528,22 +528,4 @@
     });
   }
   if (nr) { nr.addEventListener('input', updateRedeem); updateRedeem(); }
-
-  // ---------------------------------------------------------------- Flugpfad "So funktioniert's"
-  var how = F.$('[data-gift-how]');
-  if (how) {
-    var steps = F.$$('.gift-how__step', how);
-    var setP = function (p) {
-      how.style.setProperty('--gift-p', p.toFixed(3));
-      steps.forEach(function (s, i) { s.classList.toggle('is-active', p >= (steps.length > 1 ? i / (steps.length - 1) : 0) - 0.04); });
-    };
-    F.ready(function () {
-      if (!F.hasGsap() || F.reducedMotion) { setP(1); return; }
-      ScrollTrigger.create({
-        trigger: how, start: 'top 72%', end: 'bottom 62%',
-        onUpdate: function (self) { setP(self.progress); },
-        onRefresh: function (self) { setP(self.progress); }
-      });
-    });
-  }
 })();
