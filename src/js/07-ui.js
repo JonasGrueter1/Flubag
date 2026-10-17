@@ -127,6 +127,11 @@
         });
       }, { rootMargin: '-35% 0px -60% 0px' });
       map.forEach(function (s) { if (s) io.observe(s); });
+      // zurück im Hero: keine Sprungmarke mehr hervorheben
+      var first = map.filter(Boolean)[0];
+      if (first) window.addEventListener('scroll', function () {
+        if (first.getBoundingClientRect().top > window.innerHeight * 0.4) links.forEach(function (l) { l.classList.remove('is-active'); });
+      }, { passive: true });
     });
   }
 

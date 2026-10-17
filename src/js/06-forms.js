@@ -26,7 +26,8 @@
   }
 
   function validateInput(input) {
-    if (input.disabled || input.closest('[hidden]')) return true;
+    // versteckte Felder (z.B. _t) nie prüfen: fieldOf() fände sonst den Container und löschte fremde Meldungen
+    if (input.disabled || input.type === 'hidden' || input.closest('[hidden]')) return true;
     var v = (input.value || '').trim(), msg = '';
     if (input.type === 'radio') {
       var group = F.$$('input[name="' + input.name + '"]', input.form);
@@ -47,7 +48,7 @@
   }
 
   function validate(scope) {
-    var inputs = F.$$('input, select, textarea', scope).filter(function (i) { return i.name && !i.closest('.honeypot'); });
+    var inputs = F.$$('input, select, textarea', scope).filter(function (i) { return i.name && i.type !== 'hidden' && !i.closest('.honeypot'); });
     var seenRadio = {}, ok = true, first = null;
     inputs.forEach(function (i) {
       if (i.type === 'radio') { if (seenRadio[i.name]) return; seenRadio[i.name] = 1; }
@@ -143,7 +144,9 @@
       boxes.forEach(function (b) {
         var names = (b.getAttribute('data-summary') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
         b.innerHTML = names.filter(function (n) { return data[n]; }).map(function (n) {
-          return '<div><dt>' + F.escape(labelFor(form, n)) + '</dt><dd>' + F.escape(data[n]) + '</dd></div>';
+          var v = data[n], el = form.querySelector('[name="' + n + '"]');
+          if (el && el.type === 'date' && /^\d{4}-\d{2}-\d{2}$/.test(v)) v = v.split('-').reverse().join('.');
+          return '<div><dt>' + F.escape(labelFor(form, n)) + '</dt><dd>' + F.escape(v) + '</dd></div>';
         }).join('') || '<div><dt>Noch keine Angaben</dt><dd></dd></div>';
       });
     };

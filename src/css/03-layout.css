@@ -96,6 +96,9 @@ body:has(.subnav) .sticky { top: calc(var(--header-h) + 84px); }
 @media (max-width: 760px) {
   .statusbar__icao, .statusbar__sun, .statusbar__link { display: none; }
 }
+@media (max-width: 420px) {
+  .statusbar__wx > :nth-child(n+3) { display: none; }
+}
 
 .nav-wrap { height: var(--header-h); display: flex; align-items: center; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; flex: none; }
