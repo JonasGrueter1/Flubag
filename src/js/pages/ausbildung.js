@@ -236,6 +236,9 @@
     var count = F.$('[data-flow-count]'), fillEl = F.$('[data-flow-fill]'), label = F.$('[data-flow-label]');
     var plane = F.$('.ausb-progress__plane');
     if (!steps.length || !count) return;
+    // Auf dem Handy ist die Anzeige ausgeblendet (display: none): dort nie auf das Einblenden warten
+    var box = F.$('.ausb-progress');
+    if (box && window.matchMedia && matchMedia('(max-width: 860px)').matches) box.classList.add('is-in');
     function update() {
       var active = steps.filter(function (s) { return s.classList.contains('is-active'); });
       var n = active.length, p = n / steps.length * 100;

@@ -15,6 +15,8 @@
     priceEl.textContent = sel ? F.chf(+sel.getAttribute('data-price')) : 'noch offen';
   }
   form.addEventListener('change', update);
+  // "Neue Anfrage" setzt das Formular zurück: Preis und Begleitpersonen ebenfalls zurücksetzen
+  form.addEventListener('reset', function () { setTimeout(update, 0); });
 
   F.$$('[data-pick]').forEach(function (a) {
     a.addEventListener('click', function () {

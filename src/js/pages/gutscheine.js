@@ -62,8 +62,8 @@
     setRadio('schnupper', state.schnupper);
     setRadio('betrag', state.betrag);
     ownInput.value = state.eigen;
-    form.elements.fuer.value = state.fuer;
-    form.elements.von.value = state.von;
+    form.elements.fuer.value = state.fuer.slice(0, 26);
+    form.elements.von.value = state.von.slice(0, 26);
     msgInput.value = state.widmung.slice(0, 160);
     setRadio('versand', state.versand);
   }

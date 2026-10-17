@@ -67,7 +67,7 @@
         <div class="fi-lead__body">
           <span class="fi-lead__num" aria-hidden="true">0{{loop.number}}</span>
           <h3 class="fi-lead__name">{{p.name}}</h3>
-          <p class="person__role"><!-- @if p.role == "Cheffluglehrer / Representative" -->Cheffluglehrer/<wbr>Representative<!-- @else --><!-- @if p.role == "Fluglehrer / Head of Training" -->Fluglehrer/<wbr>Head of Training<!-- @else -->{{p.role}}<!-- @endif --><!-- @endif --></p>
+          <p class="person__role"><!-- @if p.role == "Cheffluglehrer/Representative" -->Cheffluglehrer/<wbr>Representative<!-- @else --><!-- @if p.role == "Fluglehrer/Head of Training" -->Fluglehrer/<wbr>Head of Training<!-- @else -->{{p.role}}<!-- @endif --><!-- @endif --></p>
           <!-- @if p.name == "Urs Reber" -->
           <p class="muted">Leitet als Cheffluglehrer das Team und vertritt als Representative die Flugschule. Urs Reber ist zudem Mitglied des Verwaltungsrats der FLUBAG Flugbetriebs AG.</p>
           <!-- @else -->
@@ -95,11 +95,11 @@
         <div class="person__photo fi-card__photo">
           <x-img src="{{p.image}}" alt="Porträt von {{p.name}}" sizes="(max-width: 860px) 50vw, 25vw"></x-img>
           <span class="fi-card__num" aria-hidden="true"><!-- @if loop.number == "10" -->10<!-- @else -->0{{loop.number}}<!-- @endif --></span>
-          <span class="fi-card__icon" aria-hidden="true"><!-- @if p.role == "Fluglehrer / Experte" --><x-icon name="clipboard-check"></x-icon><!-- @else --><!-- @if p.role == "Fluglehrer MOU" --><x-icon name="mountain-snow"></x-icon><!-- @else --><x-icon name="plane"></x-icon><!-- @endif --><!-- @endif --></span>
+          <span class="fi-card__icon" aria-hidden="true"><!-- @if p.role == "Fluglehrer/Experte" --><x-icon name="clipboard-check"></x-icon><!-- @else --><!-- @if p.role == "Fluglehrer MOU" --><x-icon name="mountain-snow"></x-icon><!-- @else --><x-icon name="plane"></x-icon><!-- @endif --><!-- @endif --></span>
         </div>
         <div class="fi-card__info">
           <h3 class="person__name">{{p.name}}</h3>
-          <p class="person__role"><!-- @if p.role == "Fluglehrer / Experte" -->Fluglehrer/<wbr>Experte<!-- @else -->{{p.role}}<!-- @endif --></p>
+          <p class="person__role"><!-- @if p.role == "Fluglehrer/Experte" -->Fluglehrer/<wbr>Experte<!-- @else -->{{p.role}}<!-- @endif --></p>
         </div>
       </article>
       <!-- @endif --><!-- @end -->
@@ -162,6 +162,7 @@
         <p class="fi-role__who"><x-icon name="users-round"></x-icon>Das ganze Team</p>
       </article>
     </div>
+    <p class="fi-roles__note subtle" data-reveal><x-icon name="info"></x-icon>Allgemeine Erklärung der Funktionen in der Pilotenausbildung nach den Regeln von EASA und BAZL, ohne Gewähr.</p>
   </div>
 </section>
 

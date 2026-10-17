@@ -83,7 +83,7 @@
 .route-card__text { color: rgba(255, 255, 255, 0.78); }
 .route-card--cta { background: radial-gradient(120% 90% at 100% 0%, #e63201, #7a1d0a 45%, #1a1630); justify-content: center; }
 .route-card--cta .route-card__body { gap: 16px; justify-items: start; }
-.route-card--cta .icon { width: 48px; height: 48px; }
+.route-card--cta .route-card__body > .icon { width: 48px; height: 48px; }
 @media (max-width: 899px) {
   .routes__inner { min-height: 0; }
   .routes__track { overflow-x: auto; scroll-snap-type: x mandatory; width: auto; padding-bottom: 12px; scrollbar-width: none; }
@@ -134,3 +134,12 @@
 .live__wind .readout__value { font-size: 0.95rem; }
 @media (max-width: 1024px) { .live__grid { grid-template-columns: 1fr; } .live__cam { grid-row: auto; } }
 @media (max-width: 520px) { .live__wind .xwind { grid-template-columns: 1fr; } .live__wind .xwind__svg { max-width: 180px; } }
+/* Schlusskontrolle: Webcam-Karte füllt die Höhe, Text der Kacheln besser lesbar */
+.live__cam .card__body { flex: 0 0 auto; }
+.tiles .tile::after { background: linear-gradient(180deg, rgba(6, 11, 22, 0) 22%, rgba(6, 11, 22, 0.5) 55%, rgba(6, 11, 22, 0.92) 100%); }
+.tiles .tile__eyebrow { text-shadow: 0 1px 8px rgba(6, 11, 22, 0.7); }
+/* Ohne Scroll-Pin (reduzierte Bewegung oder ohne GSAP): Rundflug-Karten waagrecht scrollbar statt abgeschnitten */
+@media (min-width: 900px) {
+  html:not(.anim-ready) .routes__track { width: auto; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 16px; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.35) transparent; }
+  html:not(.anim-ready) .route-card { scroll-snap-align: start; }
+}

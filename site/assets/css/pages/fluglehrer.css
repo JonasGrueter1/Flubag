@@ -98,6 +98,8 @@
 .fi-role:hover .card__icon { transform: rotate(-8deg) scale(1.06); background: var(--brand); color: #fff; }
 .fi-role__who { margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--line-strong); display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand-text); }
 .fi-role__who .icon { width: 15px; height: 15px; }
+.fi-roles__note { display: flex; align-items: flex-start; gap: 8px; margin-top: clamp(16px, 2vw, 24px); font-size: 0.82rem; }
+.fi-roles__note .icon { flex: none; width: 15px; height: 15px; margin-top: 2px; }
 
 /* ---------- Kacheln: kräftigerer Verlauf für gute Lesbarkeit ---------- */
 .fi-tiles .tile::after { background: linear-gradient(180deg, rgba(6, 11, 22, 0) 22%, rgba(6, 11, 22, 0.6) 58%, rgba(6, 11, 22, 0.94) 100%); }

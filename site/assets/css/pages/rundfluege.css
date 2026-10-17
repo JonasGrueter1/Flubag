@@ -220,6 +220,7 @@
 .rf-sketch__home { fill: #e63201; stroke: #fff; stroke-width: 2; }
 .rf-sketch__label { font-family: var(--font-mono); font-size: 9px; fill: rgba(237, 242, 250, 0.78); }
 .rf-sketch__label--home { fill: #ffb08e; font-weight: 700; }
+.rf-route__sketch .rf-sketch__label { paint-order: stroke; stroke: rgba(9, 15, 29, 0.92); stroke-width: 3px; stroke-linejoin: round; }
 .rf-map__fallback .rf-sketch__label { font-size: 13px; }
 
 .rf-route__body { display: grid; gap: 18px; justify-items: start; }
@@ -282,6 +283,7 @@
 .rf-fleet__body { display: grid; gap: 4px; flex: 1; min-width: 0; }
 .rf-fleet__body .mono { font-size: 0.74rem; }
 .rf-fleet__body .card__text { font-size: 0.88rem; }
+.rf-fleet__body .card__title { text-wrap: balance; }
 .rf-fleet__go { flex: none; width: 18px; height: 18px; margin-right: 6px; color: var(--text-3); transition: color 0.2s, transform 0.3s var(--ease-out); }
 .rf-fleet__item:hover .rf-fleet__go { color: var(--brand-text); transform: translate(2px, -2px); }
 .rf-fleet__note { font-size: 0.95rem; }

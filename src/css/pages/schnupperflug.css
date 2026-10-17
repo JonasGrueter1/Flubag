@@ -6,3 +6,10 @@
 .price-option:hover { border-color: var(--brand); background: rgba(230, 50, 1, 0.08); transform: translateY(-3px); }
 .price-option__time { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-3); letter-spacing: 0.06em; }
 .price-option__price { font-family: var(--font-display); font-weight: 850; font-size: 1.6rem; color: var(--brand-text); line-height: 1.1; }
+/* Handy: die vier Flug-Optionen zweispaltig, damit der erste Schritt ohne langes Scrollen passt */
+@media (max-width: 560px) {
+  .wizard .choice-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wizard .choice__card { padding: 14px; }
+  .wizard .choice__card .icon { width: 22px; height: 22px; }
+  .wizard .choice__meta { font-size: 0.7rem; }
+}

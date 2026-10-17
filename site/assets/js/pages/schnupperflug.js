@@ -12,9 +12,11 @@
     var is172 = sel && sel.value.indexOf('172') > -1;
     companions.hidden = !is172;
     if (!is172) form.querySelector('[name="begleitung"]').value = 'Keine';
-    priceEl.textContent = sel ? F.chf(+sel.getAttribute('data-price')) : '–';
+    priceEl.textContent = sel ? F.chf(+sel.getAttribute('data-price')) : 'noch offen';
   }
   form.addEventListener('change', update);
+  // "Neue Anfrage" setzt das Formular zurück: Preis und Begleitpersonen ebenfalls zurücksetzen
+  form.addEventListener('reset', function () { setTimeout(update, 0); });
 
   F.$$('[data-pick]').forEach(function (a) {
     a.addEventListener('click', function () {

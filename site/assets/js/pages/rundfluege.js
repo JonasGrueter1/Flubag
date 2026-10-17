@@ -78,8 +78,9 @@
     svg.setAttribute('class', 'rf-sketch');
     svg.setAttribute('aria-hidden', 'true');
     svg.setAttribute('focusable', 'false');
-    var labels = {};
+    var labels = {}, segs = [];
     routes.forEach(function (r) {
+      for (var s = 1; s < r.path.length; s++) segs.push([xy(r.path[s - 1]), xy(r.path[s])]);
       var d = r.path.map(function (p, i) { var q = xy(p); return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' ');
       var base = document.createElementNS(SVGNS, 'path');
       base.setAttribute('d', d); base.setAttribute('class', 'rf-sketch__base');
@@ -103,12 +104,36 @@
       if (b.x < 1 || b.x + b.w > W - 1 || b.y < 1 || b.y + b.h > H - 1) return true;
       return boxes.some(function (o) { return b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y; });
     }
+    // Kreuzt eine Strecke der Route das Beschriftungs-Rechteck?
+    function cross(a, c, d, e) {
+      var d1 = (e[0] - d[0]) * (a[1] - d[1]) - (e[1] - d[1]) * (a[0] - d[0]);
+      var d2 = (e[0] - d[0]) * (c[1] - d[1]) - (e[1] - d[1]) * (c[0] - d[0]);
+      var d3 = (c[0] - a[0]) * (d[1] - a[1]) - (c[1] - a[1]) * (d[0] - a[0]);
+      var d4 = (c[0] - a[0]) * (e[1] - a[1]) - (c[1] - a[1]) * (e[0] - a[0]);
+      return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
+    }
+    function onLine(b) {
+      var x0 = b.x - 1, y0 = b.y - 1, x1 = b.x + b.w + 1, y1 = b.y + b.h + 1;
+      var edges = [[[x0, y0], [x1, y0]], [[x1, y0], [x1, y1]], [[x1, y1], [x0, y1]], [[x0, y1], [x0, y0]]];
+      var inside = function (p) { return p[0] > x0 && p[0] < x1 && p[1] > y0 && p[1] < y1; };
+      return segs.some(function (s) {
+        if (inside(s[0]) || inside(s[1])) return true;
+        return edges.some(function (e) { return cross(s[0], s[1], e[0], e[1]); });
+      });
+    }
     function place(name, q, cls, gap) {
       var w = name.length * cw, hh = fs + 2;
       var cand = [
         { x: q[0] + gap, y: q[1] - hh / 2, a: 'start' }, { x: q[0] - gap - w, y: q[1] - hh / 2, a: 'end' },
-        { x: q[0] - w / 2, y: q[1] - gap - hh, a: 'middle' }, { x: q[0] - w / 2, y: q[1] + gap, a: 'middle' }
+        { x: q[0] - w / 2, y: q[1] - gap - hh, a: 'middle' }, { x: q[0] - w / 2, y: q[1] + gap, a: 'middle' },
+        { x: q[0] + gap * 0.7, y: q[1] - gap * 0.7 - hh, a: 'start' }, { x: q[0] - gap * 0.7 - w, y: q[1] - gap * 0.7 - hh, a: 'end' },
+        { x: q[0] + gap * 0.7, y: q[1] + gap * 0.7, a: 'start' }, { x: q[0] - gap * 0.7 - w, y: q[1] + gap * 0.7, a: 'end' }
       ];
+      // zuerst eine Position ohne Linie darunter, sonst die erste freie (Schrift hat einen Halo)
+      var free = cand.filter(function (c) { return !hit({ x: c.x, y: c.y, w: w, h: hh }); });
+      var clean = free.filter(function (c) { return !onLine({ x: c.x, y: c.y, w: w, h: hh }); });
+      var pick = clean[0] || free[0];
+      if (pick) cand = [pick];
       for (var i = 0; i < cand.length; i++) {
         var c = cand[i], b = { x: c.x, y: c.y, w: w, h: hh };
         if (hit(b)) continue;
@@ -372,6 +397,7 @@
       zoomControl: false, scrollWheelZoom: false, dragging: !F.isTouch, touchZoom: true, doubleClickZoom: true,
       minZoom: 7, maxZoom: 14, zoomSnap: 0.25, zoomDelta: 1, attributionControl: true, keyboard: true
     });
+    if (map.attributionControl) map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
     var wide = isWide();
     L.control.zoom({ position: wide ? 'topleft' : 'bottomright', zoomInTitle: 'Hineinzoomen', zoomOutTitle: 'Herauszoomen' }).addTo(map);
     L.control.scale({ position: wide ? 'topleft' : 'bottomleft', imperial: false, maxWidth: 120 }).addTo(map);
