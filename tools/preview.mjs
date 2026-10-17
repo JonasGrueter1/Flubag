@@ -15,7 +15,9 @@ const BASE = process.argv[3] || '/Flubag/';
 
 const SKIP = new Set(['.htaccess', 'api', 'sitemap.xml']);
 
-fs.rmSync(OUT, { recursive: true, force: true });
+// Zielordner leeren, aber .git behalten (z.B. ein Worktree des Branches gh-pages)
+fs.mkdirSync(OUT, { recursive: true });
+for (const f of fs.readdirSync(OUT)) if (f !== '.git') fs.rmSync(path.join(OUT, f), { recursive: true, force: true });
 fs.cpSync(SITE, OUT, { recursive: true, filter: (src) => !SKIP.has(path.basename(src)) });
 
 const SCRIPT = `/* Vorschau-Version: Hinweis einblenden, Formulare nur vorführen */
