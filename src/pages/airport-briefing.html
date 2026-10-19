@@ -21,7 +21,7 @@
     </div>
     <div class="row mt-s">
       <a class="btn btn--primary" href="https://www.flubag.ch/sites/default/files/page/attachment/FLUBAG%20Airport%20Briefing%2002021.08.pdf" target="_blank" rel="noopener"><x-icon name="download"></x-icon>Druckversion (PDF)</a>
-      <a class="btn btn--ghost" href="#anflug" data-live="weather"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
+      <a class="btn btn--ghost" href="#live" data-live="weather"><x-icon name="wind"></x-icon>Live-Wind auf der Piste</a>
     </div>
   </div>
 </section>
@@ -43,12 +43,9 @@
 
 <section class="section" id="ueberblick" aria-labelledby="ueberblick-title">
   <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Auf einen Blick</p>
-        <h2 id="ueberblick-title" data-split>Das Wichtigste vor dem Flug.</h2>
-      </div>
-      <p class="lead" data-reveal>Die Kernpunkte dieses Briefings in Kürze. Jeder Punkt führt zum ausführlichen Abschnitt weiter unten.</p>
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Auf einen Blick</p>
+      <h2 id="ueberblick-title" data-split>Das Wichtigste vor dem Flug.</h2>
     </div>
     <div class="ab-overview">
       <ul class="ab-key" data-reveal-group="0.06">
@@ -60,88 +57,78 @@
         <li data-reveal><a href="#start"><x-icon name="plane-takeoff"></x-icon><span><strong>Kein Start auf Piste 33</strong> bei Rückenwind und nahe oder bei max. Startgewicht.</span><x-icon name="arrow-down" class="ab-key__go"></x-icon></a></li>
       </ul>
 
-    <aside class="instrument hud-corners ab-live" aria-label="Live am Flugplatz" data-reveal data-live="weather">
-      <div class="pl-panel__head">
-        <span class="mono">LSZO LIVE</span>
+    <aside class="instrument hud-corners ab-live" id="live" aria-labelledby="live-title" data-reveal data-live="weather">
+      <div class="pl-panel__head ab-live__head">
+        <h3 class="mono ab-live__title" id="live-title">LSZO Live: Wind auf Piste 15/33</h3>
         <span class="pl-panel__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
       </div>
-      <div class="readout">
-        <span class="readout__label">Wind</span>
-        <span class="readout__value pl-panel__big" data-wx-field="windText">--</span>
+      <div class="ab-live__xwind" data-xwind></div>
+      <div class="ab-live__side">
+        <div class="pl-hazards" aria-live="polite">
+          <a class="pl-hazard notice notice--danger" href="#westwind" data-wx-hazard="west" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Westwind-Lage:</strong> Abwinde östlich des Waldstücks beim Start 33 möglich.</span></a>
+          <a class="pl-hazard notice notice--warn" href="#bise" data-wx-hazard="bise" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Bise:</strong> Abwinde im Endanflug Piste 33 möglich.</span></a>
+          <a class="pl-hazard notice notice--warn" href="#start" data-wx-hazard="tail33" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Rückenwind auf Piste 33:</strong> kein Start nahe oder bei max. Startgewicht.</span></a>
+          <p class="pl-hazard pl-hazard--none" data-ab-nohazard hidden><x-icon name="circle-check"></x-icon><span>Keine automatischen Hinweise auf Westwind, Bise oder Rückenwind auf Piste 33.</span></p>
+        </div>
+        <p class="pl-panel__foot">Automatische Hinweise sind Schätzungen und ersetzen die eigene Beurteilung nicht.</p>
+        <div class="ab-live__row">
+          <div class="readout" data-live="status"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
+          <a class="btn btn--light btn--sm" href="piloten.html#live">Zum Live-Cockpit <x-icon name="arrow-right"></x-icon></a>
+        </div>
       </div>
-      <p class="mono pl-panel__rwy"><x-icon name="runway"></x-icon><span data-wx-field="rwyText">Piste 33 primär</span></p>
-      <div class="ab-live__grid">
-        <div class="readout"><span class="readout__label">QNH</span><span class="readout__value" data-wx-field="qnhText">--</span></div>
-        <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
-        <div class="readout" data-live="status"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
-      </div>
-      <div class="pl-hazards" aria-live="polite">
-        <a class="pl-hazard notice notice--danger" href="#westwind" data-wx-hazard="west" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Westwind-Lage:</strong> Abwinde östlich des Waldstücks beim Start 33 möglich.</span></a>
-        <a class="pl-hazard notice notice--warn" href="#bise" data-wx-hazard="bise" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Aktuell Bise:</strong> Abwinde im Endanflug Piste 33 möglich.</span></a>
-        <a class="pl-hazard notice notice--warn" href="#start" data-wx-hazard="tail33" hidden><x-icon name="triangle-alert"></x-icon><span><strong>Rückenwind auf Piste 33:</strong> kein Start nahe oder bei max. Startgewicht.</span></a>
-        <p class="pl-hazard pl-hazard--none" data-ab-nohazard hidden><x-icon name="circle-check"></x-icon><span>Keine automatischen Hinweise auf Westwind, Bise oder Rückenwind auf Piste 33.</span></p>
-      </div>
-      <p class="pl-panel__foot">Modellwerte (Open-Meteo), kein METAR. Automatische Hinweise sind Schätzungen und ersetzen die eigene Beurteilung nicht.</p>
-      <a class="btn btn--light btn--sm" href="piloten.html#live">Zum Live-Cockpit <x-icon name="arrow-right"></x-icon></a>
     </aside>
+    </div>
   </div>
 </section>
 
-<section class="section section--alt ab-hazard ab-hazard--west" id="westwind" aria-labelledby="westwind-title">
-  <div class="container split split--wide-left">
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Gefahrensituation 1</p>
-        <h2 id="westwind-title" data-split>Starker Westwind.</h2>
-        <div class="row" data-reveal><span class="chip chip--bad"><span class="dot dot--bad"></span>Abwindzone rot</span><span class="chip"><x-icon name="plane-takeoff"></x-icon>Start und Steigflug Piste 33</span></div>
-      </div>
-      <div class="prose" data-reveal>
+<section class="section section--alt" id="gefahren" aria-labelledby="gefahren-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Gefahrensituationen</p>
+      <h2 id="gefahren-title" data-split>Westwind und Bise.</h2>
+    </div>
+    <div class="ab-hazards">
+      <article class="ab-hazard ab-hazard--west" id="westwind" aria-labelledby="westwind-title" data-reveal>
+        <p class="eyebrow eyebrow--plain">Gefahrensituation 1</p>
+        <h3 id="westwind-title" class="ab-hazard__title">Starker Westwind.</h3>
+        <div class="row ab-hazard__chips"><span class="chip chip--bad"><span class="dot dot--bad"></span>Abwindzone rot</span><span class="chip"><x-icon name="plane-takeoff"></x-icon>Start und Steigflug Piste 33</span></div>
         <p>Bei Westwindlage im Mittelland der Schweiz kann es bei mittleren bis starken Westwinden auf der Ostseite des Waldstückes (roter Kreis) zu Turbulenzen und Abwinden kommen. Dies erschwert oder verunmöglicht einen Start und Steigflug auf Piste 33 erheblich, bis man diese Zone passiert hat.</p>
-      </div>
-      <div class="notice notice--danger" data-reveal>
-        <x-icon name="triangle-alert"></x-icon>
-        <div><p><strong>Führen Sie daher eine defensive Start- und Steigflugberechnung gemäss Flugzeughandbuch aus und planen Sie zusätzlich Reserven ein.</strong></p><p>Lokale Kenntnisse helfen, die aktuelle Situation zu beurteilen. Machen Sie sich damit vertraut.</p></div>
-      </div>
-      <p class="ab-livehint notice notice--danger" data-wx-hazard="west" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell mittleren bis starken Westwind. Diese Gefahrensituation kann jetzt bestehen.</span></p>
-    </div>
-    <figure class="pl-figure" data-gallery>
-      <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/westwind.jpg" data-caption="Abwindzone rot bei starkem Westwind, Abwindzone gelb bei starker Bise">
-        <x-img src="briefing/westwind" alt="Zwei Ausschnitte der Luftfahrtkarte um Beromünster: rot markierte Abwindzone bei starkem Westwind, gelb markierte Abwindzone bei starker Bise" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
-        <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
-      </a>
-      <figcaption data-reveal>Links: Abwindzone rot, bei starkem Westwind. Rechts: Abwindzone gelb, bei starker Bise.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="section ab-hazard ab-hazard--bise" id="bise" aria-labelledby="bise-title">
-  <div class="container split split--wide-right">
-    <figure class="pl-figure ab-order-2" data-gallery>
-      <a class="pl-figure__link" data-reveal="clip" href="assets/img/briefing/bise.jpg" data-caption="Die beiden Gefahrengebiete aus der Vogelperspektive: rot bei Westwind, gelb bei Bise">
-        <x-img src="briefing/bise" alt="Luftbild des Flugplatzes mit gelbem Kreis westlich und rotem Kreis östlich des Waldstücks" sizes="(max-width: 860px) 100vw, 40vw"></x-img>
-        <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
-      </a>
-      <figcaption data-reveal>Zur Verdeutlichung die beiden Gefahrengebiete aus der Vogelperspektive: gelb bei Bise, rot bei Westwind.</figcaption>
-    </figure>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Gefahrensituation 2</p>
-        <h2 id="bise-title" data-split>Starke Bise.</h2>
-        <div class="row" data-reveal><span class="chip chip--warn"><span class="dot dot--warn"></span>Abwindzone gelb</span><span class="chip"><x-icon name="plane-landing"></x-icon>Endanflug Piste 33</span></div>
-      </div>
-      <div class="prose" data-reveal>
+        <div class="notice notice--danger">
+          <x-icon name="triangle-alert"></x-icon>
+          <div><p><strong>Führen Sie daher eine defensive Start- und Steigflugberechnung gemäss Flugzeughandbuch aus und planen Sie zusätzlich Reserven ein.</strong></p><p>Lokale Kenntnisse helfen, die aktuelle Situation zu beurteilen. Machen Sie sich damit vertraut.</p></div>
+        </div>
+        <p class="ab-livehint notice notice--danger" data-wx-hazard="west" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell mittleren bis starken Westwind. Diese Gefahrensituation kann jetzt bestehen.</span></p>
+        <figure class="pl-figure ab-hazard__fig" data-gallery>
+          <a class="pl-figure__link" href="assets/img/briefing/westwind.jpg" data-caption="Abwindzone rot bei starkem Westwind, Abwindzone gelb bei starker Bise">
+            <x-img src="briefing/westwind" alt="Zwei Ausschnitte der Luftfahrtkarte um Beromünster: rot markierte Abwindzone bei starkem Westwind, gelb markierte Abwindzone bei starker Bise" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
+            <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+          </a>
+          <figcaption>Links: Abwindzone rot, bei starkem Westwind. Rechts: Abwindzone gelb, bei starker Bise.</figcaption>
+        </figure>
+      </article>
+      <article class="ab-hazard ab-hazard--bise" id="bise" aria-labelledby="bise-title" data-reveal>
+        <p class="eyebrow eyebrow--plain">Gefahrensituation 2</p>
+        <h3 id="bise-title" class="ab-hazard__title">Starke Bise.</h3>
+        <div class="row ab-hazard__chips"><span class="chip chip--warn"><span class="dot dot--warn"></span>Abwindzone gelb</span><span class="chip"><x-icon name="plane-landing"></x-icon>Endanflug Piste 33</span></div>
         <p>Bei Bisenlage im Mittelland der Schweiz kann es bei mittleren bis starken Ostwinden auf der Westseite dieses Waldstückes (gelber Kreis) zu Turbulenzen und Abwinden kommen, die einen Endanflug Piste 33 (Final) erheblich erschweren oder verunmöglichen.</p>
-      </div>
-      <div class="notice notice--warn" data-reveal>
-        <x-icon name="triangle-alert"></x-icon>
-        <div><p><strong>Führen Sie daher eine defensive Anflugtaktik durch.</strong></p><p>Lokale Kenntnisse helfen, die aktuelle Situation zu beurteilen. Machen Sie sich damit vertraut.</p></div>
-      </div>
-      <p class="ab-livehint notice notice--warn" data-wx-hazard="bise" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell Bise. Diese Gefahrensituation kann jetzt bestehen.</span></p>
+        <div class="notice notice--warn">
+          <x-icon name="triangle-alert"></x-icon>
+          <div><p><strong>Führen Sie daher eine defensive Anflugtaktik durch.</strong></p><p>Lokale Kenntnisse helfen, die aktuelle Situation zu beurteilen. Machen Sie sich damit vertraut.</p></div>
+        </div>
+        <p class="ab-livehint notice notice--warn" data-wx-hazard="bise" hidden><x-icon name="radio"></x-icon><span><strong>Live:</strong> Das Wettermodell zeigt aktuell Bise. Diese Gefahrensituation kann jetzt bestehen.</span></p>
+        <figure class="pl-figure ab-hazard__fig" data-gallery>
+          <a class="pl-figure__link" href="assets/img/briefing/bise.jpg" data-caption="Die beiden Gefahrengebiete aus der Vogelperspektive: rot bei Westwind, gelb bei Bise">
+            <x-img src="briefing/bise" alt="Luftbild des Flugplatzes mit gelbem Kreis westlich und rotem Kreis östlich des Waldstücks" sizes="(max-width: 860px) 100vw, 45vw"></x-img>
+            <span class="pl-figure__zoom"><x-icon name="zoom-in"></x-icon>Vergrössern</span>
+          </a>
+          <figcaption>Zur Verdeutlichung die beiden Gefahrengebiete aus der Vogelperspektive: gelb bei Bise, rot bei Westwind.</figcaption>
+        </figure>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="section section--chart" id="sprungbetrieb" aria-labelledby="para-title">
+<section class="section" id="sprungbetrieb" aria-labelledby="para-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
@@ -295,6 +282,7 @@
           <x-icon name="info"></x-icon>
           <div><p>Parallelstarts und Parallellandungen mit Segelflugzeugen sind nicht erlaubt. <strong>Segelflugzeuge sind vortrittsberechtigt.</strong></p></div>
         </div>
+        <a class="pl-link ab-next" href="piste-33.html" data-reveal><x-icon name="plane-landing" class="pl-link__icon"></x-icon><span class="pl-link__body"><span class="pl-link__title">Anflug und Abflug Piste 33</span><span class="pl-link__text">Verfahren in 6 Schritten: Holding Point bis Short Final mit Luftbildern, Richtpunkten und interaktiver Platzrunde.</span></span><x-icon name="arrow-right" class="pl-link__go"></x-icon></a>
       </div>
       <div class="stack-l">
         <figure class="pl-figure" data-gallery>
@@ -306,26 +294,10 @@
         </figure>
       </div>
     </div>
-    <div class="ab-anflug-bottom mt-l">
-      <div class="card card--pad ab-xwind" data-reveal data-live="weather">
-        <div class="row row--between">
-          <p class="eyebrow eyebrow--plain">Live: Wind auf Piste 15/33</p>
-          <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>…</span></span>
-        </div>
-        <div class="mt-s" data-xwind></div>
-      </div>
-      <a class="tile ab-next" href="piste-33.html" data-reveal>
-        <x-img src="hero/slide-01" alt="Cessna beim Start von der Graspiste im Gegenlicht" sizes="(max-width: 960px) 100vw, 40vw"></x-img>
-        <span class="tile__arrow"><x-icon name="arrow-up-right"></x-icon></span>
-        <span class="tile__eyebrow">Verfahren · 6 Schritte</span>
-        <span class="tile__title">Anflug und Abflug Piste 33</span>
-        <span class="tile__text">Holding Point bis Short Final mit Luftbildern, Richtpunkten und interaktiver Platzrunde.</span>
-      </a>
-    </div>
   </div>
 </section>
 
-<section class="section" id="druckversion" aria-labelledby="druck-title">
+<section class="section section--tight" id="druckversion" aria-labelledby="druck-title">
   <div class="container split split--top">
     <div class="stack">
       <p class="eyebrow" data-reveal>Druckversion</p>
