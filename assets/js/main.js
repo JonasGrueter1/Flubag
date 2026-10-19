@@ -10,6 +10,12 @@
   //   mode "mailto":    immer das E-Mail-Programm öffnen
   //   endpoint:         "api/send.php" (liegt bei, braucht PHP Hosting)
   //                     oder z.B. eine Formspree URL "https://formspree.io/f/xxxx"
+  //
+  // LIVE-DATEN: hier lassen sich die Live-Anzeigen ganz abschalten (true = an, false = aus).
+  //   status:  Platzstatus, Wochenleiste der Betriebszeiten, Sonnenzeiten (berechnet aus der Weisung Piloten)
+  //   weather: Wetter von Open-Meteo, Seitenwind-Widget, Wetterwerte in der Statusleiste
+  // Ausgeschaltet wird nichts geladen bzw. gerechnet, und alle Elemente mit data-live="status"
+  // bzw. data-live="weather" sind ausgeblendet. Danach neu bauen (npm run build).
   // ------------------------------------------------------------------
   F.config = {
     form: {
@@ -17,8 +23,32 @@
       endpoint: 'api/send.php',
       email: 'flubag@flubag.ch'
     },
+    live: { status: true, weather: true },
     weather: { lat: 47.19, lon: 8.2047, cacheMinutes: 10 },
     tz: 'Europe/Zurich'
+  };
+
+  // Live-Schalter auf <html> spiegeln (der Build setzt die Klassen schon im HTML, das hier gilt zur Laufzeit)
+  F.live = function (k) { var l = F.config.live || {}; return l[k] !== false; };
+  ['status', 'weather'].forEach(function (k) { document.documentElement.classList.toggle('live-off-' + k, !F.live(k)); });
+
+  // Hinweis an allen Live-Anzeigen: Kurzform sichtbar am Widget, Langform als Fussnote
+  F.LIVE_SHORT = 'Richtwert ohne Gewähr';
+  F.liveBadge = function (cls) {
+    return '<span class="live-badge' + (cls ? ' ' + cls : '') + '">' + F.icon('info') + F.LIVE_SHORT + '</span>';
+  };
+  F.liveNote = function (cls) {
+    return '<p class="live-note' + (cls ? ' ' + cls : '') + '" data-live-note>Richtwerte ohne Gewähr: Platzstatus nach unserer Auslegung der <a href="weisungen.html">Weisung Piloten</a>, ' +
+      'Wetter aus Modelldaten von Open-Meteo, kein METAR. Massgebend sind die Weisung Piloten und die offiziellen Flugwetterinformationen (skybriefing, MeteoSchweiz).</p>';
+  };
+  // Mehrere Live-Widgets im selben Abschnitt: die Langform nur einmal zeigen (beim letzten Widget)
+  F.liveNotes = function () {
+    var groups = [], last = [];
+    F.$$('[data-live-note]').forEach(function (n) {
+      var g = n.closest('section, footer, aside') || document.body, i = groups.indexOf(g);
+      if (i < 0) { groups.push(g); last.push(n); } else last[i] = n;
+    });
+    F.$$('[data-live-note]').forEach(function (n) { n.hidden = last.indexOf(n) < 0; });
   };
 
   F.data = window.FLUBAG_DATA || {};
@@ -72,30 +102,57 @@
 
 ;
 /* 01-theme.js */
-/* Hell / Dunkel Umschalter mit kreisförmigem Übergang */
+/* Hell / Dunkel Umschalter mit kreisförmigem Übergang.
+   Standard ist hell. Ohne gespeicherte Wahl gilt die Systemeinstellung (prefers-color-scheme).
+   Das Startattribut setzt schon das Inline-Skript in layout.html (ohne Aufblitzen). */
 (function () {
   'use strict';
   var F = window.FLUBAG;
   var root = document.documentElement;
+  var KEY = 'flubag-theme';
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
-  function apply(theme) {
+  function stored() {
+    var t = null;
+    try { t = localStorage.getItem(KEY); } catch (e) {}
+    return t === 'light' || t === 'dark' ? t : null;
+  }
+  function current() { return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+
+  // Beschriftung der Umschalter passend zum aktuellen Modus
+  function label(theme) {
+    var next = theme === 'dark' ? 'hellen' : 'dunklen';
+    F.$$('[data-theme-toggle]').forEach(function (btn) {
+      if (!btn.querySelector('span')) { btn.setAttribute('aria-label', 'Zum ' + next + ' Modus wechseln'); btn.setAttribute('title', 'Zum ' + next + ' Modus wechseln'); }
+    });
+  }
+
+  function apply(theme, save) {
     root.setAttribute('data-theme', theme);
-    try { localStorage.setItem('flubag-theme', theme); } catch (e) {}
+    if (save) { try { localStorage.setItem(KEY, theme); } catch (e) {} }
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', theme === 'light' ? '#f5f2eb' : '#060b16');
+    label(theme);
     F.emit('flubag:theme', theme);
   }
 
   F.theme = {
+    current: current,
     init: function () {
+      label(current());
+      // Systemeinstellung ändert sich (z.B. Nachtmodus am Abend): nur folgen, solange niemand selbst gewählt hat
+      if (mq) {
+        var onSystem = function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light', false); };
+        if (mq.addEventListener) mq.addEventListener('change', onSystem); else if (mq.addListener) mq.addListener(onSystem);
+      }
       F.$$('[data-theme-toggle]').forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-          if (!document.startViewTransition || F.reducedMotion) { apply(next); return; }
+        btn.addEventListener('click', function () {
+          var next = current() === 'light' ? 'dark' : 'light';
+          if (!document.startViewTransition || F.reducedMotion) { apply(next, true); return; }
           var r = btn.getBoundingClientRect();
           var x = r.left + r.width / 2, y = r.top + r.height / 2;
           var end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-          var t = document.startViewTransition(function () { apply(next); });
+          var t = document.startViewTransition(function () { apply(next, true); });
           t.ready.then(function () {
             root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + end + 'px at ' + x + 'px ' + y + 'px)'] },
               { duration: 650, easing: 'cubic-bezier(.16,1,.3,1)', pseudoElement: '::view-transition-new(root)' });
@@ -498,6 +555,7 @@
     data: null,
     components: components,
     load: function () {
+      if (!F.live('weather')) return;
       var cached = F.store.get(KEY, true);
       if (cached && Date.now() - cached.t < F.config.weather.cacheMinutes * 60000) { this.set(cached.raw); return; }
       var c = F.config.weather;
@@ -614,8 +672,9 @@
 
   function renderInline(s) {
     F.$$('[data-airfield-status-inline]').forEach(function (el) {
-      el.innerHTML = '<span class="dot dot--' + s.level + '"></span><span>' + F.escape(s.short) + '</span>';
-      el.setAttribute('title', s.title + ': ' + s.text);
+      el.innerHTML = '<span class="dot dot--' + s.level + '"></span><span>' + F.escape(s.short) + '</span><span class="visually-hidden"> (' + F.LIVE_SHORT + ')</span>';
+      el.setAttribute('title', s.title + ': ' + s.text + ' (' + F.LIVE_SHORT + ')');
+      el.setAttribute('aria-description', F.LIVE_SHORT);
     });
   }
 
@@ -627,6 +686,7 @@
         : F.minToTime(r.open) + ' bis ' + F.minToTime(r.close) + ' (Pause 12 bis 13)';
       el.innerHTML =
         '<div class="status-card">' +
+          F.liveBadge('status-card__badge') +
           '<div class="status-card__head"><span class="dot dot--' + s.level + '"></span><span class="status-card__title">' + s.title + '</span></div>' +
           '<p class="status-card__text">' + F.escape(s.text) + '</p>' +
           '<dl class="data-list status-card__list">' +
@@ -635,7 +695,8 @@
             (sun ? '<div><dt>Sonnenaufgang / -untergang</dt><dd class="mono">' + sun.sunrise + ' / ' + sun.sunset + '</dd></div><div><dt>Abenddämmerung</dt><dd class="mono">' + sun.dusk + '</dd></div>' : '') +
           '</dl>' +
           (r.special ? '<p class="status-card__note">Heute sind nur Flüge von mindestens einer Stunde oder Flüge von und nach anderen Plätzen erlaubt.</p>' : '') +
-          '<p class="status-card__disclaimer">Berechnet aus der Weisung Piloten 2026. Ohne Gewähr: Massgebend sind Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>' +
+          '<p class="status-card__disclaimer">Berechnet aus der Weisung Piloten 2026. Massgebend sind auch Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>' +
+          F.liveNote('status-card__note-long') +
         '</div>';
     });
   }
@@ -645,7 +706,7 @@
       el.classList.add('hours-week');
       var start = 6 * 60, end = 22 * 60, span = end - start;
       var pct = function (m) { return ((Math.min(Math.max(m, start), end) - start) / span * 100).toFixed(2) + '%'; };
-      var html = '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
+      var html = F.liveBadge('hours-week__badge') + '<div class="hours-axis"><span></span><span class="hours-axis__ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></span><span></span></div>';
       var zNow = F.zurich(now);
       for (var i = 0; i < 7; i++) {
         // Kalendertag i ab heute (Zürcher Datum, 12 Uhr UTC): rund um die Zeitumstellung keine doppelten oder fehlenden Tage
@@ -661,7 +722,7 @@
           '<span class="hours-day__bar" title="' + (r.holiday ? F.escape(r.holiday) : DAYS_LONG[z.wd]) + '">' + bar + '</span>' +
           '<span class="hours-day__text">' + F.minToTime(r.open) + ' bis ' + F.minToTime(r.close) + (r.holiday ? ' *' : '') + '</span></div>';
       }
-      el.innerHTML = html;
+      el.innerHTML = html + F.liveNote('hours-week__note');
     });
   }
 
@@ -671,12 +732,15 @@
     holidays: holidays,
     sunTimes: sunTimes,
     init: function () {
+      // Live-Schalter aus (F.config.live.status = false): nichts rendern, die Rechenfunktionen bleiben für Seiten-Skripte verfügbar
+      if (!F.live('status')) return;
       function tick() {
         var now = new Date(), s = statusAt(now);
         renderInline(s); renderCard(s); renderWeek(now);
         var sun = sunTimes(s.rules.y, s.rules.m, s.rules.d);
         if (sun) F.$$('[data-sun-field]').forEach(function (el) { el.textContent = sun[el.getAttribute('data-sun-field')] || ''; });
         F.$$('[data-sun-inline]').forEach(function (el) { el.hidden = !sun; });
+        F.liveNotes();
         F.emit('flubag:status', s);
       }
       tick();
@@ -990,6 +1054,25 @@
     if (top) top.addEventListener('click', function () { if (F.lenis) F.lenis.scrollTo(0, { duration: 1.6 }); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
   }
 
+  // Footer: Linkspalten unter 760 px als Akkordeon (zu), darüber immer offen und ohne Tab-Stopp auf dem Titel
+  function footerAccordion() {
+    var accs = F.$$('[data-footer-acc]');
+    if (!accs.length || !window.matchMedia) return;
+    var mq = window.matchMedia('(max-width: 760px)');
+    function apply() {
+      accs.forEach(function (d) {
+        var sum = d.querySelector('summary');
+        d.open = !mq.matches;
+        if (mq.matches) sum.removeAttribute('tabindex'); else sum.setAttribute('tabindex', '-1');
+      });
+    }
+    accs.forEach(function (d) {
+      d.querySelector('summary').addEventListener('click', function (e) { if (!mq.matches) e.preventDefault(); });
+    });
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply); else if (mq.addListener) mq.addListener(apply);
+  }
+
   function subnav() {
     F.$$('[data-subnav]').forEach(function (nav) {
       var links = F.$$('a[href^="#"]', nav);
@@ -1059,7 +1142,7 @@
   }
 
   F.ui = {
-    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); ranges(); }
+    init: function () { tabs(); lightbox(); scrollUi(); subnav(); copyButtons(); webcams(); ranges(); footerAccordion(); }
   };
 })();
 
@@ -1115,18 +1198,21 @@
     var arrow = el.querySelector('[data-xwind-arrow]');
     if (arrow) { arrow.style.transform = 'rotate(' + (w.calm ? 0 : w.dir) + 'deg)'; arrow.style.opacity = w.calm ? 0.3 : 1; }
   }
+  function renderAll(els, w) { els.forEach(function (el) { render(el, w); }); F.liveNotes(); }
 
   F.crosswind = {
     init: function () {
       var els = F.$$('[data-xwind]');
-      if (!els.length) return;
+      // Live-Schalter aus (F.config.live.weather = false): Widget bleibt leer und ist per data-live ausgeblendet
+      if (!els.length || !F.live('weather')) return;
       els.forEach(function (el) {
         el.classList.add('xwind');
-        el.innerHTML = svg() + '<div class="xwind__data" data-xwind-data><p class="muted">Winddaten werden geladen …</p></div>';
+        el.innerHTML = F.liveBadge('xwind__badge') + svg() + '<div class="xwind__data" data-xwind-data><p class="muted">Winddaten werden geladen …</p></div>' + F.liveNote('xwind__note');
       });
-      F.listen('flubag:weather', function (w) { els.forEach(function (el) { render(el, w); }); });
+      F.liveNotes();
+      F.listen('flubag:weather', function (w) { renderAll(els, w); });
       F.listen('flubag:weather-error', function () { els.forEach(function (el) { el.querySelector('[data-xwind-data]').innerHTML = '<p class="muted">Wetterdaten sind gerade nicht erreichbar.</p>'; }); });
-      if (F.weather.data) els.forEach(function (el) { render(el, F.weather.data); });
+      if (F.weather.data) renderAll(els, F.weather.data);
     }
   };
 })();
@@ -1141,7 +1227,8 @@
   function boot() {
     var mods = ['theme', 'header', 'ui', 'forms', 'status', 'crosswind', 'motion'];
     mods.forEach(function (m) { try { if (F[m] && F[m].init) F[m].init(); } catch (e) { console.error('FLUBAG ' + m, e); } });
-    try { F.weather.load(); } catch (e) { console.error(e); }
+    // Live-Schalter: ohne F.config.live.weather wird gar kein Wetter geladen
+    if (F.live('weather')) { try { F.weather.load(); } catch (e) { console.error(e); } }
     F._runReady();
   }
   if (document.readyState === 'complete') boot(); else document.addEventListener('DOMContentLoaded', boot);

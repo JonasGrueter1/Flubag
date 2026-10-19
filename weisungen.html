@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -7,7 +7,7 @@
 <title>Entwurf: Weisung Piloten 2026 | FLUBAG Flugplatz Luzern-Beromünster</title>
 <meta name="description" content="Weisung Piloten 2026 für Luzern-Beromünster: Betriebszeiten, Einschränkungen, Feiertage mit Daten, Fallschirm-Absetzflugzeug, Helikopter und Lärmschutz.">
 <link rel="canonical" href="https://www.flubag.ch/weisungen.html">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz">
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -246,27 +252,16 @@
 
 
 <section class="page-hero page-hero--chart page-hero--compact wz-hero">
-  <svg class="page-hero__deco wz-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-    <circle cx="200" cy="200" r="176" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="2 44.08" opacity="0.6"/>
-    <circle cx="200" cy="200" r="160" fill="none" stroke="currentColor" stroke-width="2" opacity="0.35"/>
-    <path class="wz-deco__arc" d="M338.56 280 A160 160 0 1 1 86.86 86.86" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
-    <circle cx="200" cy="200" r="6" fill="currentColor"/>
-    <path class="wz-deco__hand" d="M200 200 L200 70" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-  </svg>
   <div class="container page-hero__inner">
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Weisung Piloten 2026</li></ol>
     <p class="eyebrow">Gültig für den Flugbetrieb 2026</p>
     <h1 data-split data-split-now>Weisung Piloten 2026.</h1>
     <p class="lead">Weisungen für Piloten von Motorflugzeugen und Helikoptern: Betriebszeiten, Einschränkungen, Feiertage und alle Bestimmungen, die jeder Pilot in Beromünster individuell befolgen muss.</p>
     <div class="page-hero__meta">
-      <span class="chip" data-airfield-status-inline><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
+      <span class="chip" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Status wird berechnet …</span></span>
       <span class="chip"><svg class="icon icon-clock" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /> </svg>Mo bis Sa ab 08:00</span>
       <span class="chip"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>So ab 09:00</span>
       <span class="chip chip--warn"><svg class="icon icon-volume-x" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z" /> <path d="m16.5 14.5 5-5" /> <path d="m16.5 9.5 5 5" /> </svg>Mittagspause ohne Starts</span>
-    </div>
-    <div class="row mt-s">
-      <a class="btn btn--primary btn--lg" href="#zeiten" data-magnetic><svg class="icon icon-clock" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /> </svg>Betriebszeiten</a>
-      <a class="btn btn--ghost btn--lg" href="#feiertage"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Feiertage mit Daten</a>
     </div>
   </div>
 </section>
@@ -276,7 +271,7 @@
     <ul class="subnav__list">
       <li><a href="#grundlage">Grundlage</a></li>
       <li><a href="#zeiten">Betriebszeiten</a></li>
-      <li><a href="#woche">Diese Woche</a></li>
+      <li data-live="status"><a href="#woche">Diese Woche</a></li>
       <li><a href="#feiertage">Feiertage</a></li>
       <li><a href="#absetzflugzeug">Absetzflugzeug</a></li>
       <li><a href="#helikopter">Helikopter</a></li>
@@ -286,25 +281,16 @@
 </nav>
 
 <section class="section" id="grundlage" aria-labelledby="grundlage-title">
-  <div class="container split split--wide-left split--top">
+  <div class="container wz-intro">
     <div class="stack">
       <p class="eyebrow" data-reveal>Grundlage</p>
       <h2 id="grundlage-title" data-split>Eine Vereinbarung mit zwei Gemeinden.</h2>
       <p class="lead" data-reveal>Die Flubag hat am 13. Dezember 2010 mit den Gemeinden Neudorf und Beromünster eine Vereinbarung betreffend des Betriebs des Flugplatzes Luzern-Beromünster unterzeichnet.</p>
       <p data-reveal>Die vorliegenden Weisungen sind ein Auszug aus dem Betriebsreglement und dieser Vereinbarung und enthalten diejenigen Festlegungen, die von jedem Piloten individuell zu befolgen sind.</p>
-      <div class="notice notice--brand" data-reveal>
-        <svg class="icon icon-scale" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /> </svg>
-        <div><p><strong>Zusätzliche Weisungen jederzeit möglich.</strong></p><p>Zur Einhaltung der Bestimmungen der Vereinbarung mit den Gemeinden, namentlich des jährlichen Lärmkontingents und der Bewegungszahlen, kann die Flubag bei Bedarf jederzeit zusätzliche Weisungen verfügen.</p></div>
-      </div>
     </div>
-    <div class="instrument hud-corners wz-facts" data-reveal="scale">
-      <div class="wz-facts__head"><span class="mono">LSZO · Weisung</span><span class="status-pill wz-facts__pill"><span class="dot dot--ok"></span>2026</span></div>
-      <div class="wz-facts__grid">
-        <div class="readout"><span class="readout__label">Vereinbarung seit</span><span class="readout__value"><span data-count="2010" data-count-nosep data-count-from="1966">2010</span></span><span class="wz-facts__sub">13. Dezember 2010</span></div>
-        <div class="readout"><span class="readout__label">Gemeinden</span><span class="readout__value"><span data-count="2">2</span></span><span class="wz-facts__sub">Neudorf und Beromünster</span></div>
-        <div class="readout"><span class="readout__label">Feiertage mit Sonntagsregel</span><span class="readout__value"><span data-count="17">17</span></span><span class="wz-facts__sub">davon 5 mit Zusatzregel</span></div>
-        <div class="readout"><span class="readout__label">Rundflug mindestens</span><span class="readout__value"><span data-count="15">15</span><small> min</small></span><span class="wz-facts__sub">pro Rundflug</span></div>
-      </div>
+    <div class="notice notice--brand" data-reveal>
+      <svg class="icon icon-scale" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /> </svg>
+      <div><p><strong>Zusätzliche Weisungen jederzeit möglich.</strong></p><p>Zur Einhaltung der Bestimmungen der Vereinbarung mit den Gemeinden, namentlich des jährlichen Lärmkontingents und der Bewegungszahlen, kann die Flubag bei Bedarf jederzeit zusätzliche Weisungen verfügen.</p></div>
     </div>
   </div>
 </section>
@@ -316,10 +302,34 @@
         <p class="eyebrow" data-reveal>Betriebszeiten</p>
         <h2 id="zeiten-title" data-split>Werktag und Sonntag auf einen Blick.</h2>
       </div>
-      <p class="lead" data-reveal>Zieh den Regler auf eine Uhrzeit und sieh sofort, was an einem Werktag und was an einem Sonntag oder Feiertag gilt. Die Abenddämmerung ist für heute berechnet.</p>
+      <p class="lead" data-reveal>Betriebszeiten und Einschränkungen gemäss Weisung. Darunter zeigt der Zeitregler, was zu einer bestimmten Uhrzeit gilt. Die Abenddämmerung ist für heute berechnet.</p>
+    </div>
+
+    <div class="grid grid-2 wz-rules-grid" data-reveal-group="0.1">
+      <article class="card card--pad wz-rules" data-reveal>
+        <div class="wz-rules__head"><span class="wz-rules__icon"><svg class="icon icon-briefcase" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /> </svg></span><div><p class="eyebrow eyebrow--plain">Werktage</p><h3>Betriebszeiten Montag bis Samstag</h3></div></div>
+        <p class="wz-rules__time">08.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 21.00 Uhr, Landungen bis 21.30 Uhr</p>
+        <h4 class="wz-rules__sub">Einschränkungen</h4>
+        <ul class="checklist">
+          <li><svg class="icon icon-clock" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /> </svg><span>Zwischen 12.00 und 13.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
+          <li><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>Nach 19.30 h keine Platzrunden erlaubt.</strong></span></li>
+          <li><svg class="icon icon-helicopter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 17v4" /> <path d="M14 3v8a2 2 0 0 0 2 2h5.865" /> <path d="M17 17v4" /> <path d="M18 17a4 4 0 0 0 4-4 8 6 0 0 0-8-6 6 5 0 0 0-6 5v3a2 2 0 0 0 2 2z" /> <path d="M2 10v5" /> <path d="M6 3h16" /> <path d="M7 21h14" /> <path d="M8 13H2" /> </svg><span>Helikopter: Nach 18.00 Uhr maximal 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
+        </ul>
+      </article>
+      <article class="card card--pad wz-rules wz-rules--sun" data-reveal>
+        <div class="wz-rules__head"><span class="wz-rules__icon"><svg class="icon icon-sun" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span><div><p class="eyebrow eyebrow--plain">Sonntag</p><h3>Betriebszeiten Sonntag</h3></div></div>
+        <p class="wz-rules__time">09.00 Uhr bis 12.00 Uhr, 14.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 20.00 Uhr, Landungen bis 21.00 Uhr</p>
+        <h4 class="wz-rules__sub">Einschränkungen</h4>
+        <ul class="checklist">
+          <li><svg class="icon icon-clock" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /> </svg><span>Zwischen 12.00 und 14.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
+          <li><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>keine Platzrunden erlaubt.</strong></span></li>
+          <li><svg class="icon icon-helicopter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 17v4" /> <path d="M14 3v8a2 2 0 0 0 2 2h5.865" /> <path d="M17 17v4" /> <path d="M18 17a4 4 0 0 0 4-4 8 6 0 0 0-8-6 6 5 0 0 0-6 5v3a2 2 0 0 0 2 2z" /> <path d="M2 10v5" /> <path d="M6 3h16" /> <path d="M7 21h14" /> <path d="M8 13H2" /> </svg><span>Helikopter: Nach 18.00 h max. 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
+        </ul>
+      </article>
     </div>
 
     <div class="wz-board instrument hud-corners" data-wz-board data-reveal>
+      <h3 class="wz-board__title">Was gilt um welche Uhrzeit?</h3>
       <div class="wz-board__top">
         <div class="range wz-range">
           <div class="range__head"><label for="wz-time" class="readout__label">Uhrzeit</label><span class="range__value" data-wz-time-out>12:00</span></div>
@@ -373,50 +383,24 @@
       <p class="wz-board__foot">Berechnet aus dieser Weisung. Ohne Gewähr: Massgebend sind Flugplatzleitung, Pistenzustand, NOTAM und Sprungbetrieb.</p>
     </div>
 
-    <div class="grid grid-2 mt-l" data-reveal-group="0.1">
-      <article class="card card--pad wz-rules" data-reveal>
-        <div class="wz-rules__head"><span class="wz-rules__icon"><svg class="icon icon-briefcase" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /> </svg></span><div><p class="eyebrow eyebrow--plain">Werktage</p><h3>Betriebszeiten Montag bis Samstag</h3></div></div>
-        <p class="wz-rules__time">08.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 21.00 Uhr, Landungen bis 21.30 Uhr</p>
-        <h4 class="wz-rules__sub">Einschränkungen</h4>
-        <ul class="checklist">
-          <li><svg class="icon icon-clock" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /> </svg><span>Zwischen 12.00 und 13.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
-          <li><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>Nach 19.30 h keine Platzrunden erlaubt.</strong></span></li>
-          <li><svg class="icon icon-helicopter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 17v4" /> <path d="M14 3v8a2 2 0 0 0 2 2h5.865" /> <path d="M17 17v4" /> <path d="M18 17a4 4 0 0 0 4-4 8 6 0 0 0-8-6 6 5 0 0 0-6 5v3a2 2 0 0 0 2 2z" /> <path d="M2 10v5" /> <path d="M6 3h16" /> <path d="M7 21h14" /> <path d="M8 13H2" /> </svg><span>Helikopter: Nach 18.00 Uhr maximal 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
-        </ul>
-      </article>
-      <article class="card card--pad wz-rules wz-rules--sun" data-reveal>
-        <div class="wz-rules__head"><span class="wz-rules__icon"><svg class="icon icon-sun" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /> </svg></span><div><p class="eyebrow eyebrow--plain">Sonntag</p><h3>Betriebszeiten Sonntag</h3></div></div>
-        <p class="wz-rules__time">09.00 Uhr bis 12.00 Uhr, 14.00 Uhr bis zur Abenddämmerung, spätestens jedoch bis 20.00 Uhr, Landungen bis 21.00 Uhr</p>
-        <h4 class="wz-rules__sub">Einschränkungen</h4>
-        <ul class="checklist">
-          <li><svg class="icon icon-clock" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /> </svg><span>Zwischen 12.00 und 14.00 Uhr sind keine Starts erlaubt. Landungen für Flugzeuge frei, Helikopter max. 2 Landungen.</span></li>
-          <li><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg><span>Motorflugzeuge, Touring Motor Glider und eigenstartfähige Motorsegler: <strong>keine Platzrunden erlaubt.</strong></span></li>
-          <li><svg class="icon icon-helicopter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 17v4" /> <path d="M14 3v8a2 2 0 0 0 2 2h5.865" /> <path d="M17 17v4" /> <path d="M18 17a4 4 0 0 0 4-4 8 6 0 0 0-8-6 6 5 0 0 0-6 5v3a2 2 0 0 0 2 2z" /> <path d="M2 10v5" /> <path d="M6 3h16" /> <path d="M7 21h14" /> <path d="M8 13H2" /> </svg><span>Helikopter: Nach 18.00 h max. 6 Bewegungen. Nach 18.00 h keine Grundschulungs- und Schnupperflüge erlaubt.</span></li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="woche" aria-labelledby="woche-title">
-  <div class="container split split--wide-right split--top">
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Live</p>
-        <h2 id="woche-title" data-split>Die nächsten sieben Tage.</h2>
-        <p class="lead" data-reveal>Die Betriebszeiten der kommenden Woche, mit Abenddämmerung, Mittagspause und Feiertagen automatisch berechnet.</p>
+    <div class="wz-live" id="woche" data-live="status">
+      <div class="wz-live__head" data-reveal>
+        <h3 id="woche-title">Die nächsten sieben Tage.</h3>
+        <p class="muted">Die Betriebszeiten der kommenden Woche, mit Abenddämmerung, Mittagspause und Feiertagen automatisch berechnet.</p>
       </div>
-      <div class="card wz-status" data-airfield-status data-reveal></div>
-    </div>
-    <div class="instrument hud-corners wz-week" data-reveal="scale">
-      <div class="wz-week__head"><span class="readout__label">Betriebszeiten · Zeit Zürich</span><span class="status-pill"><span class="dot dot--ok"></span>live</span></div>
-      <div class="hours-week" data-hours-week></div>
-      <p class="wz-week__foot">Grün: Starts erlaubt. Gelb schraffiert: Mittagspause ohne Starts. Sonn- und Feiertage mit 12:00 bis 14:00 Pause. * Feiertag.</p>
+      <div class="wz-live__grid">
+        <div class="card wz-status" data-airfield-status data-reveal></div>
+        <div class="instrument hud-corners wz-week" data-reveal="scale">
+          <div class="wz-week__head"><span class="readout__label">Betriebszeiten · Zeit Zürich</span><span class="status-pill"><span class="dot dot--ok"></span>live</span></div>
+          <div class="hours-week" data-hours-week></div>
+          <p class="wz-week__foot">Grün: Starts erlaubt. Gelb schraffiert: Mittagspause ohne Starts. Sonn- und Feiertage mit 12:00 bis 14:00 Pause. * Feiertag.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section section--alt section--chart" id="feiertage" aria-labelledby="feiertage-title">
+<section class="section section--chart" id="feiertage" aria-labelledby="feiertage-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
@@ -455,36 +439,34 @@
           <li>Eidgenössischer Bettag</li>
           <li>Weihnachten (25. Dezember)</li>
         </ul>
-        <div class="notice notice--warn mt-m">
-          <svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>
-          <div><p>Erlaubt: Flüge ab 60 Minuten Dauer oder Flüge von und nach andern Plätzen.</p></div>
-        </div>
       </article>
     </div>
 
-    <div class="wz-cal mt-l" data-reveal>
-      <div class="wz-cal__head">
-        <div class="stack">
-          <h3>Die Daten im Kalender</h3>
-          <p class="muted">Bewegliche Feiertage wie Ostern, Auffahrt, Pfingsten, Fronleichnam und Bettag werden automatisch berechnet.</p>
-        </div>
-        <div class="segmented" role="radiogroup" aria-label="Jahr wählen" data-wz-years></div>
-      </div>
+    <div class="wz-cal" data-reveal>
       <p class="wz-cal__next" data-wz-next hidden></p>
-      <div class="table-wrap">
-        <table class="table wz-table">
-          <caption class="visually-hidden">Feiertage mit Sonntagsregel und ihre Daten</caption>
-          <thead><tr><th scope="col">Datum</th><th scope="col">Feiertag</th><th scope="col">Regel</th><th scope="col" class="num">Status</th></tr></thead>
-          <tbody data-wz-holidays>
-            <tr><td colspan="4" class="muted">Die Daten werden berechnet. Ohne JavaScript gelten die Listen oben.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <details class="wz-cal__more">
+        <summary><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg><span>Alle Feiertage mit Datum anzeigen</span><span class="wz-cal__hint muted">Bewegliche Feiertage automatisch berechnet</span></summary>
+        <div class="wz-cal__body">
+          <div class="wz-cal__head">
+            <p class="muted">Bewegliche Feiertage wie Ostern, Auffahrt, Pfingsten, Fronleichnam und Bettag werden automatisch berechnet.</p>
+            <div class="segmented" role="radiogroup" aria-label="Jahr wählen" data-wz-years></div>
+          </div>
+          <div class="table-wrap">
+            <table class="table wz-table">
+              <caption class="visually-hidden">Feiertage mit Sonntagsregel und ihre Daten</caption>
+              <thead><tr><th scope="col">Datum</th><th scope="col">Feiertag</th><th scope="col">Regel</th><th scope="col" class="num">Status</th></tr></thead>
+              <tbody data-wz-holidays>
+                <tr><td colspan="4" class="muted">Die Daten werden berechnet. Ohne JavaScript gelten die Listen oben.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </section>
 
-<section class="section" id="absetzflugzeug" aria-labelledby="absetz-title">
+<section class="section section--alt" id="absetzflugzeug" aria-labelledby="absetz-title">
   <div class="container split split--top">
     <div class="stack sticky">
       <p class="eyebrow" data-reveal>Fallschirm-Absetzflugzeug</p>
@@ -503,7 +485,7 @@
   </div>
 </section>
 
-<section class="section section--alt" id="helikopter" aria-labelledby="heli-title">
+<section class="section" id="helikopter" aria-labelledby="heli-title">
   <div class="container split split--wide-right">
     <div class="stack">
       <p class="eyebrow" data-reveal>Helikopter</p>
@@ -521,25 +503,24 @@
   </div>
 </section>
 
-<section class="section" id="diverses" aria-labelledby="diverses-title">
+<section class="section section--alt" id="diverses" aria-labelledby="diverses-title">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow" data-reveal>Diverse Bestimmungen</p>
       <h2 id="diverses-title" data-split>Leise fliegen ist Teamarbeit.</h2>
-      <p class="lead" data-reveal>Sechs Bestimmungen, die einen lärmarmen und nachbarschaftsfreundlichen Flugbetrieb sichern.</p>
     </div>
-    <div class="grid grid-3 wz-misc" data-reveal-group="0.07">
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">01</span><svg class="icon icon-volume-1 wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <path d="M16 9a5 5 0 0 1 0 6" /> </svg><p>Die Piloten treffen ständig die notwendigen und möglichen betrieblichen Vorkehrungen, um einen lärmarmen Betrieb zu fördern und umzusetzen, insbesondere betreffend Einhalten der Volten und Optimierung der Flugverfahren.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">02</span><svg class="icon icon-ban wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M4.929 4.929 19.07 19.071" /> </svg><p>Es sind keine Bewegungen mit Flugzeugen der Lärmklasse A erlaubt.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">03</span><svg class="icon icon-church wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 9h4" /> <path d="M12 7v5" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="m18 9 3.52 2.147a1 1 0 0 1 .48.854V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6.999a1 1 0 0 1 .48-.854L6 9" /> <path d="M6 21V7a1 1 0 0 1 .376-.782l5-3.999a1 1 0 0 1 1.249.001l5 4A1 1 0 0 1 18 7v14" /> </svg><p>Während der Dauer von Beerdigungen sind Starts und Landungen über Neudorf zu unterlassen. Entsprechende Ankündigungen erfolgen im C-Büro.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">04</span><svg class="icon icon-plane-landing wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg><p>Lärmintensive STOL-Anflüge und STOL-Starts sind auf ein Minimum zu beschränken (Notfall / Schulung).</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">05</span><svg class="icon icon-route wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg><p>Für Rundflüge in der Umgebung des Flugplatzes sind verschiedene Flugwege abwechslungsweise zu befliegen.</p></article>
-      <article class="card card--pad" data-reveal><span class="wz-misc__n mono">06</span><svg class="icon icon-timer wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg><p>Die einzelnen Rundflüge müssen mindestens 15 Minuten betragen.</p></article>
-    </div>
+    <ol class="wz-misc" data-reveal-group="0.06">
+      <li data-reveal><svg class="icon icon-volume-1 wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <path d="M16 9a5 5 0 0 1 0 6" /> </svg><p>Die Piloten treffen ständig die notwendigen und möglichen betrieblichen Vorkehrungen, um einen lärmarmen Betrieb zu fördern und umzusetzen, insbesondere betreffend Einhalten der Volten und Optimierung der Flugverfahren.</p></li>
+      <li data-reveal><svg class="icon icon-ban wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M4.929 4.929 19.07 19.071" /> </svg><p>Es sind keine Bewegungen mit Flugzeugen der Lärmklasse A erlaubt.</p></li>
+      <li data-reveal><svg class="icon icon-church wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 9h4" /> <path d="M12 7v5" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="m18 9 3.52 2.147a1 1 0 0 1 .48.854V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6.999a1 1 0 0 1 .48-.854L6 9" /> <path d="M6 21V7a1 1 0 0 1 .376-.782l5-3.999a1 1 0 0 1 1.249.001l5 4A1 1 0 0 1 18 7v14" /> </svg><p>Während der Dauer von Beerdigungen sind Starts und Landungen über Neudorf zu unterlassen. Entsprechende Ankündigungen erfolgen im C-Büro.</p></li>
+      <li data-reveal><svg class="icon icon-plane-landing wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg><p>Lärmintensive STOL-Anflüge und STOL-Starts sind auf ein Minimum zu beschränken (Notfall / Schulung).</p></li>
+      <li data-reveal><svg class="icon icon-route wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg><p>Für Rundflüge in der Umgebung des Flugplatzes sind verschiedene Flugwege abwechslungsweise zu befliegen.</p></li>
+      <li data-reveal><svg class="icon icon-timer wz-misc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg><p>Die einzelnen Rundflüge müssen mindestens 15 Minuten betragen.</p></li>
+    </ol>
   </div>
 </section>
 
-<section class="section section--alt section--tight" aria-labelledby="mehr-title">
+<section class="section section--tight" aria-labelledby="mehr-title">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow" data-reveal>Weiterführend</p>
@@ -575,53 +556,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html" aria-current="page">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html">Preise</a></li>
-        <li><a href="reporting.html">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html" aria-current="page">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 

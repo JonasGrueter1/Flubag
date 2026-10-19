@@ -1,4 +1,4 @@
-/* Ausbildung PPL & LAPL: Kostenrechner, Fortschritt im Ablauf, Selbsttest, Funkalphabet */
+/* Ausbildung PPL & LAPL: Kostenrechner und Selbsttest */
 (function () {
   'use strict';
   var F = window.FLUBAG;
@@ -25,15 +25,6 @@
     el._raf = requestAnimationFrame(step);
   }
 
-  function onceVisible(el, fn) {
-    if (!el) return;
-    if (!('IntersectionObserver' in window)) { fn(); return; }
-    var io = new IntersectionObserver(function (en) {
-      if (en[0].isIntersecting) { io.disconnect(); fn(); }
-    }, { threshold: 0.25 });
-    io.observe(el);
-  }
-
   // ------------------------------------------------------------------
   // 1. Kostenrechner, kalibriert auf die FLUBAG Erfahrungswerte (preise.json)
   // ------------------------------------------------------------------
@@ -47,9 +38,7 @@
     var totalEl = F.$('[data-calc-total]', root);
     var bar = F.$('[data-calc-bar]', root);
     var legend = F.$('[data-calc-legend]', root);
-    var monthbar = F.$('[data-calc-monthbar]', root);
     var stdBtn = F.$('[data-calc-std]', root);
-    var shown = false;
 
     // Basiswerte aus den Daten (Fallback: Zahlen der alten Website)
     var A = (F.data.preise && F.data.preise.ausbildung) || {};
@@ -69,12 +58,12 @@
     var theoryCost = A.theorie || 3000;
 
     var LIC = {
-      PPL: { min: 45, std: 55, info: 'Privatpilotenlizenz, weltweit (ICAO) anerkannt. EASA Mindestflugzeit 45 h.', help: 'Das Minimum gibt EASA vor. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden.', stdLabel: 'Erfahrungswert 55 h übernehmen' },
-      LAPL: { min: 30, std: 40, info: 'Light Aircraft Pilot Licence, gültig in den EASA Staaten. EASA Mindestflugzeit 30 h.', help: 'Das Minimum gibt EASA vor. Für die LAPL rechnen wir mit der Annahme von 40 Flugstunden.', stdLabel: 'Annahme 40 h übernehmen' }
+      PPL: { min: 45, std: 55, help: 'Das Minimum gibt EASA vor. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden.', stdLabel: 'Erfahrungswert 55 h übernehmen' },
+      LAPL: { min: 30, std: 40, help: 'Das Minimum gibt EASA vor. Für die LAPL rechnen wir mit der Annahme von 40 Flugstunden.', stdLabel: 'Annahme 40 h übernehmen' }
     };
     var PLANE = {
-      C150: { name: 'Cessna 150', short: 'C150', info: 'Das zweiplätzige Schulflugzeug.' },
-      C172: { name: 'Cessna 172', short: 'C172', info: 'Die vierplätzige Skyhawk, im Verhältnis der Mietpreise teurer pro Stunde.' }
+      C150: { name: 'Cessna 150', short: 'C150' },
+      C172: { name: 'Cessna 172', short: 'C172' }
     };
     var COLORS = { plane: 'var(--brand)', instr: 'var(--sky-2)', land: 'var(--cub)', theory: 'var(--ok)', exam: '#a78bfa', med: '#94a3b8' };
 
@@ -97,12 +86,6 @@
       p.val = p.li.querySelector('b');
       legend.appendChild(p.li);
     });
-    // Monatsraster (24 Monate)
-    for (var i = 0; i < 24; i++) { var c = document.createElement('i'); c.style.setProperty('--i', i); monthbar.appendChild(c); }
-    var ml = document.createElement('span');
-    ml.className = 'calc__months-label';
-    ml.innerHTML = '<span>Jahr 1</span><span>Jahr 2</span>';
-    monthbar.appendChild(ml);
 
     function val(name) { var r = form.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : null; }
     function r10(n) { return Math.round(n / 10) * 10; }
@@ -139,8 +122,6 @@
       F.$('[data-calc-hours-out]', root).textContent = r.h + ' h';
       F.$('[data-calc-week-out]', root).textContent = r.w + ' pro Woche';
       F.$('[data-calc-tag]', root).textContent = r.lic + ' · ' + PLANE[r.pl].short + ' · ' + r.h + ' h' + (r.theory ? '' : ' · ohne Theorie');
-      F.$('[data-calc-licinfo]', root).textContent = LIC[r.lic].info;
-      F.$('[data-calc-planeinfo]', root).textContent = PLANE[r.pl].info;
       F.$('[data-calc-hourshelp]', root).textContent = LIC[r.lic].help;
       F.$('[data-calc-std-label]', root).textContent = LIC[r.lic].stdLabel;
       stdBtn.setAttribute('aria-pressed', String(r.h === LIC[r.lic].std));
@@ -151,23 +132,17 @@
       var values = { plane: r.plane, instr: r.instr, land: r.land, theory: r.theoryCost, exam: r.exam, med: r.med };
       parts.forEach(function (p) {
         var v = values[p.k];
-        if (shown || reduced) p.seg.style.flexGrow = String(v);
+        p.seg.style.flexGrow = String(v);
         p.val.textContent = v ? F.chf(v) : 'nicht eingerechnet';
         p.li.classList.toggle('is-off', !v);
         if (p.k === 'plane') p.li.querySelector('span').textContent = 'Flugzeug ' + PLANE[r.pl].name;
       });
-      if (shown || reduced) tween(totalEl, r.total);
+      tween(totalEl, r.total);
 
       var months = Math.max(1, Math.round(r.months));
       F.$('[data-calc-months]', root).innerHTML = months + ' <small>' + (months === 1 ? 'Monat' : 'Monate') + '</small>';
       F.$('[data-calc-weeks]', root).textContent = Math.ceil(r.weeks);
       F.$('[data-calc-perhour]', root).innerHTML = r.instrH + ' <small>h</small>';
-      F.$$('i', monthbar).forEach(function (cell, idx) {
-        var on = idx + 1 <= Math.floor(r.months);
-        var part = !on && idx < r.months;
-        cell.classList.toggle('is-on', on || (part && r.months - idx >= 0.5));
-        cell.classList.toggle('is-part', part && r.months - idx < 0.5);
-      });
     }
 
     function setLicense(lic, keepHours) {
@@ -208,12 +183,6 @@
     });
 
     render();
-    // Erster Auftritt: Balken wachsen, Total zählt hoch
-    onceVisible(F.$('.calc__result', root), function () {
-      shown = true;
-      if (!reduced) { totalEl._v = 0; totalEl.textContent = '0'; }
-      setTimeout(function () { render(); }, reduced ? 0 : 120);
-    });
 
     return {
       setWeek: function (n) { week.value = Math.min(5, Math.max(1, n)); render(); },
@@ -221,41 +190,8 @@
     };
   })();
 
-  // Anteil der Theorie an den Gesamtkosten
-  F.$$('[data-share]').forEach(function (el) {
-    var part = +el.getAttribute('data-share-part'), total = +el.getAttribute('data-share-total');
-    var out = F.$('[data-share-out]', el);
-    if (out && part && total) out.textContent = 'rund ' + Math.round(part / total * 100) + ' %';
-  });
-
   // ------------------------------------------------------------------
-  // 2. Ablauf: Fortschrittsanzeige zu den 9 Schritten
-  // ------------------------------------------------------------------
-  (function () {
-    var steps = F.$$('.ausb-steps .step');
-    var count = F.$('[data-flow-count]'), fillEl = F.$('[data-flow-fill]'), label = F.$('[data-flow-label]');
-    var plane = F.$('.ausb-progress__plane');
-    if (!steps.length || !count) return;
-    // Auf dem Handy ist die Anzeige ausgeblendet (display: none): dort nie auf das Einblenden warten
-    var box = F.$('.ausb-progress');
-    if (box && window.matchMedia && matchMedia('(max-width: 860px)').matches) box.classList.add('is-in');
-    function update() {
-      var active = steps.filter(function (s) { return s.classList.contains('is-active'); });
-      var n = active.length, p = n / steps.length * 100;
-      count.textContent = n;
-      fillEl.style.width = p + '%';
-      plane.style.left = p + '%';
-      label.textContent = n ? 'Schritt ' + n + ': ' + active[n - 1].getAttribute('data-flow-title') : 'Bereit zum Start';
-    }
-    if ('MutationObserver' in window) {
-      var mo = new MutationObserver(update);
-      steps.forEach(function (s) { mo.observe(s, { attributes: true, attributeFilter: ['class'] }); });
-    }
-    update();
-  })();
-
-  // ------------------------------------------------------------------
-  // 3. Selbsttest "Bereit fürs Cockpit?"
+  // 2. Selbsttest "Bereit fürs Cockpit?"
   // ------------------------------------------------------------------
   (function () {
     var quiz = F.$('[data-quiz]');
@@ -263,7 +199,6 @@
     var NAMES = ['q-alter', 'q-medical', 'q-zeit', 'q-motiv'];
     var result = F.$('[data-quiz-result]', quiz);
     var list = F.$('[data-quiz-list]', quiz);
-    var gauge = F.$('[data-quiz-gauge]', quiz);
     var tpl = F.$('[data-quiz-icons]', quiz);
     var ICON = {};
     if (tpl) F.$$('[data-i]', tpl.content).forEach(function (s) { ICON[s.getAttribute('data-i')] = s.innerHTML; });
@@ -314,8 +249,6 @@
       }).join('');
       var wasHidden = result.hidden;
       result.hidden = false;
-      gauge.style.strokeDashoffset = '314.16';
-      requestAnimationFrame(function () { requestAnimationFrame(function () { gauge.style.strokeDashoffset = String(314.16 * (1 - score / 8)); }); });
       if (wasHidden && !reduced) {
         var rect = result.getBoundingClientRect();
         if (rect.top > innerHeight * 0.8) {
@@ -340,73 +273,5 @@
       }
     });
     update();
-  })();
-
-  // ------------------------------------------------------------------
-  // 4. Funkalphabet (ICAO)
-  // ------------------------------------------------------------------
-  (function () {
-    var box = F.$('[data-funk]');
-    if (!box) return;
-    var input = F.$('[data-funk-input]', box), out = F.$('[data-funk-out]', box), spoken = F.$('[data-funk-spoken]', box), speak = F.$('[data-funk-speak]', box);
-    var ICAO = {
-      A: 'Alfa', B: 'Bravo', C: 'Charlie', D: 'Delta', E: 'Echo', F: 'Foxtrot', G: 'Golf', H: 'Hotel', I: 'India', J: 'Juliett',
-      K: 'Kilo', L: 'Lima', M: 'Mike', N: 'November', O: 'Oscar', P: 'Papa', Q: 'Quebec', R: 'Romeo', S: 'Sierra', T: 'Tango',
-      U: 'Uniform', V: 'Victor', W: 'Whiskey', X: 'X-ray', Y: 'Yankee', Z: 'Zulu',
-      '0': 'Zero', '1': 'One', '2': 'Two', '3': 'Tree', '4': 'Four', '5': 'Fife', '6': 'Six', '7': 'Seven', '8': 'Eight', '9': 'Niner'
-    };
-    var words = [];
-
-    function normalize(s) {
-      return String(s).toUpperCase()
-        .replace(/Ä/g, 'AE').replace(/Ö/g, 'OE').replace(/Ü/g, 'UE').replace(/ß/g, 'SS')
-        .normalize('NFD').replace(/[̀-ͯ]/g, '');
-    }
-
-    function render(animate) {
-      var s = normalize(input.value);
-      var html = [], i = 0;
-      words = [];
-      var groups = [];
-      s.split('').forEach(function (ch) {
-        if (ICAO[ch]) {
-          var digit = /[0-9]/.test(ch);
-          html.push('<li class="funk__card' + (digit ? ' funk__card--digit' : '') + '" style="--i:' + i + '"><span class="funk__letter">' + ch + '</span><span class="funk__word">' + ICAO[ch] + '</span></li>');
-          words.push(ICAO[ch]);
-          if (!groups.length) groups.push([]);
-          groups[groups.length - 1].push(ICAO[ch]);
-          i++;
-        } else if (/\s/.test(ch) && html.length && html[html.length - 1].indexOf('funk__gap') < 0) {
-          html.push('<li class="funk__gap" aria-hidden="true"></li>');
-          groups.push([]);
-        }
-      });
-      out.classList.remove('is-anim');
-      if (!html.length) {
-        out.innerHTML = '<li class="funk__empty">Tippe deinen Namen ein, zum Beispiel «Anna» oder «Jürg».</li>';
-        spoken.textContent = '';
-      } else {
-        out.innerHTML = html.join('');
-        spoken.innerHTML = '<b>Am Funk:</b> ' + groups.filter(function (g) { return g.length; }).map(function (g) { return F.escape(g.join(' ')); }).join(' · ');
-      }
-      if (animate && !reduced) { void out.offsetWidth; out.classList.add('is-anim'); }
-      if (speak) speak.hidden = !words.length || !('speechSynthesis' in window);
-    }
-
-    var timer = null;
-    input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(function () { render(true); }, 120); });
-    F.$$('[data-funk-example]', box).forEach(function (b) {
-      b.addEventListener('click', function () { input.value = b.getAttribute('data-funk-example'); render(true); });
-    });
-    if (speak) speak.addEventListener('click', function () {
-      if (!('speechSynthesis' in window) || !words.length) return;
-      window.speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(words.join(', '));
-      u.lang = 'en-GB';
-      u.rate = 0.9;
-      window.speechSynthesis.speak(u);
-    });
-    render(false);
-    onceVisible(out, function () { render(true); });
   })();
 })();

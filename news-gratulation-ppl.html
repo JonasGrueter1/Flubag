@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -7,7 +7,7 @@
 <title>Entwurf: Gratulation zur PPL | FLUBAG Flugplatz Luzern-Beromünster</title>
 <meta name="description" content="Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio. Die FLUBAG in Luzern-Beromünster gratuliert und wünscht happy Landings!">
 <link rel="canonical" href="https://www.flubag.ch/news-gratulation-ppl.html">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz" data-current>
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -273,7 +279,7 @@
       </div>
     </div>
     <div class="ppl-card-wrap" data-reveal="scale">
-      <div class="ppl-card" data-tilt="6">
+      <div class="ppl-card">
         <div class="ppl-card__top">
           <span class="ppl-card__brand"><img src="logo.svg" alt="" width="34" height="20">FLUBAG Flugschule</span>
           <span class="mono">LSZO</span>
@@ -291,15 +297,6 @@
     </div>
   </div>
 </section>
-
-<div class="marquee marquee--big ppl-marquee" aria-hidden="true">
-  <div class="marquee__track">
-    <span class="marquee__item">Happy Landings</span><span class="marquee__item">Gratulation, Ronnie</span>
-    <span class="marquee__item">Happy Landings</span><span class="marquee__item">Gratulation, Ronnie</span>
-    <span class="marquee__item">Happy Landings</span><span class="marquee__item">Gratulation, Ronnie</span>
-    <span class="marquee__item">Happy Landings</span><span class="marquee__item">Gratulation, Ronnie</span>
-  </div>
-</div>
 
 <section class="section section--alt section--glow" aria-labelledby="weg-title">
   <div class="container">
@@ -398,53 +395,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html">Preise</a></li>
-        <li><a href="reporting.html">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 

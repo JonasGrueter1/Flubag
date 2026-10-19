@@ -52,7 +52,7 @@
 .zl-out__todo { list-style: none; padding: 0; display: grid; gap: 12px; margin-top: 4px; }
 .zl-out__todo li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; padding-top: 12px; border-top: 1px solid rgba(127, 150, 190, 0.2); }
 .zl-out__todo li > div { display: grid; gap: 8px; justify-items: start; }
-.zl-out__n { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--brand); color: #fff; font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; }
+.zl-out__n { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--brand-fill); color: #fff; font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; }
 .zl-out__tel { font-size: 0.92rem; line-height: 1.6; }
 .zl-out__tel a { font-family: var(--font-mono); font-weight: 700; color: inherit; text-decoration-color: var(--brand-hi); white-space: nowrap; }
 .zl-out__tel span { opacity: 0.75; }

@@ -21,7 +21,7 @@
 .ppl-card__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; margin-top: 10px; padding-top: 16px; border-top: 1px dashed rgba(12, 22, 42, 0.2); }
 .ppl-card__grid dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: #66728a; }
 .ppl-card__grid dd { font-weight: 700; font-size: 1.02rem; }
-.ppl-card__ok { color: #0d8a5f; }
+.ppl-card__ok { color: #047857; }
 .ppl-card__stamp {
   position: relative; justify-self: end; margin: 14px 6px 4px 0; padding: 8px 16px; border: 3px solid #0d8a5f; border-radius: 10px;
   font-family: var(--font-display); font-weight: 900; font-size: 1.4rem; letter-spacing: 0.12em; text-transform: uppercase; color: #0d8a5f;
@@ -29,8 +29,6 @@
 }
 .anim-ready .ppl-card-wrap[data-reveal] .ppl-card__stamp { opacity: 0; transform: rotate(-8deg) scale(2.4); }
 .anim-ready .ppl-card-wrap.is-in .ppl-card__stamp { opacity: 0.85; transform: rotate(-8deg) scale(1); transition: opacity 0.25s 0.9s, transform 0.5s 0.9s var(--ease-spring); }
-
-.ppl-marquee { --marquee-speed: 36s; padding: 26px 0; }
 
 /* Weg zur Lizenz */
 .ppl-path { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: none; }
@@ -64,3 +62,8 @@
 /* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
 .page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
 .page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }
+
+/* Handy: heller Hangar hinter Eyebrow und Titel etwas abdunkeln */
+@media (max-width: 860px) {
+  .ppl-hero::after { background: linear-gradient(180deg, rgba(6, 11, 22, 0.62) 0%, rgba(6, 11, 22, 0.5) 45%, rgba(6, 11, 22, 0.9) 100%); }
+}

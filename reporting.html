@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -7,7 +7,7 @@
 <title>Entwurf: Reporting | FLUBAG Flugplatz Luzern-Beromünster</title>
 <meta name="description" content="Unfall, schwerer Vorfall oder Störung? Meldewege für Piloten in LSZO: SUST Meldestelle 1414, BAZL Meldeportal innert 72 Stunden, Reporting an die FLUBAG.">
 <link rel="canonical" href="https://www.flubag.ch/reporting.html">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz">
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -248,9 +254,8 @@
 <section class="page-hero page-hero--chart page-hero--compact rp-hero">
   <svg class="page-hero__deco rp-deco" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
     <g fill="none" stroke="currentColor">
-      <circle class="rp-deco__ring" cx="200" cy="200" r="70" stroke-width="2"/>
-      <circle class="rp-deco__ring rp-deco__ring--2" cx="200" cy="200" r="70" stroke-width="2"/>
-      <circle class="rp-deco__ring rp-deco__ring--3" cx="200" cy="200" r="70" stroke-width="2"/>
+      <circle cx="200" cy="200" r="84" stroke-width="2" opacity="0.7"/>
+      <circle cx="200" cy="200" r="132" stroke-width="2" opacity="0.45"/>
       <circle cx="200" cy="200" r="188" stroke-width="1" stroke-dasharray="3 9"/>
     </g>
     <path d="M200 132 L262 240 H138 Z" fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/>
@@ -261,14 +266,9 @@
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="piloten.html">Piloten</a></li><li>Reporting</li></ol>
     <p class="eyebrow">Reporting</p>
     <h1 data-split data-split-now>Melden macht Fliegen sicherer.</h1>
-    <p class="lead">Unfälle, schwere Vorfälle und Störungen: was als welches Ereignis gilt, wer zu melden ist, wie schnell und auf welchem Weg. Dazu das Reporting an die FLUBAG, auf Papier oder online.</p>
-    <div class="page-hero__meta">
-      <span class="chip chip--bad"><svg class="icon icon-siren" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 18v-6a5 5 0 1 1 10 0v6" /> <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" /> <path d="M21 12h1" /> <path d="M18.5 4.5 18 5" /> <path d="M2 12h1" /> <path d="M12 2v1" /> <path d="m4.929 4.929.707.707" /> <path d="M12 12v6" /> </svg>Notfall SUST 1414</span>
-      <span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>Meldefrist 72 Stunden</span>
-      <span class="chip chip--ok"><svg class="icon icon-shield-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg>Just Culture</span>
-    </div>
-    <div class="row mt-s">
-      <a class="btn btn--primary btn--lg" href="tel:1414" data-magnetic><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>SUST Meldestelle 1414</a>
+    <p class="lead">Unfälle, schwere Vorfälle und Störungen: was als welches Ereignis gilt, wer wie schnell wohin meldet. Dazu das Reporting an die FLUBAG, auf Papier oder online.</p>
+    <div class="row rp-hero__cta">
+      <a class="btn btn--primary btn--lg" href="tel:1414"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>SUST Meldestelle 1414</a>
       <a class="btn btn--ghost btn--lg" href="#flubag"><svg class="icon icon-file-text" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>Ereignis an FLUBAG melden</a>
     </div>
   </div>
@@ -278,74 +278,73 @@
   <div class="container">
     <ul class="subnav__list">
       <li><a href="#meldewege">Meldewege</a></li>
-      <li><a href="#unfall">Unfall</a></li>
-      <li><a href="#schwerer-vorfall">Schwerer Vorfall</a></li>
+      <li><a href="#definitionen">Unfall und schwerer Vorfall</a></li>
       <li><a href="#meldepflichtig">Meldepflichtige Ereignisse</a></li>
-      <li><a href="#aviatik">Ereignis Aviatik melden</a></li>
       <li><a href="#flubag">An FLUBAG melden</a></li>
       <li><a href="#online">Online-Meldung</a></li>
     </ul>
   </div>
 </nav>
 
-<section class="section rp-top" id="meldewege" aria-labelledby="sos-title">
+<section class="section rp-sec rp-top" id="meldewege" aria-labelledby="sos-title">
   <div class="container stack-l">
     <div class="rp-sos" data-reveal="scale">
-      <span class="rp-sos__glow" aria-hidden="true"></span>
       <div class="rp-sos__body">
-        <p class="rp-sos__kicker"><span class="rp-sos__beacon" aria-hidden="true"></span>Unfall oder schwerer Vorfall</p>
+        <p class="rp-sos__kicker"><svg class="icon icon-siren" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 18v-6a5 5 0 1 1 10 0v6" /> <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" /> <path d="M21 12h1" /> <path d="M18.5 4.5 18 5" /> <path d="M2 12h1" /> <path d="M12 2v1" /> <path d="m4.929 4.929.707.707" /> <path d="M12 12v6" /> </svg>Unfall oder schwerer Vorfall</p>
         <h2 id="sos-title" class="rp-sos__title">Unverzüglich der SUST melden.</h2>
-        <p class="rp-sos__text">Die Meldestelle der SUST ist die Alarmzentrale der Schweizerischen Rettungsflugwacht. Auch im Zweifelsfall ist die SUST über den telefonischen Meldeweg zu informieren.</p>
+        <p class="rp-sos__text">Die Meldestelle der SUST ist die Alarmzentrale der Schweizerischen Rettungsflugwacht. Im Zweifelsfall ist die SUST über den telefonischen Meldeweg zu informieren. Der diensthabende Untersuchungsleiter wird sich umgehend mit dem Fragesteller in Verbindung setzen und eine Entscheidung bezüglich des weiteren Vorgehens fällen.</p>
       </div>
       <div class="rp-sos__calls">
         <a class="rp-call rp-call--main" href="tel:1414">
-          <span class="rp-call__label">In der Schweiz</span>
+          <span class="rp-call__label">Tel. in der Schweiz</span>
           <span class="rp-call__num">1414</span>
           <span class="rp-call__icon"><svg class="icon icon-phone-call" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13 2a9 9 0 0 1 9 9" /> <path d="M13 6a5 5 0 0 1 5 5" /> <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg></span>
         </a>
         <a class="rp-call" href="tel:+41333333333">
-          <span class="rp-call__label">Aus dem Ausland</span>
+          <span class="rp-call__label">Tel. aus dem Ausland</span>
           <span class="rp-call__num">+41 333 333 333</span>
           <span class="rp-call__icon"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg></span>
         </a>
       </div>
     </div>
 
-    <div class="stack">
-      <div class="section-head section-head--split">
+    <div class="stack" id="aviatik">
+      <div class="section-head section-head--split rp-head">
         <div class="stack">
-          <p class="eyebrow" data-reveal>Meldewege</p>
+          <p class="eyebrow" data-reveal>Meldewege · Ereignis Aviatik melden</p>
           <h2 data-split>Wer, wie schnell, wohin?</h2>
         </div>
-        <p class="lead" data-reveal>Drei Wege, je nach Ereignis. Die gesetzlichen Meldungen an SUST und BAZL ersetzt das Reporting an die FLUBAG nicht.</p>
+        <p class="lead" data-reveal>Gestützt auf das Luftfahrtgesetz (LFG), die Verordnung über die Sicherheitsuntersuchung von Zwischenfällen im Verkehrswesen (VSZV) und die Verordnung (EU) Nr. 376/2014. Das Reporting an die FLUBAG ersetzt diese Meldungen nicht.</p>
       </div>
       <ol class="rp-ways" data-reveal-group="0.08">
         <li class="rp-way rp-way--bad" data-reveal>
-          <span class="rp-way__when"><svg class="icon icon-siren" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 18v-6a5 5 0 1 1 10 0v6" /> <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" /> <path d="M21 12h1" /> <path d="M18.5 4.5 18 5" /> <path d="M2 12h1" /> <path d="M12 2v1" /> <path d="m4.929 4.929.707.707" /> <path d="M12 12v6" /> </svg>Unverzüglich</span>
+          <p class="rp-way__when"><svg class="icon icon-siren" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 18v-6a5 5 0 1 1 10 0v6" /> <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" /> <path d="M21 12h1" /> <path d="M18.5 4.5 18 5" /> <path d="M2 12h1" /> <path d="M12 2v1" /> <path d="m4.929 4.929.707.707" /> <path d="M12 12v6" /> </svg>Unverzüglich · SUST</p>
           <h3 class="rp-way__title">Unfall oder schwerer Vorfall</h3>
-          <p class="rp-way__text">Telefonisch an die Meldestelle der SUST: in der Schweiz 1414, aus dem Ausland +41 333 333 333.</p>
-          <a class="btn btn--text btn--sm" href="#aviatik">Meldepflicht nach LFG <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
+          <p class="rp-way__text">Unfälle und schwere Vorfälle von bemannten Luftfahrzeugen auf Schweizer Hoheitsgebiet oder von in der Schweiz eingetragenen Luftfahrzeugen im Ausland müssen nach Art. 23 LFG i.V.m. Art. 17 VSZV unverzüglich an die Meldestelle der SUST gemeldet werden: in der Schweiz <a href="tel:1414">1414</a>, aus dem Ausland <a href="tel:+41333333333">+41&nbsp;333&nbsp;333&nbsp;333</a>.</p>
+          <p class="rp-way__note"><svg class="icon icon-mail" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /> </svg><span>Ausschliesslich Vorfälle, bei denen noch nicht im Vornherein klar ist, dass sie schwere Vorfälle darstellen, können innerhalb von 72 Stunden an <a href="mailto:info-av@sust.admin.ch">info-av@sust.admin.ch</a> gemeldet werden.</span></p>
+          <a class="btn btn--text btn--sm rp-way__more" href="#definitionen">Definitionen <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
         </li>
         <li class="rp-way rp-way--warn" data-reveal>
-          <span class="rp-way__when"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>Innert 72 Stunden</span>
+          <p class="rp-way__when"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>Innert 72 Stunden · BAZL</p>
           <h3 class="rp-way__title">Meldepflichtiges Ereignis</h3>
-          <p class="rp-way__text">Ereignisse nach Art. 4 der Verordnung (EU) Nr. 376/2014 über das Meldeportal an das BAZL.</p>
-          <a class="btn btn--text btn--sm" href="#meldepflichtig">Was ist zu melden? <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
+          <p class="rp-way__text">Alle unter Art. 4 der Verordnung (EU) Nr. 376/2014 fallenden Ereignisse, schwere Störungen und Unfälle von bemannten und unbemannten Luftfahrzeugen sind nach Art. 20 LFG innerhalb von 72 Stunden ab Kenntnisnahme über das Meldeportal an das Bundesamt für Zivilluftfahrt (BAZL) zu melden.</p>
+          <a class="rp-portal" href="https://e2.aviationreporting.eu/" target="_blank" rel="noopener"><span><small>Meldeportal BAZL</small><b>ECCAIRS2</b><small>Report an Occurrence (aviationreporting.eu)</small></span><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
+          <a class="btn btn--text btn--sm rp-way__more" href="#meldepflichtig">Was ist zu melden? <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
         </li>
         <li class="rp-way rp-way--brand" data-reveal>
-          <span class="rp-way__when"><svg class="icon icon-file-text" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>Formular</span>
+          <p class="rp-way__when"><svg class="icon icon-file-text" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>Zusätzlich · FLUBAG</p>
           <h3 class="rp-way__title">Ereignis an die FLUBAG</h3>
-          <p class="rp-way__text">Reporting Form ausfüllen und im C-Büro abgeben oder in den grauen Briefkasten im Briefing Container werfen.</p>
-          <a class="btn btn--text btn--sm" href="#flubag">Zum Reporting Form <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
+          <p class="rp-way__text">Reporting Form ausfüllen und im C-Büro abgeben oder in den grauen Briefkasten im Briefing Container werfen. Ergänzend ist eine Meldung online möglich, auf Wunsch anonym.</p>
+          <a class="btn btn--text btn--sm rp-way__more" href="#flubag">Zum Reporting Form <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
         </li>
       </ol>
     </div>
   </div>
 </section>
 
-<section class="section section--alt" aria-labelledby="def-title">
+<section class="section section--alt rp-sec" id="definitionen" aria-labelledby="def-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head rp-head">
       <p class="eyebrow" data-reveal>Definitionen</p>
       <h2 id="def-title" data-split>Unfall oder schwerer Vorfall?</h2>
     </div>
@@ -353,13 +352,13 @@
       <article class="rp-def rp-def--unfall" id="unfall" aria-labelledby="unfall-title" data-reveal>
         <header class="rp-def__head">
           <span class="rp-def__icon"><svg class="icon icon-octagon-alert" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 16h.01" /> <path d="M12 8v4" /> <path d="M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z" /> </svg></span>
-          <div><p class="rp-def__kicker mono">Definition</p><h3 id="unfall-title" class="rp-def__title">Unfall</h3></div>
+          <h3 id="unfall-title" class="rp-def__title">Unfall</h3>
         </header>
         <p class="rp-def__lead">Ein <strong>Unfall</strong> ist ein Ereignis beim Betrieb eines bemannten oder unbemannten Luftfahrzeuges, bei dem eine Person tödlich oder schwer verletzt worden ist, das Luftfahrzeug einen erheblichen Schaden erlitten hat oder verschollen ist.</p>
         <ul class="rp-crit" aria-label="Merkmale eines Unfalls">
-          <li><svg class="icon icon-heart-pulse" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /> </svg><span>Person tödlich oder schwer verletzt</span></li>
-          <li><svg class="icon icon-wrench" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /> </svg><span>Erheblicher Schaden am Luftfahrzeug</span></li>
-          <li><svg class="icon icon-radar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34" /> <path d="M4 6h.01" /> <path d="M2.29 9.62A10 10 0 1 0 21.31 8.35" /> <path d="M16.24 7.76A6 6 0 1 0 8.23 16.67" /> <path d="M12 18h.01" /> <path d="M17.99 11.66A6 6 0 0 1 15.77 16.67" /> <circle cx="12" cy="12" r="2" /> <path d="m13.41 10.59 5.66-5.66" /> </svg><span>Luftfahrzeug verschollen</span></li>
+          <li><svg class="icon icon-heart-pulse" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /> </svg>Person tödlich oder schwer verletzt</li>
+          <li><svg class="icon icon-wrench" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /> </svg>Erheblicher Schaden am Luftfahrzeug</li>
+          <li><svg class="icon icon-radar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34" /> <path d="M4 6h.01" /> <path d="M2.29 9.62A10 10 0 1 0 21.31 8.35" /> <path d="M16.24 7.76A6 6 0 1 0 8.23 16.67" /> <path d="M12 18h.01" /> <path d="M17.99 11.66A6 6 0 0 1 15.77 16.67" /> <circle cx="12" cy="12" r="2" /> <path d="m13.41 10.59 5.66-5.66" /> </svg>Luftfahrzeug verschollen</li>
         </ul>
         <p class="rp-def__ref"><svg class="icon icon-scale" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /> </svg><span>Für die detaillierte Definition eines Unfalles bzw. einer schweren Verletzung vgl. Art. 2 Ziff. 1, 5 und 17 Verordnung (EU) Nr. 996/2010.</span></p>
       </article>
@@ -367,31 +366,31 @@
       <article class="rp-def rp-def--vorfall" id="schwerer-vorfall" aria-labelledby="vorfall-title" data-reveal>
         <header class="rp-def__head">
           <span class="rp-def__icon"><svg class="icon icon-triangle-alert" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /> </svg></span>
-          <div><p class="rp-def__kicker mono">Definition</p><h3 id="vorfall-title" class="rp-def__title">Schwerer Vorfall</h3></div>
+          <h3 id="vorfall-title" class="rp-def__title">Schwerer Vorfall</h3>
         </header>
         <p class="rp-def__lead">Ein <strong>schwerer Vorfall</strong> ist ein Vorfall, dessen Umstände darauf hindeuten, dass eine hohe Unfallwahrscheinlichkeit bestand, die mit dem Betrieb eines bemannten oder unbemannten Luftfahrzeugs verbunden ist. Typische Beispiele für schwere Vorfälle sind folgende Zwischenfälle:</p>
-        <ol class="rp-examples" data-reveal-group="0.04">
-          <li data-reveal><svg class="icon icon-cog" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 10.27 7 3.34" /> <path d="m11 13.73-4 6.93" /> <path d="M12 22v-2" /> <path d="M12 2v2" /> <path d="M14 12h8" /> <path d="m17 20.66-1-1.73" /> <path d="m17 3.34-1 1.73" /> <path d="M2 12h2" /> <path d="m20.66 17-1.73-1" /> <path d="m20.66 7-1.73 1" /> <path d="m3.34 17 1.73-1" /> <path d="m3.34 7 1.73 1" /> <circle cx="12" cy="12" r="2" /> <circle cx="12" cy="12" r="8" /> </svg><span>Triebwerksausfälle</span></li>
-          <li data-reveal><svg class="icon icon-plane-landing" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg><span>Notlandungen</span></li>
-          <li data-reveal><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg><span>Unbeabsichtigte Annäherungen zweier Luftfahrzeuge (Airprox, Fastkollisionen, Runway Incursion)</span></li>
-          <li data-reveal><svg class="icon icon-flame" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /> </svg><span>Brände oder Rauchentwicklung im Luftfahrzeug, auch wenn diese gelöscht werden konnten</span></li>
-          <li data-reveal><svg class="icon icon-cloud-fog" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" /> <path d="M16 17H7" /> <path d="M17 21H9" /> </svg><span>VFR Flüge in IMC</span></li>
-          <li data-reveal><svg class="icon icon-mountain" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 3 4 8 5-5 5 15H2L8 3z" /> </svg><span>Nur knapp vermiedene Bodenberührung (almost Controlled Flight into Terrain, CFIT)</span></li>
-          <li data-reveal><svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span>Ereignisse, welche die Besatzung zur Benutzung von Sauerstoff zwangen</span></li>
-          <li data-reveal><svg class="icon icon-cpu" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 20v2" /> <path d="M12 2v2" /> <path d="M17 20v2" /> <path d="M17 2v2" /> <path d="M2 12h2" /> <path d="M2 17h2" /> <path d="M2 7h2" /> <path d="M20 12h2" /> <path d="M20 17h2" /> <path d="M20 7h2" /> <path d="M7 20v2" /> <path d="M7 2v2" /> <rect x="4" y="4" width="16" height="16" rx="2" /> <rect x="8" y="8" width="8" height="8" rx="1" /> </svg><span>Ausfall mehrerer redundanter Systeme an Bord oder von Flugsicherungsanlagen</span></li>
-          <li data-reveal><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span>Treibstoffmangel</span></li>
-          <li data-reveal><svg class="icon icon-user-x" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <line x1="17" x2="22" y1="8" y2="13" /> <line x1="22" x2="17" y1="8" y2="13" /> </svg><span>Ausfall eines Flugbesatzungsmitgliedes während des Fluges</span></li>
-          <li data-reveal><svg class="icon icon-runway" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2 5 22M15 2l4 20"/><path d="M12 4v2M12 9v3M12 15v4"/></svg><span>Überrollen oder seitliches Verlassen der Piste bei Start oder Landung</span></li>
-        </ol>
+        <ul class="rp-examples">
+          <li><svg class="icon icon-cog" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 10.27 7 3.34" /> <path d="m11 13.73-4 6.93" /> <path d="M12 22v-2" /> <path d="M12 2v2" /> <path d="M14 12h8" /> <path d="m17 20.66-1-1.73" /> <path d="m17 3.34-1 1.73" /> <path d="M2 12h2" /> <path d="m20.66 17-1.73-1" /> <path d="m20.66 7-1.73 1" /> <path d="m3.34 17 1.73-1" /> <path d="m3.34 7 1.73 1" /> <circle cx="12" cy="12" r="2" /> <circle cx="12" cy="12" r="8" /> </svg><span>Triebwerksausfälle</span></li>
+          <li><svg class="icon icon-plane-landing" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg><span>Notlandungen</span></li>
+          <li><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg><span>Unbeabsichtigte Annäherungen zweier Luftfahrzeuge (Airprox, Fastkollisionen, Runway Incursion)</span></li>
+          <li><svg class="icon icon-flame" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /> </svg><span>Brände oder Rauchentwicklung im Luftfahrzeug, auch wenn diese gelöscht werden konnten</span></li>
+          <li><svg class="icon icon-cloud-fog" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" /> <path d="M16 17H7" /> <path d="M17 21H9" /> </svg><span>VFR Flüge in IMC</span></li>
+          <li><svg class="icon icon-mountain" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 3 4 8 5-5 5 15H2L8 3z" /> </svg><span>Nur knapp vermiedene Bodenberührung (almost Controlled Flight into Terrain, CFIT)</span></li>
+          <li><svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span>Ereignisse, welche die Besatzung zur Benutzung von Sauerstoff zwangen</span></li>
+          <li><svg class="icon icon-cpu" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 20v2" /> <path d="M12 2v2" /> <path d="M17 20v2" /> <path d="M17 2v2" /> <path d="M2 12h2" /> <path d="M2 17h2" /> <path d="M2 7h2" /> <path d="M20 12h2" /> <path d="M20 17h2" /> <path d="M20 7h2" /> <path d="M7 20v2" /> <path d="M7 2v2" /> <rect x="4" y="4" width="16" height="16" rx="2" /> <rect x="8" y="8" width="8" height="8" rx="1" /> </svg><span>Ausfall mehrerer redundanter Systeme an Bord oder von Flugsicherungsanlagen</span></li>
+          <li><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span>Treibstoffmangel</span></li>
+          <li><svg class="icon icon-user-x" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <line x1="17" x2="22" y1="8" y2="13" /> <line x1="22" x2="17" y1="8" y2="13" /> </svg><span>Ausfall eines Flugbesatzungsmitgliedes während des Fluges</span></li>
+          <li><svg class="icon icon-runway" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2 5 22M15 2l4 20"/><path d="M12 4v2M12 9v3M12 15v4"/></svg><span>Überrollen oder seitliches Verlassen der Piste bei Start oder Landung</span></li>
+        </ul>
         <p class="rp-def__ref"><svg class="icon icon-scale" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /> </svg><span>Für die detaillierte Definition eines schweren Vorfalles vgl. Art. 2 Ziff. 7 und 16 Verordnung (EU) Nr. 996/2010 i.V.m. Art. 5 VSZV, sowie den Anhang zur Verordnung (EU) Nr. 996/2010.</span></p>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section" id="meldepflichtig" aria-labelledby="mp-title">
+<section class="section rp-sec" id="meldepflichtig" aria-labelledby="mp-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split rp-head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Merkblatt «Melden Sie Störungen»</p>
         <h2 id="mp-title" data-split>Diese Ereignisse sind zu melden.</h2>
@@ -399,235 +398,182 @@
       <p class="lead" data-reveal>Piloten und Pilotinnen von Leichtflugzeugen<sup><a href="#fn-easa" class="rp-fn">1</a></sup> sind gesetzlich verpflichtet, diese Störungen zu melden und dadurch aktiv zur Erhöhung der Flugsicherheit beizutragen.</p>
     </div>
 
-    <div class="split split--top rp-mp">
-      <div class="stack-l sticky rp-mp__side">
+    <div class="rp-mp">
+      <div class="rp-mp__main">
+        <div class="rp-tools" data-mp-tools hidden>
+          <div class="rp-search">
+            <label class="visually-hidden" for="mp-q">Meldepflichtige Ereignisse durchsuchen</label>
+            <svg class="icon icon-search" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /> </svg>
+            <input class="input" id="mp-q" type="search" placeholder="Suchen, z.B. Vogelschlag, Vereisung" autocomplete="off" data-mp-q>
+          </div>
+          <div class="rp-filter" role="group" aria-label="Nach Luftfahrzeug filtern">
+            <button type="button" class="rp-chip" data-mp-cat="alle" aria-pressed="true">Alle</button>
+            <button type="button" class="rp-chip" data-mp-cat="leicht" aria-pressed="false"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>Leichtflugzeug / Helikopter</button>
+            <button type="button" class="rp-chip" data-mp-cat="segel" aria-pressed="false"><svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg>Segelflugzeug</button>
+            <button type="button" class="rp-chip" data-mp-cat="ballon" aria-pressed="false"><svg class="icon icon-flame" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /> </svg>Ballon</button>
+          </div>
+          <div class="rp-tools__status">
+            <p class="rp-tools__count mono" aria-live="polite" data-mp-count>37 meldepflichtige Ereignisse in 5 Kategorien</p>
+            <button type="button" class="btn btn--text btn--sm" data-mp-all aria-expanded="false">Alle aufklappen</button>
+          </div>
+        </div>
+
+        <div class="accordion rp-cats">
+          <details class="acc rp-cat" data-mp-list="leicht segel ballon" open>
+            <summary><h3 class="rp-cat__title">Leicht- &amp; Segelflugzeuge / Helikopter / Ballone</h3><span class="rp-cat__count mono" data-mp-n>7</span></summary>
+            <ol class="acc__body rp-list">
+              <li>Interaktion mit Flugsicherungsdiensten (z. B. Erbringung fehlerhafter Dienstleistungen, widersprüchliche Kommunikation oder Abweichen von der Freigabe), die das Luftfahrzeug / das Segelflugzeug / den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+              <li>Luftraumverletzung.</li>
+              <li>Ereignis, das zu einem Notruf führt.</li>
+              <li>Brand, Explosion, Rauch, giftige Gase oder giftige Dämpfe im Luftfahrzeug / Segelflugzeug / Ballon (über den normalen Betrieb des Brenners hinausgehend).</li>
+              <li>Einsatzunfähigkeit des Piloten, die es ihm unmöglich macht, seine Aufgaben zu erfüllen.</li>
+              <li>Mit einem nicht lufttüchtigen Luftfahrzeug / Segelflugzeug / Ballon, dessen Flugvorbereitung nicht abgeschlossen wurde, durchgeführter Flug, der das Luftfahrzeug / das Segelflugzeug / den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+              <li>Behinderung des Luftfahrzeugs / Segelflugzeugs / Ballons durch Feuerwaffen, Feuerwerkskörper, Flugdrachen, Laserbeleuchtung, leistungsstarke Laser, ferngesteuerte Luftfahrtsysteme (RPAS), Modellflugzeuge oder auf ähnliche Weise.</li>
+            </ol>
+          </details>
+
+          <details class="acc rp-cat" data-mp-list="leicht segel">
+            <summary><h3 class="rp-cat__title">Leicht- &amp; Segelflugzeuge / Helikopter</h3><span class="rp-cat__count mono" data-mp-n>7</span></summary>
+            <ol class="acc__body rp-list">
+              <li>Unbeabsichtigte unkontrollierte Fluglagen.</li>
+              <li>Ungewöhnlich starke Vibration (z. B. «Flattern» des Quer- oder Höhenruders oder Propellers).</li>
+              <li>Flugsteuerung funktioniert nicht ordnungsgemäss oder ist nicht verbunden.</li>
+              <li>Versagen oder wesentliche Beeinträchtigung der Struktur des Luftfahrzeugs / Segelflugzeugs.</li>
+              <li>Ablösen von Strukturteilen des Luftfahrzeugs / Segelflugzeugs oder von Anbauten während des Flugs.</li>
+              <li>Zusammenstoss, am Boden oder in der Luft, mit einem Luftfahrzeug, dem Boden oder einem Hindernis.</li>
+              <li>Beinahezusammenstoss, am Boden oder in der Luft, mit einem Luftfahrzeug, dem Boden oder einem Hindernis, der ein Notfall-Ausweichmanöver erfordert hat, um einen Zusammenstoss zu vermeiden.</li>
+            </ol>
+          </details>
+
+          <details class="acc rp-cat" data-mp-list="leicht">
+            <summary><h3 class="rp-cat__title">Leichtflugzeuge / Helikopter</h3><span class="rp-cat__count mono" data-mp-n>11</span></summary>
+            <ol class="acc__body rp-list">
+              <li>Landung ausserhalb der vorgesehenen Landefläche.</li>
+              <li>Die unter normalen Bedingungen bei Start, im Steigflug oder bei der Landung von Luftfahrzeugen erwartete Leistung wird nicht erreicht oder kann nicht erreicht werden.</li>
+              <li>Störung auf der Start- oder Landebahn. Tatsächliches oder potenzielles Eindringen eines Objekts in den Bereich der Start-/Landebahn.</li>
+              <li>Überschiessen oder seitliches Abkommen von der Start- oder Landebahn.</li>
+              <li>Flug mit unbeabsichtigtem Einflug in Instrumenten-Wetterbedingungen (IMC) von Luftfahrzeugen, die nicht nach Instrumentenflugregeln (IFR) zugelassen sind, oder eines nicht für IFR-Flüge qualifizierten Piloten, der das Luftfahrzeug, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+              <li>Ausfall eines Triebwerks, Rotors, Propellers, Kraftstoffsystems oder eines anderen wesentlichen Systems.</li>
+              <li>Leckage von Flüssigkeiten/Gasen, die zu Brandgefahr oder einer möglichen gefährlichen Verunreinigung von Struktur, Systemen oder Ausrüstungsteilen des Luftfahrzeugs geführt oder eine Gefahr für die Insassen dargestellt hat.</li>
+              <li>Kollision mit Wildtieren einschliesslich Vogelschlag, der zu Schäden am Luftfahrzeug oder zum Ausfall oder zur Störung wesentlicher Funktionen geführt hat.</li>
+              <li>Blitzschlag, der zu Schäden oder zum Ausfall von Funktionen des Luftfahrzeugs geführt hat.</li>
+              <li>Durchfliegen schwerer Turbulenzen, das zur Verletzung von Insassen des Luftfahrzeugs oder zur erforderlichen Durchführung eines Turbulenz-Checks nach dem Flug geführt hat.</li>
+              <li>Vereisung einschliesslich Vergaservereisung, die das Luftfahrzeug, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+            </ol>
+          </details>
+
+          <details class="acc rp-cat" data-mp-list="segel">
+            <summary><h3 class="rp-cat__title">Segelflugzeuge</h3><span class="rp-cat__count mono" data-mp-n>5</span></summary>
+            <ol class="acc__body rp-list">
+              <li>Ereignis, bei dem der Pilot des Segelflugzeugs nicht in der Lage war, das Windenseil oder das Flugzeugschleppseil auszuklinken, sodass er auf Notfallverfahren zurückgreifen musste.</li>
+              <li>Ausklinken des Windenseils oder des Luftfahrzeugschleppseils, wenn das Ausklinken das Segelflugzeug, dessen Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+              <li>Im Falle von Motorseglern Triebwerkausfall während des Starts.</li>
+              <li>Fälle, in denen keine sichere Landefläche verfügbar ist.</li>
+              <li>Beschädigung des Segelflugzeugs durch Blitzschlag.</li>
+            </ol>
+          </details>
+
+          <details class="acc rp-cat" data-mp-list="ballon">
+            <summary><h3 class="rp-cat__title">Ballone</h3><span class="rp-cat__count mono" data-mp-n>7</span></summary>
+            <ol class="acc__body rp-list">
+              <li>Unbeabsichtigtes dauerhaftes Erlöschen der Zündflamme.</li>
+              <li>Störung an einem der folgenden Teile oder Steuerungseinrichtungen: Steigrohr im Gasbehälter, Umlenkrolle, Steuerleine, Fesselseil, Leck an der Dichtung des Brennerventils, Leck an der Dichtung des Gasbehälterventils, Karabiner, Schäden an Gasleitung, Traggasventil, Hülle oder Ballonet, Gebläse, Überdruckventil (Gasballon), Seilwinde (gasgefüllte Fesselballone).</li>
+              <li>Erhebliche(r) Leckage oder Verlust von Traggas (z. B. Porosität, ungenau sitzende Traggasventile).</li>
+              <li>Insassen des Ballons aus Korb oder Gondel geschleudert.</li>
+              <li>Unbeabsichtigtes Anheben oder Mitschleifen des Bodenpersonals, wodurch jemand verletzt oder getötet wurde.</li>
+              <li>Zusammenstoss oder Beinahezusammenstoss, am Boden oder in der Luft, mit einem Luftfahrzeug, dem Boden oder einem Hindernis, der den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+              <li>Unerwartetes Durchfliegen ungünstiger Wetterbedingungen, das den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
+            </ol>
+          </details>
+        </div>
+
+        <p class="rp-empty" data-mp-empty hidden>Kein passendes Ereignis gefunden. Anderes Stichwort versuchen oder die Suche leeren.</p>
+
+        <div class="notice notice--brand rp-also">
+          <svg class="icon icon-megaphone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" /> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" /> <path d="M8 6v8" /> </svg>
+          <div><p><strong>Melden Sie auch jedes andere Ereignis, das Sie als sicherheitsrelevant einstufen!</strong></p></div>
+        </div>
+      </div>
+
+      <aside class="rp-mp__side stack" aria-label="Just Culture und Hinweise zum Merkblatt">
         <div class="rp-jc" data-reveal>
           <p class="rp-jc__kicker"><svg class="icon icon-shield-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg>Das Gesetz ist auf Ihrer Seite!</p>
           <h3 class="rp-jc__title">Wer ein Ereignis meldet, ist geschützt.</h3>
           <p class="rp-jc__text">Wenn Sie ein Ereignis melden, sind Sie und alle in Ihrer Meldung genannten Personen vor allfälligen nachteiligen Folgen geschützt, die die Meldung für Sie haben könnte.</p>
           <ol class="rp-jc__list">
-            <li><span class="rp-jc__n">1</span><span>Ihre Identität sowie diejenige aller anderen Personen, die in Ihrer Meldung genannt werden, sind geschützt.</span></li>
-            <li><span class="rp-jc__n">2</span><span>Ihre Meldung wird nicht verbreitet, es sei denn, dies wäre für die Sicherheit erforderlich.</span></li>
-            <li><span class="rp-jc__n">3</span><span>Ihre Meldung wird nicht genutzt, um Sie oder andere darin genannte Personen zu beschuldigen.</span></li>
-            <li><span class="rp-jc__n">4</span><span>Davon ausgenommen sind Fälle von vorsätzlichem Verschulden und unannehmbarem Verhalten.<sup><a href="#fn-verhalten" class="rp-fn">2</a></sup></span></li>
+            <li><span>Ihre Identität sowie diejenige aller anderen Personen, die in Ihrer Meldung genannt werden, sind geschützt.</span></li>
+            <li><span>Ihre Meldung wird nicht verbreitet, es sei denn, dies wäre für die Sicherheit erforderlich.</span></li>
+            <li><span>Ihre Meldung wird nicht genutzt, um Sie oder andere darin genannte Personen zu beschuldigen.</span></li>
+            <li><span>Davon ausgenommen sind Fälle von vorsätzlichem Verschulden und unannehmbarem Verhalten.<sup><a href="#fn-verhalten" class="rp-fn">2</a></sup></span></li>
           </ol>
-          <a class="btn btn--text btn--sm" href="https://www.aviationreporting.eu/justculture" target="_blank" rel="noopener">Mehr Informationen: aviationreporting.eu/justculture <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
-        </div>
-        <div class="rp-report" data-reveal>
-          <p class="rp-report__kicker mono">Melden Sie Störungen bei</p>
-          <a class="rp-report__link" href="https://www.aviationreporting.eu" target="_blank" rel="noopener">www.aviationreporting.eu<svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
-          <p class="rp-report__claim">Ihr Beitrag zur Flugsicherheit! Meldungen verbessern die Luftfahrtsicherheit.</p>
-        </div>
-      </div>
-
-      <div class="stack-l">
-        <div class="rp-filter" data-mp-filter hidden>
-          <p class="rp-filter__label mono" id="mp-filter-label">Welches Luftfahrzeug fliegen Sie?</p>
-          <div class="rp-filter__btns" role="group" aria-labelledby="mp-filter-label">
-            <button type="button" class="rp-filter__btn" data-mp-cat="alle" aria-pressed="true"><svg class="icon icon-layers" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /> </svg>Alle</button>
-            <button type="button" class="rp-filter__btn" data-mp-cat="leicht" aria-pressed="false"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>Leichtflugzeug / Helikopter</button>
-            <button type="button" class="rp-filter__btn" data-mp-cat="segel" aria-pressed="false"><svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg>Segelflugzeug</button>
-            <button type="button" class="rp-filter__btn" data-mp-cat="ballon" aria-pressed="false"><svg class="icon icon-flame" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /> </svg>Ballon</button>
+          <div class="rp-jc__report">
+            <p class="rp-jc__small mono">Melden Sie Störungen bei</p>
+            <a class="rp-jc__link" href="https://www.aviationreporting.eu" target="_blank" rel="noopener">www.aviationreporting.eu<svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
+            <p class="rp-jc__claim">Ihr Beitrag zur Flugsicherheit! Meldungen verbessern die Luftfahrtsicherheit.</p>
+            <p class="rp-jc__claim">Mehr Informationen: <a href="https://www.aviationreporting.eu/justculture" target="_blank" rel="noopener">aviationreporting.eu/justculture</a></p>
           </div>
-          <p class="rp-filter__count mono" aria-live="polite" data-mp-count>37 meldepflichtige Ereignisse</p>
         </div>
-
-        <article class="rp-cat" data-mp-list="leicht segel ballon" data-reveal>
-          <header class="rp-cat__head"><h3 class="rp-cat__title">Leicht- &amp; Segelflugzeuge / Helikopter / Ballone</h3><span class="rp-cat__count mono">7</span></header>
-          <ol class="rp-list">
-            <li>Interaktion mit Flugsicherungsdiensten (z. B. Erbringung fehlerhafter Dienstleistungen, widersprüchliche Kommunikation oder Abweichen von der Freigabe), die das Luftfahrzeug / das Segelflugzeug / den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-            <li>Luftraumverletzung.</li>
-            <li>Ereignis, das zu einem Notruf führt.</li>
-            <li>Brand, Explosion, Rauch, giftige Gase oder giftige Dämpfe im Luftfahrzeug / Segelflugzeug / Ballon (über den normalen Betrieb des Brenners hinausgehend).</li>
-            <li>Einsatzunfähigkeit des Piloten, die es ihm unmöglich macht, seine Aufgaben zu erfüllen.</li>
-            <li>Mit einem nicht lufttüchtigen Luftfahrzeug / Segelflugzeug / Ballon, dessen Flugvorbereitung nicht abgeschlossen wurde, durchgeführter Flug, der das Luftfahrzeug / das Segelflugzeug / den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-            <li>Behinderung des Luftfahrzeugs / Segelflugzeugs / Ballons durch Feuerwaffen, Feuerwerkskörper, Flugdrachen, Laserbeleuchtung, leistungsstarke Laser, ferngesteuerte Luftfahrtsysteme (RPAS), Modellflugzeuge oder auf ähnliche Weise.</li>
-          </ol>
-        </article>
-
-        <article class="rp-cat" data-mp-list="leicht segel" data-reveal>
-          <header class="rp-cat__head"><h3 class="rp-cat__title">Leicht- &amp; Segelflugzeuge / Helikopter</h3><span class="rp-cat__count mono">7</span></header>
-          <ol class="rp-list">
-            <li>Unbeabsichtigte unkontrollierte Fluglagen.</li>
-            <li>Ungewöhnlich starke Vibration (z. B. «Flattern» des Quer- oder Höhenruders oder Propellers).</li>
-            <li>Flugsteuerung funktioniert nicht ordnungsgemäss oder ist nicht verbunden.</li>
-            <li>Versagen oder wesentliche Beeinträchtigung der Struktur des Luftfahrzeugs / Segelflugzeugs.</li>
-            <li>Ablösen von Strukturteilen des Luftfahrzeugs / Segelflugzeugs oder von Anbauten während des Flugs.</li>
-            <li>Zusammenstoss, am Boden oder in der Luft, mit einem Luftfahrzeug, dem Boden oder einem Hindernis.</li>
-            <li>Beinahezusammenstoss, am Boden oder in der Luft, mit einem Luftfahrzeug, dem Boden oder einem Hindernis, der ein Notfall-Ausweichmanöver erfordert hat, um einen Zusammenstoss zu vermeiden.</li>
-          </ol>
-        </article>
-
-        <article class="rp-cat" data-mp-list="leicht" data-reveal>
-          <header class="rp-cat__head"><h3 class="rp-cat__title">Leichtflugzeuge / Helikopter</h3><span class="rp-cat__count mono">11</span></header>
-          <ol class="rp-list">
-            <li>Landung ausserhalb der vorgesehenen Landefläche.</li>
-            <li>Die unter normalen Bedingungen bei Start, im Steigflug oder bei der Landung von Luftfahrzeugen erwartete Leistung wird nicht erreicht oder kann nicht erreicht werden.</li>
-            <li>Störung auf der Start- oder Landebahn. Tatsächliches oder potenzielles Eindringen eines Objekts in den Bereich der Start-/Landebahn.</li>
-            <li>Überschiessen oder seitliches Abkommen von der Start- oder Landebahn.</li>
-            <li>Flug mit unbeabsichtigtem Einflug in Instrumenten-Wetterbedingungen (IMC) von Luftfahrzeugen, die nicht nach Instrumentenflugregeln (IFR) zugelassen sind, oder eines nicht für IFR-Flüge qualifizierten Piloten, der das Luftfahrzeug, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-            <li>Ausfall eines Triebwerks, Rotors, Propellers, Kraftstoffsystems oder eines anderen wesentlichen Systems.</li>
-            <li>Leckage von Flüssigkeiten/Gasen, die zu Brandgefahr oder einer möglichen gefährlichen Verunreinigung von Struktur, Systemen oder Ausrüstungsteilen des Luftfahrzeugs geführt oder eine Gefahr für die Insassen dargestellt hat.</li>
-            <li>Kollision mit Wildtieren einschliesslich Vogelschlag, der zu Schäden am Luftfahrzeug oder zum Ausfall oder zur Störung wesentlicher Funktionen geführt hat.</li>
-            <li>Blitzschlag, der zu Schäden oder zum Ausfall von Funktionen des Luftfahrzeugs geführt hat.</li>
-            <li>Durchfliegen schwerer Turbulenzen, das zur Verletzung von Insassen des Luftfahrzeugs oder zur erforderlichen Durchführung eines Turbulenz-Checks nach dem Flug geführt hat.</li>
-            <li>Vereisung einschliesslich Vergaservereisung, die das Luftfahrzeug, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-          </ol>
-        </article>
-
-        <article class="rp-cat" data-mp-list="segel" data-reveal>
-          <header class="rp-cat__head"><h3 class="rp-cat__title">Segelflugzeuge</h3><span class="rp-cat__count mono">5</span></header>
-          <ol class="rp-list">
-            <li>Ereignis, bei dem der Pilot des Segelflugzeugs nicht in der Lage war, das Windenseil oder das Flugzeugschleppseil auszuklinken, sodass er auf Notfallverfahren zurückgreifen musste.</li>
-            <li>Ausklinken des Windenseils oder des Luftfahrzeugschleppseils, wenn das Ausklinken das Segelflugzeug, dessen Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-            <li>Im Falle von Motorseglern Triebwerkausfall während des Starts.</li>
-            <li>Fälle, in denen keine sichere Landefläche verfügbar ist.</li>
-            <li>Beschädigung des Segelflugzeugs durch Blitzschlag.</li>
-          </ol>
-        </article>
-
-        <article class="rp-cat" data-mp-list="ballon" data-reveal>
-          <header class="rp-cat__head"><h3 class="rp-cat__title">Ballone</h3><span class="rp-cat__count mono">7</span></header>
-          <ol class="rp-list">
-            <li>Unbeabsichtigtes dauerhaftes Erlöschen der Zündflamme.</li>
-            <li>Störung an einem der folgenden Teile oder Steuerungseinrichtungen: Steigrohr im Gasbehälter, Umlenkrolle, Steuerleine, Fesselseil, Leck an der Dichtung des Brennerventils, Leck an der Dichtung des Gasbehälterventils, Karabiner, Schäden an Gasleitung, Traggasventil, Hülle oder Ballonet, Gebläse, Überdruckventil (Gasballon), Seilwinde (gasgefüllte Fesselballone).</li>
-            <li>Erhebliche(r) Leckage oder Verlust von Traggas (z. B. Porosität, ungenau sitzende Traggasventile).</li>
-            <li>Insassen des Ballons aus Korb oder Gondel geschleudert.</li>
-            <li>Unbeabsichtigtes Anheben oder Mitschleifen des Bodenpersonals, wodurch jemand verletzt oder getötet wurde.</li>
-            <li>Zusammenstoss oder Beinahezusammenstoss, am Boden oder in der Luft, mit einem Luftfahrzeug, dem Boden oder einem Hindernis, der den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-            <li>Unerwartetes Durchfliegen ungünstiger Wetterbedingungen, das den Ballon, seine Insassen oder andere Personen gefährdet hat oder hätte gefährden können.</li>
-          </ol>
-        </article>
-
-        <div class="notice notice--brand" data-reveal>
-          <svg class="icon icon-megaphone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" /> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" /> <path d="M8 6v8" /> </svg>
-          <div><p><strong>Melden Sie auch jedes andere Ereignis, das Sie als sicherheitsrelevant einstufen!</strong></p></div>
-        </div>
-
-        <div class="rp-fns" data-reveal>
+        <div class="rp-fns">
           <p id="fn-easa"><sup>1</sup> Gilt nicht für Nicht-EASA-Luftfahrzeuge, ausser wenn es in Ihrem Land so festgelegt ist. Mehr Informationen: <a href="https://www.aviationreporting.eu" target="_blank" rel="noopener">www.aviationreporting.eu</a></p>
           <p id="fn-verhalten"><sup>2</sup> Unannehmbares Verhalten ist definiert als offenkundige, schwerwiegende und ernste Missachtung eines offensichtlichen Risikos sowie gravierender Mangel an beruflicher Verantwortung hinsichtlich der Wahrnehmung der unter den Umständen ersichtlich erforderlichen Sorgfalt, wodurch eine Person oder Sache vorhersehbar geschädigt oder die Flugsicherheit ernsthaft gefährdet worden ist.</p>
           <p>Dieser Text hat rein informativen Charakter. Es gelten in jedem Fall die in der Verordnung (EU) Nr. 376/2014 genannten rechtlichen Anforderungen.</p>
         </div>
-      </div>
+      </aside>
     </div>
   </div>
 </section>
 
-<section class="section section--chart" id="aviatik" aria-labelledby="av-title">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Ereignis Aviatik melden</p>
-        <h2 id="av-title" data-split>SUST und BAZL: die gesetzliche Meldung.</h2>
-      </div>
-      <p class="lead" data-reveal>Wer meldet was, an wen und bis wann. Gestützt auf das Luftfahrtgesetz (LFG), die Verordnung über die Sicherheitsuntersuchung von Zwischenfällen im Verkehrswesen (VSZV) und die Verordnung (EU) Nr. 376/2014.</p>
-    </div>
-
-    <div class="split split--top rp-av">
-      <div class="prose rp-av__text" data-reveal>
-        <h3>Unfälle und schwere Vorfälle: unverzüglich an die SUST</h3>
-        <p>Unfälle und schwere Vorfälle von bemannten Luftfahrzeugen auf Schweizer Hoheitsgebiet oder von in der Schweiz eingetragenen Luftfahrzeugen im Ausland müssen nach Art. 23 LFG i.V.m. Art. 17 VSZV unverzüglich an die Meldestelle der SUST gemeldet werden. Die Meldestelle der SUST ist die Alarmzentrale der Schweizerischen Rettungsflugwacht mit den Telefonnummern: in der Schweiz <a href="tel:1414">1414</a>, aus dem Ausland <a href="tel:+41333333333">+41 333 333 333</a>.</p>
-        <p>Ausschliesslich Vorfälle, bei denen noch nicht im Vornherein klar ist, dass sie schwere Vorfälle darstellen, können innerhalb von 72 Stunden an <a href="mailto:info-av@sust.admin.ch">info-av@sust.admin.ch</a> gemeldet werden.</p>
-        <h3>Meldepflichtige Ereignisse: innert 72 Stunden an das BAZL</h3>
-        <p>Alle unter Art. 4 der Verordnung (EU) Nr. 376/2014 fallenden Ereignisse, schwere Störungen und Unfälle von bemannten und unbemannten Luftfahrzeugen sind nach Art. 20 LFG innerhalb von 72 Stunden ab Kenntnisnahme über das Meldeportal an das Bundesamt für Zivilluftfahrt (BAZL) zu melden.</p>
-        <h3>Im Zweifelsfall</h3>
-        <p>Im Zweifelsfall ist die SUST über den telefonischen Meldeweg (in der Schweiz <a href="tel:1414">1414</a>, aus dem Ausland <a href="tel:+41333333333">+41 333 333 333</a>) zu informieren. Der diensthabende Untersuchungsleiter wird sich umgehend mit dem Fragesteller in Verbindung setzen und eine Entscheidung bezüglich des weiteren Vorgehens fällen.</p>
-      </div>
-
-      <div class="stack rp-av__contacts" data-reveal-group="0.08">
-        <article class="instrument hud-corners rp-contact" data-reveal>
-          <p class="readout__label">Meldestelle der SUST</p>
-          <div class="rp-contact__rows">
-            <a class="rp-contact__row" href="tel:1414"><span><small>Tel. in der Schweiz</small><b>14 14</b></span><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg></a>
-            <a class="rp-contact__row" href="tel:+41333333333"><span><small>Tel. aus dem Ausland</small><b>+41 333 333 333</b></span><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg></a>
-          </div>
-          <p class="rp-contact__note"><svg class="icon icon-siren" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 18v-6a5 5 0 1 1 10 0v6" /> <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" /> <path d="M21 12h1" /> <path d="M18.5 4.5 18 5" /> <path d="M2 12h1" /> <path d="M12 2v1" /> <path d="m4.929 4.929.707.707" /> <path d="M12 12v6" /> </svg><span>Unfälle und schwere Vorfälle: <strong>unverzüglich</strong>. Auch im Zweifelsfall.</span></p>
-        </article>
-        <article class="card card--pad rp-contact rp-contact--light" data-reveal>
-          <p class="readout__label">Meldeportal BAZL</p>
-          <a class="rp-contact__portal" href="https://e2.aviationreporting.eu/" target="_blank" rel="noopener"><span><b>ECCAIRS2</b><small>Report an Occurrence (aviationreporting.eu)</small></span><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
-          <p class="rp-contact__note"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg><span>Ereignisse nach Art. 4 VO (EU) Nr. 376/2014: <strong>innerhalb von 72 Stunden</strong> ab Kenntnisnahme.</span></p>
-        </article>
-        <article class="card card--pad rp-contact rp-contact--light" data-reveal>
-          <p class="readout__label">E-Mail SUST</p>
-          <div class="rp-contact__mail">
-            <a href="mailto:info-av@sust.admin.ch">info-av@sust.admin.ch</a>
-            <button class="btn btn--ghost btn--sm" type="button" data-copy="info-av@sust.admin.ch" aria-label="E-Mail-Adresse der SUST kopieren"><svg class="icon icon-copy" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg>Kopieren</button>
-          </div>
-          <p class="rp-contact__note"><svg class="icon icon-info" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /> </svg><span>Nur für Vorfälle, bei denen noch nicht klar ist, ob sie schwere Vorfälle darstellen: <strong>innerhalb von 72 Stunden</strong>.</span></p>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--alt section--glow" id="flubag" aria-labelledby="fb-title">
-  <div class="container split split--top">
-    <div class="stack-l">
+<section class="section section--alt section--glow rp-sec" id="flubag" aria-labelledby="fb-title">
+  <div class="container rp-fb">
+    <div class="stack-l sticky rp-fb__side">
       <div class="stack">
         <p class="eyebrow" data-reveal>Ereignis an FLUBAG melden</p>
         <h2 id="fb-title" data-split>Das Reporting Form der FLUBAG.</h2>
         <p class="lead" data-reveal>Zur Meldung von Ereignissen an die Flubag verwenden Sie bitte das untenstehende Formular. Das ausgefüllte Formular bitte direkt im C-Büro abgeben oder im grauen Briefkasten im Briefing Container einwerfen.</p>
         <p class="rp-thanks" data-reveal>Herzlichen Dank.</p>
       </div>
-      <div class="row" data-reveal>
+      <div class="stack rp-fb__docs" data-reveal>
         
-        <a class="btn btn--primary btn--lg" href="https://www.flubag.ch/sites/default/files/page/attachment/Reporting%20Form%20FLUBAG.pdf" target="_blank" rel="noopener" data-magnetic><svg class="icon icon-download" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /> </svg>Flubag Reporting Form (PDF)</a>
+        <a class="btn btn--primary btn--lg" href="https://www.flubag.ch/sites/default/files/page/attachment/Reporting%20Form%20FLUBAG.pdf" target="_blank" rel="noopener"><svg class="icon icon-download" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /> </svg>Flubag Reporting Form (PDF)</a>
         
-        <a class="btn btn--ghost btn--lg" href="#online"><svg class="icon icon-send" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /> </svg>Oder online melden</a>
+        
+        <a class="doc" href="https://www.flubag.ch/sites/default/files/page/attachment/Safety%20Policy_FLUBAG_22.03.2022.pdf" target="_blank" rel="noopener">
+          <svg class="icon icon-shield-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg>
+          <span><span class="doc__title">Safety Policy der FLUBAG</span><span class="doc__meta">PDF · Stand 22.03.2022 · zur Information der Piloten</span></span>
+          <svg class="icon icon-download doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /> </svg>
+        </a>
+        
       </div>
-      
-      <a class="doc" href="https://www.flubag.ch/sites/default/files/page/attachment/Safety%20Policy_FLUBAG_22.03.2022.pdf" target="_blank" rel="noopener" data-reveal>
-        <svg class="icon icon-shield-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg>
-        <span><span class="doc__title">Safety Policy der FLUBAG</span><span class="doc__meta">PDF · Stand 22.03.2022 · zur Information der Piloten</span></span>
-        <svg class="icon icon-download doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /> </svg>
-      </a>
-      
-    </div>
-    <ol class="steps" data-steps>
-      <li class="step"><span class="step__num">01</span><div class="step__body"><h3 class="step__title">Formular herunterladen</h3><p>Das Flubag Reporting Form als PDF herunterladen und ausdrucken.</p></div></li>
-      <li class="step"><span class="step__num">02</span><div class="step__body"><h3 class="step__title">Formular ausfüllen</h3><p>Das Ereignis im Formular beschreiben.</p></div></li>
-      <li class="step"><span class="step__num">03</span><div class="step__body"><h3 class="step__title">Im C-Büro abgeben</h3><p>Das ausgefüllte Formular direkt im C-Büro abgeben.</p></div></li>
-      <li class="step"><span class="step__num">04</span><div class="step__body"><h3 class="step__title">Oder in den grauen Briefkasten</h3><p>Alternativ im grauen Briefkasten im Briefing Container einwerfen.</p></div></li>
-    </ol>
-  </div>
-</section>
-
-<section class="section section--chart" id="online" aria-labelledby="online-title">
-  <div class="container split split--top">
-    <div class="stack-l sticky">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Zusätzliche Möglichkeit</p>
-        <h2 id="online-title" data-split>Ereignis an FLUBAG melden (online).</h2>
-        <p class="lead" data-reveal>Als Ergänzung zum Papierformular: Die Meldung geht direkt an das C-Büro der FLUBAG. Name und Kontakt sind freiwillig.</p>
-      </div>
-      <div class="notice notice--danger" data-reveal>
+      <div class="notice notice--danger rp-fb__legal" data-reveal>
         <svg class="icon icon-siren" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 18v-6a5 5 0 1 1 10 0v6" /> <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" /> <path d="M21 12h1" /> <path d="M18.5 4.5 18 5" /> <path d="M2 12h1" /> <path d="M12 2v1" /> <path d="m4.929 4.929.707.707" /> <path d="M12 12v6" /> </svg>
-        <div><p><strong>Kein Ersatz für die gesetzliche Meldung.</strong></p><p>Unfälle und schwere Vorfälle unverzüglich der SUST melden (<a href="tel:1414">1414</a>), meldepflichtige Ereignisse innert 72 Stunden dem BAZL.</p></div>
-      </div>
-      <div class="notice" data-reveal>
-        <svg class="icon icon-user-round-x" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16.5 16.5 5 5" /> <path d="M2 21a8 8 0 0 1 11.531-7.18" /> <path d="m21.5 16.5-5 5" /> <circle cx="10" cy="8" r="5" /> </svg>
-        <div><p><strong>Anonym melden</strong></p><p>Ohne Name und Kontakt erfolgt die Meldung anonym. Kann das Formular nicht direkt übermittelt werden, öffnet sich das E-Mail-Programm, die Absenderadresse ist dann sichtbar. Ganz anonym bleibt das Papierformular im grauen Briefkasten.</p></div>
+        <div><p><strong>Kein Ersatz für die gesetzliche Meldung.</strong> Unfälle und schwere Vorfälle unverzüglich der SUST melden (<a href="tel:1414">1414</a>), meldepflichtige Ereignisse innert 72 Stunden dem BAZL.</p></div>
       </div>
     </div>
 
-    <form class="form form-panel rp-form" data-form data-form-name="Reporting FLUBAG" data-subject="Ereignismeldung an FLUBAG (online)" data-toast="Danke! Deine Meldung ist bei der FLUBAG angekommen." data-reveal>
+    <form class="form form-panel rp-form" id="online" data-form data-form-name="Reporting FLUBAG" data-subject="Ereignismeldung an FLUBAG (online)" data-toast="Danke! Deine Meldung ist bei der FLUBAG angekommen." aria-labelledby="online-title" data-reveal>
       <div class="rp-form__head">
-        <h3 class="h3">Meldung erfassen</h3>
+        <div class="rp-form__intro">
+          <p class="eyebrow">Zusätzliche Möglichkeit</p>
+          <h3 class="h3" id="online-title">Ereignis online melden</h3>
+          <p class="muted">Als Ergänzung zum Papierformular: Die Meldung geht direkt an das C-Büro der FLUBAG. Name und Kontakt sind freiwillig.</p>
+        </div>
         <span class="chip chip--ok rp-anon" data-rp-anon aria-live="polite"><svg class="icon icon-user-round-x" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16.5 16.5 5 5" /> <path d="M2 21a8 8 0 0 1 11.531-7.18" /> <path d="m21.5 16.5-5 5" /> <circle cx="10" cy="8" r="5" /> </svg><span data-rp-anon-text>Anonyme Meldung</span></span>
       </div>
 
       <fieldset class="rp-fieldset">
-        <legend class="rp-legend"><span class="rp-legend__num">1</span>Wann und wo?</legend>
-        <div class="form-grid">
-          <div class="field">
+        <legend class="rp-legend"><span class="rp-legend__num">1</span>Wann, wo, womit?</legend>
+        <div class="form-grid rp-grid">
+          <div class="field rp-half">
             <label class="field__label" for="rp-datum">Datum <span class="req">*</span></label>
             <input class="input" type="date" id="rp-datum" name="datum" required data-past data-rp-past>
           </div>
-          <div class="field">
+          <div class="field rp-half">
             <label class="field__label" for="rp-zeit">Zeit (Lokalzeit)</label>
             <input class="input" type="time" id="rp-zeit" name="zeit">
+          </div>
+          <div class="field span-2">
+            <label class="field__label" for="rp-ort">Ort <span class="req">*</span></label>
+            <input class="input" id="rp-ort" name="ort" required placeholder="z.B. Rollweg, Piste 33, Platzrunde">
           </div>
           <div class="field">
             <label class="field__label" for="rp-phase">Flugphase</label>
@@ -645,16 +591,6 @@
               <option>Andere oder unbekannt</option>
             </select>
           </div>
-          <div class="field">
-            <label class="field__label" for="rp-ort">Ort <span class="req">*</span></label>
-            <input class="input" id="rp-ort" name="ort" required placeholder="z.B. Rollweg, Piste 33, Platzrunde">
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="rp-fieldset">
-        <legend class="rp-legend"><span class="rp-legend__num">2</span>Luftfahrzeug</legend>
-        <div class="form-grid">
           <div class="field">
             <label class="field__label" for="rp-lfz">Luftfahrzeug</label>
             <select class="select" id="rp-lfz" name="luftfahrzeug" data-rp-lfz>
@@ -674,7 +610,7 @@
               <option value="Kein Luftfahrzeug beteiligt">Kein Luftfahrzeug beteiligt</option>
             </select>
           </div>
-          <div class="field" data-rp-other hidden>
+          <div class="field span-2" data-rp-other hidden>
             <label class="field__label" for="rp-kennz">Kennzeichen und Typ</label>
             <input class="input" id="rp-kennz" name="kennzeichen" placeholder="z.B. HB-XXX, Typ">
           </div>
@@ -682,8 +618,8 @@
       </fieldset>
 
       <fieldset class="rp-fieldset">
-        <legend class="rp-legend"><span class="rp-legend__num">3</span>Was ist passiert?</legend>
-        <div class="form-grid">
+        <legend class="rp-legend"><span class="rp-legend__num">2</span>Was ist passiert?</legend>
+        <div class="form-grid rp-grid">
           <div class="field span-2">
             <label class="field__label" for="rp-art">Art des Ereignisses</label>
             <select class="select" id="rp-art" name="art">
@@ -700,33 +636,36 @@
           </div>
           <div class="field span-2">
             <label class="field__label" for="rp-text">Beschreibung <span class="req">*</span></label>
-            <textarea class="textarea" id="rp-text" name="beschreibung" required rows="6" placeholder="Ablauf, Umstände, Wetter, Beteiligte …"></textarea>
+            <textarea class="textarea" id="rp-text" name="beschreibung" required rows="5" placeholder="Ablauf, Umstände, Wetter, Beteiligte …"></textarea>
           </div>
           <div class="field span-2">
             <label class="field__label" for="rp-vorschlag">Vorschlag zur Verbesserung</label>
-            <textarea class="textarea" id="rp-vorschlag" name="vorschlag" rows="3" placeholder="Wie liesse sich so ein Ereignis künftig vermeiden?"></textarea>
+            <textarea class="textarea" id="rp-vorschlag" name="vorschlag" rows="2" placeholder="Wie liesse sich so ein Ereignis künftig vermeiden?"></textarea>
           </div>
         </div>
       </fieldset>
 
-      <fieldset class="rp-fieldset">
-        <legend class="rp-legend"><span class="rp-legend__num">4</span>Kontakt (freiwillig)</legend>
-        <p class="field__help rp-fieldset__help">Für eine anonyme Meldung leer lassen. Mit Kontakt kann die FLUBAG bei Rückfragen nachhaken.</p>
-        <div class="form-grid">
-          <div class="field">
-            <label class="field__label" for="rp-name">Name</label>
-            <input class="input" id="rp-name" name="name" autocomplete="name" data-rp-contact>
+      <details class="rp-contact" data-rp-contact-box>
+        <summary class="rp-legend"><span class="rp-legend__num">3</span>Kontakt angeben (freiwillig)</summary>
+        <fieldset class="rp-fieldset">
+          <legend class="visually-hidden">Kontakt (freiwillig)</legend>
+          <p class="field__help">Für eine anonyme Meldung leer lassen. Mit Kontakt kann die FLUBAG bei Rückfragen nachhaken.</p>
+          <div class="form-grid rp-grid">
+            <div class="field span-2">
+              <label class="field__label" for="rp-name">Name</label>
+              <input class="input" id="rp-name" name="name" autocomplete="name" data-rp-contact>
+            </div>
+            <div class="field">
+              <label class="field__label" for="rp-mail">E-Mail</label>
+              <input class="input" type="email" id="rp-mail" name="email" autocomplete="email" data-rp-contact>
+            </div>
+            <div class="field">
+              <label class="field__label" for="rp-tel">Telefon</label>
+              <input class="input" type="tel" id="rp-tel" name="telefon" autocomplete="tel" data-rp-contact>
+            </div>
           </div>
-          <div class="field">
-            <label class="field__label" for="rp-mail">E-Mail</label>
-            <input class="input" type="email" id="rp-mail" name="email" autocomplete="email" data-rp-contact>
-          </div>
-          <div class="field span-2">
-            <label class="field__label" for="rp-tel">Telefon</label>
-            <input class="input" type="tel" id="rp-tel" name="telefon" autocomplete="tel" data-rp-contact>
-          </div>
-        </div>
-      </fieldset>
+        </fieldset>
+      </details>
 
       <label class="check"><input type="checkbox" name="datenschutz" value="ja" data-label="Datenschutz" required><span>Ich bin einverstanden, dass die FLUBAG die Angaben zur Bearbeitung der Meldung verwendet (<a href="datenschutz.html">Datenschutz</a>).</span></label>
       <div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -735,6 +674,7 @@
         <button class="btn btn--primary btn--lg" type="submit"><svg class="icon icon-send" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /> </svg>Meldung senden</button>
         <span class="field__help">Felder mit <span class="req">*</span> sind Pflicht.</span>
       </div>
+      <p class="rp-form__anon"><svg class="icon icon-user-round-x" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16.5 16.5 5 5" /> <path d="M2 21a8 8 0 0 1 11.531-7.18" /> <path d="m21.5 16.5-5 5" /> <circle cx="10" cy="8" r="5" /> </svg><span><strong>Anonym melden:</strong> Ohne Name und Kontakt erfolgt die Meldung anonym. Kann das Formular nicht direkt übermittelt werden, öffnet sich das E-Mail-Programm, die Absenderadresse ist dann sichtbar. Ganz anonym bleibt das Papierformular im grauen Briefkasten.</span></p>
 
       <div class="form-success" role="status">
         <div class="form-success__plane"><svg class="icon icon-shield-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg></div>
@@ -768,53 +708,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html">Preise</a></li>
-        <li><a href="reporting.html" aria-current="page">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="reporting.html" aria-current="page">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 

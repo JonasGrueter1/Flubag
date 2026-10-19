@@ -51,6 +51,17 @@
 [data-theme="light"] .p33-map:not(.force-dark) .p33-rwy__cl { stroke: rgba(255, 255, 255, 0.9); }
 [data-theme="light"] .p33-map:not(.force-dark) .p33-wind path { fill: var(--sky-2); }
 [data-theme="light"] .p33-map:not(.force-dark) .p33-plane path { fill: var(--brand); stroke: #fff; filter: none; }
+/* Heller Modus: Beschriftungen und Flächen der Skizze kräftiger (Kontrast auf Weiss) */
+[data-theme="light"] .p33-map:not(.force-dark) .p33-label:not(.is-active) { opacity: 0.82; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-leglabel { opacity: 0.62; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-tiny { opacity: 0.8; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-tiny--runup { opacity: 1; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-wind__label { opacity: 0.75; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-route { opacity: 0.45; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-dot:not(.is-done):not(.is-active) { opacity: 0.85; }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-hangar { fill: rgba(59, 110, 170, 0.16); stroke: rgba(59, 110, 170, 0.45); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-taxi { fill: rgba(59, 110, 170, 0.14); }
+[data-theme="light"] .p33-map:not(.force-dark) .p33-glider { fill: rgba(90, 160, 70, 0.1); stroke: rgba(60, 130, 50, 0.5); }
 
 /* Legende */
 .p33-legend { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
@@ -65,7 +76,7 @@
 .p33-step { display: grid; gap: 18px; scroll-margin-top: calc(var(--header-h) + 24px); }
 .p33-step__head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
 .p33-step__num { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--line-strong); font-weight: 700; color: var(--text-2); background: var(--surface); transition: background-color 0.35s, border-color 0.35s, color 0.35s, box-shadow 0.35s; }
-.p33-step.is-active .p33-step__num { border-color: var(--brand); color: #fff; background: var(--brand); box-shadow: 0 0 0 8px rgba(230, 50, 1, 0.14); }
+.p33-step.is-active .p33-step__num { border-color: var(--brand-fill); color: #fff; background: var(--brand-fill); box-shadow: 0 0 0 8px rgba(230, 50, 1, 0.14); }
 .p33-step__kicker { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-text); }
 .p33-step__title { font-size: var(--fs-h3); font-family: var(--font-display); font-weight: 800; font-stretch: 108%; line-height: 1.08; margin-top: 4px; }
 .p33-step__media { position: relative; display: block; aspect-ratio: 1600 / 1118; border-radius: var(--radius-l); overflow: hidden; background: var(--surface-3); border: 1px solid var(--line); cursor: zoom-in; }

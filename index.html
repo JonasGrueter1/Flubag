@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Entwurf: FLUBAG | Flugplatz Luzern-Beromünster</title>
-<meta name="description" content="FLUBAG am Flugplatz Luzern-Beromünster: Schnupperflüge, Pilotenausbildung PPL und LAPL, Rundflüge über Pilatus, Titlis und Matterhorn. Seit 1966.">
+<meta name="description" content="FLUBAG am Flugplatz Luzern-Beromünster: Schnupperflüge, Fluggutscheine, Pilotenausbildung PPL und LAPL, Rundflüge über Pilatus, Titlis und Matterhorn. Seit 1966.">
 <link rel="canonical" href="https://www.flubag.ch/">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
 <meta property="og:title" content="FLUBAG | Flugplatz Luzern-Beromünster">
-<meta property="og:description" content="FLUBAG am Flugplatz Luzern-Beromünster: Schnupperflüge, Pilotenausbildung PPL und LAPL, Rundflüge über Pilatus, Titlis und Matterhorn. Seit 1966.">
+<meta property="og:description" content="FLUBAG am Flugplatz Luzern-Beromünster: Schnupperflüge, Fluggutscheine, Pilotenausbildung PPL und LAPL, Rundflüge über Pilatus, Titlis und Matterhorn. Seit 1966.">
 <meta property="og:image" content="https://www.flubag.ch/assets/img/hero/slide-00-og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz">
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -245,14 +251,6 @@
 <main id="main" tabindex="-1">
 
 
-<div class="intro" data-intro hidden aria-hidden="true">
-  <div class="intro__runway">
-    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
-  <div class="intro__logo"><svg class="logo-svg" viewBox="0 0 3200 1875" role="img" aria-label="FLUBAG Logo"><path class="logo-oval" fill-rule="evenodd" d="M 1816 265 C 1668 270, 1530 284, 1378 310 C 1265 329, 1106 363, 1095 371 C 1093 372, 1089 373, 1083 374 C 1066 376, 1031 386, 987 401 C 911 427, 830 457, 815 465 C 811 467, 800 472, 791 476 C 709 510, 666 530, 585 571 C 495 616, 447 643, 373 693 C 326 724, 286 753, 255 777 C 240 790, 221 806, 192 833 C 183 841, 179 848, 181 851 C 182 853, 182 853, 179 852 C 172 851, 164 859, 129 900 C 119 912, 109 924, 106 927 C 101 933, 86 954, 73 976 C 22 1060, -4 1144, 1 1204 C 6 1258, 34 1330, 67 1372 C 110 1425, 160 1455, 283 1501 C 308 1511, 313 1512, 321 1508 C 329 1504, 340 1497, 424 1438 C 565 1341, 583 1328, 611 1308 C 619 1302, 628 1296, 631 1294 C 635 1292, 641 1288, 645 1284 C 649 1281, 655 1276, 658 1274 C 671 1266, 689 1253, 722 1231 C 740 1218, 765 1201, 776 1193 C 788 1185, 801 1176, 805 1173 C 809 1170, 824 1159, 840 1149 C 856 1138, 873 1126, 880 1122 C 886 1117, 902 1106, 916 1096 C 930 1086, 956 1068, 974 1056 C 993 1043, 1020 1024, 1036 1013 C 1051 1002, 1078 984, 1095 971 C 1112 959, 1155 929, 1190 905 C 1226 880, 1269 850, 1286 838 C 1303 826, 1327 809, 1339 801 C 1351 793, 1362 786, 1364 784 C 1366 783, 1379 773, 1393 763 C 1416 747, 1436 733, 1495 693 C 1505 686, 1517 678, 1522 674 C 1526 670, 1547 656, 1567 643 C 1587 629, 1611 612, 1620 606 C 1638 593, 1645 588, 1654 583 C 1657 581, 1677 568, 1698 552 C 1719 537, 1745 519, 1756 512 C 1766 505, 1789 489, 1806 476 C 1823 464, 1866 435, 1900 411 C 1934 387, 1980 355, 2002 340 C 2023 325, 2053 305, 2068 295 C 2098 274, 2095 276, 2095 276 C 2093 274, 2037 268, 1997 266 C 1975 265, 1847 264, 1816 265 M 2533 276 C 2533 277, 2532 281, 2532 286 C 2531 297, 2528 316, 2521 358 C 2513 409, 2489 562, 2480 617 C 2476 642, 2467 702, 2459 751 C 2451 800, 2440 870, 2435 908 C 2429 946, 2423 983, 2422 991 C 2418 1012, 2387 1209, 2374 1290 C 2360 1386, 2344 1487, 2340 1503 C 2337 1519, 2338 1520, 2346 1518 C 2372 1511, 2536 1447, 2597 1420 C 2609 1414, 2619 1410, 2620 1410 C 2625 1410, 2731 1358, 2776 1333 C 2811 1315, 2843 1295, 2890 1264 C 2969 1212, 3003 1185, 3056 1132 C 3134 1054, 3163 1006, 3184 927 C 3207 837, 3205 729, 3179 646 C 3168 613, 3159 590, 3154 585 C 3152 583, 3149 579, 3147 576 C 3143 570, 3136 560, 3123 546 C 3054 470, 2944 395, 2839 354 C 2790 335, 2763 326, 2702 311 C 2659 300, 2636 296, 2630 296 C 2626 297, 2624 296, 2621 295 C 2616 291, 2578 282, 2549 277 C 2533 274, 2534 274, 2533 276"/><path class="logo-runway" fill-rule="evenodd" d="M 2531 11 C 2501 34, 2440 83, 2384 129 C 2358 151, 2346 161, 2264 227 C 2127 338, 1942 488, 1898 525 C 1888 533, 1849 565, 1810 596 C 1704 682, 1499 848, 1449 890 C 1415 918, 1371 953, 1299 1012 C 1260 1043, 1196 1095, 1156 1127 C 1116 1160, 1060 1206, 1030 1229 C 1001 1253, 952 1294, 920 1319 C 888 1345, 835 1389, 802 1415 C 769 1442, 720 1482, 693 1504 C 666 1526, 613 1569, 574 1601 C 534 1633, 491 1667, 478 1679 C 465 1690, 420 1726, 380 1759 C 296 1826, 249 1865, 242 1871 L 238 1875 1030 1875 L 1822 1875 1823 1872 C 1840 1829, 1934 1590, 2027 1352 C 2057 1276, 2098 1171, 2118 1118 C 2139 1066, 2175 975, 2198 917 C 2220 859, 2252 778, 2268 738 C 2284 697, 2308 635, 2321 601 C 2335 567, 2365 488, 2389 427 C 2414 366, 2450 273, 2470 221 C 2491 169, 2514 109, 2522 89 C 2538 49, 2552 13, 2553 7 C 2553 4, 2551 0, 2548 0 C 2547 0, 2540 5, 2531 11 M 1912 734 C 1902 747, 1886 765, 1855 801 C 1820 841, 1813 849, 1813 850 C 1813 852, 1877 852, 1888 850 C 1892 849, 1893 848, 1895 845 C 1900 837, 1955 760, 1972 737 C 1976 732, 1980 727, 1980 726 C 1980 724, 1975 724, 1948 724 L 1920 724 1912 734 M 1747 925 C 1737 939, 1664 1023, 1632 1058 C 1626 1065, 1621 1071, 1621 1072 C 1622 1072, 1629 1073, 1638 1073 C 1676 1075, 1718 1074, 1725 1071 C 1729 1069, 1734 1063, 1774 1008 C 1805 965, 1826 937, 1834 928 L 1840 920 1830 920 C 1825 920, 1805 919, 1787 919 L 1753 918 1747 925 M 1538 1168 C 1535 1171, 1510 1200, 1481 1234 C 1424 1298, 1412 1313, 1405 1322 C 1401 1329, 1400 1330, 1403 1331 C 1410 1334, 1522 1335, 1530 1332 C 1537 1330, 1544 1322, 1589 1259 C 1605 1238, 1625 1211, 1633 1200 C 1652 1175, 1657 1166, 1657 1165 C 1655 1164, 1626 1163, 1584 1163 L 1542 1163 1538 1168 M 894 1479 C 882 1479, 870 1480, 866 1480 L 860 1481 845 1494 C 838 1501, 813 1522, 792 1541 C 747 1579, 692 1627, 654 1661 C 631 1682, 622 1689, 615 1694 C 614 1695, 613 1696, 613 1696 C 615 1698, 633 1699, 697 1700 L 766 1700 785 1683 C 804 1665, 832 1639, 905 1569 C 929 1546, 957 1519, 968 1509 C 989 1489, 997 1481, 996 1480 C 994 1478, 936 1478, 894 1479 M 1093 1479 L 1083 1479 998 1563 C 952 1609, 903 1658, 889 1672 L 865 1696 877 1697 C 892 1698, 972 1698, 994 1697 L 1012 1696 1101 1597 C 1196 1491, 1204 1482, 1202 1481 C 1198 1479, 1129 1478, 1093 1479 M 1280 1488 C 1265 1506, 1243 1532, 1185 1598 C 1133 1658, 1106 1689, 1101 1696 L 1099 1699 1114 1699 C 1159 1697, 1175 1696, 1212 1696 L 1253 1696 1278 1664 C 1291 1646, 1320 1609, 1341 1582 C 1383 1528, 1405 1499, 1412 1488 C 1416 1482, 1417 1481, 1415 1481 C 1411 1479, 1370 1478, 1330 1478 L 1288 1478 1280 1488 M 1478 1511 C 1394 1625, 1355 1678, 1347 1690 L 1342 1696 1349 1697 C 1359 1698, 1417 1698, 1458 1697 L 1490 1696 1494 1690 C 1509 1667, 1595 1525, 1603 1512 C 1614 1493, 1620 1481, 1620 1480 C 1619 1479, 1579 1478, 1541 1478 L 1503 1478 1478 1511 M 1705 1485 C 1703 1488, 1688 1514, 1672 1542 C 1656 1570, 1636 1605, 1627 1620 C 1618 1636, 1608 1653, 1605 1660 C 1602 1666, 1596 1675, 1593 1681 C 1589 1687, 1586 1693, 1586 1694 C 1587 1696, 1595 1697, 1668 1697 L 1735 1697 1743 1680 C 1747 1670, 1764 1636, 1780 1603 C 1828 1502, 1837 1482, 1835 1481 C 1833 1479, 1789 1478, 1749 1478 L 1709 1478 1705 1485"/></svg></div>
-  <p class="intro__text mono">LSZO · CLEARED FOR TAKE-OFF</p>
-</div>
-
 <section class="hero force-dark" aria-label="Willkommen">
   <div class="hero__slides" data-hero-slides>
     <figure class="hero__slide is-active" data-caption="Über den Voralpen"><img src="assets/img/hero/slide-00-1440.webp" srcset="assets/img/hero/slide-00-480.webp 480w, assets/img/hero/slide-00-960.webp 960w, assets/img/hero/slide-00-1440.webp 1440w, assets/img/hero/slide-00-1920.webp 1920w" sizes="100vw" width="1920" height="1280" alt="Cessna im Flug über grüner Voralpenlandschaft" loading="eager" fetchpriority="high"></figure>
@@ -281,55 +279,43 @@
         <button type="button" aria-label="Bild 1"><span></span></button><button type="button" aria-label="Bild 2"><span></span></button><button type="button" aria-label="Bild 3"><span></span></button><button type="button" aria-label="Bild 4"><span></span></button><button type="button" aria-label="Bild 5"><span></span></button><button type="button" aria-label="Bild 6"><span></span></button>
       </div>
     </div>
-    <aside class="hero__hud instrument hud-corners" aria-label="Live am Flugplatz" data-hero-in>
-      <div class="hero__hud-head"><span class="mono">LSZO LIVE</span><span class="hero__hud-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>…</span></span></div>
-      <div class="hero__hud-grid">
-        <div class="readout"><span class="readout__label">Wind</span><span class="readout__value" data-wx-field="windText">--</span></div>
-        <div class="readout"><span class="readout__label">Temperatur</span><span class="readout__value" data-wx-field="tempText">--</span></div>
-        <div class="readout"><span class="readout__label">Wetter</span><span class="readout__value readout__value--text" data-wx-field="wx">--</span></div>
-        <div class="readout"><span class="readout__label">Sunset</span><span class="readout__value" data-sun-field="sunset">--</span></div>
-      </div>
-      <a class="hero__hud-link" href="webcams.html">Webcams &amp; Wetter <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-    </aside>
+    <a class="hero-pass" href="gutscheine.html#gestalten" data-hero-in>
+      <span class="hero-pass__card">
+        <span class="hero-pass__main">
+          <span class="hero-pass__top"><span class="hero-pass__brand"><img src="logo.svg" alt="" width="30" height="20">FLUBAG</span><span class="hero-pass__route" aria-hidden="true">LSZO <svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg> ALPS</span></span>
+          <span class="hero-pass__title">Fluggutschein verschenken</span>
+          <span class="hero-pass__text">Rundflug, Schnupperflug oder Wertgutschein. Online gestalten, zuhause ausdrucken.</span>
+        </span>
+        <span class="hero-pass__stub"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span class="hero-pass__go">Gestalten <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></span></span>
+      </span>
+    </a>
   </div>
   <a class="hero__scroll" href="#erleben" aria-label="Weiter nach unten"><span></span></a>
 </section>
 
-<div class="marquee" aria-label="Flugplatzdaten LSZO">
-  <div class="marquee__track">
-    <span class="marquee__item"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>LSZO Luzern-Beromünster</span>
-    <span class="marquee__item"><svg class="icon icon-compass" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg>47°11'24" N · 008°12'17" E</span>
-    <span class="marquee__item"><svg class="icon icon-mountain" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 3 4 8 5-5 5 15H2L8 3z" /> </svg>Elevation 2146 ft</span>
-    <span class="marquee__item"><svg class="icon icon-runway" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2 5 22M15 2l4 20"/><path d="M12 4v2M12 9v3M12 15v4"/></svg>Piste 15/33 · Gras · 510 m</span>
-    <span class="marquee__item"><svg class="icon icon-parachute" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11a10 9 0 0 1 20 0"/><path d="M2 11c1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0 1.7-1.3 3.3-1.3 5 0"/><path d="M2 11l8 7M7 11l3.5 7M17 11l-3.5 7M22 11l-8 7"/><rect x="10" y="17.5" width="4" height="4.5" rx="1"/></svg>Para 122.455</span>
-    <span class="marquee__item"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Gegründet 14.02.1966</span>
-    <span class="marquee__item"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>10 Fluglehrer · 5 Flugzeuge</span>
-  </div>
-</div>
-
-<section class="section" id="erleben">
+<section class="section home-sec" id="erleben" aria-labelledby="ways-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
         <p class="eyebrow" data-reveal>Was willst du erleben?</p>
-        <h2 data-split>Drei Wege in die Luft.</h2>
+        <h2 id="ways-title" data-split>Drei Wege in die Luft.</h2>
       </div>
-      <p class="lead" data-reveal>Selbst ans Steuer, entspannt die Alpen geniessen oder gleich die eigene Lizenz machen. Bei uns startest du auf der Graspiste mitten im Luzerner Hinterland.</p>
+      <p class="lead" data-reveal>Selbst ans Steuer, jemandem ein Flugerlebnis schenken oder gleich die eigene Lizenz machen. Bei uns startest du auf der Graspiste mitten im Luzerner Hinterland.</p>
     </div>
-    <div class="grid grid-3 tiles" data-reveal-group="0.12">
+    <div class="grid grid-3 tiles" data-reveal-group="0.1">
       <a class="tile" href="schnupperflug.html" data-reveal>
         <img src="assets/img/schnupperflug/discovery-4-1440.webp" srcset="assets/img/schnupperflug/discovery-4-480.webp 480w, assets/img/schnupperflug/discovery-4-960.webp 960w, assets/img/schnupperflug/discovery-4-1440.webp 1440w, assets/img/schnupperflug/discovery-4-1920.webp 1920w" sizes="(max-width: 640px) 100vw, 33vw" width="1920" height="1281" alt="Flugschülerin mit Fluglehrer im Cockpit" loading="lazy" decoding="async">
         <span class="tile__arrow"><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
         <span class="tile__eyebrow">01 · ab CHF 420</span>
-        <span class="tile__title">Selber fliegen</span>
-        <span class="tile__text">Schnupperflug mit Fluglehrer am Doppelsteuer. Keine Vorkenntnisse nötig.</span>
+        <span class="tile__title">Schnupperflug</span>
+        <span class="tile__text">Selber fliegen, mit Fluglehrer am Doppelsteuer. Keine Vorkenntnisse nötig.</span>
       </a>
-      <a class="tile" href="rundfluege.html" data-reveal>
-        <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 640px) 100vw, 33vw" width="2400" height="1800" alt="Blick aus dem Cockpit auf verschneite Alpengipfel" loading="lazy" decoding="async">
+      <a class="tile" href="gutscheine.html" data-reveal>
+        <img src="assets/img/rundflug/wertgutschein-640.webp" srcset="assets/img/rundflug/wertgutschein-480.webp 480w, assets/img/rundflug/wertgutschein-640.webp 640w" sizes="(max-width: 640px) 100vw, 33vw" width="640" height="480" alt="Blick aus dem Flugzeug auf den Pilatus über dem Nebelmeer" loading="lazy" decoding="async">
         <span class="tile__arrow"><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-        <span class="tile__eyebrow">02 · ab CHF 120 p.P.</span>
-        <span class="tile__title">Rundflug</span>
-        <span class="tile__text">Luzern, Pilatus, Titlis, Jungfrau oder Matterhorn. Bis zu drei Gäste an Bord.</span>
+        <span class="tile__eyebrow">02 · Als Geschenk</span>
+        <span class="tile__title">Gutschein verschenken</span>
+        <span class="tile__text">Rundflug, Schnupperflug oder Wertgutschein. Online kaufen und zuhause ausdrucken.</span>
       </a>
       <a class="tile" href="ausbildung.html" data-reveal>
         <img src="assets/img/hero/slide-03-1440.webp" srcset="assets/img/hero/slide-03-480.webp 480w, assets/img/hero/slide-03-960.webp 960w, assets/img/hero/slide-03-1440.webp 1440w, assets/img/hero/slide-03-1920.webp 1920w" sizes="(max-width: 640px) 100vw, 33vw" width="1920" height="1281" alt="Fluglehrer erklärt Gästen das Flugzeug" loading="lazy" decoding="async">
@@ -342,244 +328,101 @@
   </div>
 </section>
 
-<section class="section section--alt section--glow about">
-  <div class="container split split--wide-right">
-    <div class="about__media">
-      <div class="media-frame media-frame--tall" data-reveal="clip"><img src="assets/img/hero/slide-05-1200.webp" srcset="assets/img/hero/slide-05-480.webp 480w, assets/img/hero/slide-05-960.webp 960w, assets/img/hero/slide-05-1200.webp 1200w" sizes="(max-width: 860px) 100vw, 45vw" width="1200" height="800" alt="Cessna auf der Graspiste des Flugplatzes, im Hintergrund Beromünster" loading="lazy" decoding="async" data-parallax="0.12"></div>
-      <div class="about__badge instrument hud-corners" data-reveal="scale">
-        <span class="readout__label">Piste</span>
-        <span class="about__badge-value">15/33</span>
-        <span class="mono subtle">Gras · 510 × 30 m</span>
-      </div>
-    </div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Der Flugplatz</p>
-        <h2 data-split>Ein Flugplatz mit Charakter.</h2>
-        <p class="lead" data-reveal>Seit 1966 betreibt die FLUBAG Flugbetriebs AG den Flugplatz Luzern-Beromünster. Hier sind Flugschule und Rundflüge zu Hause, dazu Helikopter, Fallschirmspringer und Segelflieger unserer Partner am Flugplatz.</p>
-        <p class="muted" data-reveal>Unser Team aus nebenamtlichen Fluglehrern und Rundflugpiloten teilt eine Leidenschaft: Menschen für das Fliegen zu begeistern. Dazu gehören fünf eigene Flugzeuge, vom Schulflugzeug Cessna 150 bis zur legendären Piper Cub.</p>
-      </div>
-      <div class="stats stats--2" data-reveal>
-        <div class="stat"><span class="stat__value" data-count="1966" data-count-from="1900" data-count-nosep>1966</span><span class="stat__label">Gegründet</span></div>
-        <div class="stat"><span class="stat__value" data-count="5">5</span><span class="stat__label">Flugzeuge</span></div>
-        <div class="stat"><span class="stat__value" data-count="10">10</span><span class="stat__label">Fluglehrer</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="2146" data-count-nosep>2146</span><small>ft</small></span><span class="stat__label">Platzhöhe</span></div>
-      </div>
-      <div class="row" data-reveal>
-        <a class="btn btn--ghost" href="geschichte.html"><svg class="icon icon-history" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> <path d="M12 7v5l4 2" /> </svg>Geschichte &amp; Team</a>
-        <a class="btn btn--text" href="anreise.html">Anreise <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="routes" data-hscroll aria-labelledby="routes-title">
-  <div class="routes__inner">
-    <div class="container routes__head">
-      <p class="eyebrow" data-reveal>Rundflüge</p>
-      <h2 id="routes-title" data-split>Die Schweiz von oben.</h2>
-      <p class="lead" data-reveal>Fünf Routen, von 20 Minuten über Luzern bis zum grossen Alpenflug zum Matterhorn. Bis zu drei Gäste, ein erfahrener Pilot.</p>
-    </div>
-    <div class="routes__track" data-hscroll-track>
-      
-      <a class="route-card" href="rundfluege.html#luzern">
-        <span class="route-card__media"><img src="assets/img/rundflug/luzern-1440.webp" srcset="assets/img/rundflug/luzern-480.webp 480w, assets/img/rundflug/luzern-960.webp 960w, assets/img/rundflug/luzern-1440.webp 1440w, assets/img/rundflug/luzern-2048.webp 2048w" sizes="(max-width: 900px) 85vw, 420px" width="2400" height="1593" alt="Rundflug Luzern" loading="lazy" decoding="async"></span>
-        <span class="route-card__num mono">01</span>
-        <span class="route-card__body">
-          <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>20 min</span><span class="chip chip--brand">CHF 120 p.P.</span></span>
-          <span class="route-card__title">Luzern</span>
-          <span class="route-card__text">Seetal, drei Seen und die Kapellbrücke von oben.</span>
-        </span>
-      </a>
-      
-      <a class="route-card" href="rundfluege.html#pilatus-rigi">
-        <span class="route-card__media"><img src="assets/img/rundflug/pilatus-rigi-1440.webp" srcset="assets/img/rundflug/pilatus-rigi-480.webp 480w, assets/img/rundflug/pilatus-rigi-960.webp 960w, assets/img/rundflug/pilatus-rigi-1440.webp 1440w, assets/img/rundflug/pilatus-rigi-2048.webp 2048w" sizes="(max-width: 900px) 85vw, 420px" width="2400" height="1800" alt="Rundflug Pilatus &amp; Rigi" loading="lazy" decoding="async"></span>
-        <span class="route-card__num mono">02</span>
-        <span class="route-card__body">
-          <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>30 min</span><span class="chip chip--brand">CHF 160 p.P.</span></span>
-          <span class="route-card__title">Pilatus & Rigi</span>
-          <span class="route-card__text">Die beiden Hausberge Luzerns aus nächster Nähe.</span>
-        </span>
-      </a>
-      
-      <a class="route-card" href="rundfluege.html#titlis">
-        <span class="route-card__media"><img src="assets/img/rundflug/titlis-1440.webp" srcset="assets/img/rundflug/titlis-480.webp 480w, assets/img/rundflug/titlis-960.webp 960w, assets/img/rundflug/titlis-1440.webp 1440w, assets/img/rundflug/titlis-2048.webp 2048w" sizes="(max-width: 900px) 85vw, 420px" width="2400" height="1800" alt="Rundflug Titlis" loading="lazy" decoding="async"></span>
-        <span class="route-card__num mono">03</span>
-        <span class="route-card__body">
-          <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>45 min</span><span class="chip chip--brand">CHF 220 p.P.</span></span>
-          <span class="route-card__title">Titlis</span>
-          <span class="route-card__text">Raus aus dem Nebel, rein ins Gletscherweiss.</span>
-        </span>
-      </a>
-      
-      <a class="route-card" href="rundfluege.html#eiger-moench-jungfrau">
-        <span class="route-card__media"><img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 900px) 85vw, 420px" width="2400" height="1800" alt="Rundflug Eiger, Mönch &amp; Jungfrau" loading="lazy" decoding="async"></span>
-        <span class="route-card__num mono">04</span>
-        <span class="route-card__body">
-          <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>60 min</span><span class="chip chip--brand">CHF 290 p.P.</span></span>
-          <span class="route-card__title">Eiger, Mönch & Jungfrau</span>
-          <span class="route-card__text">Top of Europe und das UNESCO Welterbe von oben.</span>
-        </span>
-      </a>
-      
-      <a class="route-card" href="rundfluege.html#matterhorn">
-        <span class="route-card__media"><img src="assets/img/rundflug/matterhorn-1440.webp" srcset="assets/img/rundflug/matterhorn-480.webp 480w, assets/img/rundflug/matterhorn-960.webp 960w, assets/img/rundflug/matterhorn-1440.webp 1440w, assets/img/rundflug/matterhorn-2048.webp 2048w" sizes="(max-width: 900px) 85vw, 420px" width="2400" height="1800" alt="Rundflug Matterhorn" loading="lazy" decoding="async"></span>
-        <span class="route-card__num mono">05</span>
-        <span class="route-card__body">
-          <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>90 min</span><span class="chip chip--brand">CHF 430 p.P.</span></span>
-          <span class="route-card__title">Matterhorn</span>
-          <span class="route-card__text">Der grosse Alpenflug zum berühmtesten Berg der Welt.</span>
-        </span>
-      </a>
-      
-      <a class="route-card route-card--cta" href="gutscheine.html#gestalten">
-        <span class="route-card__body">
-          <svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>
-          <span class="route-card__title">Als Geschenk?</span>
-          <span class="route-card__text">Jeden Rundflug gibt es als Gutschein zum Ausdrucken.</span>
-          <span class="btn btn--light btn--sm">Gutschein gestalten <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></span>
-        </span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="section fleet-teaser" aria-labelledby="fleet-title">
+<section class="section home-sec gift-band force-dark" id="gutschein" aria-labelledby="gift-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="gift-band__head">
       <div class="stack">
-        <p class="eyebrow" data-reveal>Unsere Flotte</p>
-        <h2 id="fleet-title" data-split>Fünf Flugzeuge, fünf Charaktere.</h2>
+        <p class="eyebrow" data-reveal>Neu: Gutscheine online</p>
+        <h2 id="gift-title" data-split>Verschenk ein Stück Himmel.</h2>
       </div>
-      <p class="lead" data-reveal>Vom gutmütigen Schulflugzeug über die Reisemaschine mit Autopilot bis zur gelben Legende mit Heckrad.</p>
-    </div>
-    <div class="fleet-switch" data-fleet-switch data-reveal>
-      <div class="fleet-switch__list" role="tablist" aria-label="Flugzeug wählen">
-        
-        <button class="fleet-switch__tab" role="tab" type="button" aria-selected="true" data-fleet="hb-cvz">
-          <span class="mono fleet-switch__reg">HB-CVZ</span>
-          <span class="fleet-switch__type">Cessna 150</span>
-          <span class="fleet-switch__nick">Das Schulflugzeug</span>
-        </button>
-        
-        <button class="fleet-switch__tab" role="tab" type="button" aria-selected="false" data-fleet="hb-cql">
-          <span class="mono fleet-switch__reg">HB-CQL</span>
-          <span class="fleet-switch__type">Cessna 172</span>
-          <span class="fleet-switch__nick">Der Allrounder</span>
-        </button>
-        
-        <button class="fleet-switch__tab" role="tab" type="button" aria-selected="false" data-fleet="hb-czu">
-          <span class="mono fleet-switch__reg">HB-CZU</span>
-          <span class="fleet-switch__type">Cessna 182</span>
-          <span class="fleet-switch__nick">Die Reisemaschine</span>
-        </button>
-        
-        <button class="fleet-switch__tab" role="tab" type="button" aria-selected="false" data-fleet="hb-oen">
-          <span class="mono fleet-switch__reg">HB-OEN</span>
-          <span class="fleet-switch__type">Piper L-4</span>
-          <span class="fleet-switch__nick">Die Legende</span>
-        </button>
-        
-        <button class="fleet-switch__tab" role="tab" type="button" aria-selected="false" data-fleet="hb-wec">
-          <span class="mono fleet-switch__reg">HB-WEC</span>
-          <span class="fleet-switch__type">Lightwing AC4</span>
-          <span class="fleet-switch__nick">Swiss Made</span>
-        </button>
-        
+      <div class="gift-band__intro">
+        <p class="lead" data-reveal>Fluggutscheine ab Luzern-Beromünster für Rundflüge und Schnupperflüge oder als Wertgutschein: jederzeit bequem online kaufen und direkt zuhause ausdrucken, auf Wunsch auch per Post. Perfekt für Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
+        <ul class="gift-band__facts" data-reveal>
+          <li><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Persönliche Widmung bis 160 Zeichen</li>
+          <li><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>print@home oder Postversand</li>
+          <li><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Wertgutscheine von CHF 20 bis 3000</li>
+        </ul>
+        <div class="row" data-reveal>
+          <a class="btn btn--primary" href="gutscheine.html#gestalten"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Gutschein gestalten</a>
+          <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine" target="_blank" rel="noopener">Direkt zum Shop <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
+        </div>
       </div>
-      
-      <article class="fleet-switch__panel" data-fleet-panel="hb-cvz">
-        <div class="fleet-switch__media">
-          <img src="assets/img/flotte/hb-cvz-640.webp" srcset="assets/img/flotte/hb-cvz-480.webp 480w, assets/img/flotte/hb-cvz-640.webp 640w" sizes="(max-width: 860px) 100vw, 55vw" width="640" height="480" alt="Reims-Cessna F150J HB-CVZ der FLUBAG" loading="lazy" decoding="async">
-          <span class="fleet-switch__badge mono">HB-CVZ</span>
-        </div>
-        <div class="fleet-switch__info">
-          <h3>Reims-Cessna F150J</h3>
-          <p class="muted">Die klassische Zweisitzer-Cessna ist das Arbeitspferd der Flugschule. Hier sitzen die meisten Flubag Pilotinnen und Piloten zum allerersten Mal am Steuer: gutmütig, übersichtlich und ideal, um das Fliegen von Grund auf zu lernen.</p>
-          <div class="specs">
-            <div class="spec"><span class="spec__label">Plätze</span><span class="spec__value">2</span></div>
-            <div class="spec"><span class="spec__label">Reise</span><span class="spec__value">185 <small>km/h</small></span></div>
-            <div class="spec"><span class="spec__label">Miete ab</span><span class="spec__value">159 <small>CHF/h</small></span></div>
-          </div>
-          <a class="btn btn--ghost" href="flugzeug-hb-cvz.html">Alles zur HB-CVZ <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-        </div>
-      </article>
-      
-      <article class="fleet-switch__panel" data-fleet-panel="hb-cql" hidden>
-        <div class="fleet-switch__media">
-          <img src="assets/img/flotte/hb-cql-714.webp" srcset="assets/img/flotte/hb-cql-480.webp 480w, assets/img/flotte/hb-cql-714.webp 714w" sizes="(max-width: 860px) 100vw, 55vw" width="714" height="480" alt="Cessna 172P Skyhawk II HB-CQL der FLUBAG" loading="lazy" decoding="async">
-          <span class="fleet-switch__badge mono">HB-CQL</span>
-        </div>
-        <div class="fleet-switch__info">
-          <h3>Cessna 172P Skyhawk II</h3>
-          <p class="muted">Vier Plätze, viel Übersicht und eine Motorleistung, die auch auf der kurzen Graspiste in Beromünster souverän wirkt. Die Skyhawk ist für Rundflüge mit Familie oder Freunden genauso gemacht wie für die Ausbildung und die ersten Ausflüge nach der Prüfung.</p>
-          <div class="specs">
-            <div class="spec"><span class="spec__label">Plätze</span><span class="spec__value">4</span></div>
-            <div class="spec"><span class="spec__label">Reise</span><span class="spec__value">222 <small>km/h</small></span></div>
-            <div class="spec"><span class="spec__label">Miete ab</span><span class="spec__value">246 <small>CHF/h</small></span></div>
-          </div>
-          <a class="btn btn--ghost" href="flugzeug-hb-cql.html">Alles zur HB-CQL <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-        </div>
-      </article>
-      
-      <article class="fleet-switch__panel" data-fleet-panel="hb-czu" hidden>
-        <div class="fleet-switch__media">
-          <img src="assets/img/flotte/hb-czu-640.webp" srcset="assets/img/flotte/hb-czu-480.webp 480w, assets/img/flotte/hb-czu-640.webp 640w" sizes="(max-width: 860px) 100vw, 55vw" width="640" height="419" alt="Cessna 182S Skylane HB-CZU der FLUBAG" loading="lazy" decoding="async">
-          <span class="fleet-switch__badge mono">HB-CZU</span>
-        </div>
-        <div class="fleet-switch__info">
-          <h3>Cessna 182S Skylane</h3>
-          <p class="muted">Einspritzmotor, Verstellpropeller und Autopilot: Die Skylane ist das stärkste Flugzeug der Flotte und gemacht für längere Reisen und anspruchsvolle Alpenflüge wie den Matterhorn Rundflug.</p>
-          <div class="specs">
-            <div class="spec"><span class="spec__label">Plätze</span><span class="spec__value">4</span></div>
-            <div class="spec"><span class="spec__label">Reise</span><span class="spec__value">260 <small>km/h</small></span></div>
-            <div class="spec"><span class="spec__label">Miete ab</span><span class="spec__value">297 <small>CHF/h</small></span></div>
-          </div>
-          <a class="btn btn--ghost" href="flugzeug-hb-czu.html">Alles zur HB-CZU <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-        </div>
-      </article>
-      
-      <article class="fleet-switch__panel" data-fleet-panel="hb-oen" hidden>
-        <div class="fleet-switch__media">
-          <img src="assets/img/flotte/hb-oen-640.webp" srcset="assets/img/flotte/hb-oen-480.webp 480w, assets/img/flotte/hb-oen-640.webp 640w" sizes="(max-width: 860px) 100vw, 55vw" width="640" height="480" alt="Piper L-4 Grasshopper (J-3 Cub) HB-OEN der FLUBAG" loading="lazy" decoding="async">
-          <span class="fleet-switch__badge mono">HB-OEN</span>
-        </div>
-        <div class="fleet-switch__info">
-          <h3>Piper L-4 Grasshopper (J-3 Cub)</h3>
-          <p class="muted">Gelb, leicht und mit Heckrad: Die Piper L-4 ist Fliegen in seiner ursprünglichsten Form. Tandem sitzen, Fenster auf, tief und langsam über das Seetal. Wer Heckradfliegen lernen will, ist hier genau richtig.</p>
-          <div class="specs">
-            <div class="spec"><span class="spec__label">Plätze</span><span class="spec__value">2</span></div>
-            <div class="spec"><span class="spec__label">Reise</span><span class="spec__value">120 <small>km/h</small></span></div>
-            <div class="spec"><span class="spec__label">Miete ab</span><span class="spec__value">198 <small>CHF/h</small></span></div>
-          </div>
-          <a class="btn btn--ghost" href="flugzeug-hb-oen.html">Alles zur HB-OEN <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-        </div>
-      </article>
-      
-      <article class="fleet-switch__panel" data-fleet-panel="hb-wec" hidden>
-        <div class="fleet-switch__media">
-          <img src="assets/img/flotte/hb-wec-640.webp" srcset="assets/img/flotte/hb-wec-480.webp 480w, assets/img/flotte/hb-wec-640.webp 640w" sizes="(max-width: 860px) 100vw, 55vw" width="640" height="480" alt="Lightwing AC4 (CS-LSA) HB-WEC der FLUBAG" loading="lazy" decoding="async">
-          <span class="fleet-switch__badge mono">HB-WEC</span>
-        </div>
-        <div class="fleet-switch__info">
-          <h3>Lightwing AC4 (CS-LSA)</h3>
-          <p class="muted">Entwickelt und gebaut in der Zentralschweiz, knapp 30 Kilometer Luftlinie von Beromünster entfernt. Die AC4 kombiniert einen sparsamen Rotax Einspritzmotor mit einem modernen Glascockpit und ist damit das effizienteste Flugzeug der Flotte.</p>
-          <div class="specs">
-            <div class="spec"><span class="spec__label">Plätze</span><span class="spec__value">2</span></div>
-            <div class="spec"><span class="spec__label">Reise</span><span class="spec__value">176 <small>km/h</small></span></div>
-            <div class="spec"><span class="spec__label">Miete ab</span><span class="spec__value">159 <small>CHF/h</small></span></div>
-          </div>
-          <a class="btn btn--ghost" href="flugzeug-hb-wec.html">Alles zur HB-WEC <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-        </div>
-      </article>
-      
     </div>
+
+    <div class="gift-band__sub" data-reveal>
+      <h3 class="gift-band__subtitle"><svg class="icon icon-route" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg>Geschenkideen: Rundflüge</h3>
+      <p class="gift-band__subtext">Fünf Routen, von 20 Minuten über Luzern bis zum grossen Alpenflug zum Matterhorn. Bis zu drei Gäste, ein erfahrener Pilot.</p>
+      <a class="btn btn--text gift-band__all" href="rundfluege.html">Alle Rundflüge <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+    </div>
+    <ul class="routes" role="list" data-reveal>
+      
+      <li>
+        <a class="route-card" href="rundfluege.html#luzern">
+          <span class="route-card__media"><img src="assets/img/rundflug/luzern-1440.webp" srcset="assets/img/rundflug/luzern-480.webp 480w, assets/img/rundflug/luzern-960.webp 960w, assets/img/rundflug/luzern-1440.webp 1440w, assets/img/rundflug/luzern-2048.webp 2048w" sizes="(max-width: 900px) 72vw, 260px" width="2400" height="1593" alt="Rundflug Luzern" loading="lazy" decoding="async"></span>
+          <span class="route-card__num mono">01</span>
+          <span class="route-card__body">
+            <span class="route-card__title">Luzern</span>
+            <span class="route-card__text">Seetal, drei Seen und die Kapellbrücke von oben.</span>
+            <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>20 min</span><span class="chip chip--brand">CHF 120 p.P.</span></span>
+          </span>
+        </a>
+      </li>
+      
+      <li>
+        <a class="route-card" href="rundfluege.html#pilatus-rigi">
+          <span class="route-card__media"><img src="assets/img/rundflug/pilatus-rigi-1440.webp" srcset="assets/img/rundflug/pilatus-rigi-480.webp 480w, assets/img/rundflug/pilatus-rigi-960.webp 960w, assets/img/rundflug/pilatus-rigi-1440.webp 1440w, assets/img/rundflug/pilatus-rigi-2048.webp 2048w" sizes="(max-width: 900px) 72vw, 260px" width="2400" height="1800" alt="Rundflug Pilatus &amp; Rigi" loading="lazy" decoding="async"></span>
+          <span class="route-card__num mono">02</span>
+          <span class="route-card__body">
+            <span class="route-card__title">Pilatus & Rigi</span>
+            <span class="route-card__text">Die beiden Hausberge Luzerns aus nächster Nähe.</span>
+            <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>30 min</span><span class="chip chip--brand">CHF 160 p.P.</span></span>
+          </span>
+        </a>
+      </li>
+      
+      <li>
+        <a class="route-card" href="rundfluege.html#titlis">
+          <span class="route-card__media"><img src="assets/img/rundflug/titlis-1440.webp" srcset="assets/img/rundflug/titlis-480.webp 480w, assets/img/rundflug/titlis-960.webp 960w, assets/img/rundflug/titlis-1440.webp 1440w, assets/img/rundflug/titlis-2048.webp 2048w" sizes="(max-width: 900px) 72vw, 260px" width="2400" height="1800" alt="Rundflug Titlis" loading="lazy" decoding="async"></span>
+          <span class="route-card__num mono">03</span>
+          <span class="route-card__body">
+            <span class="route-card__title">Titlis</span>
+            <span class="route-card__text">Raus aus dem Nebel, rein ins Gletscherweiss.</span>
+            <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>45 min</span><span class="chip chip--brand">CHF 220 p.P.</span></span>
+          </span>
+        </a>
+      </li>
+      
+      <li>
+        <a class="route-card" href="rundfluege.html#eiger-moench-jungfrau">
+          <span class="route-card__media"><img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 900px) 72vw, 260px" width="2400" height="1800" alt="Rundflug Eiger, Mönch &amp; Jungfrau" loading="lazy" decoding="async"></span>
+          <span class="route-card__num mono">04</span>
+          <span class="route-card__body">
+            <span class="route-card__title">Eiger, Mönch & Jungfrau</span>
+            <span class="route-card__text">Top of Europe und das UNESCO Welterbe von oben.</span>
+            <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>60 min</span><span class="chip chip--brand">CHF 290 p.P.</span></span>
+          </span>
+        </a>
+      </li>
+      
+      <li>
+        <a class="route-card" href="rundfluege.html#matterhorn">
+          <span class="route-card__media"><img src="assets/img/rundflug/matterhorn-1440.webp" srcset="assets/img/rundflug/matterhorn-480.webp 480w, assets/img/rundflug/matterhorn-960.webp 960w, assets/img/rundflug/matterhorn-1440.webp 1440w, assets/img/rundflug/matterhorn-2048.webp 2048w" sizes="(max-width: 900px) 72vw, 260px" width="2400" height="1800" alt="Rundflug Matterhorn" loading="lazy" decoding="async"></span>
+          <span class="route-card__num mono">05</span>
+          <span class="route-card__body">
+            <span class="route-card__title">Matterhorn</span>
+            <span class="route-card__text">Der grosse Alpenflug zum berühmtesten Berg der Welt.</span>
+            <span class="route-card__meta"><span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>90 min</span><span class="chip chip--brand">CHF 430 p.P.</span></span>
+          </span>
+        </a>
+      </li>
+      
+    </ul>
   </div>
 </section>
 
-<section class="section section--chart training" aria-labelledby="training-title">
+<section class="section home-sec section--chart training" id="ausbildung" aria-labelledby="training-title">
   <div class="container split split--top">
-    <div class="stack-l sticky">
+    <div class="stack-l training__intro">
       <div class="stack">
         <p class="eyebrow" data-reveal>Pilot werden</p>
         <h2 id="training-title" data-split>Vom ersten Flug zur eigenen Lizenz.</h2>
@@ -587,16 +430,17 @@
       </div>
       <div class="training__price instrument hud-corners force-dark" data-reveal>
         <span class="readout__label">PPL komplett, inkl. Theorie</span>
-        <span class="training__price-value">rund CHF <span data-count="21850">21850</span></span>
+        <span class="training__price-value">rund CHF 21’850</span>
         <span class="mono subtle">Erfahrungswert FLUBAG, individuell verschieden</span>
       </div>
       <div class="row" data-reveal>
         <a class="btn btn--primary" href="ausbildung.html#rechner"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Kosten berechnen</a>
         <a class="btn btn--ghost" href="infoabende.html"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Infoabend</a>
+        <a class="btn btn--text" href="ausbildung.html">Alles zur Ausbildung <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
       </div>
     </div>
-    <ol class="steps" data-steps>
-      <li class="step"><span class="step__num">01</span><div class="step__body"><h3 class="step__title">Schnupperflug</h3><p>Du sitzt selbst am Steuer. Schon dieser Flug kann an die Ausbildung angerechnet werden.</p></div></li>
+    <ol class="steps training__steps" data-steps>
+      <li class="step"><span class="step__num">01</span><div class="step__body"><h3 class="step__title">Schnupperflug</h3><p>Du sitzt selbst am Steuer. Schon dieser Flug kann an die Ausbildung angerechnet werden. <a class="brand-text" href="schnupperflug.html">Zum Schnupperflug</a></p></div></li>
       <li class="step"><span class="step__num">02</span><div class="step__body"><h3 class="step__title">Medical und Theorie</h3><p>Fliegerärztliche Untersuchung und Theorie, von Aerodynamik bis Luftfahrtgesetz, zum Beispiel bei Safety Wings.</p></div></li>
       <li class="step"><span class="step__num">03</span><div class="step__body"><h3 class="step__title">Ab-initio und erster Alleinflug</h3><p>Starten, landen, Notverfahren. Und dann der magische Moment: du fliegst allein.</p></div></li>
       <li class="step"><span class="step__num">04</span><div class="step__body"><h3 class="step__title">Navigation und Alpeneinweisung</h3><p>Streckenflüge, zweimal über die Alpen und ein Solo-Navigationsflug über 250 km.</p></div></li>
@@ -605,106 +449,185 @@
   </div>
 </section>
 
-<section class="section voucher-teaser" aria-labelledby="voucher-title">
-  <div class="container split">
-    <div class="voucher-teaser__visual" data-reveal="scale">
-      <div class="pass" data-tilt="10" aria-hidden="true">
-        <div class="pass__main">
-          <div class="pass__top"><span class="pass__brand"><img src="logo.svg" alt="">FLUBAG</span><span class="pass__label">Boarding Pass</span></div>
-          <div class="pass__route"><span class="pass__code">LSZO</span><span class="pass__line"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg></span><span class="pass__code">ALPS</span></div>
-          <div class="pass__grid">
-            <div><p class="pass__label">Passagier</p><p class="pass__value">Für dich</p></div>
-            <div><p class="pass__label">Flug</p><p class="pass__value">Matterhorn</p></div>
-            <div><p class="pass__label">Dauer</p><p class="pass__value">90 min</p></div>
-          </div>
-          <p class="pass__msg">"Happy Birthday und guten Flug!"</p>
+<section class="section home-sec section--alt about" id="flugplatz" aria-labelledby="about-title">
+  <div class="container">
+    <div class="split split--wide-right about__split">
+      <div class="about__media" data-reveal="fade">
+        <div class="media-frame about__frame"><img src="assets/img/hero/slide-05-1200.webp" srcset="assets/img/hero/slide-05-480.webp 480w, assets/img/hero/slide-05-960.webp 960w, assets/img/hero/slide-05-1200.webp 1200w" sizes="(max-width: 860px) 100vw, 45vw" width="1200" height="800" alt="Cessna auf der Graspiste des Flugplatzes, im Hintergrund Beromünster" loading="lazy" decoding="async"></div>
+        <div class="about__badge instrument hud-corners">
+          <span class="readout__label">Piste</span>
+          <span class="about__badge-value">15/33</span>
+          <span class="mono subtle">Gras · 510 × 30 m</span>
         </div>
-        <div class="pass__stub">
-          <div><p class="pass__label">Gate</p><p class="pass__value">Piste 33</p></div>
-          <p class="pass__price">CHF 430</p>
-          <div class="pass__barcode"></div>
+      </div>
+      <div class="stack-l">
+        <div class="stack">
+          <p class="eyebrow" data-reveal>Der Flugplatz</p>
+          <h2 id="about-title" data-split>Ein Flugplatz mit Charakter.</h2>
+          <p class="lead" data-reveal>Seit 1966 betreibt die FLUBAG Flugbetriebs AG den Flugplatz Luzern-Beromünster. Hier sind Flugschule und Rundflüge zu Hause, dazu Helikopter, Fallschirmspringer und Segelflieger unserer Partner am Flugplatz.</p>
+          <p class="muted" data-reveal>Unser Team aus nebenamtlichen Fluglehrern und Rundflugpiloten teilt eine Leidenschaft: Menschen für das Fliegen zu begeistern. Dazu gehören fünf eigene Flugzeuge, vom Schulflugzeug Cessna 150 bis zur legendären Piper Cub.</p>
+        </div>
+        <div class="stats about__stats" data-reveal>
+          <div class="stat"><span class="stat__value">1966</span><span class="stat__label">Gegründet</span></div>
+          <div class="stat"><span class="stat__value">5</span><span class="stat__label">Flugzeuge</span></div>
+          <div class="stat"><span class="stat__value">10</span><span class="stat__label">Fluglehrer</span></div>
+          <div class="stat"><span class="stat__value">2146<small>ft</small></span><span class="stat__label">Platzhöhe</span></div>
+        </div>
+        <div class="row" data-reveal>
+          <a class="btn btn--ghost" href="geschichte.html"><svg class="icon icon-history" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> <path d="M12 7v5l4 2" /> </svg>Geschichte &amp; Team</a>
+          <a class="btn btn--text" href="anreise.html">Anreise <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
         </div>
       </div>
     </div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Neu: Gutscheine online</p>
-        <h2 id="voucher-title" data-split>Verschenk ein Stück Himmel.</h2>
-        <p class="lead" data-reveal>Fluggutscheine ab Luzern-Beromünster für Rundflüge und Schnupperflüge oder als Wertgutschein: jederzeit bequem online kaufen und direkt zuhause ausdrucken, auf Wunsch auch per Post. Perfekt für Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
+
+    <div class="fleet-row">
+      <div class="fleet-row__head" data-reveal>
+        <div class="stack">
+          <p class="eyebrow">Unsere Flotte</p>
+          <h3 id="fleet-title" class="fleet-row__title">Fünf Flugzeuge, fünf Charaktere.</h3>
+        </div>
+        <p class="muted fleet-row__lead">Vom gutmütigen Schulflugzeug über die Reisemaschine mit Autopilot bis zur gelben Legende mit Heckrad.</p>
+        <a class="btn btn--text" href="flotte.html">Zur Flotte <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
       </div>
-      <ul class="checklist" data-reveal-group>
-        <li data-reveal><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Persönliche Widmung bis 160 Zeichen</li>
-        <li data-reveal><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>print@home oder Postversand</li>
-        <li data-reveal><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Wertgutscheine von CHF 20 bis 3000</li>
+      <ul class="fleet-row__list" role="list" data-reveal>
+        
+        <li>
+          <a class="plane-card" href="flugzeug-hb-cvz.html">
+            <span class="plane-card__media"><img src="assets/img/flotte/hb-cvz-640.webp" srcset="assets/img/flotte/hb-cvz-480.webp 480w, assets/img/flotte/hb-cvz-640.webp 640w" sizes="(max-width: 760px) 60vw, 250px" width="640" height="480" alt="Reims-Cessna F150J HB-CVZ der FLUBAG" loading="lazy" decoding="async"><span class="plane-card__reg mono">HB-CVZ</span></span>
+            <span class="plane-card__body">
+              <span class="plane-card__type">Cessna 150</span>
+              <span class="plane-card__nick">Das Schulflugzeug</span>
+              <span class="plane-card__meta mono">2 Plätze · <span class="nowrap">Miete ab CHF 159/h</span></span>
+            </span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="plane-card" href="flugzeug-hb-cql.html">
+            <span class="plane-card__media"><img src="assets/img/flotte/hb-cql-714.webp" srcset="assets/img/flotte/hb-cql-480.webp 480w, assets/img/flotte/hb-cql-714.webp 714w" sizes="(max-width: 760px) 60vw, 250px" width="714" height="480" alt="Cessna 172P Skyhawk II HB-CQL der FLUBAG" loading="lazy" decoding="async"><span class="plane-card__reg mono">HB-CQL</span></span>
+            <span class="plane-card__body">
+              <span class="plane-card__type">Cessna 172</span>
+              <span class="plane-card__nick">Der Allrounder</span>
+              <span class="plane-card__meta mono">4 Plätze · <span class="nowrap">Miete ab CHF 246/h</span></span>
+            </span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="plane-card" href="flugzeug-hb-czu.html">
+            <span class="plane-card__media"><img src="assets/img/flotte/hb-czu-640.webp" srcset="assets/img/flotte/hb-czu-480.webp 480w, assets/img/flotte/hb-czu-640.webp 640w" sizes="(max-width: 760px) 60vw, 250px" width="640" height="419" alt="Cessna 182S Skylane HB-CZU der FLUBAG" loading="lazy" decoding="async"><span class="plane-card__reg mono">HB-CZU</span></span>
+            <span class="plane-card__body">
+              <span class="plane-card__type">Cessna 182</span>
+              <span class="plane-card__nick">Die Reisemaschine</span>
+              <span class="plane-card__meta mono">4 Plätze · <span class="nowrap">Miete ab CHF 297/h</span></span>
+            </span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="plane-card" href="flugzeug-hb-oen.html">
+            <span class="plane-card__media"><img src="assets/img/flotte/hb-oen-640.webp" srcset="assets/img/flotte/hb-oen-480.webp 480w, assets/img/flotte/hb-oen-640.webp 640w" sizes="(max-width: 760px) 60vw, 250px" width="640" height="480" alt="Piper L-4 Grasshopper (J-3 Cub) HB-OEN der FLUBAG" loading="lazy" decoding="async"><span class="plane-card__reg mono">HB-OEN</span></span>
+            <span class="plane-card__body">
+              <span class="plane-card__type">Piper L-4</span>
+              <span class="plane-card__nick">Die Legende</span>
+              <span class="plane-card__meta mono">2 Plätze · <span class="nowrap">Miete ab CHF 198/h</span></span>
+            </span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="plane-card" href="flugzeug-hb-wec.html">
+            <span class="plane-card__media"><img src="assets/img/flotte/hb-wec-640.webp" srcset="assets/img/flotte/hb-wec-480.webp 480w, assets/img/flotte/hb-wec-640.webp 640w" sizes="(max-width: 760px) 60vw, 250px" width="640" height="480" alt="Lightwing AC4 (CS-LSA) HB-WEC der FLUBAG" loading="lazy" decoding="async"><span class="plane-card__reg mono">HB-WEC</span></span>
+            <span class="plane-card__body">
+              <span class="plane-card__type">Lightwing AC4</span>
+              <span class="plane-card__nick">Swiss Made</span>
+              <span class="plane-card__meta mono">2 Plätze · <span class="nowrap">Miete ab CHF 159/h</span></span>
+            </span>
+          </a>
+        </li>
+        
       </ul>
-      <div class="row" data-reveal>
-        <a class="btn btn--primary" href="gutscheine.html#gestalten"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Gutschein gestalten</a>
-        <a class="btn btn--text" href="https://shop.e-guma.ch/flubag/de/gutscheine" target="_blank" rel="noopener">Direkt zum Shop <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
-      </div>
     </div>
   </div>
 </section>
 
-<section class="section section--alt live" aria-labelledby="live-title">
+<section class="section home-sec news" id="aktuelles" aria-labelledby="news-title">
   <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Live am Flugplatz</p>
-        <h2 id="live-title" data-split>Wie sieht's aus in Beromünster?</h2>
-      </div>
-      <p class="lead" data-reveal>Webcam, Wind auf der Piste und Platzstatus nach den aktuellen Betriebszeiten. Automatisch aktualisiert.</p>
-    </div>
-    <div class="live__grid">
-      <a class="live__cam card" href="webcams.html" data-reveal>
-        <span class="card__media card__media--wide">
-          <img src="https://flubag.ch/webcam/cam-south000.jpg" alt="Live Webcam LSZO Richtung Holding Point Piste 33" loading="lazy" data-webcam data-fallback="assets/img/flugplatz/webcam-sued-960.webp" width="1600" height="1200">
-          <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
-        </span>
-        <span class="card__body"><span class="card__title">Webcam Süd</span><span class="card__text">Blick Richtung Holding Point Piste 33</span></span>
-      </a>
-      <div class="card card--pad" data-reveal>
-        <p class="eyebrow eyebrow--plain">Platzstatus</p>
-        <div class="mt-s" data-airfield-status></div>
-      </div>
-      <div class="card card--pad live__wind" data-reveal>
-        <p class="eyebrow eyebrow--plain">Wind auf der Piste</p>
-        <div class="mt-s" data-xwind></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section news" aria-labelledby="news-title">
-  <div class="container">
-    <div class="section-head section-head--split">
+    <div class="news__head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Aktuelles</p>
         <h2 id="news-title" data-split>Neues vom Platz.</h2>
       </div>
-      <div class="row" data-reveal><a class="btn btn--ghost" href="aktuelles.html">Alle News <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a></div>
+      <a class="btn btn--ghost" href="aktuelles.html" data-reveal>Alle News <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
     </div>
-    <div class="grid grid-4" data-reveal-group>
+    <ul class="news__list" role="list" data-reveal-group="0.08">
       
-      <a class="card card--glow" href="news-ziellandekonkurrenz-2026.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/ziellandekonkurrenz-2026-1440.webp" srcset="assets/img/news/ziellandekonkurrenz-2026-480.webp 480w, assets/img/news/ziellandekonkurrenz-2026-960.webp 960w, assets/img/news/ziellandekonkurrenz-2026-1440.webp 1440w, assets/img/news/ziellandekonkurrenz-2026-1800.webp 1800w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" width="1800" height="2400" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Event</span></span>
-        <span class="card__body"><span class="card__title">Impressionen: Ziellandekonkurrenz 2026</span><span class="card__text">Am letzten Samstag fand die Ziellandekonkurrenz 2026 statt. Es nahmen ca. 40 Piloten an der Konkurrenz teil.</span></span>
-      </a>
+      <li data-reveal>
+        <a class="news-item" href="news-ziellandekonkurrenz-2026.html">
+          <span class="news-item__media"><img src="assets/img/news/ziellandekonkurrenz-2026-1440.webp" srcset="assets/img/news/ziellandekonkurrenz-2026-480.webp 480w, assets/img/news/ziellandekonkurrenz-2026-960.webp 960w, assets/img/news/ziellandekonkurrenz-2026-1440.webp 1440w, assets/img/news/ziellandekonkurrenz-2026-1800.webp 1800w" sizes="(max-width: 640px) 112px, 200px" width="1800" height="2400" alt="" loading="lazy" decoding="async"></span>
+          <span class="news-item__body">
+            <span class="news-item__cat mono">Event</span>
+            <span class="news-item__title">Impressionen: Ziellandekonkurrenz 2026</span>
+            <span class="news-item__text">Am letzten Samstag fand die Ziellandekonkurrenz 2026 statt. Es nahmen ca. 40 Piloten an der Konkurrenz teil.</span>
+          </span>
+          <span class="news-item__go" aria-hidden="true"><svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></span>
+        </a>
+      </li>
       
-      <a class="card card--glow" href="news-gratulation-ppl.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/ppl-ronnie-widmer-1440.webp" srcset="assets/img/news/ppl-ronnie-widmer-480.webp 480w, assets/img/news/ppl-ronnie-widmer-960.webp 960w, assets/img/news/ppl-ronnie-widmer-1440.webp 1440w, assets/img/news/ppl-ronnie-widmer-2048.webp 2048w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" width="2400" height="1800" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Flugschule</span></span>
-        <span class="card__body"><span class="card__title">Gratulation zur PPL</span><span class="card__text">Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio.</span></span>
-      </a>
+      <li data-reveal>
+        <a class="news-item" href="news-gratulation-ppl.html">
+          <span class="news-item__media"><img src="assets/img/news/ppl-ronnie-widmer-1440.webp" srcset="assets/img/news/ppl-ronnie-widmer-480.webp 480w, assets/img/news/ppl-ronnie-widmer-960.webp 960w, assets/img/news/ppl-ronnie-widmer-1440.webp 1440w, assets/img/news/ppl-ronnie-widmer-2048.webp 2048w" sizes="(max-width: 640px) 112px, 200px" width="2400" height="1800" alt="" loading="lazy" decoding="async"></span>
+          <span class="news-item__body">
+            <span class="news-item__cat mono">Flugschule</span>
+            <span class="news-item__title">Gratulation zur PPL</span>
+            <span class="news-item__text">Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio.</span>
+          </span>
+          <span class="news-item__go" aria-hidden="true"><svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></span>
+        </a>
+      </li>
       
-      <a class="card card--glow" href="infoabende.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/infoabend-720.webp" srcset="assets/img/news/infoabend-480.webp 480w, assets/img/news/infoabend-720.webp 720w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" width="720" height="480" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Flugschule</span></span>
-        <span class="card__body"><span class="card__title">Infoabende "Wie werde ich Pilot"</span><span class="card__text">Träumst du davon, zu fliegen wie ein Vogel? Dann lebe deinen Traum und lerne fliegen!</span></span>
-      </a>
+      <li data-reveal>
+        <a class="news-item" href="infoabende.html">
+          <span class="news-item__media"><img src="assets/img/news/infoabend-720.webp" srcset="assets/img/news/infoabend-480.webp 480w, assets/img/news/infoabend-720.webp 720w" sizes="(max-width: 640px) 112px, 200px" width="720" height="480" alt="" loading="lazy" decoding="async"></span>
+          <span class="news-item__body">
+            <span class="news-item__cat mono">Flugschule</span>
+            <span class="news-item__title">Infoabende "Wie werde ich Pilot"</span>
+            <span class="news-item__text">Träumst du davon, zu fliegen wie ein Vogel? Dann lebe deinen Traum und lerne fliegen!</span>
+          </span>
+          <span class="news-item__go" aria-hidden="true"><svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></span>
+        </a>
+      </li>
       
-      <a class="card card--glow" href="news-hangarierung.html" data-reveal>
-        <span class="card__media"><img src="assets/img/news/hangarierung-1440.webp" srcset="assets/img/news/hangarierung-480.webp 480w, assets/img/news/hangarierung-960.webp 960w, assets/img/news/hangarierung-1440.webp 1440w, assets/img/news/hangarierung-2048.webp 2048w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" width="2048" height="1536" alt="" loading="lazy" decoding="async"><span class="card__badge chip">Piloten</span></span>
-        <span class="card__body"><span class="card__title">Helft mit, Hangarierungsschäden zu vermeiden</span><span class="card__text">Wir bitten alle Piloten, aktiv bei der Vermeidung von Hangarierungsschäden mitzuhelfen.</span></span>
-      </a>
+      <li data-reveal>
+        <a class="news-item" href="news-hangarierung.html">
+          <span class="news-item__media"><img src="assets/img/news/hangarierung-1440.webp" srcset="assets/img/news/hangarierung-480.webp 480w, assets/img/news/hangarierung-960.webp 960w, assets/img/news/hangarierung-1440.webp 1440w, assets/img/news/hangarierung-2048.webp 2048w" sizes="(max-width: 640px) 112px, 200px" width="2048" height="1536" alt="" loading="lazy" decoding="async"></span>
+          <span class="news-item__body">
+            <span class="news-item__cat mono">Piloten</span>
+            <span class="news-item__title">Helft mit, Hangarierungsschäden zu vermeiden</span>
+            <span class="news-item__text">Wir bitten alle Piloten, aktiv bei der Vermeidung von Hangarierungsschäden mitzuhelfen.</span>
+          </span>
+          <span class="news-item__go" aria-hidden="true"><svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></span>
+        </a>
+      </li>
       
+    </ul>
+  </div>
+</section>
+
+<section class="section home-sec section--alt cam-strip" id="webcam" aria-labelledby="cam-title">
+  <div class="container cam-strip__inner">
+    <a class="cam-strip__media" href="webcams.html" data-reveal="fade">
+      <img src="https://flubag.ch/webcam/cam-south000.jpg" alt="Live Webcam LSZO Richtung Holding Point Piste 33" loading="lazy" data-webcam data-fallback="assets/img/flugplatz/webcam-sued-960.webp" width="1600" height="1200">
+      <span class="card__badge chip chip--bad"><span class="dot dot--bad"></span>LIVE</span>
+    </a>
+    <div class="cam-strip__body" data-reveal>
+      <p class="eyebrow">Live am Flugplatz</p>
+      <h2 id="cam-title" class="cam-strip__title">Webcam und Wetter am Flugplatz.</h2>
+      <p class="muted">Wie sieht's aus in Beromünster? Die Webcam Süd blickt Richtung Holding Point Piste 33. Alle Webcams und das aktuelle Wetter findest du auf der Webcam-Seite.</p>
+      <div class="cam-strip__links">
+        <a class="btn btn--ghost" href="webcams.html"><svg class="icon icon-camera" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" /> <circle cx="12" cy="13" r="3" /> </svg>Webcams &amp; Wetter</a>
+        <a class="cam-strip__pilots" href="piloten.html"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>Für Piloten: Platzstatus, Wind, Weisungen <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+      </div>
     </div>
   </div>
 </section>
@@ -748,53 +671,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html">Preise</a></li>
-        <li><a href="reporting.html">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 

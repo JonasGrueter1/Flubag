@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -7,7 +7,7 @@
 <title>Entwurf: Ausbildung PPL &amp; LAPL | FLUBAG Flugplatz Luzern-Beromünster</title>
 <meta name="description" content="Pilot werden in Luzern-Beromünster: Ausbildung zur PPL oder LAPL auf Cessna 150 und 172. 9 Schritte, rund CHF 21’850 inkl. Theorie, mit Kostenrechner.">
 <link rel="canonical" href="https://www.flubag.ch/ausbildung.html">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz">
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -248,31 +254,19 @@
 <section class="page-hero ausb-hero">
   <div class="page-hero__media"><img src="assets/img/hero/slide-04-1440.webp" srcset="assets/img/hero/slide-04-480.webp 480w, assets/img/hero/slide-04-960.webp 960w, assets/img/hero/slide-04-1440.webp 1440w, assets/img/hero/slide-04-1600.webp 1600w" sizes="100vw" width="1600" height="1071" alt="Cessna im Flug über dem Aletschgletscher" loading="eager" fetchpriority="high"></div>
   <div class="container page-hero__inner ausb-hero__inner">
-    <div class="ausb-hero__content">
-      <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Fliegen lernen</li><li>Ausbildung PPL &amp; LAPL</li></ol>
-      <p class="eyebrow">Ausbildung PPL &amp; LAPL</p>
-      <h1 data-split data-split-now>Werde Pilotin. Werde Pilot.</h1>
-      <p class="lead">Auf dem Flugplatz Luzern-Beromünster, mitten in der Schweiz, bilden wir dich auf einmotorigen Flugzeugen aus: zur Privatpilotenlizenz PPL oder zur LAPL. Vom ersten Schnupperflug bis zur Flugprüfung.</p>
-      <div class="page-hero__meta">
-        <span class="chip"><svg class="icon icon-graduation-cap" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg>PPL(A) oder LAPL(A)</span>
-        <span class="chip"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>Cessna 150 und/oder 172</span>
-        <span class="chip chip--brand"><svg class="icon icon-tag" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /> <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /> </svg>rund CHF 21’850 inkl. Theorie</span>
-      </div>
-      <div class="row mt-s">
-        <a class="btn btn--primary btn--lg" href="#rechner" data-magnetic><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Kosten berechnen</a>
-        <a class="btn btn--ghost btn--lg" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Mit einem Schnupperflug starten</a>
-      </div>
+    <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Fliegen lernen</li><li>Ausbildung PPL &amp; LAPL</li></ol>
+    <p class="eyebrow">Ausbildung PPL &amp; LAPL</p>
+    <h1 data-split data-split-now>Werde Pilotin. Werde Pilot.</h1>
+    <p class="lead">Auf dem Flugplatz Luzern-Beromünster, mitten in der Schweiz, bilden wir dich auf einmotorigen Flugzeugen aus: zur Privatpilotenlizenz PPL oder zur LAPL. Vom ersten Schnupperflug bis zur Flugprüfung.</p>
+    <div class="page-hero__meta">
+      <span class="chip ausb-hero__chip-opt"><svg class="icon icon-graduation-cap" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg>PPL(A) oder LAPL(A)</span>
+      <span class="chip ausb-hero__chip-opt"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>Cessna 150 und/oder 172</span>
+      <span class="chip chip--brand"><svg class="icon icon-tag" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /> <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /> </svg>rund CHF 21’850 inkl. Theorie</span>
     </div>
-    <aside class="ausb-hero__hud instrument hud-corners force-dark" aria-label="Ausbildung auf einen Blick">
-      <div class="ausb-hero__hud-head"><span class="mono">FLIGHT PLAN · PPL(A)</span><span class="mono ausb-hero__hud-dep">LSZO</span></div>
-      <div class="ausb-hero__hud-grid">
-        <div class="readout"><span class="readout__label">Schritte</span><span class="readout__value">9</span></div>
-        <div class="readout"><span class="readout__label">Flugstunden</span><span class="readout__value">ca. 55 <small>h</small></span></div>
-        <div class="readout"><span class="readout__label">Instruktion</span><span class="readout__value">100 <small>h</small></span></div>
-        <div class="readout"><span class="readout__label">Lizenz ab</span><span class="readout__value">17 <small>J.</small></span></div>
-      </div>
-      <a class="ausb-hero__hud-link" href="#ablauf">Zum Ablauf <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-    </aside>
+    <div class="row mt-s">
+      <a class="btn btn--primary btn--lg" href="#rechner"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Kosten berechnen</a>
+      <a class="btn btn--ghost btn--lg" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Mit einem Schnupperflug starten</a>
+    </div>
   </div>
   <a class="ausb-hero__scroll" href="#ueberblick" aria-label="Weiter nach unten"><span></span></a>
 </section>
@@ -281,12 +275,10 @@
   <div class="container">
     <ul class="subnav__list">
       <li><a href="#ueberblick">Überblick</a></li>
-      <li><a href="#kosten">Kosten</a></li>
-      <li><a href="#rechner">Kostenrechner</a></li>
+      <li><a href="#kosten">Kosten und Rechner</a></li>
       <li><a href="#ablauf">9 Schritte</a></li>
       <li><a href="#vergleich">PPL oder LAPL</a></li>
       <li><a href="#check">Bereit?</a></li>
-      <li><a href="#funk">Funkalphabet</a></li>
       <li><a href="#unterlagen">Unterlagen</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
@@ -295,15 +287,8 @@
 
 <!-- Überblick -->
 <section class="section" id="ueberblick" aria-labelledby="ueberblick-title">
-  <div class="container split split--wide-right">
-    <div class="ausb-intro__media">
-      <div class="media-frame media-frame--tall" data-reveal="clip"><img src="assets/img/hero/slide-03-1440.webp" srcset="assets/img/hero/slide-03-480.webp 480w, assets/img/hero/slide-03-960.webp 960w, assets/img/hero/slide-03-1440.webp 1440w, assets/img/hero/slide-03-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 45vw" width="1920" height="1281" alt="Fluglehrer bespricht mit drei Gästen die Karte vor der Cessna HB-CGF" loading="lazy" decoding="async" data-parallax="0.1"></div>
-      <div class="ausb-intro__badge instrument hud-corners" data-reveal="scale">
-        <span class="readout__label">Lizenzen</span>
-        <span class="ausb-intro__badge-value">PPL · LAPL</span>
-        <span class="mono subtle">einmotorige Flugzeuge</span>
-      </div>
-    </div>
+  <div class="container split ausb-intro">
+    <div class="media-frame ausb-intro__media" data-reveal="clip"><img src="assets/img/hero/slide-03-1440.webp" srcset="assets/img/hero/slide-03-480.webp 480w, assets/img/hero/slide-03-960.webp 960w, assets/img/hero/slide-03-1440.webp 1440w, assets/img/hero/slide-03-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 45vw" width="1920" height="1281" alt="Fluglehrer bespricht mit drei Gästen die Karte vor der Cessna HB-CGF" loading="lazy" decoding="async"></div>
     <div class="stack-l">
       <div class="stack">
         <p class="eyebrow" data-reveal>Flugschule FLUBAG</p>
@@ -311,11 +296,11 @@
         <p class="lead" data-reveal>Die praktische Ausbildung findet auf der <span class="nowrap">C-150</span> und/oder der <span class="nowrap">C-172</span> statt, je nach Wunsch und Verfügbarkeit. Deine Fluglehrer begleiten dich vom ersten Schnupperflug bis zur Prüfung.</p>
         <p class="muted" data-reveal>Parallel zum Fliegen absolvierst du die Theorie, zum Beispiel in den laufend angebotenen Kursen bei <a class="brand-text" href="https://www.safetywings.ch/" target="_blank" rel="noopener">Safety Wings</a>. Dort lernst du alles von Aerodynamik über Motoren und Flugzeugzellen bis zu Wetter und Luftfahrtgesetz.</p>
       </div>
-      <div class="stats stats--2" data-reveal>
-        <div class="stat"><span class="stat__value" data-count="9">9</span><span class="stat__label">Schritte zur Lizenz</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="55">55</span><small>h</small></span><span class="stat__label">Flugstunden, ca.</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="100">100</span><small>h</small></span><span class="stat__label">Instruktionszeit</span></div>
-        <div class="stat"><span class="stat__value"><span data-count="16">16</span><small>Jahre</small></span><span class="stat__label">Erster Alleinflug ab</span></div>
+      <div class="stats ausb-stats" data-reveal>
+        <div class="stat"><span class="stat__value">9</span><span class="stat__label">Schritte zur Lizenz</span></div>
+        <div class="stat"><span class="stat__value">55<small>h</small></span><span class="stat__label">Flugstunden, ca.</span></div>
+        <div class="stat"><span class="stat__value">100<small>h</small></span><span class="stat__label">Instruktionszeit</span></div>
+        <div class="stat"><span class="stat__value">16<small>Jahre</small></span><span class="stat__label">Erster Alleinflug ab</span></div>
       </div>
       <div class="row" data-reveal>
         <a class="btn btn--ghost" href="fluglehrer.html"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Unsere Fluglehrer</a>
@@ -325,55 +310,30 @@
   </div>
 </section>
 
-<!-- Kosten -->
-<section class="section section--alt section--glow" id="kosten" aria-labelledby="kosten-title">
+<!-- Kosten und Kostenrechner -->
+<section class="section section--alt" id="kosten" aria-labelledby="kosten-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
         <p class="eyebrow" data-reveal>Kosten</p>
         <h2 id="kosten-title" data-split>Was kostet der Weg ins Cockpit?</h2>
       </div>
-      <p class="lead" data-reveal>Ehrliche Zahlen aus unserer Flugschule: Theorie und Praxis, einzeln aufgelistet. Der tatsächliche Aufwand ist individuell.</p>
+      <p class="lead" data-reveal>Ehrliche Zahlen aus unserer Flugschule, Theorie und Praxis einzeln aufgelistet. Mit dem Rechner schätzt du deine eigene Variante.</p>
     </div>
 
-    <div class="ausb-costs">
-      <article class="card card--pad card--glow ausb-cost" data-reveal>
-        <div class="ausb-cost__head">
-          <svg class="icon icon-book-open card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v16" /> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /> </svg>
+    <div class="ausb-pay">
+      <article class="card card--pad ausb-costs" aria-labelledby="costs-title" data-reveal>
+        <div class="ausb-costs__head">
+          <svg class="icon icon-receipt card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg>
           <div>
-            <p class="mono subtle">Teil 1</p>
-            <h3 class="card__title">Theoretische Ausbildung</h3>
+            <p class="mono subtle ausb-kicker">Erfahrungswerte FLUBAG</p>
+            <h3 class="card__title" id="costs-title">Kosten der Ausbildung</h3>
           </div>
         </div>
-        <p class="ausb-cost__price"><small>rund</small> CHF 3’000</p>
-        <p class="card__text">Die genauen Ausbildungskosten für die theoretische Ausbildung entnimmst du den Angaben der Theorie-Flugschule. In der Regel belaufen sich die Theoriekosten auf rund CHF 3’000.</p>
-        <p class="card__text">Theoriekurse werden laufend bei Safety Wings angeboten.</p>
-        <ul class="ausb-topics" aria-label="Themen der Theorie">
-          <li>Aerodynamik</li><li>Motoren</li><li>Flugzeugzellen</li><li>Wetter</li><li>Luftfahrtgesetz</li>
-        </ul>
-        <div class="ausb-share" data-share data-share-part="3000" data-share-total="21850">
-          <div class="ausb-share__head"><span class="readout__label">Anteil an den Gesamtkosten</span><b data-share-out>rund 14 %</b></div>
-          <div class="bar-split" aria-hidden="true"><span style="flex-grow: 3000; background: var(--ok)"></span><span style="flex-grow: 18850; background: var(--line-strong)"></span></div>
-          <p class="field__help">Theorie rund CHF 3’000 von total rund CHF 21’850. Die Theorie absolvierst du parallel zur Ab-initio-Phase.</p>
-        </div>
-        <div class="card__foot">
-          <a class="btn btn--ghost btn--sm" href="https://www.safetywings.ch/" target="_blank" rel="noopener">Zu Safety Wings <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
-        </div>
-      </article>
-
-      <article class="card card--pad card--glow ausb-cost ausb-cost--wide" data-reveal>
-        <div class="ausb-cost__head">
-          <svg class="icon icon-plane card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>
-          <div>
-            <p class="mono subtle">Teil 2</p>
-            <h3 class="card__title">Praktische Ausbildung</h3>
-          </div>
-        </div>
-        <p class="card__text">Die praktische Ausbildung findet auf <span class="nowrap">C-150</span> und/oder <span class="nowrap">C-172</span> statt, je nach Wunsch und Verfügbarkeit. Die aufgeführten Kosten basieren auf Erfahrungswerten mit entsprechendem Vorauszahlungsrabatt sowie Beroflyer und können nach unten oder oben variieren. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden.</p>
         <div class="table-wrap ausb-table">
           <table class="table">
-            <caption class="visually-hidden">Kosten der praktischen Ausbildung (Erfahrungswerte FLUBAG)</caption>
-            <thead><tr><th scope="col">Position</th><th scope="col" class="num">Kosten</th></tr></thead>
+            <caption class="visually-hidden">Kosten der Ausbildung zur PPL (Erfahrungswerte FLUBAG)</caption>
+            <thead><tr><th scope="col">Praktische Ausbildung</th><th scope="col" class="num">Kosten</th></tr></thead>
             <tbody>
               
               <tr><td>Flugstunden auf C-150 (ca. 55 h)</td><td class="num">CHF 7’700</td></tr>
@@ -387,113 +347,108 @@
               <tr><td>Fliegerärztlicher Untersuch</td><td class="num">CHF 250</td></tr>
               
             </tbody>
-            <tfoot><tr><td>Total praktische Ausbildung</td><td class="num">CHF 18’850</td></tr></tfoot>
+            <tbody class="ausb-table__sum">
+              <tr class="ausb-table__sub"><th scope="row">Total praktische Ausbildung</th><td class="num">CHF 18’850</td></tr>
+              <tr><th scope="row">Theoretische Ausbildung, rund</th><td class="num">CHF 3’000</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Kosten gesamt inkl. Theorie, rund</th><td class="num">CHF 21’850</td></tr></tfoot>
           </table>
         </div>
-        <div class="row">
-          <span class="chip chip--ok"><svg class="icon icon-receipt" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg>Schulungsflüge sind nicht MWSt-pflichtig</span>
-          <span class="chip"><svg class="icon icon-piggy-bank" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 17h3v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a3.16 3.16 0 0 0 2-2h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1a5 5 0 0 0-2-4V3a4 4 0 0 0-3.2 1.6l-.3.4H11a6 6 0 0 0-6 6v1a5 5 0 0 0 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" /> <path d="M16 10h.01" /> <path d="M2 8v1a2 2 0 0 0 2 2h1" /> </svg>mit Vorauszahlungsrabatt sowie Beroflyer</span>
+        <dl class="ausb-notes">
+          <div>
+            <dt>Praktische Ausbildung</dt>
+            <dd>Die praktische Ausbildung findet auf <span class="nowrap">C-150</span> und/oder <span class="nowrap">C-172</span> statt, je nach Wunsch und Verfügbarkeit. Die aufgeführten Kosten basieren auf Erfahrungswerten mit entsprechendem Vorauszahlungsrabatt sowie Beroflyer und können nach unten oder oben variieren. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden. Schulungsflüge sind nicht MWSt-pflichtig.</dd>
+          </div>
+          <div>
+            <dt>Theoretische Ausbildung</dt>
+            <dd>Die genauen Ausbildungskosten für die theoretische Ausbildung entnimmst du den Angaben der Theorie-Flugschule. In der Regel belaufen sich die Theoriekosten auf rund CHF 3’000. Theoriekurse werden laufend bei <a class="brand-text" href="https://www.safetywings.ch/" target="_blank" rel="noopener">Safety Wings</a> angeboten.</dd>
+          </div>
+          <div>
+            <dt>Kosten gesamt</dt>
+            <dd>Wie aus den obigen Angaben zu entnehmen ist, beläuft sich die gesamte Ausbildung mit allen anfallenden Kosten inklusive Theorie auf rund CHF 21’850.</dd>
+          </div>
+        </dl>
+        <div class="card__foot">
+          <a class="btn btn--text btn--sm" href="preise.html">Alle Preise <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
         </div>
       </article>
-    </div>
 
-    <div class="ausb-total instrument hud-corners force-dark" data-reveal>
-      <div class="ausb-total__text">
-        <p class="readout__label">Kosten gesamt, inkl. Theorie</p>
-        <p class="ausb-total__value"><small>rund</small> CHF <span data-count="21850">21’850</span></p>
-        <p class="ausb-total__note">Wie aus den obigen Angaben zu entnehmen ist, beläuft sich die gesamte Ausbildung mit allen anfallenden Kosten inklusive Theorie auf rund CHF 21’850.</p>
-      </div>
-      <div class="ausb-total__actions">
-        <a class="btn btn--primary" href="#rechner" data-magnetic><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Selbst berechnen</a>
-        <a class="btn btn--ghost" href="preise.html">Alle Preise <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Kostenrechner -->
-<section class="section section--chart" id="rechner" aria-labelledby="rechner-title">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Kostenrechner</p>
-        <h2 id="rechner-title" data-split>Rechne dir deinen Flugplan.</h2>
-      </div>
-      <p class="lead" data-reveal>Lizenz, Flugzeug, Flugstunden und Tempo wählen. Der Rechner schätzt Kosten und Dauer auf Basis der FLUBAG Erfahrungswerte.</p>
-    </div>
-
-    <div class="calc" data-calc>
-      <form class="calc__controls form-panel" data-calc-form aria-label="Eingaben Kostenrechner" data-reveal>
-        <fieldset class="calc__group">
-          <legend class="calc__label">Lizenz</legend>
-          <div class="segmented calc__seg">
-            <label><input type="radio" name="lizenz" value="PPL" checked><span>PPL(A)</span></label>
-            <label><input type="radio" name="lizenz" value="LAPL"><span>LAPL(A)</span></label>
+      <div class="calc" id="rechner" data-calc role="region" aria-labelledby="rechner-title">
+        <form class="calc__controls form-panel" data-calc-form aria-label="Eingaben Kostenrechner" data-reveal>
+          <div class="calc__top">
+            <svg class="icon icon-calculator calc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>
+            <div>
+              <h3 class="card__title" id="rechner-title">Kostenrechner</h3>
+              <p class="calc__intro">Kosten und Dauer nach deiner Wahl, auf Basis der FLUBAG Erfahrungswerte.</p>
+            </div>
           </div>
-          <p class="field__help" data-calc-licinfo>Privatpilotenlizenz, weltweit (ICAO) anerkannt. EASA Mindestflugzeit 45 h.</p>
-        </fieldset>
 
-        <fieldset class="calc__group">
-          <legend class="calc__label">Flugzeug</legend>
-          <div class="segmented calc__seg">
-            <label><input type="radio" name="flugzeug" value="C150" checked><span>Cessna 150</span></label>
-            <label><input type="radio" name="flugzeug" value="C172"><span>Cessna 172</span></label>
+          <div class="calc__pair">
+            <fieldset class="calc__group">
+              <legend class="calc__label">Lizenz</legend>
+              <div class="segmented calc__seg">
+                <label><input type="radio" name="lizenz" value="PPL" checked><span>PPL(A)</span></label>
+                <label><input type="radio" name="lizenz" value="LAPL"><span>LAPL(A)</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="calc__group">
+              <legend class="calc__label">Flugzeug</legend>
+              <div class="segmented calc__seg">
+                <label><input type="radio" name="flugzeug" value="C150" checked><span>Cessna 150</span></label>
+                <label><input type="radio" name="flugzeug" value="C172"><span>Cessna 172</span></label>
+              </div>
+            </fieldset>
           </div>
-          <p class="field__help" data-calc-planeinfo>Das zweiplätzige Schulflugzeug.</p>
-        </fieldset>
 
-        <div class="range calc__group">
-          <div class="range__head"><label class="calc__label" for="calc-hours">Flugstunden</label><output class="range__value" for="calc-hours" data-calc-hours-out>55 h</output></div>
-          <div class="calc__track">
-            <input type="range" id="calc-hours" name="stunden" min="45" max="90" step="1" value="55" data-calc-hours aria-describedby="calc-hours-help">
-            <span class="calc__notch" data-calc-notch aria-hidden="true"></span>
+          <div class="range calc__group">
+            <div class="range__head"><label class="calc__label" for="calc-hours">Flugstunden</label><output class="range__value" for="calc-hours" data-calc-hours-out>55 h</output></div>
+            <div class="calc__track">
+              <input type="range" id="calc-hours" name="stunden" min="45" max="90" step="1" value="55" data-calc-hours aria-describedby="calc-hours-help">
+              <span class="calc__notch" data-calc-notch aria-hidden="true"></span>
+            </div>
+            <div class="calc__ticks" aria-hidden="true"><span data-calc-min>Min. 45 h</span><span>90 h</span></div>
+            <p class="field__help"><span id="calc-hours-help" data-calc-hourshelp>Das Minimum gibt EASA vor. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden.</span> <button class="calc__std" type="button" data-calc-std><span data-calc-std-label>Erfahrungswert 55 h übernehmen</span></button></p>
           </div>
-          <div class="calc__ticks" aria-hidden="true"><span data-calc-min>Min. 45 h</span><span>90 h</span></div>
-          <p class="field__help" id="calc-hours-help" data-calc-hourshelp>Das Minimum gibt EASA vor. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden.</p>
-          <button class="chip calc__std" type="button" data-calc-std><svg class="icon icon-target" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /> </svg><span data-calc-std-label>Erfahrungswert 55 h übernehmen</span></button>
+
+          <div class="range calc__group">
+            <div class="range__head"><label class="calc__label" for="calc-week">Lektionen pro Woche</label><output class="range__value" for="calc-week" data-calc-week-out>2 pro Woche</output></div>
+            <input type="range" id="calc-week" name="woche" min="1" max="5" step="1" value="2" data-calc-week>
+            <div class="calc__ticks" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+          </div>
+
+          <div class="calc__row">
+            <label class="check calc__check"><input type="checkbox" name="theorie" value="ja" checked data-calc-theory><span><strong>Theorie einrechnen</strong> <span class="nowrap">(rund CHF 3’000)</span></span></label>
+            <button class="btn btn--text btn--sm calc__reset" type="reset"><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg>Zurücksetzen</button>
+          </div>
+        </form>
+
+        <div class="calc__result instrument force-dark" data-reveal>
+          <div class="calc__head">
+            <span class="mono calc__head-label">Geschätzte Kosten</span>
+            <span class="chip chip--brand" data-calc-tag>PPL · C150 · 55 h</span>
+          </div>
+          <p class="calc__total" aria-live="polite"><span class="calc__cur">CHF</span><span class="calc__num" data-calc-total>21’850</span></p>
+          <p class="mono calc__sub">rund, unverbindliche Schätzung</p>
+          <div class="bar-split calc__bar" data-calc-bar aria-hidden="true"></div>
+          <ul class="legend calc__legend" data-calc-legend aria-label="Aufteilung der Kosten"></ul>
+          <div class="calc__duration">
+            <div class="readout"><span class="readout__label">Dauer, ca.</span><span class="readout__value" data-calc-months>6 <small>Monate</small></span></div>
+            <div class="readout"><span class="readout__label">Wochen</span><span class="readout__value" data-calc-weeks>28</span></div>
+            <div class="readout"><span class="readout__label">Instruktion, ca.</span><span class="readout__value" data-calc-perhour>100 <small>h</small></span></div>
+          </div>
+          <div class="calc__actions">
+            <button class="btn btn--ghost btn--sm" type="button" data-calc-copy><svg class="icon icon-copy" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg>Ergebnis kopieren</button>
+            <a class="btn btn--primary btn--sm" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Jetzt schnuppern</a>
+          </div>
         </div>
 
-        <div class="range calc__group">
-          <div class="range__head"><label class="calc__label" for="calc-week">Lektionen pro Woche</label><output class="range__value" for="calc-week" data-calc-week-out>2 pro Woche</output></div>
-          <input type="range" id="calc-week" name="woche" min="1" max="5" step="1" value="2" data-calc-week>
-          <div class="calc__ticks calc__ticks--5" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-        </div>
-
-        <label class="check calc__check"><input type="checkbox" name="theorie" value="ja" checked data-calc-theory><span><strong>Theorie einrechnen</strong> (rund CHF 3’000, z.B. bei Safety Wings)</span></label>
-
-        <button class="btn btn--text btn--sm calc__reset" type="reset"><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg>Zurücksetzen</button>
-      </form>
-
-      <div class="calc__result instrument hud-corners force-dark" data-reveal>
-        <div class="calc__head">
-          <span class="mono calc__head-label">Geschätzte Kosten</span>
-          <span class="chip chip--brand" data-calc-tag>PPL · C150 · 55 h</span>
-        </div>
-        <p class="calc__total" aria-live="polite"><span class="calc__cur">CHF</span><span class="calc__num" data-calc-total>21’850</span></p>
-        <p class="mono calc__sub">rund, unverbindliche Schätzung</p>
-
-        <div class="bar-split calc__bar" data-calc-bar aria-hidden="true"></div>
-        <ul class="legend calc__legend" data-calc-legend aria-label="Aufteilung der Kosten"></ul>
-
-        <div class="calc__duration">
-          <div class="readout"><span class="readout__label">Dauer, ca.</span><span class="readout__value" data-calc-months>7 <small>Monate</small></span></div>
-          <div class="readout"><span class="readout__label">Wochen</span><span class="readout__value" data-calc-weeks>28</span></div>
-          <div class="readout"><span class="readout__label">Instruktion, ca.</span><span class="readout__value" data-calc-perhour>100 <small>h</small></span></div>
-        </div>
-        <div class="calc__months" data-calc-monthbar aria-hidden="true"></div>
-
-        <div class="calc__actions">
-          <button class="btn btn--ghost btn--sm" type="button" data-calc-copy><svg class="icon icon-copy" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg>Ergebnis kopieren</button>
-          <a class="btn btn--primary btn--sm" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Jetzt schnuppern</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="notice notice--brand calc__notice" data-reveal>
-      <svg class="icon icon-info" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /> </svg>
-      <div>
-        <p><strong>Unverbindliche Schätzung auf Basis der FLUBAG Erfahrungswerte.</strong> Grundlage sind die Kosten oben (rund 55 Flugstunden und 100 Stunden Instruktionszeit, mit Vorauszahlungsrabatt sowie Beroflyer). Flugzeug, Fluglehrer und Landegebühren rechnet der Rechner im gleichen Verhältnis auf deine Flugstunden um, die Cessna 172 im Verhältnis der Mietpreise (Preis 1). Prüfung, Fliegerarzt und Theorie sind Pauschalen, auch für die LAPL.</p>
-        <p>Die Dauer ist rein rechnerisch: Annahme eine Lektion entspricht etwa einer Flugstunde, ohne Pausen wegen Wetter oder Ferien. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden.</p>
+        <details class="calc__how">
+          <summary><svg class="icon icon-info" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /> </svg>So rechnet der Rechner</summary>
+          <div class="calc__how-body">
+            <p><strong>Unverbindliche Schätzung auf Basis der FLUBAG Erfahrungswerte.</strong> Grundlage sind die Kosten in der Tabelle (rund 55 Flugstunden und 100 Stunden Instruktionszeit, mit Vorauszahlungsrabatt sowie Beroflyer). Flugzeug, Fluglehrer und Landegebühren rechnet der Rechner im gleichen Verhältnis auf deine Flugstunden um, die Cessna 172 im Verhältnis der Mietpreise (Preis 1). Prüfung, Fliegerarzt und Theorie sind Pauschalen, auch für die LAPL. Die EASA Mindestflugzeit beträgt 45 h für die PPL und 30 h für die LAPL, für die LAPL rechnen wir mit der Annahme von 40 Flugstunden.</p>
+            <p>Die Dauer ist rein rechnerisch: Annahme eine Lektion entspricht etwa einer Flugstunde, ohne Pausen wegen Wetter oder Ferien. Der tatsächliche Aufwand ist individuell und kann zu Beginn der Ausbildung nicht genau abgeschätzt werden.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -501,110 +456,85 @@
 
 <!-- Ablauf -->
 <section class="section" id="ablauf" aria-labelledby="ablauf-title">
-  <div class="container split split--top ausb-flow">
-    <div class="stack-l sticky">
+  <div class="container">
+    <div class="ausb-flow__head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Ablauf der Ausbildung</p>
         <h2 id="ablauf-title" data-split>In 9 Schritten zur eigenen Lizenz.</h2>
         <p class="lead" data-reveal>Vom Schnupperflug bis zur Flugprüfung: So läuft deine Ausbildung bei uns ab.</p>
+        <div class="row" data-reveal>
+          <a class="btn btn--primary" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Schritt 1 starten</a>
+          <a class="btn btn--ghost" href="infoabende.html"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Infoabend</a>
+        </div>
       </div>
-      <div class="ausb-progress instrument hud-corners" data-reveal aria-hidden="true">
-        <div class="ausb-progress__top"><span class="readout__label">Dein Fortschritt</span><span class="mono ausb-progress__count"><span data-flow-count>0</span> / 9</span></div>
-        <div class="ausb-progress__track"><span class="ausb-progress__fill" data-flow-fill></span><span class="ausb-progress__plane"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg></span></div>
-        <p class="ausb-progress__label" data-flow-label>Bereit zum Start</p>
-      </div>
-      <div class="row" data-reveal>
-        <a class="btn btn--primary" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Schritt 1 starten</a>
-        <a class="btn btn--ghost" href="infoabende.html"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Infoabend</a>
-      </div>
+      <div class="media-frame ausb-flow__media" data-reveal="clip"><img src="assets/img/hero/slide-01-1440.webp" srcset="assets/img/hero/slide-01-480.webp 480w, assets/img/hero/slide-01-960.webp 960w, assets/img/hero/slide-01-1440.webp 1440w, assets/img/hero/slide-01-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 45vw" width="1920" height="1280" alt="Cessna hebt im Gegenlicht von der Graspiste ab" loading="lazy" decoding="async"></div>
     </div>
 
-    <ol class="steps ausb-steps" data-steps>
-      <li class="step" data-flow-title="Schnupperflug">
-        <span class="step__num">01</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 1</p>
-          <h3 class="step__title">Reserviere deinen Schnupperflug</h3>
+    <ol class="ausb-timeline" data-reveal-group="0.06">
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">01</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Reserviere deinen Schnupperflug</h3>
           <p>Vereinbare mit uns deine 1. Lektion (oder Schnupperflug), in welcher du selbst das Steuer führen kannst. Dein Fluglehrer wird auch alle deine Fragen beantworten und dir zeigen, wie du das Flugzeug durch die Lüfte führen kannst (1. Lektion Schnupperflug 60 Min. C-150 für CHF 420). Schon dieser Flug kann zur Flugausbildung angerechnet werden.</p>
-          <div class="step__media"><img src="assets/img/schnupperflug/discovery-0-1440.webp" srcset="assets/img/schnupperflug/discovery-0-480.webp 480w, assets/img/schnupperflug/discovery-0-960.webp 960w, assets/img/schnupperflug/discovery-0-1440.webp 1440w, assets/img/schnupperflug/discovery-0-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 50vw" width="1920" height="1281" alt="Fluglehrer zeigt einer Flugschülerin vor dem Start den Flügel der Cessna" loading="lazy" decoding="async"></div>
-          <p><a class="btn btn--text btn--sm" href="schnupperflug.html">Schnupperflug ansehen <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a></p>
+          <a class="ausb-step__link" href="schnupperflug.html">Schnupperflug ansehen <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
         </div>
       </li>
-      <li class="step" data-flow-title="Nächste Lektionen">
-        <span class="step__num">02</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 2</p>
-          <h3 class="step__title">Reserviere die nächste(n) Lektion(en)</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">02</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Reserviere die nächste(n) Lektion(en)</h3>
           <p>Du bekommst die Checklisten, Flugpraxis-Theoriebücher, Navigationsmaterial, Flugbuch und Adressen der Fliegerärzte. Wir verlangen auch eine zurückzahlbare Kaution, damit du bequem monatlich die Rechnungen zahlen kannst. Dein Fluglehrer zeigt dir, was du für die Vorbereitung deiner Fluglektion brauchst.</p>
-          <ul class="ausb-kit" aria-label="Das bekommst du">
-            <li><svg class="icon icon-clipboard-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg>Checklisten</li>
-            <li><svg class="icon icon-book-open" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v16" /> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /> </svg>Flugpraxis-Theoriebücher</li>
-            <li><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Navigationsmaterial</li>
-            <li><svg class="icon icon-notebook-pen" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" /> <path d="M2 6h4" /> <path d="M2 10h4" /> <path d="M2 14h4" /> <path d="M2 18h4" /> <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" /> </svg>Flugbuch</li>
-            <li><svg class="icon icon-stethoscope" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 2v2" /> <path d="M5 2v2" /> <path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1" /> <path d="M8 15a6 6 0 0 0 12 0v-3" /> <circle cx="20" cy="10" r="2" /> </svg>Adressen der Fliegerärzte</li>
-          </ul>
         </div>
       </li>
-      <li class="step" data-flow-title="Medical">
-        <span class="step__num">03</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 3</p>
-          <h3 class="step__title">Kontaktiere einen der Ärzte und absolviere die Untersuchung</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">03</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Kontaktiere einen der Ärzte und absolviere die Untersuchung</h3>
           <p>Wenn du nur hobbymässig fliegen wirst, ist einer der Ärzte in Luzern die richtige Adresse. Sollte aber deine langfristige Vision eine Berufslizenz sein, dann empfiehlt es sich, die medizinische Untersuchung in einem der fliegerärztlichen Zentren zu machen.</p>
         </div>
       </li>
-      <li class="step" data-flow-title="Ab initio">
-        <span class="step__num">04</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 4</p>
-          <h3 class="step__title">Die Ab-initio-Phase der Flugausbildung</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">04</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Die Ab-initio-Phase der Flugausbildung</h3>
           <p>Ab initio heisst so etwa «von Anfang an». Du lernst die Basismanöver, Notverfahren, Normalverfahren, das Starten und das Landen. Auf unserem Flugplatz wirst du auch bis zu einem gewissen Punkt mit dem Funk vertraut gemacht. Während dieser Zeit absolvierst du auch die Theorieausbildung. Hier lernst du alles von Aerodynamik über Motoren und Flugzeugzellen bis zu Wetter und Luftfahrtgesetz.</p>
-          <div class="step__media"><img src="assets/img/schnupperflug/discovery-3-1440.webp" srcset="assets/img/schnupperflug/discovery-3-480.webp 480w, assets/img/schnupperflug/discovery-3-960.webp 960w, assets/img/schnupperflug/discovery-3-1440.webp 1440w, assets/img/schnupperflug/discovery-3-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 50vw" width="1920" height="1281" alt="Fluglehrer und Flugschülerin gehen im Cockpit die Checkliste durch" loading="lazy" decoding="async"></div>
         </div>
       </li>
-      <li class="step" data-flow-title="Erster Alleinflug">
-        <span class="step__num">05</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 5</p>
-          <h3 class="step__title">Der erste Alleinflug</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">05</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Der erste Alleinflug</h3>
           <p class="ausb-quote">Das ist der magische Moment, an den sich jeder Flieger, von Chuck Yeager bis zum 17-jährigen Jungen oder Mädchen, immer erinnern wird: der erste Alleinflug.</p>
-          <div class="step__media"><img src="assets/img/hero/slide-01-1440.webp" srcset="assets/img/hero/slide-01-480.webp 480w, assets/img/hero/slide-01-960.webp 960w, assets/img/hero/slide-01-1440.webp 1440w, assets/img/hero/slide-01-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 50vw" width="1920" height="1280" alt="Cessna hebt im Gegenlicht von der Graspiste ab" loading="lazy" decoding="async"></div>
         </div>
       </li>
-      <li class="step" data-flow-title="Festigung">
-        <span class="step__num">06</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 6</p>
-          <h3 class="step__title">Die Festigungsphase in Flugplatznähe</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">06</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Die Festigungsphase in Flugplatznähe</h3>
           <p>Weitere Alleinflüge, Notverfahren, ungewöhnliche Fluglagen. In diesem Abschnitt wächst dein Selbstvertrauen als Flugzeugführer. Jeder Soloflug muss von deinem Fluglehrer autorisiert werden. Du lernst, das Wetter einzuschätzen und auch bei nicht optimalen Sichtverhältnissen oder im Regen zu fliegen.</p>
         </div>
       </li>
-      <li class="step" data-flow-title="Navigation">
-        <span class="step__num">07</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 7</p>
-          <h3 class="step__title">Navigation</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">07</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Navigation</h3>
           <p>Als Erstes werden Navigationsflüge in einfachem Gelände ausgeführt, und später geht es sogar zweimal über die Alpen: Du fliegst die sogenannte Alpeneinweisung. Hier muss der Pilot nicht nur das Flugzeug unter Kontrolle halten und navigieren, sondern sich auch in den Bergen zurechtfinden und darf in kein falsches Tal ohne Ausgang einfliegen. Die Krönung dieses Abschnitts ist ein Solo-Navigationsflug über 250 km.</p>
-          <div class="step__media"><img src="assets/img/hero/slide-00-1440.webp" srcset="assets/img/hero/slide-00-480.webp 480w, assets/img/hero/slide-00-960.webp 960w, assets/img/hero/slide-00-1440.webp 1440w, assets/img/hero/slide-00-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 50vw" width="1920" height="1280" alt="Cessna im Flug über den Voralpen" loading="lazy" decoding="async"></div>
-          <div class="row"><span class="chip"><svg class="icon icon-mountain-snow" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m8 3 4 8 5-5 5 15H2L8 3z" /> <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" /> </svg>2 × über die Alpen</span><span class="chip chip--brand"><svg class="icon icon-route" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg>Solo über 250 km</span></div>
         </div>
       </li>
-      <li class="step" data-flow-title="Feinschliff">
-        <span class="step__num">08</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 8</p>
-          <h3 class="step__title">Festigungsphase vor der Prüfung</h3>
+      <li class="ausb-step" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">08</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Festigungsphase vor der Prüfung</h3>
           <p>Alle Übungen werden wiederholt und «aufpoliert», damit du die Toleranzen, die während der Prüfung verlangt werden, wirklich und sicher einhalten kannst. Während dieser Zeit bist du teils mit deinem Fluglehrer und teils allein in der Luft. Alle Mängel werden nochmals durchgeübt und dann noch alleine geflogen.</p>
         </div>
       </li>
-      <li class="step" data-flow-title="Lizenz!">
-        <span class="step__num">09</span>
-        <div class="step__body">
-          <p class="step__kicker mono">Schritt 9</p>
-          <h3 class="step__title">Die Flugprüfung</h3>
+      <li class="ausb-step ausb-step--last" data-reveal>
+        <span class="ausb-step__num" aria-hidden="true">09</span>
+        <div class="ausb-step__body">
+          <h3 class="ausb-step__title">Die Flugprüfung</h3>
           <p>Dein Fluglehrer wird dich für die praktische Abschlussprüfung empfehlen. Nachdem du dem Flugprüfer bewiesen hast, dass du mindestens so gut fliegen kannst wie er, wird er eine temporäre Bewilligung ausstellen, mit der du schon selber fliegen und Passagiere mitnehmen darfst. Die restlichen Formulare und Prüfungsresultate werden dem BAZL geschickt, und innert kurzer Zeit bekommst du deine eigene PPL.</p>
           <figure class="ausb-proud">
-            <div class="step__media"><img src="assets/img/news/ppl-ronnie-widmer-1440.webp" srcset="assets/img/news/ppl-ronnie-widmer-480.webp 480w, assets/img/news/ppl-ronnie-widmer-960.webp 960w, assets/img/news/ppl-ronnie-widmer-1440.webp 1440w, assets/img/news/ppl-ronnie-widmer-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 50vw" width="2400" height="1800" alt="Ronnie Widmer und Expertin Isabelle Peccoraio nach der bestandenen PPL-Prüfung vor einer Cessna" loading="lazy" decoding="async"></div>
+            <div class="ausb-proud__img"><img src="assets/img/news/ppl-ronnie-widmer-1440.webp" srcset="assets/img/news/ppl-ronnie-widmer-480.webp 480w, assets/img/news/ppl-ronnie-widmer-960.webp 960w, assets/img/news/ppl-ronnie-widmer-1440.webp 1440w, assets/img/news/ppl-ronnie-widmer-2048.webp 2048w" sizes="200px" width="2400" height="1800" alt="Ronnie Widmer und Expertin Isabelle Peccoraio nach der bestandenen PPL-Prüfung vor einer Cessna" loading="lazy" decoding="async"></div>
             <figcaption><span class="chip chip--ok"><svg class="icon icon-badge-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m16 9-5.5 5.5L8 12" /> </svg>Geschafft</span><span>Ronnie Widmer hat die PPL erfolgreich bestanden, mit Expertin Isabelle Peccoraio. <a href="news-gratulation-ppl.html">Zur News</a></span></figcaption>
           </figure>
         </div>
@@ -658,19 +588,18 @@
 
 <!-- Bereit fürs Cockpit -->
 <section class="section section--glow" id="check" aria-labelledby="check-title">
-  <div class="container split split--top">
-    <div class="stack-l sticky">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Selbsttest</p>
-        <h2 id="check-title" data-split>Bereit fürs Cockpit?</h2>
-        <p class="lead" data-reveal>Vier kurze Fragen, eine ehrliche Einschätzung. Danach weisst du, was dein nächster Schritt ist.</p>
-      </div>
-      <div class="media-frame media-frame--wide hide-mobile ausb-quiz-media" data-reveal="clip"><img src="assets/img/schnupperflug/discovery-2-1440.webp" srcset="assets/img/schnupperflug/discovery-2-480.webp 480w, assets/img/schnupperflug/discovery-2-960.webp 960w, assets/img/schnupperflug/discovery-2-1440.webp 1440w, assets/img/schnupperflug/discovery-2-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 45vw" width="1920" height="1280" alt="Flugschülerin und Fluglehrer im Cockpit während des Fluges" loading="lazy" decoding="async" data-parallax="0.08"></div>
+  <div class="container ausb-check">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Selbsttest</p>
+      <h2 id="check-title" data-split>Bereit fürs Cockpit?</h2>
+      <p class="lead" data-reveal>Vier kurze Fragen, eine ehrliche Einschätzung. Danach weisst du, was dein nächster Schritt ist.</p>
     </div>
 
     <div class="quiz form-panel" data-quiz data-reveal>
-      <div class="quiz__progress" aria-hidden="true"><span class="quiz__progress-fill" data-quiz-fill></span></div>
-      <p class="mono quiz__count"><span data-quiz-count>0</span> von 4 beantwortet</p>
+      <div class="quiz__top">
+        <p class="mono quiz__count"><span data-quiz-count>0</span> von 4 beantwortet</p>
+        <div class="quiz__progress" aria-hidden="true"><span class="quiz__progress-fill" data-quiz-fill></span></div>
+      </div>
 
       <fieldset class="quiz__q">
         <legend class="quiz__legend"><span class="quiz__num mono">01</span>Wie alt bist du?</legend>
@@ -710,11 +639,7 @@
 
       <div class="quiz__result" data-quiz-result hidden aria-live="polite">
         <div class="quiz__result-head">
-          <svg class="quiz__gauge" viewBox="0 0 120 120" aria-hidden="true">
-            <circle class="quiz__gauge-bg" cx="60" cy="60" r="50"></circle>
-            <circle class="quiz__gauge-val" cx="60" cy="60" r="50" data-quiz-gauge></circle>
-          </svg>
-          <span class="quiz__gauge-icon"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg></span>
+          <span class="quiz__result-icon"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg></span>
           <div>
             <p class="mono quiz__result-kicker" data-quiz-kicker>Cleared for take-off</p>
             <h3 class="quiz__result-title" data-quiz-title>Startklar!</h3>
@@ -723,40 +648,11 @@
         <ul class="checklist quiz__list" data-quiz-list></ul>
         <template data-quiz-icons><span data-i="ok"><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg></span><span data-i="info"><svg class="icon icon-info" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /> </svg></span></template>
         <div class="row">
-          <a class="btn btn--primary" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Schnupperflug buchen</a>
-          <a class="btn btn--ghost" href="infoabende.html"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Zum Infoabend</a>
+          <a class="btn btn--primary btn--sm" href="schnupperflug.html"><svg class="icon icon-plane-takeoff" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /> </svg>Schnupperflug buchen</a>
+          <a class="btn btn--ghost btn--sm" href="infoabende.html"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Zum Infoabend</a>
           <button class="btn btn--text btn--sm" type="button" data-quiz-reset><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg>Neu starten</button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Funkalphabet -->
-<section class="section section--chart" id="funk" aria-labelledby="funk-title">
-  <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow" data-reveal>Funkalphabet</p>
-      <h2 id="funk-title" data-split>Buchstabier deinen Namen wie ein Pilot.</h2>
-      <p class="lead" data-reveal>Am Funk zählt jeder Buchstabe. Darum buchstabieren Piloten weltweit mit dem ICAO Alphabet. Mit dem Funk wirst du schon in der <span class="nowrap">Ab-initio-Phase</span> vertraut. Probier es aus:</p>
-    </div>
-
-    <div class="funk instrument hud-corners force-dark" data-funk data-reveal>
-      <div class="funk__input">
-        <label class="visually-hidden" for="funk-name">Dein Name</label>
-        <svg class="icon icon-radio" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16.247 7.761a6 6 0 0 1 0 8.478" /> <path d="M19.075 4.933a10 10 0 0 1 0 14.134" /> <path d="M4.925 19.067a10 10 0 0 1 0-14.134" /> <path d="M7.753 16.239a6 6 0 0 1 0-8.478" /> <circle cx="12" cy="12" r="2" /> </svg>
-        <input class="funk__field" id="funk-name" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="Dein Name" value="LSZO" data-funk-input>
-        <button class="btn btn--primary btn--sm funk__speak" type="button" data-funk-speak hidden aria-label="Anhören"><svg class="icon icon-volume-2" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <path d="M16 9a5 5 0 0 1 0 6" /> <path d="M19.364 18.364a9 9 0 0 0 0-12.728" /> </svg><span class="funk__speak-label">Anhören</span></button>
-      </div>
-      <div class="funk__examples" role="group" aria-label="Beispiele">
-        <span class="mono subtle">Beispiele:</span>
-        <button type="button" class="chip" data-funk-example="LSZO">LSZO</button>
-        <button type="button" class="chip" data-funk-example="HB-CVZ">HB-CVZ</button>
-        <button type="button" class="chip" data-funk-example="Beromünster">Beromünster</button>
-      </div>
-      <ol class="funk__out" data-funk-out aria-live="polite" aria-label="Buchstabiert im ICAO Alphabet"></ol>
-      <p class="funk__spoken mono" data-funk-spoken></p>
-      <p class="funk__hint">Umlaute werden aufgelöst: Ä wird zu AE, Ö zu OE, Ü zu UE. Zahlen sprechen Piloten übrigens auch speziell aus, zum Beispiel «Tree» für 3 und «Niner» für 9.</p>
     </div>
   </div>
 </section>
@@ -772,107 +668,90 @@
       <p class="lead" data-reveal>Die Syllabi beschreiben Aufbau und Inhalte unserer Ausbildungen. Für die Einweisung auf ein Flugzeugmuster gibt es zu jedem einen Familiarization-Fragebogen.</p>
     </div>
 
-    <h3 class="ausb-subhead" data-reveal><svg class="icon icon-graduation-cap" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg>Syllabi</h3>
-    <div class="grid grid-4 ausb-syllabi" data-reveal-group>
-      
-      <a class="card card--pad card--glow ausb-syl" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS%2002%20PPL%20%28A%29%20Rev.3_0.pdf" target="_blank" rel="noopener" data-reveal>
-        <svg class="icon icon-file-text card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>
-        <span class="mono subtle ausb-syl__meta">Syllabus · PDF</span>
-        <span class="card__title">Syllabus PPL(A)</span>
-        <span class="ausb-syl__go">Öffnen <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-      </a>
-      
-      <a class="card card--pad card--glow ausb-syl" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS%2001%20LAPL%20Rev.2_0.pdf" target="_blank" rel="noopener" data-reveal>
-        <svg class="icon icon-file-text card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>
-        <span class="mono subtle ausb-syl__meta">Syllabus · PDF</span>
-        <span class="card__title">Syllabus LAPL(A)</span>
-        <span class="ausb-syl__go">Öffnen <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-      </a>
-      
-      <a class="card card--pad card--glow ausb-syl" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS_03_CR_SEP%28land%29Rev.3.pdf" target="_blank" rel="noopener" data-reveal>
-        <svg class="icon icon-file-text card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>
-        <span class="mono subtle ausb-syl__meta">Syllabus · PDF</span>
-        <span class="card__title">Syllabus SEP(land) Class Rating</span>
-        <span class="ausb-syl__go">Öffnen <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-      </a>
-      
-      <a class="card card--pad card--glow ausb-syl" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS_06_NITRev.3.pdf" target="_blank" rel="noopener" data-reveal>
-        <svg class="icon icon-file-text card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>
-        <span class="mono subtle ausb-syl__meta">Syllabus · PDF</span>
-        <span class="card__title">Syllabus Night Rating (NIT)</span>
-        <span class="ausb-syl__go">Öffnen <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-      </a>
-      
+    <div class="ausb-docs">
+      <div class="ausb-docs__col" data-reveal>
+        <h3 class="ausb-subhead"><svg class="icon icon-graduation-cap" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg>Syllabi</h3>
+        <ul class="doc-list ausb-doclist">
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS%2002%20PPL%20%28A%29%20Rev.3_0.pdf" target="_blank" rel="noopener"><svg class="icon icon-file-text doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg><span class="ausb-doc__text"><span class="doc__title">Syllabus PPL(A)</span><span class="doc__meta">Syllabus · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS%2001%20LAPL%20Rev.2_0.pdf" target="_blank" rel="noopener"><svg class="icon icon-file-text doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg><span class="ausb-doc__text"><span class="doc__title">Syllabus LAPL(A)</span><span class="doc__meta">Syllabus · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS_03_CR_SEP%28land%29Rev.3.pdf" target="_blank" rel="noopener"><svg class="icon icon-file-text doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg><span class="ausb-doc__text"><span class="doc__title">Syllabus SEP(land) Class Rating</span><span class="doc__meta">Syllabus · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS_06_NITRev.3.pdf" target="_blank" rel="noopener"><svg class="icon icon-file-text doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg><span class="ausb-doc__text"><span class="doc__title">Syllabus Night Rating (NIT)</span><span class="doc__meta">Syllabus · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+        </ul>
+      </div>
+      <div class="ausb-docs__col" data-reveal>
+        <h3 class="ausb-subhead"><svg class="icon icon-clipboard-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg>Familiarization-Fragebögen</h3>
+        <ul class="doc-list ausb-doclist">
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20C150.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Cessna 150</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20C172.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Cessna 172</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20C182.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Cessna 182</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20AC4.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Lightwing AC4</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20L4.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Piper L-4</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+          <li><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20Flarm.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization FLARM</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
+          
+        </ul>
+      </div>
+      <div class="ausb-docs__col ausb-more" data-reveal>
+        <h3 class="ausb-subhead"><svg class="icon icon-sparkles" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /> </svg>Nach der Lizenz geht es weiter</h3>
+        
+        <a class="ausb-mini ausb-night" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS_06_NITRev.3.pdf" target="_blank" rel="noopener">
+          <span class="ausb-night__stars" aria-hidden="true"></span>
+          <svg class="icon icon-moon-star ausb-mini__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M18 5h4" /> <path d="M20 3v4" /> <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg>
+          <span class="ausb-mini__eyebrow">Night Rating · NIT</span>
+          <span class="ausb-mini__title">Fliegen bei Nacht</span>
+          <span class="ausb-mini__text">Mit der Nachtflugberechtigung (Night Rating, NIT) erweiterst du deine Lizenz um das Fliegen bei Nacht. Den Syllabus dazu findest du hier.</span>
+          <svg class="icon icon-arrow-up-right ausb-mini__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg>
+        </a>
+        
+        <a class="ausb-mini ausb-glacier" href="http://www.gletscherpiloten.ch/" target="_blank" rel="noopener">
+          <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 400px" width="2400" height="1800" alt="Blick aus dem Cockpit auf verschneite Alpengipfel" loading="lazy" decoding="async">
+          <span class="ausb-mini__eyebrow">Externe Seite</span>
+          <span class="ausb-mini__title">Gletscherpiloten</span>
+          <span class="ausb-mini__text">Lust auf die Berge? Bei den Gletscherpiloten erfährst du mehr über die Fliegerei im Hochgebirge.</span>
+          <svg class="icon icon-arrow-up-right ausb-mini__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg>
+        </a>
+      </div>
     </div>
-
-    <h3 class="ausb-subhead mt-l" data-reveal><svg class="icon icon-clipboard-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg>Familiarization-Fragebögen</h3>
-    <ul class="doc-list ausb-docs" data-reveal-group="0.05">
-      
-      <li data-reveal><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20C150.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Cessna 150</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
-      
-      <li data-reveal><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20C172.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Cessna 172</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
-      
-      <li data-reveal><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20C182.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Cessna 182</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
-      
-      <li data-reveal><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20AC4.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Lightwing AC4</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
-      
-      <li data-reveal><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20L4.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization Piper L-4</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
-      
-      <li data-reveal><a class="doc" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/familiarization/student/attachment/Familiarization%20Training%20Flarm.pdf" target="_blank" rel="noopener"><svg class="icon icon-clipboard-check doc__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /> </svg><span class="ausb-doc__text"><span class="doc__title">Familiarization FLARM</span><span class="doc__meta">Student Questionnaire · PDF</span></span><svg class="icon icon-arrow-up-right doc__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a></li>
-      
-    </ul>
     <div class="row mt-m" data-reveal>
       <a class="btn btn--ghost" href="dokumente.html"><svg class="icon icon-folder-open" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" /> </svg>Alle Dokumente</a>
       <a class="btn btn--text" href="https://pilots.flubag.ch/" target="_blank" rel="noopener">Pilotenportal <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
-    </div>
-
-    <div class="ausb-more">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Weiterbildung</p>
-        <h3 class="h2" data-split>Nach der Lizenz geht es weiter.</h3>
-      </div>
-      <div class="grid grid-2 mt-m" data-reveal-group="0.12">
-        
-        <a class="ausb-night" href="https://pilots.flubag.ch/sites/pilots.flubag.ch/files/syllabus/attachment/2MS_06_NITRev.3.pdf" target="_blank" rel="noopener" data-reveal>
-          <span class="ausb-night__stars" aria-hidden="true"></span>
-          <svg class="icon icon-moon-star ausb-night__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M18 5h4" /> <path d="M20 3v4" /> <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /> </svg>
-          <span class="tile__eyebrow">Night Rating · NIT</span>
-          <span class="tile__title">Fliegen bei Nacht.</span>
-          <span class="tile__text">Mit der Nachtflugberechtigung (Night Rating, NIT) erweiterst du deine Lizenz um das Fliegen bei Nacht. Den Syllabus dazu findest du hier.</span>
-          <span class="tile__arrow"><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-        </a>
-        
-        <a class="tile ausb-glacier" href="http://www.gletscherpiloten.ch/" target="_blank" rel="noopener" data-reveal>
-          <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 640px) 100vw, 50vw" width="2400" height="1800" alt="Blick aus dem Cockpit auf verschneite Alpengipfel" loading="lazy" decoding="async">
-          <span class="tile__arrow"><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
-          <span class="tile__eyebrow">Externe Seite</span>
-          <span class="tile__title">Gletscherpiloten.</span>
-          <span class="tile__text">Lust auf die Berge? Bei den Gletscherpiloten erfährst du mehr über die Fliegerei im Hochgebirge.</span>
-        </a>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="section" id="faq" aria-labelledby="faq-title">
-  <div class="container--narrow">
+  <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow" data-reveal>Häufige Fragen</p>
       <h2 id="faq-title" data-split>Gut zu wissen.</h2>
     </div>
-    <div class="accordion" data-reveal>
-      <details class="acc"><summary>Wie alt muss ich sein?</summary><div class="acc__body"><p>Den ersten Alleinflug darfst du ab 16 Jahren machen, die Lizenz (PPL oder LAPL) gibt es ab 17 Jahren.</p></div></details>
-      <details class="acc"><summary>Was kostet die Ausbildung zur PPL?</summary><div class="acc__body"><p>Nach unseren Erfahrungswerten rund CHF 21’850 inklusive Theorie: rund CHF 3’000 für die Theorie und CHF 18’850 für die praktische Ausbildung. Der tatsächliche Aufwand ist individuell. Mit dem <a class="brand-text" href="#rechner">Kostenrechner</a> kannst du deine eigene Variante schätzen.</p></div></details>
-      <details class="acc"><summary>Wie lange dauert die Ausbildung?</summary><div class="acc__body"><p>Das hängt vor allem davon ab, wie oft du fliegst. Die EASA Mindestflugzeit beträgt 45 Stunden für die PPL und 30 Stunden für die LAPL. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden. Wie viele Monate das bei deinem Tempo ergibt, zeigt dir der <a class="brand-text" href="#rechner">Rechner</a>.</p></div></details>
-      <details class="acc"><summary>Was ist der Unterschied zwischen PPL und LAPL?</summary><div class="acc__body"><p>Die PPL ist weltweit (ICAO) anerkannt, die LAPL in den EASA Staaten. Mit der LAPL fliegst du Flugzeuge bis 2000 kg MTOM und mit maximal 3 Passagieren, dafür ist die Mindestflugzeit kürzer. Alle Unterschiede findest du im <a class="brand-text" href="#vergleich">Vergleich</a>.</p></div></details>
-      <details class="acc"><summary>Brauche ich eine ärztliche Untersuchung?</summary><div class="acc__body"><p>Ja. Für die PPL brauchst du ein Medical der Klasse 2, für die LAPL ein LAPL Medical. Wenn du nur hobbymässig fliegen wirst, ist einer der Ärzte in Luzern die richtige Adresse. Ist deine langfristige Vision eine Berufslizenz, empfiehlt sich die Untersuchung in einem der fliegerärztlichen Zentren. Die Adressen der Fliegerärzte bekommst du von uns.</p></div></details>
-      <details class="acc"><summary>Wo mache ich die Theorie?</summary><div class="acc__body"><p>Theoriekurse werden laufend bei <a class="brand-text" href="https://www.safetywings.ch/" target="_blank" rel="noopener">Safety Wings</a> angeboten. Die genauen Kosten entnimmst du den Angaben der Theorie-Flugschule, in der Regel sind es rund CHF 3’000.</p></div></details>
-      <details class="acc"><summary>Auf welchen Flugzeugen lerne ich fliegen?</summary><div class="acc__body"><p>Auf der Cessna 150 und/oder der Cessna 172, je nach Wunsch und Verfügbarkeit. Mehr zu den Flugzeugen findest du bei der <a class="brand-text" href="flotte.html">Flotte</a>.</p></div></details>
-      <details class="acc"><summary>Wie bezahle ich die Ausbildung?</summary><div class="acc__body"><p>Wir verlangen eine zurückzahlbare Kaution, damit du bequem monatlich die Rechnungen zahlen kannst. Unsere Kostenangaben basieren auf Erfahrungswerten mit Vorauszahlungsrabatt sowie Beroflyer. Schulungsflüge sind nicht MWSt-pflichtig.</p></div></details>
-      <details class="acc"><summary>Zählt der Schnupperflug schon zur Ausbildung?</summary><div class="acc__body"><p>Ja. Schon der Schnupperflug (1. Lektion, 60 Minuten auf der C-150 für CHF 420) kann zur Flugausbildung angerechnet werden. <a class="brand-text" href="schnupperflug.html">Zum Schnupperflug</a></p></div></details>
-      <details class="acc"><summary>Wann darf ich Passagiere mitnehmen?</summary><div class="acc__body"><p>Nach der bestandenen Flugprüfung stellt dir der Flugprüfer eine temporäre Bewilligung aus, mit der du schon selber fliegen und Passagiere mitnehmen darfst. Die Lizenz selbst bekommst du kurz darauf vom BAZL.</p></div></details>
-      <details class="acc"><summary>Wo erfahre ich mehr?</summary><div class="acc__body"><p>An unseren <a class="brand-text" href="infoabende.html">Infoabenden «Wie werde ich Pilot»</a> beantworten wir alle Fragen rund um die Ausbildung. Oder ruf uns an: <a class="brand-text" href="tel:+41419301866">+41 41 930 18 66</a>.</p></div></details>
+    <div class="ausb-faq" data-reveal>
+      <div class="accordion">
+        <details class="acc"><summary>Wie alt muss ich sein?</summary><div class="acc__body"><p>Den ersten Alleinflug darfst du ab 16 Jahren machen, die Lizenz (PPL oder LAPL) gibt es ab 17 Jahren.</p></div></details>
+        <details class="acc"><summary>Was kostet die Ausbildung zur PPL?</summary><div class="acc__body"><p>Nach unseren Erfahrungswerten rund CHF 21’850 inklusive Theorie: rund CHF 3’000 für die Theorie und CHF 18’850 für die praktische Ausbildung. Der tatsächliche Aufwand ist individuell. Mit dem <a class="brand-text" href="#rechner">Kostenrechner</a> kannst du deine eigene Variante schätzen.</p></div></details>
+        <details class="acc"><summary>Wie lange dauert die Ausbildung?</summary><div class="acc__body"><p>Das hängt vor allem davon ab, wie oft du fliegst. Die EASA Mindestflugzeit beträgt 45 Stunden für die PPL und 30 Stunden für die LAPL. Bei uns sind es für die PPL erfahrungsgemäss rund 55 Flugstunden. Wie viele Monate das bei deinem Tempo ergibt, zeigt dir der <a class="brand-text" href="#rechner">Rechner</a>.</p></div></details>
+        <details class="acc"><summary>Was ist der Unterschied zwischen PPL und LAPL?</summary><div class="acc__body"><p>Die PPL ist weltweit (ICAO) anerkannt, die LAPL in den EASA Staaten. Mit der LAPL fliegst du Flugzeuge bis 2000 kg MTOM und mit maximal 3 Passagieren, dafür ist die Mindestflugzeit kürzer. Alle Unterschiede findest du im <a class="brand-text" href="#vergleich">Vergleich</a>.</p></div></details>
+        <details class="acc"><summary>Brauche ich eine ärztliche Untersuchung?</summary><div class="acc__body"><p>Ja. Für die PPL brauchst du ein Medical der Klasse 2, für die LAPL ein LAPL Medical. Wenn du nur hobbymässig fliegen wirst, ist einer der Ärzte in Luzern die richtige Adresse. Ist deine langfristige Vision eine Berufslizenz, empfiehlt sich die Untersuchung in einem der fliegerärztlichen Zentren. Die Adressen der Fliegerärzte bekommst du von uns.</p></div></details>
+        <details class="acc"><summary>Wo mache ich die Theorie?</summary><div class="acc__body"><p>Theoriekurse werden laufend bei <a class="brand-text" href="https://www.safetywings.ch/" target="_blank" rel="noopener">Safety Wings</a> angeboten. Die genauen Kosten entnimmst du den Angaben der Theorie-Flugschule, in der Regel sind es rund CHF 3’000.</p></div></details>
+      </div>
+      <div class="accordion">
+        <details class="acc"><summary>Auf welchen Flugzeugen lerne ich fliegen?</summary><div class="acc__body"><p>Auf der Cessna 150 und/oder der Cessna 172, je nach Wunsch und Verfügbarkeit. Mehr zu den Flugzeugen findest du bei der <a class="brand-text" href="flotte.html">Flotte</a>.</p></div></details>
+        <details class="acc"><summary>Wie bezahle ich die Ausbildung?</summary><div class="acc__body"><p>Wir verlangen eine zurückzahlbare Kaution, damit du bequem monatlich die Rechnungen zahlen kannst. Unsere Kostenangaben basieren auf Erfahrungswerten mit Vorauszahlungsrabatt sowie Beroflyer. Schulungsflüge sind nicht MWSt-pflichtig.</p></div></details>
+        <details class="acc"><summary>Zählt der Schnupperflug schon zur Ausbildung?</summary><div class="acc__body"><p>Ja. Schon der Schnupperflug (1. Lektion, 60 Minuten auf der C-150 für CHF 420) kann zur Flugausbildung angerechnet werden. <a class="brand-text" href="schnupperflug.html">Zum Schnupperflug</a></p></div></details>
+        <details class="acc"><summary>Wann darf ich Passagiere mitnehmen?</summary><div class="acc__body"><p>Nach der bestandenen Flugprüfung stellt dir der Flugprüfer eine temporäre Bewilligung aus, mit der du schon selber fliegen und Passagiere mitnehmen darfst. Die Lizenz selbst bekommst du kurz darauf vom BAZL.</p></div></details>
+        <details class="acc"><summary>Wo erfahre ich mehr?</summary><div class="acc__body"><p>An unseren <a class="brand-text" href="infoabende.html">Infoabenden «Wie werde ich Pilot»</a> beantworten wir alle Fragen rund um die Ausbildung. Oder ruf uns an: <a class="brand-text" href="tel:+41419301866">+41 41 930 18 66</a>.</p></div></details>
+      </div>
     </div>
   </div>
 </section>
@@ -916,53 +795,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html" aria-current="page">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html" aria-current="page">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html">Preise</a></li>
-        <li><a href="reporting.html">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 

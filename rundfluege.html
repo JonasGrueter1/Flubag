@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -7,7 +7,7 @@
 <title>Entwurf: Rundflüge | FLUBAG Flugplatz Luzern-Beromünster</title>
 <meta name="description" content="Rundflüge ab Luzern-Beromünster: Luzern, Pilatus und Rigi, Titlis, Eiger-Mönch-Jungfrau oder Matterhorn. 20 bis 90 Minuten, bis 3 Gäste, ab CHF 120 p.P.">
 <link rel="canonical" href="https://www.flubag.ch/rundfluege.html">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz">
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -254,14 +260,14 @@
       <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li>Rundflüge &amp; Gutscheine</li><li>Rundflüge</li></ol>
       <p class="eyebrow">Rundflüge ab Luzern-Beromünster</p>
       <h1 id="rf-title" data-split data-split-now>Die Alpen zum Greifen nah.</h1>
-      <p class="lead">Lehn dich zurück und schau hinunter: auf Seen, Städte, Gletscher und Viertausender. Fünf Routen von 20 Minuten über Luzern bis zum grossen Alpenflug zum Matterhorn. Bis zu drei Gäste an Bord, am Steuer ein erfahrener Pilot.</p>
+      <p class="lead">Lehn dich zurück und schau hinunter: auf Seen, Städte, Gletscher und Viertausender. Am Steuer sitzt ein erfahrener Pilot.</p>
       <div class="page-hero__meta">
         <span class="chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>20 bis 90 Minuten</span>
         <span class="chip"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>1 bis 3 Passagiere</span>
         <span class="chip chip--brand"><svg class="icon icon-tag" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /> <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /> </svg>ab CHF 120 pro Person</span>
       </div>
-      <div class="row mt-s">
-        <a class="btn btn--primary btn--lg" href="#karte" data-magnetic><svg class="icon icon-route" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg>Route wählen</a>
+      <div class="row">
+        <a class="btn btn--primary btn--lg" href="#karte"><svg class="icon icon-route" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg>Route wählen</a>
         <a class="btn btn--ghost btn--lg" href="gutscheine.html#gestalten"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein verschenken</a>
       </div>
     </div>
@@ -282,611 +288,433 @@
       </ol>
     </aside>
   </div>
-  <a class="scroll-cue" href="#karte" aria-label="Weiter zur Routenkarte"><span></span></a>
+  <a class="scroll-cue" href="#karte" aria-label="Weiter zu den Routen"><span></span></a>
 </section>
 
 <nav class="subnav" data-subnav aria-label="Inhalt dieser Seite">
   <div class="container">
     <ul class="subnav__list">
-      <li><a href="#karte">Routenkarte</a></li>
-      
-      <li><a href="#luzern">Luzern</a></li>
-      
-      <li><a href="#pilatus-rigi">Pilatus & Rigi</a></li>
-      
-      <li><a href="#titlis">Titlis</a></li>
-      
-      <li><a href="#eiger-moench-jungfrau">Eiger, Mönch & Jungfrau</a></li>
-      
-      <li><a href="#matterhorn">Matterhorn</a></li>
-      
+      <li><a href="#karte">Routen &amp; Karte</a></li>
       <li><a href="#infos">Gut zu wissen</a></li>
       <li><a href="#gutscheine">Gutscheine</a></li>
       <li><a href="#anfrage">Anfrage</a></li>
-      <li><a href="#faq">FAQ</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Routenkarte -->
-<section class="section section--chart rf-map-section" id="karte" aria-labelledby="karte-title">
+<!-- Routen: Auswahl, Details und Karte in einem -->
+<section class="section section--chart rf-sec" id="karte" aria-labelledby="karte-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split rf-head">
       <div class="stack">
-        <p class="eyebrow" data-reveal>Routenkarte</p>
+        <p class="eyebrow" data-reveal>Fünf Routen</p>
         <h2 id="karte-title" data-split>Wähle deine Route.</h2>
       </div>
-      <p class="lead" data-reveal>Tippe auf eine Route und flieg sie auf der Karte ab. Die Linien zeigen den typischen Flugweg. Die genaue Route besprichst du vor dem Start mit deinem Piloten, sie wird zudem dem Wetter angepasst.</p>
+      <p class="lead" data-reveal>Die Linie auf der Karte zeigt den typischen Flugweg. Die genaue Route besprichst du vor dem Start mit deinem Piloten, sie wird zudem dem Wetter angepasst.</p>
     </div>
 
-    <div class="rf-explorer" data-rf-explorer data-reveal>
-      <div class="rf-picker" role="group" aria-label="Route auf der Karte zeigen">
-        <button class="rf-pick rf-pick--all" type="button" data-rf-pick="all" aria-pressed="true">
-          <span class="rf-pick__num mono"><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg></span>
-          <span class="rf-pick__body"><span class="rf-pick__name">Alle Routen</span><span class="rf-pick__meta mono">Übersicht</span></span>
+    <div class="rf-tour" data-rf-tour data-reveal>
+      <div class="rf-tabs" role="tablist" aria-label="Rundflug-Routen" data-rf-tabs hidden>
+        
+        <button class="rf-tab" type="button" role="tab" id="tab-luzern" aria-controls="luzern" aria-selected="false" tabindex="-1" data-rf-tab="luzern">
+          <span class="rf-tab__num mono" aria-hidden="true">01</span>
+          <span class="rf-tab__name">Luzern</span>
+          <span class="rf-tab__meta mono">20 min · CHF 120</span>
         </button>
         
-        <button class="rf-pick" type="button" data-rf-pick="luzern" aria-pressed="false">
-          <span class="rf-pick__num mono">01</span>
-          <span class="rf-pick__body">
-            <span class="rf-pick__name">Luzern</span>
-            <span class="rf-pick__meta mono">20 min · CHF 120 · <span data-rf-dist="luzern">ca. … km</span></span>
-          </span>
-          <span class="rf-pick__go" aria-hidden="true"><svg class="icon icon-play" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg></span>
+        <button class="rf-tab" type="button" role="tab" id="tab-pilatus-rigi" aria-controls="pilatus-rigi" aria-selected="false" tabindex="-1" data-rf-tab="pilatus-rigi">
+          <span class="rf-tab__num mono" aria-hidden="true">02</span>
+          <span class="rf-tab__name">Pilatus & Rigi</span>
+          <span class="rf-tab__meta mono">30 min · CHF 160</span>
         </button>
         
-        <button class="rf-pick" type="button" data-rf-pick="pilatus-rigi" aria-pressed="false">
-          <span class="rf-pick__num mono">02</span>
-          <span class="rf-pick__body">
-            <span class="rf-pick__name">Pilatus & Rigi</span>
-            <span class="rf-pick__meta mono">30 min · CHF 160 · <span data-rf-dist="pilatus-rigi">ca. … km</span></span>
-          </span>
-          <span class="rf-pick__go" aria-hidden="true"><svg class="icon icon-play" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg></span>
+        <button class="rf-tab" type="button" role="tab" id="tab-titlis" aria-controls="titlis" aria-selected="false" tabindex="-1" data-rf-tab="titlis">
+          <span class="rf-tab__num mono" aria-hidden="true">03</span>
+          <span class="rf-tab__name">Titlis</span>
+          <span class="rf-tab__meta mono">45 min · CHF 220</span>
         </button>
         
-        <button class="rf-pick" type="button" data-rf-pick="titlis" aria-pressed="false">
-          <span class="rf-pick__num mono">03</span>
-          <span class="rf-pick__body">
-            <span class="rf-pick__name">Titlis</span>
-            <span class="rf-pick__meta mono">45 min · CHF 220 · <span data-rf-dist="titlis">ca. … km</span></span>
-          </span>
-          <span class="rf-pick__go" aria-hidden="true"><svg class="icon icon-play" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg></span>
+        <button class="rf-tab" type="button" role="tab" id="tab-eiger-moench-jungfrau" aria-controls="eiger-moench-jungfrau" aria-selected="false" tabindex="-1" data-rf-tab="eiger-moench-jungfrau">
+          <span class="rf-tab__num mono" aria-hidden="true">04</span>
+          <span class="rf-tab__name">Eiger, Mönch & Jungfrau</span>
+          <span class="rf-tab__meta mono">60 min · CHF 290</span>
         </button>
         
-        <button class="rf-pick" type="button" data-rf-pick="eiger-moench-jungfrau" aria-pressed="false">
-          <span class="rf-pick__num mono">04</span>
-          <span class="rf-pick__body">
-            <span class="rf-pick__name">Eiger, Mönch & Jungfrau</span>
-            <span class="rf-pick__meta mono">60 min · CHF 290 · <span data-rf-dist="eiger-moench-jungfrau">ca. … km</span></span>
-          </span>
-          <span class="rf-pick__go" aria-hidden="true"><svg class="icon icon-play" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg></span>
-        </button>
-        
-        <button class="rf-pick" type="button" data-rf-pick="matterhorn" aria-pressed="false">
-          <span class="rf-pick__num mono">05</span>
-          <span class="rf-pick__body">
-            <span class="rf-pick__name">Matterhorn</span>
-            <span class="rf-pick__meta mono">90 min · CHF 430 · <span data-rf-dist="matterhorn">ca. … km</span></span>
-          </span>
-          <span class="rf-pick__go" aria-hidden="true"><svg class="icon icon-play" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg></span>
+        <button class="rf-tab" type="button" role="tab" id="tab-matterhorn" aria-controls="matterhorn" aria-selected="false" tabindex="-1" data-rf-tab="matterhorn">
+          <span class="rf-tab__num mono" aria-hidden="true">05</span>
+          <span class="rf-tab__name">Matterhorn</span>
+          <span class="rf-tab__meta mono">90 min · CHF 430</span>
         </button>
         
       </div>
 
-      <div class="rf-mapwrap">
-        <div class="map rf-map" data-rf-map role="region" aria-label="Karte mit den fünf Rundflug-Routen ab Luzern-Beromünster" tabindex="0">
-          <div class="rf-map__fallback" data-rf-fallback aria-hidden="true"></div>
-        </div>
-        <div class="map-layers rf-layers" role="group" aria-label="Kartentyp">
-          <button type="button" data-rf-layer="karte" aria-pressed="true">Landeskarte</button>
-          <button type="button" data-rf-layer="luftbild" aria-pressed="false">Luftbild</button>
-          <button type="button" data-rf-layer="icao" aria-pressed="false">ICAO</button>
-        </div>
-        <p class="rf-map__hint mono" data-rf-touch-hint hidden>Karte mit zwei Fingern verschieben und zoomen</p>
-        <p class="rf-map__offline chip" data-rf-offline hidden><svg class="icon icon-wifi-off" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 20h.01" /> <path d="M8.5 16.429a5 5 0 0 1 7 0" /> <path d="M5 12.859a10 10 0 0 1 5.17-2.69" /> <path d="M19 12.859a10 10 0 0 0-2.007-1.523" /> <path d="M2 8.82a15 15 0 0 1 4.177-2.643" /> <path d="M22 8.82a15 15 0 0 0-11.288-3.764" /> <path d="m2 2 20 20" /> </svg>Kartenhintergrund nicht verfügbar</p>
+      <div class="rf-stage">
+        <div class="rf-panels">
+          
+          <article class="rf-route" id="luzern" data-rf-route="luzern" aria-labelledby="luzern-title">
+            <div class="media-frame rf-route__frame">
+              <img src="assets/img/rundflug/luzern-1440.webp" srcset="assets/img/rundflug/luzern-480.webp 480w, assets/img/rundflug/luzern-960.webp 960w, assets/img/rundflug/luzern-1440.webp 1440w, assets/img/rundflug/luzern-2048.webp 2048w" sizes="(max-width: 1023px) 100vw, 620px" width="2400" height="1593" alt="Luftaufnahme der Luzerner Altstadt mit Reuss, Kapellbrücke und Seebecken" loading="lazy" decoding="async">
+              
+              
+              
+              
+            </div>
 
-        <div class="rf-hud instrument force-dark" data-rf-hud aria-live="polite">
-          <div class="rf-hud__id">
-            <span class="mono rf-hud__code" data-rf-hud-code>LSZO · 5 ROUTEN</span>
-            <p class="rf-hud__title" data-rf-hud-title>Alle Routen</p>
-            <p class="rf-hud__note" data-rf-hud-note>Wähle eine Route, das Flugzeug fliegt sie für dich ab.</p>
-          </div>
-          <div class="rf-hud__grid">
-            <div class="readout"><span class="readout__label">Dauer</span><span class="readout__value" data-rf-hud-dur>20 bis 90 <small>min</small></span></div>
-            <div class="readout"><span class="readout__label">Preis p.P.</span><span class="readout__value" data-rf-hud-price><small>ab</small> CHF 120</span></div>
-            <div class="readout"><span class="readout__label">Distanz ca.</span><span class="readout__value" data-rf-hud-dist>…</span></div>
-          </div>
-          <div class="rf-hud__side">
-            <button class="rf-hud__replay" type="button" data-rf-replay hidden><svg class="icon icon-rotate-ccw" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg><span>Nochmals</span></button>
-            <div class="rf-hud__actions" data-rf-hud-actions hidden>
-              <a class="btn btn--primary btn--sm" href="#anfrage" data-rf-request="" data-rf-hud-request><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Anfragen</a>
-              <a class="btn btn--ghost btn--sm" href="#karte" data-rf-hud-details>Details <svg class="icon icon-arrow-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /> </svg></a>
+            <div class="rf-route__body">
+              <p class="eyebrow">Route 01 · Rundflug Luzern</p>
+              <h3 class="rf-route__title" id="luzern-title">Luzern</h3>
+              <p class="rf-route__teaser">Seetal, drei Seen und die Kapellbrücke von oben.</p>
+              <p class="rf-route__text">Die Cessna mit 3 Passagierplätzen hebt in Luzern-Beromünster ab. Ihr überfliegt das Seetal mit Sicht auf Hallwiler-, Baldegger- und Sempachersee, voraus das wunderschöne Luzerner Seebecken. Die Kapellbrücke und die anderen Sehenswürdigkeiten aus der Luft zu sehen, begeistert garantiert.</p>
+
+              <ul class="rf-highlights" aria-label="Unterwegs zu sehen">
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Hallwilersee</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Baldeggersee</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Luzern & Kapellbrücke</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Sempachersee</li>
+                
+              </ul>
+
+              <dl class="rf-facts">
+                <div class="rf-fact"><dt>Dauer</dt><dd>20 <small>min</small></dd></div>
+                <div class="rf-fact"><dt>Preis pro Person</dt><dd><small>CHF</small> 120</dd></div>
+                <div class="rf-fact rf-fact--km"><dt>Distanz ca.</dt><dd><span data-rf-km="luzern">…</span> <small>km</small></dd></div>
+              </dl>
+
+              <div class="row rf-route__actions">
+                <a class="btn btn--primary" href="#anfrage" data-rf-request="luzern"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
+                <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45061/gutschein-rundflug-luzern" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
+              </div>
+
+              <p class="rf-gift"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
+                Verschenke einen Rundflug über Luzern: Die Beschenkten überfliegen das Seetal und schauen voraus auf das Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.
+                
+                
+                
+                
+              </span></p>
+            </div>
+          </article>
+          
+          <article class="rf-route" id="pilatus-rigi" data-rf-route="pilatus-rigi" aria-labelledby="pilatus-rigi-title">
+            <div class="media-frame rf-route__frame">
+              
+              <img src="assets/img/rundflug/pilatus-rigi-1440.webp" srcset="assets/img/rundflug/pilatus-rigi-480.webp 480w, assets/img/rundflug/pilatus-rigi-960.webp 960w, assets/img/rundflug/pilatus-rigi-1440.webp 1440w, assets/img/rundflug/pilatus-rigi-2048.webp 2048w" sizes="(max-width: 1023px) 100vw, 620px" width="2400" height="1800" alt="Blick unter dem Flügel hindurch auf die Rigi mit dem Sendeturm, dahinter die Alpen" loading="lazy" decoding="async">
+              
+              
+              
+            </div>
+
+            <div class="rf-route__body">
+              <p class="eyebrow">Route 02 · Rundflug Pilatus / Rigi</p>
+              <h3 class="rf-route__title" id="pilatus-rigi-title">Pilatus & Rigi</h3>
+              <p class="rf-route__teaser">Die beiden Hausberge Luzerns aus nächster Nähe.</p>
+              <p class="rf-route__text">Ab dem gut zugänglichen Flugplatz Luzern-Beromünster geht es Richtung Luzerner Seebecken. Dabei überfliegt ihr das glitzernde Wasser des Sempachersees und das satte Grün der Innerschweiz. Die Sicht schweift zu Rigi und Pilatus, die beiden Hausberge Luzerns überraschen mit Grösse und Schönheit. Nach 30 Minuten Flugzeit landet ihr wieder in Beromünster.</p>
+
+              <ul class="rf-highlights" aria-label="Unterwegs zu sehen">
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Sempachersee</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Pilatus 2128 m</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Vierwaldstättersee</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Rigi 1797 m</li>
+                
+              </ul>
+
+              <dl class="rf-facts">
+                <div class="rf-fact"><dt>Dauer</dt><dd>30 <small>min</small></dd></div>
+                <div class="rf-fact"><dt>Preis pro Person</dt><dd><small>CHF</small> 160</dd></div>
+                <div class="rf-fact rf-fact--km"><dt>Distanz ca.</dt><dd><span data-rf-km="pilatus-rigi">…</span> <small>km</small></dd></div>
+              </dl>
+
+              <div class="row rf-route__actions">
+                <a class="btn btn--primary" href="#anfrage" data-rf-request="pilatus-rigi"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
+                <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45093/gutschein-rundflug-pilatus-rigi" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
+              </div>
+
+              <p class="rf-gift"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
+                
+                Verschenke 30 Minuten über dem satten Grün der Innerschweiz: vom gut zugänglichen Flugplatz Luzern-Beromünster über den glitzernden Sempachersee zu Rigi und Pilatus, den beiden Hausbergen Luzerns, und zurück.
+                
+                
+                
+              </span></p>
+            </div>
+          </article>
+          
+          <article class="rf-route" id="titlis" data-rf-route="titlis" aria-labelledby="titlis-title">
+            <div class="media-frame rf-route__frame">
+              
+              
+              <img src="assets/img/rundflug/titlis-1440.webp" srcset="assets/img/rundflug/titlis-480.webp 480w, assets/img/rundflug/titlis-960.webp 960w, assets/img/rundflug/titlis-1440.webp 1440w, assets/img/rundflug/titlis-2048.webp 2048w" sizes="(max-width: 1023px) 100vw, 620px" width="2400" height="1800" alt="Verschneite Gletscher und Grate am Titlis aus der Luft" loading="lazy" decoding="async">
+              
+              
+            </div>
+
+            <div class="rf-route__body">
+              <p class="eyebrow">Route 03 · Rundflug Titlis</p>
+              <h3 class="rf-route__title" id="titlis-title">Titlis</h3>
+              <p class="rf-route__teaser">Raus aus dem Nebel, rein ins Gletscherweiss.</p>
+              <p class="rf-route__text">Der Flug startet im höher gelegenen Beromünster. Dem Nebel hoffentlich entflohen, hebt ihr ab Richtung Innerschweiz. Die glitzernden Seen und grünen Landschaften werden umrahmt von Rigi und Pilatus. Zurück geht es entweder an den Mythen vorbei mit Sicht auf Zuger-, Hallwiler- und Baldeggersee, oder ihr bestaunt den schneebestäubten Titlis. Die Route wird vorher mit dem Piloten besprochen oder der Wetterlage angepasst.</p>
+
+              <ul class="rf-highlights" aria-label="Unterwegs zu sehen">
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Pilatus</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Titlis 3238 m</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Mythen</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Zugersee</li>
+                
+              </ul>
+
+              <dl class="rf-facts">
+                <div class="rf-fact"><dt>Dauer</dt><dd>45 <small>min</small></dd></div>
+                <div class="rf-fact"><dt>Preis pro Person</dt><dd><small>CHF</small> 220</dd></div>
+                <div class="rf-fact rf-fact--km"><dt>Distanz ca.</dt><dd><span data-rf-km="titlis">…</span> <small>km</small></dd></div>
+              </dl>
+
+              <div class="row rf-route__actions">
+                <a class="btn btn--primary" href="#anfrage" data-rf-request="titlis"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
+                <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45094/gutschein-rundflug-titlis" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
+              </div>
+
+              <p class="rf-gift"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
+                
+                
+                Verschenke den Flug in die Innerschweizer Berge. Ob Mythen oder Titlis: Beide Steinmassive sind sehr sehenswert.
+                
+                
+              </span></p>
+            </div>
+          </article>
+          
+          <article class="rf-route" id="eiger-moench-jungfrau" data-rf-route="eiger-moench-jungfrau" aria-labelledby="eiger-moench-jungfrau-title">
+            <div class="media-frame rf-route__frame">
+              
+              
+              
+              <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 1023px) 100vw, 620px" width="2400" height="1800" alt="Verschneite Gipfel im Berner Oberland unter dem Flügel des Flugzeugs" loading="lazy" decoding="async">
+              
+            </div>
+
+            <div class="rf-route__body">
+              <p class="eyebrow">Route 04 · Rundflug Eiger, Mönch und Jungfrau</p>
+              <h3 class="rf-route__title" id="eiger-moench-jungfrau-title">Eiger, Mönch & Jungfrau</h3>
+              <p class="rf-route__teaser">Top of Europe und das UNESCO Welterbe von oben.</p>
+              <p class="rf-route__text">Top of Europe, das UNESCO Welterbe von oben sehen: ein Traum, der in Erfüllung geht. In der vierplätzigen Cessna seht ihr das Jungfraujoch mit dem Konkordiaplatz und überfliegt Eiger und Mönch. Das Dreigestirn wird umrahmt von weiteren Zwei- und Dreitausendern wie der Scheidegg, dem Engelhorn oder dem Stanserhorn. Berge, Seen und Landschaften, die verzaubern.</p>
+
+              <ul class="rf-highlights" aria-label="Unterwegs zu sehen">
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Stanserhorn</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Eiger 3967 m</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Jungfraujoch</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Konkordiaplatz</li>
+                
+              </ul>
+
+              <dl class="rf-facts">
+                <div class="rf-fact"><dt>Dauer</dt><dd>60 <small>min</small></dd></div>
+                <div class="rf-fact"><dt>Preis pro Person</dt><dd><small>CHF</small> 290</dd></div>
+                <div class="rf-fact rf-fact--km"><dt>Distanz ca.</dt><dd><span data-rf-km="eiger-moench-jungfrau">…</span> <small>km</small></dd></div>
+              </dl>
+
+              <div class="row rf-route__actions">
+                <a class="btn btn--primary" href="#anfrage" data-rf-request="eiger-moench-jungfrau"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
+                <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45095/gutschein-rundflug-eiger-moench-jungfrau" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
+              </div>
+
+              <p class="rf-gift"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
+                
+                
+                
+                Verschenke das UNESCO Welterbe von oben: Die Beschenkten werden bei diesem Flug Mund und Augen offen halten und Berge, Seen und Landschaften sehen, die sie verzaubern werden.
+                
+              </span></p>
+            </div>
+          </article>
+          
+          <article class="rf-route" id="matterhorn" data-rf-route="matterhorn" aria-labelledby="matterhorn-title">
+            <div class="media-frame rf-route__frame">
+              
+              
+              
+              
+              <img src="assets/img/rundflug/matterhorn-1440.webp" srcset="assets/img/rundflug/matterhorn-480.webp 480w, assets/img/rundflug/matterhorn-960.webp 960w, assets/img/rundflug/matterhorn-1440.webp 1440w, assets/img/rundflug/matterhorn-2048.webp 2048w" sizes="(max-width: 1023px) 100vw, 620px" width="2400" height="1800" alt="Blick aus dem Cockpit über Wolken und Gletscher zum Matterhorn" loading="lazy" decoding="async">
+            </div>
+
+            <div class="rf-route__body">
+              <p class="eyebrow">Route 05 · Rundflug Matterhorn</p>
+              <h3 class="rf-route__title" id="matterhorn-title">Matterhorn</h3>
+              <p class="rf-route__teaser">Der grosse Alpenflug zum berühmtesten Berg der Welt.</p>
+              <p class="rf-route__text">Der Start in Beromünster erfolgt stressfrei und unkompliziert. Mit der vierplätzigen Cessna seht ihr die Welt von oben, beliebte Skigebiete und verschiedene Städte. Das mediterrane Flair von Thuner- und Brienzersee nehmt ihr mit auf die Reise zum Matterhorn. Zurück geht es über das Goms, den Grimselpass und die Melchsee-Frutt. Der verwinkelte Vierwaldstättersee mit Pilatus und Rigi macht den Abschluss zu einem Erlebnis, das keine Wünsche offen lässt.</p>
+
+              <ul class="rf-highlights" aria-label="Unterwegs zu sehen">
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Thunersee</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Matterhorn 4478 m</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Grimselpass</li>
+                
+                <li><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Vierwaldstättersee</li>
+                
+              </ul>
+
+              <dl class="rf-facts">
+                <div class="rf-fact"><dt>Dauer</dt><dd>90 <small>min</small></dd></div>
+                <div class="rf-fact"><dt>Preis pro Person</dt><dd><small>CHF</small> 430</dd></div>
+                <div class="rf-fact rf-fact--km"><dt>Distanz ca.</dt><dd><span data-rf-km="matterhorn">…</span> <small>km</small></dd></div>
+              </dl>
+
+              <div class="row rf-route__actions">
+                <a class="btn btn--primary" href="#anfrage" data-rf-request="matterhorn"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
+                <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45096/gutschein-rundflug-matterhorn" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
+              </div>
+
+              <p class="rf-gift"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
+                
+                
+                
+                
+                Verschenke den grossen Alpenflug: Den Abschluss machen der verwinkelte Vierwaldstättersee, der emporsteigende Pilatus und die Rigi. Ein Erlebnis, das keine Wünsche offen lässt.
+              </span></p>
+            </div>
+          </article>
+          
+        </div>
+
+        <div class="rf-mapcol">
+          <div class="rf-mapwrap">
+            <div class="map rf-map" data-rf-map role="region" aria-label="Karte mit den fünf Rundflug-Routen ab Luzern-Beromünster" tabindex="0">
+              <div class="rf-map__fallback" data-rf-fallback aria-hidden="true"></div>
+            </div>
+            <div class="map-layers rf-layers" role="group" aria-label="Kartentyp">
+              <button type="button" data-rf-layer="karte" aria-pressed="true">Landeskarte</button>
+              <button type="button" data-rf-layer="luftbild" aria-pressed="false">Luftbild</button>
+              <button type="button" data-rf-layer="icao" aria-pressed="false">ICAO</button>
+            </div>
+            <p class="rf-map__hint mono" data-rf-touch-hint hidden>Karte mit zwei Fingern verschieben und zoomen</p>
+            <p class="rf-map__offline chip" data-rf-offline hidden><svg class="icon icon-wifi-off" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 20h.01" /> <path d="M8.5 16.429a5 5 0 0 1 7 0" /> <path d="M5 12.859a10 10 0 0 1 5.17-2.69" /> <path d="M19 12.859a10 10 0 0 0-2.007-1.523" /> <path d="M2 8.82a15 15 0 0 1 4.177-2.643" /> <path d="M22 8.82a15 15 0 0 0-11.288-3.764" /> <path d="m2 2 20 20" /> </svg>Kartenhintergrund nicht verfügbar</p>
+            <div class="rf-hud instrument force-dark" data-rf-hud>
+              <div class="rf-hud__id">
+                <span class="mono rf-hud__code" data-rf-hud-code>ROUTE 01 · LSZO</span>
+                <span class="rf-hud__title" data-rf-hud-title>Luzern</span>
+              </div>
+              <button class="rf-hud__replay" type="button" data-rf-replay><svg class="icon icon-play" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg><span data-rf-replay-label>Abfliegen</span></button>
+              <span class="rf-hud__bar" aria-hidden="true"><span class="rf-hud__fill" data-rf-hud-fill></span></span>
             </div>
           </div>
-          <span class="rf-hud__bar" aria-hidden="true"><span class="rf-hud__fill" data-rf-hud-fill></span></span>
+          <div class="rf-legend">
+            <ul aria-label="Legende">
+              <li><span class="rf-legend__sym rf-legend__sym--home" aria-hidden="true"></span>LSZO Beromünster: Start und Landung</li>
+              <li><span class="rf-legend__sym rf-legend__sym--line" aria-hidden="true"></span>Typischer Flugweg</li>
+              <li><span class="rf-legend__sym rf-legend__sym--trail" aria-hidden="true"></span>Bereits abgeflogen</li>
+              <li><span class="rf-legend__sym rf-legend__sym--wp" aria-hidden="true"></span>Wegpunkt mit Sehenswürdigkeit</li>
+            </ul>
+            <p class="rf-legend__note subtle">Distanzen sind Schätzungen: Luftlinie über die eingezeichneten Wegpunkte. Die tatsächliche Strecke hängt von Route, Wind und Wetter ab. Kartengrundlage © swisstopo.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="rf-legend">
-        <p class="rf-legend__title mono">Legende</p>
-        <ul>
-          <li><span class="rf-legend__sym rf-legend__sym--home" aria-hidden="true"></span>LSZO Beromünster: Start und Landung</li>
-          <li><span class="rf-legend__sym rf-legend__sym--line" aria-hidden="true"></span>Typischer Flugweg</li>
-          <li><span class="rf-legend__sym rf-legend__sym--trail" aria-hidden="true"></span>Bereits abgeflogen</li>
-          <li><span class="rf-legend__sym rf-legend__sym--wp" aria-hidden="true"></span>Wegpunkt mit Sehenswürdigkeit</li>
-        </ul>
-        <p class="rf-legend__note subtle">Distanzen sind Schätzungen: Luftlinie über die eingezeichneten Wegpunkte. Kartengrundlage © swisstopo.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Die fünf Routen -->
-<div class="rf-routes">
-  
-  <article class="section rf-route" id="luzern" data-rf-route="luzern" aria-labelledby="luzern-title">
-    <div class="container rf-route__grid">
-      <div class="rf-route__media">
-        <div class="media-frame rf-route__frame" data-reveal="clip">
-          <img src="assets/img/rundflug/luzern-1440.webp" srcset="assets/img/rundflug/luzern-480.webp 480w, assets/img/rundflug/luzern-960.webp 960w, assets/img/rundflug/luzern-1440.webp 1440w, assets/img/rundflug/luzern-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 50vw" width="2400" height="1593" alt="Luftaufnahme der Luzerner Altstadt mit Reuss, Kapellbrücke und Seebecken" loading="lazy" decoding="async" data-parallax="0.1">
-          
-          
-          
-          
-          <span class="rf-route__badge chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>20 min</span>
-        </div>
-        <div class="rf-route__sketch" data-rf-sketch="luzern" data-reveal="fade" aria-hidden="true"></div>
-        <span class="rf-route__num" aria-hidden="true">01</span>
-      </div>
-
-      <div class="rf-route__body">
-        <p class="eyebrow" data-reveal>Route 01 · Rundflug Luzern</p>
-        <h2 class="rf-route__title" id="luzern-title" data-split>Luzern</h2>
-        <p class="lead rf-route__teaser" data-reveal>Seetal, drei Seen und die Kapellbrücke von oben.</p>
-        <p class="rf-route__text" data-reveal>Die Cessna mit 3 Passagierplätzen hebt in Luzern-Beromünster ab. Ihr überfliegt das Seetal mit Sicht auf Hallwiler-, Baldegger- und Sempachersee, voraus das wunderschöne Luzerner Seebecken. Die Kapellbrücke und die anderen Sehenswürdigkeiten aus der Luft zu sehen, begeistert garantiert.</p>
-
-        <ul class="rf-highlights" aria-label="Unterwegs zu sehen" data-reveal-group="0.06">
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Hallwilersee</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Baldeggersee</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Luzern & Kapellbrücke</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Sempachersee</li>
-          
-        </ul>
-
-        <div class="rf-facts" data-reveal>
-          <div class="rf-fact"><span class="rf-fact__label">Dauer</span><span class="rf-fact__value"><span data-count="20">20</span><small>min</small></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Preis pro Person</span><span class="rf-fact__value"><small>CHF</small><span data-count="120">120</span></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Distanz (geschätzt)</span><span class="rf-fact__value"><small>ca.</small><span data-rf-km="luzern">…</span><small>km</small></span></div>
-        </div>
-
-        <div class="rf-calc" data-rf-calc="luzern" data-price="120" data-reveal>
-          <div class="rf-calc__q">
-            <span class="rf-calc__label" id="luzern-pers"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Anzahl Personen</span>
-            <div class="segmented rf-calc__seg" role="radiogroup" aria-labelledby="luzern-pers">
-              <label><input type="radio" name="calc-luzern" value="1" checked><span>1</span></label>
-              <label><input type="radio" name="calc-luzern" value="2"><span>2</span></label>
-              <label><input type="radio" name="calc-luzern" value="3"><span>3</span></label>
-            </div>
-          </div>
-          <div class="rf-calc__total">
-            <span class="rf-calc__label" data-rf-calc-note>Total für 1 Person</span>
-            <output class="rf-calc__sum" data-rf-calc-sum aria-live="polite">CHF 120</output>
-          </div>
-        </div>
-
-        <div class="row rf-route__actions" data-reveal>
-          <a class="btn btn--primary" href="#anfrage" data-rf-request="luzern" data-magnetic><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
-          <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45061/gutschein-rundflug-luzern" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
-          <a class="btn btn--text" href="#karte" data-rf-show="luzern"><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Auf der Karte</a>
-        </div>
-
-        <p class="rf-gift" data-reveal><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
-          Verschenke einen Rundflug über Luzern: Die Beschenkten überfliegen das Seetal und schauen voraus auf das Luzerner Seebecken. Die Kapellbrücke und andere Sehenswürdigkeiten aus der Luft zu betrachten, wird deine Liebsten begeistern.
-          
-          
-          
-          
-        </span></p>
-      </div>
-    </div>
-  </article>
-  
-  <article class="section rf-route section--alt" id="pilatus-rigi" data-rf-route="pilatus-rigi" aria-labelledby="pilatus-rigi-title">
-    <div class="container rf-route__grid">
-      <div class="rf-route__media">
-        <div class="media-frame rf-route__frame" data-reveal="clip">
-          
-          <img src="assets/img/rundflug/pilatus-rigi-1440.webp" srcset="assets/img/rundflug/pilatus-rigi-480.webp 480w, assets/img/rundflug/pilatus-rigi-960.webp 960w, assets/img/rundflug/pilatus-rigi-1440.webp 1440w, assets/img/rundflug/pilatus-rigi-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 50vw" width="2400" height="1800" alt="Blick unter dem Flügel hindurch auf die Rigi mit dem Sendeturm, dahinter die Alpen" loading="lazy" decoding="async" data-parallax="0.1">
-          
-          
-          
-          <span class="rf-route__badge chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>30 min</span>
-        </div>
-        <div class="rf-route__sketch" data-rf-sketch="pilatus-rigi" data-reveal="fade" aria-hidden="true"></div>
-        <span class="rf-route__num" aria-hidden="true">02</span>
-      </div>
-
-      <div class="rf-route__body">
-        <p class="eyebrow" data-reveal>Route 02 · Rundflug Pilatus / Rigi</p>
-        <h2 class="rf-route__title" id="pilatus-rigi-title" data-split>Pilatus & Rigi</h2>
-        <p class="lead rf-route__teaser" data-reveal>Die beiden Hausberge Luzerns aus nächster Nähe.</p>
-        <p class="rf-route__text" data-reveal>Ab dem gut zugänglichen Flugplatz Luzern-Beromünster geht es Richtung Luzerner Seebecken. Dabei überfliegt ihr das glitzernde Wasser des Sempachersees und das satte Grün der Innerschweiz. Die Sicht schweift zu Rigi und Pilatus, die beiden Hausberge Luzerns überraschen mit Grösse und Schönheit. Nach 30 Minuten Flugzeit landet ihr wieder in Beromünster.</p>
-
-        <ul class="rf-highlights" aria-label="Unterwegs zu sehen" data-reveal-group="0.06">
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Sempachersee</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Pilatus 2128 m</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Vierwaldstättersee</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Rigi 1797 m</li>
-          
-        </ul>
-
-        <div class="rf-facts" data-reveal>
-          <div class="rf-fact"><span class="rf-fact__label">Dauer</span><span class="rf-fact__value"><span data-count="30">30</span><small>min</small></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Preis pro Person</span><span class="rf-fact__value"><small>CHF</small><span data-count="160">160</span></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Distanz (geschätzt)</span><span class="rf-fact__value"><small>ca.</small><span data-rf-km="pilatus-rigi">…</span><small>km</small></span></div>
-        </div>
-
-        <div class="rf-calc" data-rf-calc="pilatus-rigi" data-price="160" data-reveal>
-          <div class="rf-calc__q">
-            <span class="rf-calc__label" id="pilatus-rigi-pers"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Anzahl Personen</span>
-            <div class="segmented rf-calc__seg" role="radiogroup" aria-labelledby="pilatus-rigi-pers">
-              <label><input type="radio" name="calc-pilatus-rigi" value="1" checked><span>1</span></label>
-              <label><input type="radio" name="calc-pilatus-rigi" value="2"><span>2</span></label>
-              <label><input type="radio" name="calc-pilatus-rigi" value="3"><span>3</span></label>
-            </div>
-          </div>
-          <div class="rf-calc__total">
-            <span class="rf-calc__label" data-rf-calc-note>Total für 1 Person</span>
-            <output class="rf-calc__sum" data-rf-calc-sum aria-live="polite">CHF 160</output>
-          </div>
-        </div>
-
-        <div class="row rf-route__actions" data-reveal>
-          <a class="btn btn--primary" href="#anfrage" data-rf-request="pilatus-rigi" data-magnetic><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
-          <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45093/gutschein-rundflug-pilatus-rigi" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
-          <a class="btn btn--text" href="#karte" data-rf-show="pilatus-rigi"><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Auf der Karte</a>
-        </div>
-
-        <p class="rf-gift" data-reveal><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
-          
-          Verschenke 30 Minuten über dem satten Grün der Innerschweiz: vom gut zugänglichen Flugplatz Luzern-Beromünster über den glitzernden Sempachersee zu Rigi und Pilatus, den beiden Hausbergen Luzerns, und zurück.
-          
-          
-          
-        </span></p>
-      </div>
-    </div>
-  </article>
-  
-  <article class="section rf-route" id="titlis" data-rf-route="titlis" aria-labelledby="titlis-title">
-    <div class="container rf-route__grid">
-      <div class="rf-route__media">
-        <div class="media-frame rf-route__frame" data-reveal="clip">
-          
-          
-          <img src="assets/img/rundflug/titlis-1440.webp" srcset="assets/img/rundflug/titlis-480.webp 480w, assets/img/rundflug/titlis-960.webp 960w, assets/img/rundflug/titlis-1440.webp 1440w, assets/img/rundflug/titlis-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 50vw" width="2400" height="1800" alt="Verschneite Gletscher und Grate am Titlis aus der Luft" loading="lazy" decoding="async" data-parallax="0.1">
-          
-          
-          <span class="rf-route__badge chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>45 min</span>
-        </div>
-        <div class="rf-route__sketch" data-rf-sketch="titlis" data-reveal="fade" aria-hidden="true"></div>
-        <span class="rf-route__num" aria-hidden="true">03</span>
-      </div>
-
-      <div class="rf-route__body">
-        <p class="eyebrow" data-reveal>Route 03 · Rundflug Titlis</p>
-        <h2 class="rf-route__title" id="titlis-title" data-split>Titlis</h2>
-        <p class="lead rf-route__teaser" data-reveal>Raus aus dem Nebel, rein ins Gletscherweiss.</p>
-        <p class="rf-route__text" data-reveal>Der Flug startet im höher gelegenen Beromünster. Dem Nebel hoffentlich entflohen, hebt ihr ab Richtung Innerschweiz. Die glitzernden Seen und grünen Landschaften werden umrahmt von Rigi und Pilatus. Zurück geht es entweder an den Mythen vorbei mit Sicht auf Zuger-, Hallwiler- und Baldeggersee, oder ihr bestaunt den schneebestäubten Titlis. Die Route wird vorher mit dem Piloten besprochen oder der Wetterlage angepasst.</p>
-
-        <ul class="rf-highlights" aria-label="Unterwegs zu sehen" data-reveal-group="0.06">
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Pilatus</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Titlis 3238 m</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Mythen</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Zugersee</li>
-          
-        </ul>
-
-        <div class="rf-facts" data-reveal>
-          <div class="rf-fact"><span class="rf-fact__label">Dauer</span><span class="rf-fact__value"><span data-count="45">45</span><small>min</small></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Preis pro Person</span><span class="rf-fact__value"><small>CHF</small><span data-count="220">220</span></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Distanz (geschätzt)</span><span class="rf-fact__value"><small>ca.</small><span data-rf-km="titlis">…</span><small>km</small></span></div>
-        </div>
-
-        <div class="rf-calc" data-rf-calc="titlis" data-price="220" data-reveal>
-          <div class="rf-calc__q">
-            <span class="rf-calc__label" id="titlis-pers"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Anzahl Personen</span>
-            <div class="segmented rf-calc__seg" role="radiogroup" aria-labelledby="titlis-pers">
-              <label><input type="radio" name="calc-titlis" value="1" checked><span>1</span></label>
-              <label><input type="radio" name="calc-titlis" value="2"><span>2</span></label>
-              <label><input type="radio" name="calc-titlis" value="3"><span>3</span></label>
-            </div>
-          </div>
-          <div class="rf-calc__total">
-            <span class="rf-calc__label" data-rf-calc-note>Total für 1 Person</span>
-            <output class="rf-calc__sum" data-rf-calc-sum aria-live="polite">CHF 220</output>
-          </div>
-        </div>
-
-        <div class="row rf-route__actions" data-reveal>
-          <a class="btn btn--primary" href="#anfrage" data-rf-request="titlis" data-magnetic><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
-          <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45094/gutschein-rundflug-titlis" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
-          <a class="btn btn--text" href="#karte" data-rf-show="titlis"><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Auf der Karte</a>
-        </div>
-
-        <p class="rf-gift" data-reveal><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
-          
-          
-          Verschenke den Flug in die Innerschweizer Berge. Ob Mythen oder Titlis: Beide Steinmassive sind sehr sehenswert.
-          
-          
-        </span></p>
-      </div>
-    </div>
-  </article>
-  
-  <article class="section rf-route section--alt" id="eiger-moench-jungfrau" data-rf-route="eiger-moench-jungfrau" aria-labelledby="eiger-moench-jungfrau-title">
-    <div class="container rf-route__grid">
-      <div class="rf-route__media">
-        <div class="media-frame rf-route__frame" data-reveal="clip">
-          
-          
-          
-          <img src="assets/img/rundflug/eiger-moench-jungfrau-1440.webp" srcset="assets/img/rundflug/eiger-moench-jungfrau-480.webp 480w, assets/img/rundflug/eiger-moench-jungfrau-960.webp 960w, assets/img/rundflug/eiger-moench-jungfrau-1440.webp 1440w, assets/img/rundflug/eiger-moench-jungfrau-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 50vw" width="2400" height="1800" alt="Verschneite Gipfel im Berner Oberland unter dem Flügel des Flugzeugs" loading="lazy" decoding="async" data-parallax="0.1">
-          
-          <span class="rf-route__badge chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>60 min</span>
-        </div>
-        <div class="rf-route__sketch" data-rf-sketch="eiger-moench-jungfrau" data-reveal="fade" aria-hidden="true"></div>
-        <span class="rf-route__num" aria-hidden="true">04</span>
-      </div>
-
-      <div class="rf-route__body">
-        <p class="eyebrow" data-reveal>Route 04 · Rundflug Eiger, Mönch und Jungfrau</p>
-        <h2 class="rf-route__title" id="eiger-moench-jungfrau-title" data-split>Eiger, Mönch & Jungfrau</h2>
-        <p class="lead rf-route__teaser" data-reveal>Top of Europe und das UNESCO Welterbe von oben.</p>
-        <p class="rf-route__text" data-reveal>Top of Europe, das UNESCO Welterbe von oben sehen: ein Traum, der in Erfüllung geht. In der vierplätzigen Cessna seht ihr das Jungfraujoch mit dem Konkordiaplatz und überfliegt Eiger und Mönch. Das Dreigestirn wird umrahmt von weiteren Zwei- und Dreitausendern wie der Scheidegg, dem Engelhorn oder dem Stanserhorn. Berge, Seen und Landschaften, die verzaubern.</p>
-
-        <ul class="rf-highlights" aria-label="Unterwegs zu sehen" data-reveal-group="0.06">
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Stanserhorn</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Eiger 3967 m</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Jungfraujoch</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Konkordiaplatz</li>
-          
-        </ul>
-
-        <div class="rf-facts" data-reveal>
-          <div class="rf-fact"><span class="rf-fact__label">Dauer</span><span class="rf-fact__value"><span data-count="60">60</span><small>min</small></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Preis pro Person</span><span class="rf-fact__value"><small>CHF</small><span data-count="290">290</span></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Distanz (geschätzt)</span><span class="rf-fact__value"><small>ca.</small><span data-rf-km="eiger-moench-jungfrau">…</span><small>km</small></span></div>
-        </div>
-
-        <div class="rf-calc" data-rf-calc="eiger-moench-jungfrau" data-price="290" data-reveal>
-          <div class="rf-calc__q">
-            <span class="rf-calc__label" id="eiger-moench-jungfrau-pers"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Anzahl Personen</span>
-            <div class="segmented rf-calc__seg" role="radiogroup" aria-labelledby="eiger-moench-jungfrau-pers">
-              <label><input type="radio" name="calc-eiger-moench-jungfrau" value="1" checked><span>1</span></label>
-              <label><input type="radio" name="calc-eiger-moench-jungfrau" value="2"><span>2</span></label>
-              <label><input type="radio" name="calc-eiger-moench-jungfrau" value="3"><span>3</span></label>
-            </div>
-          </div>
-          <div class="rf-calc__total">
-            <span class="rf-calc__label" data-rf-calc-note>Total für 1 Person</span>
-            <output class="rf-calc__sum" data-rf-calc-sum aria-live="polite">CHF 290</output>
-          </div>
-        </div>
-
-        <div class="row rf-route__actions" data-reveal>
-          <a class="btn btn--primary" href="#anfrage" data-rf-request="eiger-moench-jungfrau" data-magnetic><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
-          <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45095/gutschein-rundflug-eiger-moench-jungfrau" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
-          <a class="btn btn--text" href="#karte" data-rf-show="eiger-moench-jungfrau"><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Auf der Karte</a>
-        </div>
-
-        <p class="rf-gift" data-reveal><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
-          
-          
-          
-          Verschenke das UNESCO Welterbe von oben: Die Beschenkten werden bei diesem Flug Mund und Augen offen halten und Berge, Seen und Landschaften sehen, die sie verzaubern werden.
-          
-        </span></p>
-      </div>
-    </div>
-  </article>
-  
-  <article class="section rf-route" id="matterhorn" data-rf-route="matterhorn" aria-labelledby="matterhorn-title">
-    <div class="container rf-route__grid">
-      <div class="rf-route__media">
-        <div class="media-frame rf-route__frame" data-reveal="clip">
-          
-          
-          
-          
-          <img src="assets/img/rundflug/matterhorn-1440.webp" srcset="assets/img/rundflug/matterhorn-480.webp 480w, assets/img/rundflug/matterhorn-960.webp 960w, assets/img/rundflug/matterhorn-1440.webp 1440w, assets/img/rundflug/matterhorn-2048.webp 2048w" sizes="(max-width: 860px) 100vw, 50vw" width="2400" height="1800" alt="Blick aus dem Cockpit über Wolken und Gletscher zum Matterhorn" loading="lazy" decoding="async" data-parallax="0.1">
-          <span class="rf-route__badge chip"><svg class="icon icon-timer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg>90 min</span>
-        </div>
-        <div class="rf-route__sketch" data-rf-sketch="matterhorn" data-reveal="fade" aria-hidden="true"></div>
-        <span class="rf-route__num" aria-hidden="true">05</span>
-      </div>
-
-      <div class="rf-route__body">
-        <p class="eyebrow" data-reveal>Route 05 · Rundflug Matterhorn</p>
-        <h2 class="rf-route__title" id="matterhorn-title" data-split>Matterhorn</h2>
-        <p class="lead rf-route__teaser" data-reveal>Der grosse Alpenflug zum berühmtesten Berg der Welt.</p>
-        <p class="rf-route__text" data-reveal>Der Start in Beromünster erfolgt stressfrei und unkompliziert. Mit der vierplätzigen Cessna seht ihr die Welt von oben, beliebte Skigebiete und verschiedene Städte. Das mediterrane Flair von Thuner- und Brienzersee nehmt ihr mit auf die Reise zum Matterhorn. Zurück geht es über das Goms, den Grimselpass und die Melchsee-Frutt. Der verwinkelte Vierwaldstättersee mit Pilatus und Rigi macht den Abschluss zu einem Erlebnis, das keine Wünsche offen lässt.</p>
-
-        <ul class="rf-highlights" aria-label="Unterwegs zu sehen" data-reveal-group="0.06">
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Thunersee</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Matterhorn 4478 m</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Grimselpass</li>
-          
-          <li data-reveal><svg class="icon icon-map-pin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg>Vierwaldstättersee</li>
-          
-        </ul>
-
-        <div class="rf-facts" data-reveal>
-          <div class="rf-fact"><span class="rf-fact__label">Dauer</span><span class="rf-fact__value"><span data-count="90">90</span><small>min</small></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Preis pro Person</span><span class="rf-fact__value"><small>CHF</small><span data-count="430">430</span></span></div>
-          <div class="rf-fact"><span class="rf-fact__label">Distanz (geschätzt)</span><span class="rf-fact__value"><small>ca.</small><span data-rf-km="matterhorn">…</span><small>km</small></span></div>
-        </div>
-
-        <div class="rf-calc" data-rf-calc="matterhorn" data-price="430" data-reveal>
-          <div class="rf-calc__q">
-            <span class="rf-calc__label" id="matterhorn-pers"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Anzahl Personen</span>
-            <div class="segmented rf-calc__seg" role="radiogroup" aria-labelledby="matterhorn-pers">
-              <label><input type="radio" name="calc-matterhorn" value="1" checked><span>1</span></label>
-              <label><input type="radio" name="calc-matterhorn" value="2"><span>2</span></label>
-              <label><input type="radio" name="calc-matterhorn" value="3"><span>3</span></label>
-            </div>
-          </div>
-          <div class="rf-calc__total">
-            <span class="rf-calc__label" data-rf-calc-note>Total für 1 Person</span>
-            <output class="rf-calc__sum" data-rf-calc-sum aria-live="polite">CHF 430</output>
-          </div>
-        </div>
-
-        <div class="row rf-route__actions" data-reveal>
-          <a class="btn btn--primary" href="#anfrage" data-rf-request="matterhorn" data-magnetic><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Termin anfragen</a>
-          <a class="btn btn--ghost" href="https://shop.e-guma.ch/flubag/de/gutscheine/45096/gutschein-rundflug-matterhorn" target="_blank" rel="noopener"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Als Gutschein kaufen<span class="visually-hidden"> (Shop, öffnet in neuem Fenster)</span></a>
-          <a class="btn btn--text" href="#karte" data-rf-show="matterhorn"><svg class="icon icon-map" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /> </svg>Auf der Karte</a>
-        </div>
-
-        <p class="rf-gift" data-reveal><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg><span>
-          
-          
-          
-          
-          Verschenke den grossen Alpenflug: Den Abschluss machen der verwinkelte Vierwaldstättersee, der emporsteigende Pilatus und die Rigi. Ein Erlebnis, das keine Wünsche offen lässt.
-        </span></p>
-      </div>
-    </div>
-  </article>
-  
-</div>
-
-<!-- Gut zu wissen -->
-<section class="section section--alt section--glow" id="infos" aria-labelledby="infos-title">
+<!-- Gut zu wissen und häufige Fragen -->
+<section class="section section--alt rf-sec" id="infos" aria-labelledby="infos-title">
   <div class="container">
-    <div class="section-head section-head--split">
+    <div class="section-head section-head--split rf-head">
       <div class="stack">
         <p class="eyebrow" data-reveal>Gut zu wissen</p>
         <h2 id="infos-title" data-split>Einsteigen, anschnallen, staunen.</h2>
       </div>
       <p class="lead" data-reveal>Für einen Rundflug brauchst du keine Vorkenntnisse. Um Wetter, Route, Gewicht und Schwerpunkt kümmert sich dein Pilot.</p>
     </div>
-    <div class="grid grid-3 rf-info" data-reveal-group="0.08">
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <svg class="icon icon-plane card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>
-        <h3 class="card__title">Cessna mit bis zu 3 Passagieren</h3>
-        <p class="card__text">Ihr fliegt in einer vierplätzigen Cessna: vorne links der Pilot, dazu bis zu drei Gäste. Der Preis gilt pro Person.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <svg class="icon icon-user-check card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16 11 2 2 4-4" /> <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> </svg>
-        <h3 class="card__title">Erfahrene Piloten</h3>
-        <p class="card__text">Unsere Rundflüge fliegen Privat- und Berufspiloten im Nebenamt. Du lehnst dich zurück und geniesst die Aussicht, um das Fliegen kümmert sich der Pilot.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <svg class="icon icon-calendar-check card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> <path d="m9 15 2 2 4-4" /> </svg>
-        <h3 class="card__title">Nach Voranmeldung</h3>
-        <p class="card__text">Rundflüge finden nach Voranmeldung statt. Schick uns deine <a class="brand-text" href="#anfrage">Anfrage</a> oder ruf uns an: <a class="brand-text nowrap" href="tel:+41419301866">+41 41 930 18 66</a>.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <svg class="icon icon-runway card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2 5 22M15 2l4 20"/><path d="M12 4v2M12 9v3M12 15v4"/></svg>
-        <h3 class="card__title">Start und Landung in Beromünster</h3>
-        <p class="card__text">Jeder Rundflug beginnt und endet auf der Graspiste des Flugplatzes Luzern-Beromünster. Vorher oder nachher lockt das Restaurant Flüüger direkt am Flugplatz. <a class="brand-text" href="anreise.html">Anreise</a></p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <svg class="icon icon-route card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /> </svg>
-        <h3 class="card__title">Route nach Absprache</h3>
-        <p class="card__text">Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst. Geflogen wird nur, wenn das Wetter passt.</p>
-      </div>
-      <div class="card card--pad card--glow rf-info__card" data-reveal>
-        <svg class="icon icon-scale card__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /> </svg>
-        <h3 class="card__title">Gewicht und Schwerpunkt</h3>
-        <p class="card__text">Vor jedem Flug berechnet der Pilot Gewicht und Schwerpunkt. Deshalb fragen wir in der Anfrage nach dem Gesamtgewicht aller Passagiere.</p>
-      </div>
-    </div>
 
-    <div class="rf-fleet mt-l" data-reveal-group="0.1">
-      
-      <a class="rf-fleet__item card card--glow" href="flugzeug-hb-cql.html" data-reveal>
-        <span class="rf-fleet__media"><img src="assets/img/flotte/hb-cql-714.webp" srcset="assets/img/flotte/hb-cql-480.webp 480w, assets/img/flotte/hb-cql-714.webp 714w" sizes="(max-width: 640px) 40vw, 240px" width="714" height="480" alt="Cessna 172P Skyhawk II HB-CQL der FLUBAG" loading="lazy" decoding="async"></span>
-        <span class="rf-fleet__body"><span class="mono brand-text">HB-CQL · 4 Plätze</span><span class="card__title">Cessna 172P Skyhawk II</span><span class="card__text">Reisegeschwindigkeit rund 222 km/h</span></span>
-        <svg class="icon icon-arrow-up-right rf-fleet__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg>
-      </a>
-      
-      
-      <a class="rf-fleet__item card card--glow" href="flugzeug-hb-czu.html" data-reveal>
-        <span class="rf-fleet__media"><img src="assets/img/flotte/hb-czu-640.webp" srcset="assets/img/flotte/hb-czu-480.webp 480w, assets/img/flotte/hb-czu-640.webp 640w" sizes="(max-width: 640px) 40vw, 240px" width="640" height="419" alt="Cessna 182S Skylane HB-CZU der FLUBAG" loading="lazy" decoding="async"></span>
-        <span class="rf-fleet__body"><span class="mono brand-text">HB-CZU · 4 Plätze</span><span class="card__title">Cessna 182S Skylane</span><span class="card__text">Reisegeschwindigkeit rund 260 km/h</span></span>
-        <svg class="icon icon-arrow-up-right rf-fleet__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg>
-      </a>
-      
-      <p class="rf-fleet__note muted" data-reveal>Für Rundflüge stehen in unserer <a class="brand-text" href="flotte.html">Flotte</a> die vierplätzigen Cessna 172 und Cessna 182 bereit.</p>
+    <div class="rf-know">
+      <div class="rf-know__main">
+        <ul class="rf-points" data-reveal-group="0.06">
+          <li class="rf-point" data-reveal>
+            <svg class="icon icon-plane rf-point__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>
+            <div><h3 class="rf-point__title">Bis zu 3 Passagiere</h3><p>Ihr fliegt in einer vierplätzigen Cessna: vorne links der Pilot, dazu bis zu drei Gäste. Der Preis gilt pro Person.</p></div>
+          </li>
+          <li class="rf-point" data-reveal>
+            <svg class="icon icon-user-check rf-point__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16 11 2 2 4-4" /> <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> </svg>
+            <div><h3 class="rf-point__title">Erfahrene Piloten</h3><p>Unsere Rundflüge fliegen Privat- und Berufspiloten im Nebenamt. Du lehnst dich zurück und geniesst die Aussicht, um das Fliegen kümmert sich der Pilot.</p></div>
+          </li>
+          <li class="rf-point" data-reveal>
+            <svg class="icon icon-calendar-check rf-point__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> <path d="m9 15 2 2 4-4" /> </svg>
+            <div><h3 class="rf-point__title">Nach Voranmeldung</h3><p>Rundflüge finden nach Voranmeldung statt. Schick uns deine <a href="#anfrage">Anfrage</a> oder ruf uns an: <a class="nowrap" href="tel:+41419301866">+41 41 930 18 66</a>.</p></div>
+          </li>
+          <li class="rf-point" data-reveal>
+            <svg class="icon icon-runway rf-point__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2 5 22M15 2l4 20"/><path d="M12 4v2M12 9v3M12 15v4"/></svg>
+            <div><h3 class="rf-point__title">Start und Landung in Beromünster</h3><p>Jeder Rundflug beginnt und endet auf der Graspiste des Flugplatzes Luzern-Beromünster. Vorher oder nachher lockt das Restaurant Flüüger direkt am Flugplatz. <a href="anreise.html">Anreise</a></p></div>
+          </li>
+        </ul>
+
+        <div class="rf-fleet" data-reveal>
+          <p class="rf-fleet__note muted">Für Rundflüge stehen in unserer <a href="flotte.html">Flotte</a> die vierplätzigen Cessna 172 und Cessna 182 bereit.</p>
+          <div class="rf-fleet__list">
+            
+            <a class="rf-fleet__item" href="flugzeug-hb-cql.html">
+              <span class="rf-fleet__media"><img src="assets/img/flotte/hb-cql-714.webp" srcset="assets/img/flotte/hb-cql-480.webp 480w, assets/img/flotte/hb-cql-714.webp 714w" sizes="120px" width="714" height="480" alt="Cessna 172P Skyhawk II HB-CQL der FLUBAG" loading="lazy" decoding="async"></span>
+              <span class="rf-fleet__body"><span class="mono brand-text">HB-CQL · 4 Plätze</span><span class="rf-fleet__name">Cessna 172P Skyhawk II</span><span class="rf-fleet__text">Reisegeschwindigkeit rund 222 km/h</span></span>
+              <svg class="icon icon-arrow-up-right rf-fleet__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg>
+            </a>
+            
+            
+            <a class="rf-fleet__item" href="flugzeug-hb-czu.html">
+              <span class="rf-fleet__media"><img src="assets/img/flotte/hb-czu-640.webp" srcset="assets/img/flotte/hb-czu-480.webp 480w, assets/img/flotte/hb-czu-640.webp 640w" sizes="120px" width="640" height="419" alt="Cessna 182S Skylane HB-CZU der FLUBAG" loading="lazy" decoding="async"></span>
+              <span class="rf-fleet__body"><span class="mono brand-text">HB-CZU · 4 Plätze</span><span class="rf-fleet__name">Cessna 182S Skylane</span><span class="rf-fleet__text">Reisegeschwindigkeit rund 260 km/h</span></span>
+              <svg class="icon icon-arrow-up-right rf-fleet__go" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="rf-know__faq" id="faq">
+        <h3 class="rf-know__title">Häufige Fragen</h3>
+        <div class="accordion" data-reveal>
+          <details class="acc"><summary>Kann ich die Route mitbestimmen?</summary><div class="acc__body"><p>Ja. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst. Beim Rundflug Titlis geht es zum Beispiel entweder an den Mythen vorbei oder zum Titlis.</p></div></details>
+          <details class="acc"><summary>Was passiert bei schlechtem Wetter?</summary><div class="acc__body"><p>Geflogen wird nur, wenn das Wetter passt. Sonst vereinbaren wir mit dir einen neuen Termin.</p></div></details>
+          <details class="acc"><summary>Warum fragt ihr nach dem Gewicht?</summary><div class="acc__body"><p>Vor jedem Flug berechnet der Pilot Gewicht und Schwerpunkt des Flugzeugs. Dafür braucht er das Gesamtgewicht aller Passagiere, deshalb fragen wir in der Anfrage danach.</p></div></details>
+          <details class="acc"><summary>Ich habe einen Gutschein. Wie buche ich?</summary><div class="acc__body"><p>Füll das <a href="#anfrage">Anfrageformular</a> aus und trag die Gutscheinnummer ein, oder ruf uns an unter <a class="nowrap" href="tel:+41419301866">+41 41 930 18 66</a>.</p></div></details>
+          <details class="acc"><summary>Warum fliegen Rundflüge nicht immer gleich?</summary><div class="acc__body"><p>Für einen möglichst lärmarmen Betrieb werden für Rundflüge in der Umgebung des Flugplatzes verschiedene Flugwege abwechslungsweise beflogen. Zudem dauert jeder Rundflug mindestens 15 Minuten.</p></div></details>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Gutscheine und Schnupperflug -->
-<section class="section rf-voucher" id="gutscheine" aria-labelledby="gutscheine-title">
-  <div class="container split">
-    <div class="rf-voucher__visual" data-reveal="scale">
-      <div class="pass" data-tilt="10" data-rf-pass aria-hidden="true">
-        <div class="pass__main">
-          <div class="pass__top"><span class="pass__brand"><img src="logo.svg" alt="">FLUBAG</span><span class="pass__label">Boarding Pass</span></div>
-          <div class="pass__route"><span class="pass__code">LSZO</span><span class="pass__line"><svg class="icon icon-plane" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg></span><span class="pass__code">LSZO</span></div>
-          <div class="pass__grid">
-            <div><p class="pass__label">Passagier</p><p class="pass__value">Für dich</p></div>
-            <div><p class="pass__label">Flug</p><p class="pass__value" data-rf-pass-name>Eiger, Mönch &amp; Jungfrau</p></div>
-            <div><p class="pass__label">Dauer</p><p class="pass__value" data-rf-pass-dur>60 min</p></div>
-          </div>
-          <p class="pass__msg">"Schenken. Abheben. Erleben."</p>
-        </div>
-        <div class="pass__stub">
-          <div><p class="pass__label">Start</p><p class="pass__value">Beromünster</p></div>
-          <p class="pass__price" data-rf-pass-price>CHF 290</p>
-          <div class="pass__barcode"></div>
-        </div>
-      </div>
-    </div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Gutscheine</p>
-        <h2 id="gutscheine-title" data-split>Schenken. Abheben. Erleben.</h2>
-        <p class="lead" data-reveal>Jeden Rundflug gibt es als Gutschein: online bestellen und direkt ausdrucken. Für das neue Zuhause, Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
-      </div>
-      <ul class="checklist" data-reveal-group>
-        <li data-reveal><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>print@home als PDF oder Postversand</li>
-        <li data-reveal><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Gutschein aufs Smartphone laden (voucher2mobile)</li>
-        <li data-reveal><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Wertgutschein mit freier Wahl: einlösbar für alle unsere Rundflüge und Schnupperflüge</li>
+<section class="section rf-sec" id="gutscheine" aria-labelledby="gutscheine-title">
+  <div class="container rf-voucher">
+    <div class="rf-voucher__text">
+      <p class="eyebrow" data-reveal>Gutscheine</p>
+      <h2 id="gutscheine-title" data-split>Schenken. Abheben. Erleben.</h2>
+      <p class="lead" data-reveal>Jeden Rundflug gibt es als Gutschein: online bestellen und direkt ausdrucken. Für das neue Zuhause, Geburtstag, Weihnachten, Hochzeit oder einfach so.</p>
+      <ul class="checklist" data-reveal>
+        <li><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>print@home als PDF oder Postversand</li>
+        <li><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Gutschein aufs Smartphone laden (voucher2mobile)</li>
+        <li><svg class="icon icon-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg>Wertgutschein mit freier Wahl: einlösbar für alle unsere Rundflüge und Schnupperflüge</li>
       </ul>
       <div class="row" data-reveal>
         <a class="btn btn--primary" href="gutscheine.html#gestalten"><svg class="icon icon-gift" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg>Gutschein gestalten</a>
-        <a class="btn btn--text" href="https://shop.e-guma.ch/flubag/de/gutscheine" target="_blank" rel="noopener">Direkt zum Shop <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></a>
+        <a class="btn btn--text" href="https://shop.e-guma.ch/flubag/de/gutscheine" target="_blank" rel="noopener">Direkt zum Shop <svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a>
       </div>
     </div>
-  </div>
-
-  <div class="container mt-xl">
     <a class="rf-discovery tile" href="schnupperflug.html" data-reveal>
-      <img src="assets/img/schnupperflug/discovery-4-1440.webp" srcset="assets/img/schnupperflug/discovery-4-480.webp 480w, assets/img/schnupperflug/discovery-4-960.webp 960w, assets/img/schnupperflug/discovery-4-1440.webp 1440w, assets/img/schnupperflug/discovery-4-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 1320px" width="1920" height="1281" alt="Flugschülerin mit Karte am Steuer, daneben der Fluglehrer" loading="lazy" decoding="async">
+      <img src="assets/img/schnupperflug/discovery-4-1440.webp" srcset="assets/img/schnupperflug/discovery-4-480.webp 480w, assets/img/schnupperflug/discovery-4-960.webp 960w, assets/img/schnupperflug/discovery-4-1440.webp 1440w, assets/img/schnupperflug/discovery-4-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 640px" width="1920" height="1281" alt="Flugschülerin mit Karte am Steuer, daneben der Fluglehrer" loading="lazy" decoding="async">
       <span class="tile__arrow"><svg class="icon icon-arrow-up-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 7h10v10" /> <path d="M7 17 17 7" /> </svg></span>
       <span class="tile__eyebrow">Schnupperflug · ab CHF 420</span>
       <span class="tile__title">Lieber selbst ans Steuer?</span>
@@ -896,9 +724,9 @@
 </section>
 
 <!-- Anfrage -->
-<section class="section section--chart" id="anfrage" aria-labelledby="anfrage-title">
+<section class="section section--chart rf-sec" id="anfrage" aria-labelledby="anfrage-title">
   <div class="container split split--top rf-form-split">
-    <div class="stack-l sticky">
+    <div class="stack-l sticky rf-form-intro">
       <div class="stack">
         <p class="eyebrow" data-reveal>Rundflug anfragen</p>
         <h2 id="anfrage-title" data-split>Wann hebst du ab?</h2>
@@ -926,8 +754,8 @@
           <label class="choice">
             <input type="radio" name="rundflug" value="Rundflug Luzern" data-route="luzern" data-price="120" data-label="Rundflug" required>
             <span class="choice__card">
-              <span class="rf-choice__top"><span class="mono rf-choice__num">01</span><span class="choice__meta">20 min</span></span>
-              <span class="choice__title">Luzern</span>
+              <span class="mono rf-choice__num">01</span>
+              <span class="rf-choice__body"><span class="choice__title">Luzern</span><span class="choice__meta">20 min</span></span>
               <span class="choice__price">CHF 120 <small>p.P.</small></span>
             </span>
           </label>
@@ -935,8 +763,8 @@
           <label class="choice">
             <input type="radio" name="rundflug" value="Rundflug Pilatus / Rigi" data-route="pilatus-rigi" data-price="160" data-label="Rundflug" required>
             <span class="choice__card">
-              <span class="rf-choice__top"><span class="mono rf-choice__num">02</span><span class="choice__meta">30 min</span></span>
-              <span class="choice__title">Pilatus & Rigi</span>
+              <span class="mono rf-choice__num">02</span>
+              <span class="rf-choice__body"><span class="choice__title">Pilatus & Rigi</span><span class="choice__meta">30 min</span></span>
               <span class="choice__price">CHF 160 <small>p.P.</small></span>
             </span>
           </label>
@@ -944,8 +772,8 @@
           <label class="choice">
             <input type="radio" name="rundflug" value="Rundflug Titlis" data-route="titlis" data-price="220" data-label="Rundflug" required>
             <span class="choice__card">
-              <span class="rf-choice__top"><span class="mono rf-choice__num">03</span><span class="choice__meta">45 min</span></span>
-              <span class="choice__title">Titlis</span>
+              <span class="mono rf-choice__num">03</span>
+              <span class="rf-choice__body"><span class="choice__title">Titlis</span><span class="choice__meta">45 min</span></span>
               <span class="choice__price">CHF 220 <small>p.P.</small></span>
             </span>
           </label>
@@ -953,8 +781,8 @@
           <label class="choice">
             <input type="radio" name="rundflug" value="Rundflug Eiger, Mönch und Jungfrau" data-route="eiger-moench-jungfrau" data-price="290" data-label="Rundflug" required>
             <span class="choice__card">
-              <span class="rf-choice__top"><span class="mono rf-choice__num">04</span><span class="choice__meta">60 min</span></span>
-              <span class="choice__title">Eiger, Mönch & Jungfrau</span>
+              <span class="mono rf-choice__num">04</span>
+              <span class="rf-choice__body"><span class="choice__title">Eiger, Mönch & Jungfrau</span><span class="choice__meta">60 min</span></span>
               <span class="choice__price">CHF 290 <small>p.P.</small></span>
             </span>
           </label>
@@ -962,8 +790,8 @@
           <label class="choice">
             <input type="radio" name="rundflug" value="Rundflug Matterhorn" data-route="matterhorn" data-price="430" data-label="Rundflug" required>
             <span class="choice__card">
-              <span class="rf-choice__top"><span class="mono rf-choice__num">05</span><span class="choice__meta">90 min</span></span>
-              <span class="choice__title">Matterhorn</span>
+              <span class="mono rf-choice__num">05</span>
+              <span class="rf-choice__body"><span class="choice__title">Matterhorn</span><span class="choice__meta">90 min</span></span>
               <span class="choice__price">CHF 430 <small>p.P.</small></span>
             </span>
           </label>
@@ -974,25 +802,25 @@
       <fieldset class="rf-form__set">
         <legend class="h3"><span class="rf-form__step mono">02</span>Wer fliegt mit?</legend>
         <div class="form-grid">
-          <div class="field span-2">
+          <div class="field">
             <span class="field__label" id="rf-pers-label">Anzahl Personen <span class="req">*</span></span>
             <div class="segmented rf-persons" role="radiogroup" aria-labelledby="rf-pers-label">
-              <label><input type="radio" name="personen" value="1" data-label="Anzahl Personen" checked required><span>1 Person</span></label>
-              <label><input type="radio" name="personen" value="2" data-label="Anzahl Personen"><span>2 Personen</span></label>
-              <label><input type="radio" name="personen" value="3" data-label="Anzahl Personen"><span>3 Personen</span></label>
+              <label><input type="radio" name="personen" value="1" data-label="Anzahl Personen" checked required><span>1</span></label>
+              <label><input type="radio" name="personen" value="2" data-label="Anzahl Personen"><span>2</span></label>
+              <label><input type="radio" name="personen" value="3" data-label="Anzahl Personen"><span>3</span></label>
             </div>
           </div>
-          <div class="field span-2">
+          <div class="field">
             <label class="field__label" for="rf-gewicht">Gesamtgewicht aller Passagiere (kg) <span class="req">*</span></label>
-            <input class="input" type="number" id="rf-gewicht" name="gesamtgewicht" min="20" max="450" step="1" inputmode="numeric" required>
-            <p class="field__help">Für die Berechnung von Gewicht und Schwerpunkt. Bitte möglichst genau.</p>
+            <input class="input" type="number" id="rf-gewicht" name="gesamtgewicht" min="20" max="450" step="1" inputmode="numeric" aria-describedby="rf-gewicht-help" required>
           </div>
+          <p class="field__help span-2" id="rf-gewicht-help">Für die Berechnung von Gewicht und Schwerpunkt. Bitte möglichst genau.</p>
         </div>
       </fieldset>
 
       <fieldset class="rf-form__set">
         <legend class="h3"><span class="rf-form__step mono">03</span>Wann möchtest du fliegen?</legend>
-        <div class="form-grid">
+        <div class="form-grid rf-when">
           <div class="field">
             <label class="field__label" for="rf-datum">Wunschdatum <span class="req">*</span></label>
             <input class="input" type="date" id="rf-datum" name="datum" data-future required>
@@ -1001,7 +829,7 @@
             <label class="field__label" for="rf-alt">Alternativdatum</label>
             <input class="input" type="date" id="rf-alt" name="alternativdatum" data-future>
           </div>
-          <div class="field span-2">
+          <div class="field">
             <label class="field__label" for="rf-zeit">Tageszeit</label>
             <select class="select" id="rf-zeit" name="tageszeit">
               <option>Flexibel</option><option>Vormittag</option><option>Nachmittag</option><option>Abend</option>
@@ -1031,15 +859,14 @@
           </div>
           <div class="field span-2">
             <label class="field__label" for="rf-msg">Nachricht</label>
-            <textarea class="textarea" id="rf-msg" name="nachricht" placeholder="Anlass, Wünsche zur Route, Fragen …"></textarea>
+            <textarea class="textarea" id="rf-msg" name="nachricht" rows="3" placeholder="Anlass, Wünsche zur Route, Fragen …"></textarea>
           </div>
         </div>
       </fieldset>
 
-      <div class="summary-box rf-summary">
-        <p class="rf-summary__title mono">Deine Anfrage</p>
-        <dl class="data-list" data-summary="rundflug, personen, gesamtgewicht, datum, alternativdatum, tageszeit, name, email, telefon, gutschein"></dl>
-        <div class="price-total"><span class="muted" data-rf-total-note>Preis total</span><strong data-rf-total>CHF 0</strong></div>
+      <div class="rf-total">
+        <span class="rf-total__label"><span class="mono">Preis total</span><span class="muted" data-rf-total-note>Bitte Route wählen</span></span>
+        <strong class="rf-total__sum is-empty" data-rf-total aria-live="polite"></strong>
         <input type="hidden" name="preis" value="" data-label="Preis total" data-rf-total-input>
       </div>
 
@@ -1059,26 +886,6 @@
         <button class="btn btn--ghost" type="button" data-form-reset>Neue Anfrage</button>
       </div>
     </form>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section" id="faq" aria-labelledby="faq-title">
-  <div class="container--narrow">
-    <div class="section-head section-head--center">
-      <p class="eyebrow" data-reveal>Häufige Fragen</p>
-      <h2 id="faq-title" data-split>Noch Fragen?</h2>
-    </div>
-    <div class="accordion" data-reveal>
-      <details class="acc"><summary>Wie viele Personen können mitfliegen?</summary><div class="acc__body"><p>Bis zu drei Passagiere fliegen zusammen mit dem Piloten in der vierplätzigen Cessna. Der Preis gilt pro Person, zum Beispiel beim Rundflug Luzern CHF 120 pro Person.</p></div></details>
-      <details class="acc"><summary>Kann ich die Route mitbestimmen?</summary><div class="acc__body"><p>Ja. Die Route wird vorgängig mit dem Piloten besprochen oder der Wetterlage angepasst. Beim Rundflug Titlis geht es zum Beispiel entweder an den Mythen vorbei oder zum Titlis.</p></div></details>
-      <details class="acc"><summary>Was passiert bei schlechtem Wetter?</summary><div class="acc__body"><p>Geflogen wird nur, wenn das Wetter passt. Sonst vereinbaren wir mit dir einen neuen Termin.</p></div></details>
-      <details class="acc"><summary>Warum fragt ihr nach dem Gewicht?</summary><div class="acc__body"><p>Vor jedem Flug berechnet der Pilot Gewicht und Schwerpunkt des Flugzeugs. Dafür braucht er das Gesamtgewicht aller Passagiere.</p></div></details>
-      <details class="acc"><summary>Wer fliegt das Flugzeug?</summary><div class="acc__body"><p>Unsere Rundflüge fliegen Privat- und Berufspiloten im Nebenamt.</p></div></details>
-      <details class="acc"><summary>Ich habe einen Gutschein. Wie buche ich?</summary><div class="acc__body"><p>Füll das <a href="#anfrage">Anfrageformular</a> aus und trag die Gutscheinnummer ein, oder ruf uns an unter <a class="nowrap" href="tel:+41419301866">+41 41 930 18 66</a>.</p></div></details>
-      <details class="acc"><summary>Warum fliegen Rundflüge nicht immer gleich?</summary><div class="acc__body"><p>Für einen möglichst lärmarmen Betrieb werden für Rundflüge in der Umgebung des Flugplatzes verschiedene Flugwege abwechslungsweise beflogen. Zudem dauert jeder Rundflug mindestens 15 Minuten.</p></div></details>
-      <details class="acc"><summary>Wie genau sind die Distanzen auf dieser Seite?</summary><div class="acc__body"><p>Es sind Schätzungen: die Luftlinie über die eingezeichneten Wegpunkte. Die tatsächliche Strecke hängt von Route, Wind und Wetter ab.</p></div></details>
-    </div>
   </div>
 </section>
 
@@ -1121,53 +928,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html" aria-current="page">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html" aria-current="page">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html">Preise</a></li>
-        <li><a href="reporting.html">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 

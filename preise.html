@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH" data-theme="dark">
+<html lang="de-CH" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -7,7 +7,7 @@
 <title>Entwurf: Preise | FLUBAG Flugplatz Luzern-Beromünster</title>
 <meta name="description" content="Preise FLUBAG Luzern-Beromünster: Mietpreise der fünf Flugzeuge (Preis 1 und 2), Fluglehrer, Landetaxen, Abstellgebühren, Zoll. Mit Flugkosten-Rechner.">
 <link rel="canonical" href="https://www.flubag.ch/preise.html">
-<meta name="theme-color" content="#060b16">
+<meta name="theme-color" content="#f5f2eb">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="FLUBAG Flugplatz Luzern-Beromünster">
@@ -22,9 +22,14 @@
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   (function () {
+    // Farbmodus: gespeicherte Wahl hat Vorrang, sonst Systemeinstellung, sonst hell.
+    // Läuft vor dem Stylesheet, damit nichts aufblitzt.
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem('flubag-theme'); } catch (e) {}
-    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', t === 'dark' ? '#060b16' : '#f5f2eb');
     d.classList.add('js');
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
     // Seitenwechsel: Header bleibt stehen. Der view-transition-name gilt nur während des Übergangs,
@@ -46,12 +51,13 @@
   <div class="statusbar" aria-label="Live Status Flugplatz">
     <div class="container statusbar__inner">
       <span class="statusbar__item statusbar__icao"><span class="mono">LSZO</span> Luzern-Beromünster</span>
-      <span class="statusbar__item" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
-      <span class="statusbar__item statusbar__wx" data-wx="inline" hidden>
+      <span class="statusbar__item" data-airfield-status-inline data-live="status" title="Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></span>
+      <span class="statusbar__item statusbar__wx" data-wx="inline" data-live="weather" title="Wind und Temperatur aus Modelldaten (Open-Meteo): Richtwert ohne Gewähr" aria-description="Richtwert ohne Gewähr" hidden>
         <svg class="icon icon-wind" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /> </svg><span data-wx-field="windText">--</span>
-        <svg class="icon icon-thermometer" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span data-wx-field="tempText">--</span>
+        <svg class="icon icon-thermometer statusbar__temp" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /> </svg><span class="statusbar__temp" data-wx-field="tempText">--</span>
+        <span class="visually-hidden">(Richtwert ohne Gewähr)</span>
       </span>
-      <span class="statusbar__item statusbar__sun" data-sun-inline hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
+      <span class="statusbar__item statusbar__sun" data-sun-inline data-live="status" hidden><svg class="icon icon-sunset" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 10V2" /> <path d="m4.93 10.93 1.41 1.41" /> <path d="M2 18h2" /> <path d="M20 18h2" /> <path d="m19.07 10.93-1.41 1.41" /> <path d="M22 22H2" /> <path d="m16 6-4 4-4-4" /> <path d="M16 18a4 4 0 0 0-8 0" /> </svg><span data-sun-field="sunset">--</span></span>
       <a class="statusbar__item statusbar__link" href="tel:+41419301866"><svg class="icon icon-phone" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /> </svg>+41 41 930 18 66</a>
     </div>
   </div>
@@ -158,7 +164,7 @@
                   <li><a href="piloten.html">Pilot News &amp; Übersicht</a></li>
                 </ul>
               </div>
-              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html">
+              <a class="megamenu__feature megamenu__feature--wx" href="piloten.html" data-live="weather">
                 <span class="eyebrow">Live Seitenwind</span>
                 <span class="mini-wind" data-wx="mini"><span class="mini-wind__val" data-wx-field="windText">--</span><span class="mini-wind__rwy" data-wx-field="rwyText">Piste 33 primär</span></span>
                 <strong>Zum Pilotenbereich</strong>
@@ -186,7 +192,7 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__bg"></div>
   <div class="mobile-menu__inner">
-    <div class="mobile-menu__status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+    <div class="mobile-menu__status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     <nav aria-label="Mobile Navigation">
       <details class="mm-group" data-nav-group="flugplatz" data-current>
         <summary>Flugplatz <svg class="icon icon-chevron-down" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
@@ -245,7 +251,7 @@
 <main id="main" tabindex="-1">
 
 
-<section class="page-hero">
+<section class="page-hero pr-hero">
   <div class="page-hero__media"><img src="assets/img/hero/slide-00-1440.webp" srcset="assets/img/hero/slide-00-480.webp 480w, assets/img/hero/slide-00-960.webp 960w, assets/img/hero/slide-00-1440.webp 1440w, assets/img/hero/slide-00-1920.webp 1920w" sizes="100vw" width="1920" height="1280" alt="Cessna im Flug über den Voralpen" loading="eager" fetchpriority="high"></div>
   <div class="container page-hero__inner">
     <ol class="breadcrumbs"><li><a href="index.html">Start</a></li><li><a href="flotte.html">Flotte</a></li><li>Preise</li></ol>
@@ -262,7 +268,6 @@
       <a class="btn btn--ghost btn--lg" href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Flugzeug reservieren</a>
     </div>
   </div>
-  <a class="scroll-cue" href="#flugzeuge" aria-label="Zu den Mietpreisen"><span></span></a>
 </section>
 
 <nav class="subnav" data-subnav aria-label="Inhalt dieser Seite">
@@ -289,19 +294,16 @@
       <p class="lead" data-reveal>Mietpreise pro Minute und pro Stunde, jeweils zu Preis 1 und Preis 2. Dazu kommt der Benzinzuschlag des jeweiligen Flugzeugs.</p>
     </div>
 
-    <div class="pr-rates" data-reveal-group>
+    <div class="pr-rates" data-reveal>
       
-      <article class="rate-card pr-rate" id="miete-hb-cvz" data-reveal>
-        <div class="pr-rate__media"><img src="assets/img/flotte/hb-cvz-640.webp" srcset="assets/img/flotte/hb-cvz-480.webp 480w, assets/img/flotte/hb-cvz-640.webp 640w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px" width="640" height="480" alt="Reims-Cessna F150J HB-CVZ der FLUBAG" loading="lazy" decoding="async"></div>
-        <div class="rate-card__head">
-          <div>
-            <p class="rate-card__reg">HB-CVZ</p>
-            <h3 class="rate-card__type">Cessna 150</h3>
-            <p class="pr-rate__variant">Reims-Cessna F150J · 2 Plätze</p>
-          </div>
-          <span class="pr-fuel" title="Benzinzuschlag"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzin</small>+8%</span></span>
+      <article class="pr-rate" id="miete-hb-cvz">
+        <div class="pr-rate__media"><img src="assets/img/flotte/hb-cvz-640.webp" srcset="assets/img/flotte/hb-cvz-480.webp 480w, assets/img/flotte/hb-cvz-640.webp 640w" sizes="(max-width: 760px) 84px, 120px" width="640" height="480" alt="Reims-Cessna F150J HB-CVZ der FLUBAG" loading="lazy" decoding="async"></div>
+        <div class="pr-rate__name">
+          <p class="rate-card__reg">HB-CVZ</p>
+          <h3 class="rate-card__type"><a class="pr-rate__link" href="flugzeug-hb-cvz.html">Cessna 150</a></h3>
+          <p class="pr-rate__variant">Reims-Cessna F150J · 2 Plätze</p>
         </div>
-        <div class="rate-card__prices">
+        <div class="pr-rate__prices">
           <div class="rate">
             <p class="rate__label">Preis 1</p>
             <p class="rate__hour">CHF 198<small> / Std.</small></p>
@@ -314,25 +316,22 @@
           </div>
         </div>
         <div class="pr-rate__foot">
-          <p class="pr-rate__surcharge">Benzinzuschlag: <strong>8%</strong></p>
+          <p class="pr-fuel"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzinzuschlag</small>+8%</span></p>
           <div class="pr-rate__links">
             <button class="btn btn--ghost btn--sm" type="button" data-calc-pick="hb-cvz"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Berechnen</button>
-            <a class="btn btn--text btn--sm" href="flugzeug-hb-cvz.html">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+            <a class="btn btn--text btn--sm" href="flugzeug-hb-cvz.html" aria-label="Zum Flugzeug HB-CVZ">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
           </div>
         </div>
       </article>
       
-      <article class="rate-card pr-rate" id="miete-hb-cql" data-reveal>
-        <div class="pr-rate__media"><img src="assets/img/flotte/hb-cql-714.webp" srcset="assets/img/flotte/hb-cql-480.webp 480w, assets/img/flotte/hb-cql-714.webp 714w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px" width="714" height="480" alt="Cessna 172P Skyhawk II HB-CQL der FLUBAG" loading="lazy" decoding="async"></div>
-        <div class="rate-card__head">
-          <div>
-            <p class="rate-card__reg">HB-CQL</p>
-            <h3 class="rate-card__type">Cessna 172</h3>
-            <p class="pr-rate__variant">Cessna 172P Skyhawk II · 4 Plätze</p>
-          </div>
-          <span class="pr-fuel" title="Benzinzuschlag"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzin</small>+7%</span></span>
+      <article class="pr-rate" id="miete-hb-cql">
+        <div class="pr-rate__media"><img src="assets/img/flotte/hb-cql-714.webp" srcset="assets/img/flotte/hb-cql-480.webp 480w, assets/img/flotte/hb-cql-714.webp 714w" sizes="(max-width: 760px) 84px, 120px" width="714" height="480" alt="Cessna 172P Skyhawk II HB-CQL der FLUBAG" loading="lazy" decoding="async"></div>
+        <div class="pr-rate__name">
+          <p class="rate-card__reg">HB-CQL</p>
+          <h3 class="rate-card__type"><a class="pr-rate__link" href="flugzeug-hb-cql.html">Cessna 172</a></h3>
+          <p class="pr-rate__variant">Cessna 172P Skyhawk II · 4 Plätze</p>
         </div>
-        <div class="rate-card__prices">
+        <div class="pr-rate__prices">
           <div class="rate">
             <p class="rate__label">Preis 1</p>
             <p class="rate__hour">CHF 312<small> / Std.</small></p>
@@ -345,25 +344,22 @@
           </div>
         </div>
         <div class="pr-rate__foot">
-          <p class="pr-rate__surcharge">Benzinzuschlag: <strong>7%</strong></p>
+          <p class="pr-fuel"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzinzuschlag</small>+7%</span></p>
           <div class="pr-rate__links">
             <button class="btn btn--ghost btn--sm" type="button" data-calc-pick="hb-cql"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Berechnen</button>
-            <a class="btn btn--text btn--sm" href="flugzeug-hb-cql.html">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+            <a class="btn btn--text btn--sm" href="flugzeug-hb-cql.html" aria-label="Zum Flugzeug HB-CQL">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
           </div>
         </div>
       </article>
       
-      <article class="rate-card pr-rate" id="miete-hb-czu" data-reveal>
-        <div class="pr-rate__media"><img src="assets/img/flotte/hb-czu-640.webp" srcset="assets/img/flotte/hb-czu-480.webp 480w, assets/img/flotte/hb-czu-640.webp 640w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px" width="640" height="419" alt="Cessna 182S Skylane HB-CZU der FLUBAG" loading="lazy" decoding="async"></div>
-        <div class="rate-card__head">
-          <div>
-            <p class="rate-card__reg">HB-CZU</p>
-            <h3 class="rate-card__type">Cessna 182</h3>
-            <p class="pr-rate__variant">Cessna 182S Skylane · 4 Plätze</p>
-          </div>
-          <span class="pr-fuel" title="Benzinzuschlag"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzin</small>+8%</span></span>
+      <article class="pr-rate" id="miete-hb-czu">
+        <div class="pr-rate__media"><img src="assets/img/flotte/hb-czu-640.webp" srcset="assets/img/flotte/hb-czu-480.webp 480w, assets/img/flotte/hb-czu-640.webp 640w" sizes="(max-width: 760px) 84px, 120px" width="640" height="419" alt="Cessna 182S Skylane HB-CZU der FLUBAG" loading="lazy" decoding="async"></div>
+        <div class="pr-rate__name">
+          <p class="rate-card__reg">HB-CZU</p>
+          <h3 class="rate-card__type"><a class="pr-rate__link" href="flugzeug-hb-czu.html">Cessna 182</a></h3>
+          <p class="pr-rate__variant">Cessna 182S Skylane · 4 Plätze</p>
         </div>
-        <div class="rate-card__prices">
+        <div class="pr-rate__prices">
           <div class="rate">
             <p class="rate__label">Preis 1</p>
             <p class="rate__hour">CHF 378<small> / Std.</small></p>
@@ -376,25 +372,22 @@
           </div>
         </div>
         <div class="pr-rate__foot">
-          <p class="pr-rate__surcharge">Benzinzuschlag: <strong>8%</strong></p>
+          <p class="pr-fuel"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzinzuschlag</small>+8%</span></p>
           <div class="pr-rate__links">
             <button class="btn btn--ghost btn--sm" type="button" data-calc-pick="hb-czu"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Berechnen</button>
-            <a class="btn btn--text btn--sm" href="flugzeug-hb-czu.html">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+            <a class="btn btn--text btn--sm" href="flugzeug-hb-czu.html" aria-label="Zum Flugzeug HB-CZU">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
           </div>
         </div>
       </article>
       
-      <article class="rate-card pr-rate" id="miete-hb-oen" data-reveal>
-        <div class="pr-rate__media"><img src="assets/img/flotte/hb-oen-640.webp" srcset="assets/img/flotte/hb-oen-480.webp 480w, assets/img/flotte/hb-oen-640.webp 640w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px" width="640" height="480" alt="Piper L-4 Grasshopper (J-3 Cub) HB-OEN der FLUBAG" loading="lazy" decoding="async"></div>
-        <div class="rate-card__head">
-          <div>
-            <p class="rate-card__reg">HB-OEN</p>
-            <h3 class="rate-card__type">Piper L-4</h3>
-            <p class="pr-rate__variant">Piper L-4 Grasshopper (J-3 Cub) · 2 Plätze</p>
-          </div>
-          <span class="pr-fuel" title="Benzinzuschlag"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzin</small>+5%</span></span>
+      <article class="pr-rate" id="miete-hb-oen">
+        <div class="pr-rate__media"><img src="assets/img/flotte/hb-oen-640.webp" srcset="assets/img/flotte/hb-oen-480.webp 480w, assets/img/flotte/hb-oen-640.webp 640w" sizes="(max-width: 760px) 84px, 120px" width="640" height="480" alt="Piper L-4 Grasshopper (J-3 Cub) HB-OEN der FLUBAG" loading="lazy" decoding="async"></div>
+        <div class="pr-rate__name">
+          <p class="rate-card__reg">HB-OEN</p>
+          <h3 class="rate-card__type"><a class="pr-rate__link" href="flugzeug-hb-oen.html">Piper L-4</a></h3>
+          <p class="pr-rate__variant">Piper L-4 Grasshopper (J-3 Cub) · 2 Plätze</p>
         </div>
-        <div class="rate-card__prices">
+        <div class="pr-rate__prices">
           <div class="rate">
             <p class="rate__label">Preis 1</p>
             <p class="rate__hour">CHF 198<small> / Std.</small></p>
@@ -407,25 +400,22 @@
           </div>
         </div>
         <div class="pr-rate__foot">
-          <p class="pr-rate__surcharge">Benzinzuschlag: <strong>5%</strong></p>
+          <p class="pr-fuel"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzinzuschlag</small>+5%</span></p>
           <div class="pr-rate__links">
             <button class="btn btn--ghost btn--sm" type="button" data-calc-pick="hb-oen"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Berechnen</button>
-            <a class="btn btn--text btn--sm" href="flugzeug-hb-oen.html">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+            <a class="btn btn--text btn--sm" href="flugzeug-hb-oen.html" aria-label="Zum Flugzeug HB-OEN">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
           </div>
         </div>
       </article>
       
-      <article class="rate-card pr-rate" id="miete-hb-wec" data-reveal>
-        <div class="pr-rate__media"><img src="assets/img/flotte/hb-wec-640.webp" srcset="assets/img/flotte/hb-wec-480.webp 480w, assets/img/flotte/hb-wec-640.webp 640w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px" width="640" height="480" alt="Lightwing AC4 (CS-LSA) HB-WEC der FLUBAG" loading="lazy" decoding="async"></div>
-        <div class="rate-card__head">
-          <div>
-            <p class="rate-card__reg">HB-WEC</p>
-            <h3 class="rate-card__type">Lightwing AC4</h3>
-            <p class="pr-rate__variant">Lightwing AC4 (CS-LSA) · 2 Plätze</p>
-          </div>
-          <span class="pr-fuel" title="Benzinzuschlag"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzin</small>+5%</span></span>
+      <article class="pr-rate" id="miete-hb-wec">
+        <div class="pr-rate__media"><img src="assets/img/flotte/hb-wec-640.webp" srcset="assets/img/flotte/hb-wec-480.webp 480w, assets/img/flotte/hb-wec-640.webp 640w" sizes="(max-width: 760px) 84px, 120px" width="640" height="480" alt="Lightwing AC4 (CS-LSA) HB-WEC der FLUBAG" loading="lazy" decoding="async"></div>
+        <div class="pr-rate__name">
+          <p class="rate-card__reg">HB-WEC</p>
+          <h3 class="rate-card__type"><a class="pr-rate__link" href="flugzeug-hb-wec.html">Lightwing AC4</a></h3>
+          <p class="pr-rate__variant">Lightwing AC4 (CS-LSA) · 2 Plätze</p>
         </div>
-        <div class="rate-card__prices">
+        <div class="pr-rate__prices">
           <div class="rate">
             <p class="rate__label">Preis 1</p>
             <p class="rate__hour">CHF 180<small> / Std.</small></p>
@@ -438,85 +428,27 @@
           </div>
         </div>
         <div class="pr-rate__foot">
-          <p class="pr-rate__surcharge">Benzinzuschlag: <strong>5%</strong></p>
+          <p class="pr-fuel"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><span><small>Benzinzuschlag</small>+5%</span></p>
           <div class="pr-rate__links">
             <button class="btn btn--ghost btn--sm" type="button" data-calc-pick="hb-wec"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Berechnen</button>
-            <a class="btn btn--text btn--sm" href="flugzeug-hb-wec.html">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+            <a class="btn btn--text btn--sm" href="flugzeug-hb-wec.html" aria-label="Zum Flugzeug HB-WEC">Zum Flugzeug <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
           </div>
         </div>
       </article>
       
-      <aside class="pr-rates__note card card--pad card--glow" data-reveal>
-        <svg class="icon icon-receipt pr-rates__note-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg>
-        <p class="pr-rates__note-big">Alle Preise in CHF exkl. MwSt.</p>
-        <p class="muted">* Preis 2: nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000 pro Kalenderjahr.</p>
-        <a class="btn btn--primary btn--sm" href="#rechner"><svg class="icon icon-calculator" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /> </svg>Zum Kostenrechner</a>
-      </aside>
     </div>
-  </div>
-</section>
 
-<section class="section section--alt section--glow" id="preis-2" aria-labelledby="preis2-title">
-  <div class="container split split--top">
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Preis 2</p>
-        <h2 id="preis2-title" data-split>Wer viel fliegt, fliegt günstiger.</h2>
-        <p class="lead" data-reveal>Preis 2 gilt nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000 pro Kalenderjahr.</p>
+    <div class="pr-p2" id="preis-2" data-reveal>
+      <div class="pr-p2__text">
+        <h3 class="pr-p2__title">Wer viel fliegt, fliegt günstiger.</h3>
+        <p>* Preis 2: nach Erreichen der 25. Flugstunde oder ab Erreichen eines Umsatzes von CHF 5000 pro Kalenderjahr. Beim Piper L-4 sind Preis 1 und Preis 2 gleich hoch.</p>
+        <p class="pr-p2__note"><svg class="icon icon-receipt" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg><strong>Alle Preise in CHF exkl. MwSt.</strong></p>
       </div>
-      <div class="stats stats--2" data-reveal>
-        <div class="stat"><span class="stat__label">nach Erreichen der</span><span class="stat__value"><span data-count="25">25</span>.</span><span class="pr-stat__text">Flugstunde</span></div>
-        <div class="stat"><span class="stat__label">oder ab einem Umsatz von</span><span class="stat__value"><small>CHF </small><span data-count="5000" data-count-nosep>5000</span></span><span class="pr-stat__text">pro Kalenderjahr</span></div>
+      <div class="pr-p2__stats">
+        <div class="pr-p2__stat"><span class="pr-p2__label">nach Erreichen der</span><span class="pr-p2__value">25.</span><span class="pr-p2__sub">Flugstunde</span></div>
+        <div class="pr-p2__stat"><span class="pr-p2__label">oder ab einem Umsatz von</span><span class="pr-p2__value"><small>CHF </small>5000</span><span class="pr-p2__sub">pro Kalenderjahr</span></div>
       </div>
-      <p class="muted" data-reveal>Beim Piper L-4 sind Preis 1 und Preis 2 gleich hoch.</p>
     </div>
-    <figure class="pr-chart instrument hud-corners" data-reveal="scale" aria-labelledby="pr-chart-cap">
-      <figcaption id="pr-chart-cap" class="pr-chart__cap"><span class="readout__label">Stundenpreis im Vergleich</span><span class="pr-chart__legend"><span><i class="pr-chart__sw pr-chart__sw--1"></i>Preis 1</span><span><i class="pr-chart__sw pr-chart__sw--2"></i>Preis 2</span></span></figcaption>
-      <ul class="pr-chart__list">
-        
-        <li class="pr-chart__row">
-          <span class="pr-chart__name"><b>HB-CVZ</b><small>Cessna 150</small></span>
-          <span class="pr-chart__bars">
-            <span class="pr-chart__bar pr-chart__bar--1" style="--v: 198"><span>CHF 198</span></span>
-            <span class="pr-chart__bar pr-chart__bar--2" style="--v: 159"><span>CHF 159</span></span>
-          </span>
-        </li>
-        
-        <li class="pr-chart__row">
-          <span class="pr-chart__name"><b>HB-CQL</b><small>Cessna 172</small></span>
-          <span class="pr-chart__bars">
-            <span class="pr-chart__bar pr-chart__bar--1" style="--v: 312"><span>CHF 312</span></span>
-            <span class="pr-chart__bar pr-chart__bar--2" style="--v: 246"><span>CHF 246</span></span>
-          </span>
-        </li>
-        
-        <li class="pr-chart__row">
-          <span class="pr-chart__name"><b>HB-CZU</b><small>Cessna 182</small></span>
-          <span class="pr-chart__bars">
-            <span class="pr-chart__bar pr-chart__bar--1" style="--v: 378"><span>CHF 378</span></span>
-            <span class="pr-chart__bar pr-chart__bar--2" style="--v: 297"><span>CHF 297</span></span>
-          </span>
-        </li>
-        
-        <li class="pr-chart__row">
-          <span class="pr-chart__name"><b>HB-OEN</b><small>Piper L-4</small></span>
-          <span class="pr-chart__bars">
-            <span class="pr-chart__bar pr-chart__bar--1" style="--v: 198"><span>CHF 198</span></span>
-            <span class="pr-chart__bar pr-chart__bar--2" style="--v: 198"><span>CHF 198</span></span>
-          </span>
-        </li>
-        
-        <li class="pr-chart__row">
-          <span class="pr-chart__name"><b>HB-WEC</b><small>Lightwing AC4</small></span>
-          <span class="pr-chart__bars">
-            <span class="pr-chart__bar pr-chart__bar--1" style="--v: 180"><span>CHF 180</span></span>
-            <span class="pr-chart__bar pr-chart__bar--2" style="--v: 159"><span>CHF 159</span></span>
-          </span>
-        </li>
-        
-      </ul>
-      <p class="pr-chart__note">Preise pro Stunde in CHF, exkl. MwSt. und Benzinzuschlag.</p>
-    </figure>
   </div>
 </section>
 
@@ -631,7 +563,10 @@
           <li><i class="pr-c3"></i><span>Fluglehrer <small data-calc-note="fi"></small></span><b data-calc-val="fi">CHF 0.00</b></li>
           <li><i class="pr-c4"></i><span>Landetaxen <small data-calc-note="land"></small></span><b data-calc-val="land">CHF 0.00</b></li>
         </ul>
-        <p class="pr-out__disclaimer"><svg class="icon icon-info" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /> </svg><span>Unverbindliche Schätzung, alle Beträge in CHF exkl. MwSt. Massgebend ist die Abrechnung der FLUBAG. Der Benzinzuschlag ist hier als Prozentsatz auf die Flugzeugmiete gerechnet, die Landetaxe nach dem maximalen Abfluggewicht (MTOW) des Flugzeugs.</span></p>
+        <details class="pr-out__disclaimer">
+          <summary><svg class="icon icon-info" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /> </svg>Unverbindliche Schätzung, alle Beträge in CHF exkl. MwSt.</summary>
+          <p>Massgebend ist die Abrechnung der FLUBAG. Der Benzinzuschlag ist hier als Prozentsatz auf die Flugzeugmiete gerechnet, die Landetaxe nach dem maximalen Abfluggewicht (MTOW) des Flugzeugs.</p>
+        </details>
         <div class="row pr-out__actions">
           <button class="btn btn--primary btn--sm" type="button" data-calc-copy><svg class="icon icon-copy" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg>Schätzung kopieren</button>
           <a class="btn btn--ghost btn--sm" href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg>Reservieren</a>
@@ -642,35 +577,30 @@
 </section>
 
 <section class="section" id="fluglehrer" aria-labelledby="fluglehrer-title">
-  <div class="container split split--wide-right">
-    <div class="media-frame media-frame--tall" data-reveal="clip"><img src="assets/img/schnupperflug/discovery-3-1440.webp" srcset="assets/img/schnupperflug/discovery-3-480.webp 480w, assets/img/schnupperflug/discovery-3-960.webp 960w, assets/img/schnupperflug/discovery-3-1440.webp 1440w, assets/img/schnupperflug/discovery-3-1920.webp 1920w" sizes="(max-width: 860px) 100vw, 42vw" width="1920" height="1281" alt="Flugschülerin geht im Cockpit die Checkliste durch" loading="lazy" decoding="async" data-parallax="0.1"></div>
-    <div class="stack-l">
-      <div class="stack">
-        <p class="eyebrow" data-reveal>Fluglehrer</p>
-        <h2 id="fluglehrer-title" data-split>Jemand Erfahrenes an deiner Seite.</h2>
-        <p class="lead" data-reveal>Ob Schulung, Umschulung oder Training: Die Fluglehrerkosten gelten pro Minute oder pro Stunde, auf Flubag-Flugzeugen und auf Fremd-Flugzeugen.</p>
-      </div>
-      <div class="grid grid-2 pr-fi" data-reveal-group>
-        
-        <div class="pr-fi__card pr-fi__card--main" data-reveal>
-          <svg class="icon icon-plane pr-fi__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>
-          <h3 class="pr-fi__title">Auf Flubag-Flugzeugen</h3>
-          <p class="pr-fi__hour">CHF 90<small> / Std.</small></p>
-          <p class="pr-fi__min">CHF 1.50 pro Min.</p>
-        </div>
-        
-        <div class="pr-fi__card" data-reveal>
-          <svg class="icon icon-plane-landing pr-fi__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg>
-          <h3 class="pr-fi__title">Auf Fremd-Flugzeugen</h3>
-          <p class="pr-fi__hour">CHF 108<small> / Std.</small></p>
-          <p class="pr-fi__min">CHF 1.80 pro Min.</p>
-        </div>
-        
-      </div>
+  <div class="container pr-fi-wrap">
+    <div class="stack">
+      <p class="eyebrow" data-reveal>Fluglehrer</p>
+      <h2 id="fluglehrer-title" data-split>Jemand Erfahrenes an deiner Seite.</h2>
+      <p class="lead" data-reveal>Ob Schulung, Umschulung oder Training: Die Fluglehrerkosten gelten pro Minute oder pro Stunde, auf Flubag-Flugzeugen und auf Fremd-Flugzeugen.</p>
       <div class="row" data-reveal>
-        <a class="btn btn--ghost" href="fluglehrer.html"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Unsere Fluglehrer</a>
-        <a class="btn btn--text" href="ausbildung.html#kosten">Kosten der Ausbildung <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+        <a class="btn btn--ghost btn--sm" href="fluglehrer.html"><svg class="icon icon-users" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg>Unsere Fluglehrer</a>
+        <a class="btn btn--text btn--sm" href="ausbildung.html#kosten">Kosten der Ausbildung <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
       </div>
+    </div>
+    <div class="pr-fi" data-reveal-group>
+      
+      <div class="pr-fi__card pr-fi__card--main" data-reveal>
+        <h3 class="pr-fi__title"><svg class="icon icon-plane pr-fi__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg>Auf Flubag-Flugzeugen</h3>
+        <p class="pr-fi__hour">CHF 90<small> / Std.</small></p>
+        <p class="pr-fi__min">CHF 1.50 pro Min.</p>
+      </div>
+      
+      <div class="pr-fi__card" data-reveal>
+        <h3 class="pr-fi__title"><svg class="icon icon-plane-landing pr-fi__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg>Auf Fremd-Flugzeugen</h3>
+        <p class="pr-fi__hour">CHF 108<small> / Std.</small></p>
+        <p class="pr-fi__min">CHF 1.80 pro Min.</p>
+      </div>
+      
     </div>
   </div>
 </section>
@@ -686,13 +616,13 @@
     </div>
 
     <div class="pr-fees" data-reveal-group>
-      <article class="pr-fee-card pr-fee-card--wide" data-reveal>
+      <article class="pr-fee-card" data-reveal>
         <header class="pr-fee-card__head"><svg class="icon icon-plane-landing" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22h20" /> <path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /> </svg><h3>Flugzeuge</h3></header>
-        <ol class="pr-weights">
-          <li class="pr-weight" style="--h: 0.45"><span class="pr-weight__bar"></span><span class="pr-weight__price">CHF 17</span><span class="pr-weight__label">Flugzeuge bis 999 kg</span></li>
-          <li class="pr-weight" style="--h: 0.62"><span class="pr-weight__bar"></span><span class="pr-weight__price">CHF 19</span><span class="pr-weight__label">Flugzeuge bis 1999 kg</span></li>
-          <li class="pr-weight" style="--h: 1"><span class="pr-weight__bar"></span><span class="pr-weight__price">CHF 30</span><span class="pr-weight__label">Flugzeuge über 1999 kg</span></li>
-        </ol>
+        <dl class="pr-feelist">
+          <div><dt>Flugzeuge bis 999 kg</dt><dd>CHF 17</dd></div>
+          <div><dt>Flugzeuge bis 1999 kg</dt><dd>CHF 19</dd></div>
+          <div><dt>Flugzeuge über 1999 kg</dt><dd>CHF 30</dd></div>
+        </dl>
       </article>
       <article class="pr-fee-card" data-reveal>
         <header class="pr-fee-card__head"><svg class="icon icon-graduation-cap" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg><h3>Schulung</h3></header>
@@ -701,61 +631,56 @@
           <div><dt>Auswärtige Schüler + Einweisung Piste 33</dt><dd>CHF 12</dd></div>
         </dl>
       </article>
-      <article class="pr-fee-card pr-fee-card--brand" data-reveal>
-        <header class="pr-fee-card__head"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg><h3>Jahrespauschale</h3></header>
-        <p class="pr-fee-card__big">CHF 395</p>
-        <p class="pr-fee-card__text">Pauschal-Landetaxe pro Pilot für 1 Kalenderjahr</p>
-      </article>
-      <article class="pr-fee-card pr-fee-card--wide" data-reveal>
+      <article class="pr-fee-card" data-reveal>
         <header class="pr-fee-card__head"><svg class="icon icon-helicopter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 17v4" /> <path d="M14 3v8a2 2 0 0 0 2 2h5.865" /> <path d="M17 17v4" /> <path d="M18 17a4 4 0 0 0 4-4 8 6 0 0 0-8-6 6 5 0 0 0-6 5v3a2 2 0 0 0 2 2z" /> <path d="M2 10v5" /> <path d="M6 3h16" /> <path d="M7 21h14" /> <path d="M8 13H2" /> </svg><h3>Helikopter</h3></header>
-        <dl class="pr-feelist pr-feelist--cols">
+        <dl class="pr-feelist">
           <div><dt>Helikopter bis 1000 kg</dt><dd>CHF 50</dd></div>
           <div><dt>Helikopter ab 1000 kg</dt><dd>Gemäss Absprache</dd></div>
           <div><dt>Pauschal-Landetaxe Helikopter pro Pilot für 1 Kalenderjahr</dt><dd>CHF 490</dd></div>
         </dl>
       </article>
+      <article class="pr-fee-card pr-fee-card--brand" data-reveal>
+        <header class="pr-fee-card__head"><svg class="icon icon-calendar" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg><h3>Jahrespauschale</h3></header>
+        <p class="pr-fee-card__big">CHF 395</p>
+        <p class="pr-fee-card__text">Pauschal-Landetaxe pro Pilot für 1 Kalenderjahr</p>
+      </article>
+    </div>
+
+    <div class="pr-misc-wrap" id="gebuehren">
+      <div class="pr-misc__head" data-reveal>
+        <p class="eyebrow">Abstellgebühren und Verschiedenes</p>
+        <h2 class="pr-misc__h" id="gebuehren-title">Parkieren, Zoll, Tanken.</h2>
+      </div>
+      <div class="pr-misc" data-reveal-group>
+        <article class="pr-fee-card" data-reveal>
+          <header class="pr-fee-card__head"><svg class="icon icon-parking-meter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 15h2" /> <path d="M12 12v3" /> <path d="M12 19v3" /> <path d="M15.282 19a1 1 0 0 0 .948-.68l2.37-6.988a7 7 0 1 0-13.2 0l2.37 6.988a1 1 0 0 0 .948.68z" /> <path d="M9 9a3 3 0 1 1 6 0" /> </svg><h3>Abstellgebühren</h3></header>
+          <dl class="pr-feelist">
+            
+            <div><dt>Pro Tag</dt><dd>CHF 30</dd></div>
+            
+            <div><dt>Pro Monat</dt><dd>CHF 500</dd></div>
+            
+          </dl>
+        </article>
+        <article class="pr-fee-card" data-reveal>
+          <header class="pr-fee-card__head"><svg class="icon icon-globe" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg><h3>Zollabfertigung (Eingang oder Ausgang)</h3></header>
+          <p class="pr-misc__big">CHF 30 pro Flugzeug</p>
+          <a class="btn btn--text btn--sm" href="anreise.html#flugzeug">Ablauf der Zollanmeldung <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
+        </article>
+        <article class="pr-fee-card" data-reveal>
+          <header class="pr-fee-card__head"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg><h3>Auswärtsbetankungen</h3></header>
+          <p class="pr-fee-card__text">Bei Auswärtsbetankungen werden gegen Vorlage der Quittungen die aktuellen Einstandspreise der FLUBAG zurückvergütet.</p>
+        </article>
+      </div>
+      <div class="notice notice--brand pr-notice" data-reveal>
+        <svg class="icon icon-receipt" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg>
+        <div><p><strong>Alle Preise in CHF exkl. MwSt.</strong> Das gilt für Flugzeugmiete, Fluglehrer, Landetaxen, Abstellgebühren und Zollabfertigung. Fragen zur Abrechnung beantwortet dir das <span class="nowrap">C-Büro</span> unter <a class="nowrap" href="tel:+41419301866">+41 41 930 18 66</a> oder <a href="mailto:flubag@flubag.ch">flubag@flubag.ch</a>.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="gebuehren" aria-labelledby="gebuehren-title">
-  <div class="container">
-    <div class="section-head">
-      <p class="eyebrow" data-reveal>Abstellgebühren und Verschiedenes</p>
-      <h2 id="gebuehren-title" data-split>Parkieren, Zoll, Tanken.</h2>
-    </div>
-    <div class="grid grid-3 pr-misc" data-reveal-group>
-      <article class="card card--pad pr-misc__card" data-reveal>
-        <span class="card__icon"><svg class="icon icon-parking-meter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 15h2" /> <path d="M12 12v3" /> <path d="M12 19v3" /> <path d="M15.282 19a1 1 0 0 0 .948-.68l2.37-6.988a7 7 0 1 0-13.2 0l2.37 6.988a1 1 0 0 0 .948.68z" /> <path d="M9 9a3 3 0 1 1 6 0" /> </svg></span>
-        <h3 class="card__title">Abstellgebühren</h3>
-        <dl class="pr-feelist">
-          
-          <div><dt>Pro Tag</dt><dd>CHF 30</dd></div>
-          
-          <div><dt>Pro Monat</dt><dd>CHF 500</dd></div>
-          
-        </dl>
-      </article>
-      <article class="card card--pad pr-misc__card" data-reveal>
-        <span class="card__icon"><svg class="icon icon-globe" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg></span>
-        <h3 class="card__title">Zollabfertigung (Eingang oder Ausgang)</h3>
-        <p class="pr-misc__big">CHF 30 pro Flugzeug</p>
-        <a class="btn btn--text btn--sm" href="anreise.html#flugzeug">Ablauf der Zollanmeldung <svg class="icon icon-arrow-right" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a>
-      </article>
-      <article class="card card--pad pr-misc__card" data-reveal>
-        <span class="card__icon"><svg class="icon icon-fuel" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /> </svg></span>
-        <h3 class="card__title">Auswärtsbetankungen</h3>
-        <p class="card__text">Bei Auswärtsbetankungen werden gegen Vorlage der Quittungen die aktuellen Einstandspreise der FLUBAG zurückvergütet.</p>
-      </article>
-    </div>
-    <div class="notice notice--brand mt-l" data-reveal>
-      <svg class="icon icon-receipt" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg>
-      <div><p><strong>Alle Preise in CHF exkl. MwSt.</strong></p><p>Das gilt für Flugzeugmiete, Fluglehrer, Landetaxen, Abstellgebühren und Zollabfertigung. Fragen zur Abrechnung beantwortet dir das <span class="nowrap">C-Büro</span> unter <a class="nowrap" href="tel:+41419301866">+41 41 930 18 66</a> oder <a href="mailto:flubag@flubag.ch">flubag@flubag.ch</a>.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--alt section--glow" id="erlebnisfluege" aria-labelledby="erlebnis-title">
+<section class="section section--glow" id="erlebnisfluege" aria-labelledby="erlebnis-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack">
@@ -881,53 +806,64 @@
         <a class="icon-btn" href="https://www.instagram.com/flugplatzberomuenster/" target="_blank" rel="noopener" aria-label="Flugplatz Beromünster auf Instagram"><svg class="icon icon-instagram" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       </div>
     </div>
+    <!-- Linkspalten: auf dem Desktop offen, unter 760 px als Akkordeon (07-ui.js schliesst sie dort). Ohne JS bleiben sie offen. -->
     <nav class="footer-col" aria-label="Flugschule">
-      <p class="footer-title">Flugschule</p>
-      <ul>
-        <li><a href="schnupperflug.html">Schnupperflug</a></li>
-        <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
-        <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
-        <li><a href="infoabende.html">Infoabende</a></li>
-        <li><a href="dokumente.html#syllabi">Syllabi</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugschule<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="schnupperflug.html">Schnupperflug</a></li>
+          <li><a href="ausbildung.html">Ausbildung PPL &amp; LAPL</a></li>
+          <li><a href="fluglehrer.html">Unsere Fluglehrer</a></li>
+          <li><a href="infoabende.html">Infoabende</a></li>
+          <li><a href="dokumente.html#syllabi">Syllabi</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Rundflüge, Gutscheine und Flugplatz">
-      <p class="footer-title">Rundflüge &amp; Gutscheine</p>
-      <ul>
-        <li><a href="rundfluege.html">Rundflüge</a></li>
-        <li><a href="gutscheine.html">Gutscheine</a></li>
-        <li><a href="flotte.html">Unsere Flotte</a></li>
-        <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
-      </ul>
-      <p class="footer-title">Flugplatz</p>
-      <ul>
-        <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
-        <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
-        <li><a href="anreise.html">Anreise</a></li>
-        <li><a href="aktuelles.html">Aktuelles</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Rundflüge &amp; Gutscheine<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="rundfluege.html">Rundflüge</a></li>
+          <li><a href="gutscheine.html">Gutscheine</a></li>
+          <li><a href="flotte.html">Unsere Flotte</a></li>
+          <li><a href="https://www.xn--flger-lvaa.ch/" target="_blank" rel="noopener">Restaurant Flüüger</a></li>
+        </ul>
+      </details>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Flugplatz<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="geschichte.html">Geschichte &amp; Team</a></li>
+          <li><a href="webcams.html">Webcams &amp; Wetter</a></li>
+          <li><a href="anreise.html">Anreise</a></li>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
+        </ul>
+      </details>
     </nav>
     <nav class="footer-col" aria-label="Piloten">
-      <p class="footer-title">Piloten</p>
-      <ul>
-        <li><a href="piloten.html">Pilotenbereich</a></li>
-        <li><a href="airport-briefing.html">Airport Briefing</a></li>
-        <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
-        <li><a href="piste-33.html">Piste 33</a></li>
-        <li><a href="preise.html" aria-current="page">Preise</a></li>
-        <li><a href="reporting.html">Reporting</a></li>
-        <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
-      </ul>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">Piloten<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <ul>
+          <li><a href="piloten.html">Pilotenbereich</a></li>
+          <li><a href="airport-briefing.html">Airport Briefing</a></li>
+          <li><a href="weisungen.html">Weisung Piloten 2026</a></li>
+          <li><a href="piste-33.html">Piste 33</a></li>
+          <li><a href="preise.html" aria-current="page">Preise</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="https://res.airportheli.ch/flubag/" target="_blank" rel="noopener">Reservation</a></li>
+        </ul>
+      </details>
     </nav>
     <div class="footer-col footer-airfield">
-      <p class="footer-title">LSZO auf einen Blick</p>
-      <dl class="data-list">
-        <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
-        <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
-        <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
-        <div><dt>Para</dt><dd class="mono">122.455</dd></div>
-      </dl>
-      <div class="footer-status" data-airfield-status-inline><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
+      <details class="footer-acc" open data-footer-acc>
+        <summary class="footer-title">LSZO auf einen Blick<svg class="icon icon-chevron-down footer-acc__chev" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /> </svg></summary>
+        <dl class="data-list">
+          <div><dt>ICAO</dt><dd class="mono">LSZO</dd></div>
+          <div><dt>Höhe</dt><dd class="mono">2146 ft</dd></div>
+          <div><dt>Piste</dt><dd class="mono">15/33 · Gras · 510 m</dd></div>
+          <div><dt>Para</dt><dd class="mono">122.455</dd></div>
+        </dl>
+      </details>
+      <div class="footer-status" data-airfield-status-inline data-live="status"><span class="dot dot--idle"></span><span>Platzstatus wird geladen</span></div>
     </div>
   </div>
 
