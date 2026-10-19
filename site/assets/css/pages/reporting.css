@@ -95,7 +95,7 @@ body:has(.site-header.is-hidden) .rp-mp__side { top: 84px; }
 .rp-chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); color: var(--text-2); font: inherit; font-size: 0.86rem; font-weight: 600; line-height: 1.2; cursor: pointer; transition: border-color 0.2s, background-color 0.2s, color 0.2s; }
 .rp-chip .icon { width: 15px; height: 15px; }
 .rp-chip:hover { border-color: var(--text-3); color: var(--text); }
-.rp-chip[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
+.rp-chip[aria-pressed="true"] { background: var(--brand-fill); border-color: var(--brand-fill); color: #fff; }
 .rp-tools__status { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 16px; }
 .rp-tools__count { font-size: 0.75rem; color: var(--text-3); }
 .rp-tools__status .btn { padding-block: 0.3em; }

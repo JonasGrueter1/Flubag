@@ -58,7 +58,7 @@ small { font-size: var(--fs-s); }
 address { font-style: normal; }
 hr { border: 0; border-top: 1px solid var(--line); }
 table { border-collapse: collapse; width: 100%; }
-::selection { background: var(--brand); color: #fff; }
+::selection { background: var(--brand-fill); color: #fff; }
 :focus-visible { outline: 2px solid var(--focus, var(--sky)); outline-offset: 3px; border-radius: 4px; }
 [hidden] { display: none !important; }
 
@@ -74,7 +74,7 @@ table { border-collapse: collapse; width: 100%; }
 }
 .skip-link {
   position: fixed; left: 16px; top: -60px; z-index: 10000;
-  background: var(--brand); color: #fff; padding: 10px 16px; border-radius: var(--radius-s);
+  background: var(--brand-fill); color: #fff; padding: 10px 16px; border-radius: var(--radius-s);
   font-weight: 600; text-decoration: none; transition: top 0.2s;
 }
 .skip-link:focus { top: 16px; }

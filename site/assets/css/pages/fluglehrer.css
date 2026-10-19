@@ -36,7 +36,7 @@
 .fi-lead__photo { aspect-ratio: auto; border-radius: 0; min-height: clamp(360px, 32vw, 460px); }
 .fi-lead__photo img { position: absolute; inset: 0; object-position: center 20%; }
 .fi-lead:hover .person__photo img { filter: none; transform: scale(1.05); }
-.fi-lead__badge.chip { position: absolute; left: 16px; bottom: 16px; z-index: 2; color: #fff; background: rgba(230, 50, 1, 0.85); border-color: transparent; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.fi-lead__badge.chip { position: absolute; left: 16px; bottom: 16px; z-index: 2; color: #fff; background: var(--brand-lo); border-color: transparent; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .fi-lead__body { position: relative; display: grid; align-content: end; gap: 12px; padding: clamp(22px, 3vw, 40px); }
 .fi-lead__num {
   position: absolute; top: clamp(16px, 2.4vw, 30px); right: clamp(18px, 2.4vw, 32px);
@@ -86,16 +86,12 @@
 /* Touch: Fotos farbig zeigen, es gibt kein Hover */
 @media (hover: none) { .fi-card .person__photo img, .fi-lead .person__photo img { filter: none; } }
 
-/* ---------- Namen-Laufband ---------- */
-.fi-marquee { --marquee-speed: 60s; padding: clamp(18px, 2.4vw, 30px) 0; }
-.fi-marquee .marquee__item { gap: 0.35em; }
-.fi-marquee .marquee__item .icon { width: 0.42em; height: 0.42em; color: var(--brand-hi); transform: rotate(45deg); }
 
 /* ---------- Rollen ---------- */
 .fi-role { gap: 14px; }
 .fi-role .card__icon { transition: transform 0.5s var(--ease-spring), background-color 0.3s, color 0.3s; }
 .fi-role:hover { transform: translateY(-6px); border-color: var(--line-strong); box-shadow: var(--shadow); }
-.fi-role:hover .card__icon { transform: rotate(-8deg) scale(1.06); background: var(--brand); color: #fff; }
+.fi-role:hover .card__icon { transform: rotate(-8deg) scale(1.06); background: var(--brand-fill); color: #fff; }
 .fi-role__who { margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--line-strong); display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand-text); }
 .fi-role__who .icon { width: 15px; height: 15px; }
 .fi-roles__note { display: flex; align-items: flex-start; gap: 8px; margin-top: clamp(16px, 2vw, 24px); font-size: 0.82rem; }

@@ -45,7 +45,6 @@
   60% { stroke-dashoffset: 0.38; }
   92%, 100% { stroke-dashoffset: 0; }
 }
-.ga-scene.is-restart .ga-scene__path { animation: none; }
 .reduced-motion .ga-scene__path { animation: none; stroke-dashoffset: 0; }
 .ga-plane__body, .ga-plane__wing { fill: #fff; }
 .ga-plane__strut { stroke: #fff; stroke-width: 1.4; fill: none; }
@@ -60,21 +59,7 @@
 
 /* ---------- Instrument und Checkliste ---------- */
 .ga-main { gap: clamp(32px, 6vw, 96px); }
-.ga-panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 22px; color: var(--text); }
-.ga-panel__wide { grid-column: 1 / -1; }
-.ga-panel .readout__value--text { font-family: var(--font-body); font-size: 1rem; font-weight: 600; }
-.ga-panel__bad { color: var(--brand-hi); font-size: 1.6rem; }
-.ga-panel__path { font-size: 0.95rem; font-weight: 500; overflow-wrap: anywhere; color: var(--sky); }
 
-.ga-checklist { padding: clamp(18px, 2.2vw, 26px); border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--line); display: grid; gap: 12px; }
-.ga-checklist__title { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brand-text); }
-.ga-checklist__list { list-style: none; padding: 0; display: grid; gap: 10px; counter-reset: ga; }
-.ga-checklist__list li { display: grid; grid-template-columns: auto auto 1fr auto; align-items: baseline; gap: 10px; font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; }
-.ga-checklist__list li::before { counter-increment: ga; content: counter(ga) "."; color: var(--text-3); }
-.ga-checklist__list li > span:first-child { color: var(--text-2); }
-.ga-checklist__dots { border-bottom: 2px dotted var(--line-strong); transform: translateY(-4px); min-width: 16px; }
-.ga-checklist__list strong { color: var(--text); text-align: right; }
-.ga-checklist__note { font-size: 0.8rem; color: var(--text-3); }
 
 /* ---------- Ziele ---------- */
 .ga-targets { display: grid; gap: 20px; }
@@ -108,13 +93,14 @@
   .ga-scene__labels, .ga-scene__rwytext { display: none; }
   .ga-scene__path { stroke-width: 5; }
   .ga-hero__big { font-size: 13rem; right: -10vw; top: 38%; }
-  .ga-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-}
+  }
 
-/* Dunkles Panel auch im hellen Modus satt */
-.ga-panel.instrument { background: linear-gradient(180deg, #101b2f, #080e1b); }
 .ga-scene__tick { stroke: var(--brand-hi); stroke-width: 1.4; stroke-dasharray: 3 4; fill: none; }
 @media (max-width: 640px) { .ga-scene__tick { display: none; } }
 @media (max-width: 640px) {
   .ga-scene { width: 150%; margin-left: -25%; }
 }
+
+/* Heller Modus: Kürzel als helle Markenfläche statt dunkler Kachel */
+[data-theme="light"] .ga-target__code { background: rgba(230, 50, 1, 0.08); color: var(--brand-text); border-color: rgba(230, 50, 1, 0.22); }
+.ga-contact { gap: 10px; }

@@ -100,5 +100,14 @@
   .ab-key a { grid-template-columns: 34px 1fr; padding: 9px 12px; gap: 10px; font-size: 0.9rem; line-height: 1.4; }
   .ab-key a > .icon:first-child { width: 34px; height: 34px; padding: 8px; }
   .ab-key__go { display: none; }
+  /* Startskizze neben der Legende statt darunter (Grossansicht per Lightbox) */
+  .ab-takeoff { max-width: none; justify-self: stretch; grid-template-columns: 132px minmax(0, 1fr); align-items: end; gap: 14px; }
+  .ab-takeoff .pl-figure__zoom { font-size: 0; gap: 0; padding: 8px; right: 8px; bottom: 8px; }
+  /* Weiterführende Links zweispaltig und ohne Icon */
+  .page-airport-briefing .pl-related { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .page-airport-briefing .pl-link { grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 12px; }
+  .page-airport-briefing .pl-link__icon { display: none; }
+  .page-airport-briefing .pl-link__title { font-size: 0.95rem; }
+  .page-airport-briefing .pl-link__text { font-size: 0.8rem; }
 }
 .reduced-motion .ab-livehint .icon { animation: none; }

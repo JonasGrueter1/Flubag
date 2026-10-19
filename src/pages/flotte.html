@@ -25,14 +25,6 @@
   <a class="scroll-cue" href="#flugzeuge" aria-label="Weiter zu den Flugzeugen"><span></span></a>
 </section>
 
-<div class="marquee marquee--big fl-marquee" aria-label="Kennzeichen der FLUBAG Flugzeuge">
-  <div class="marquee__track">
-    <!-- @each data.flotte as a -->
-    <span class="marquee__item">{{a.reg}}</span>
-    <!-- @end -->
-  </div>
-</div>
-
 <section class="section" id="flugzeuge" aria-labelledby="flugzeuge-title">
   <div class="container">
     <div class="section-head section-head--split">
@@ -289,9 +281,9 @@
           <div class="card__foot"><a class="btn btn--ghost btn--sm" href="https://skyparts.ch/" target="_blank" rel="noopener"><x-icon name="external-link"></x-icon>skyparts.ch</a></div>
         </div>
       </div>
-      <div class="notice notice--warn" data-reveal>
+      <div class="notice notice--warn fl-hangar__note" data-reveal>
         <x-icon name="triangle-alert"></x-icon>
-        <div><p><strong>Helft mit, Hangarierungsschäden zu vermeiden.</strong></p><p>Bitte stellt sicher, dass die Flugzeuge immer vollständig aus dem Bereich der Schiebetüren gezogen werden. Meistens reicht es, das Flugzeug noch zwei Meter weiter zu schieben oder zu ziehen. <a class="brand-text" href="news-hangarierung.html">Zur Meldung</a></p></div>
+        <div><p><strong>Helft mit, Hangarierungsschäden zu vermeiden.</strong></p><p>Bitte stellt sicher, dass die Flugzeuge immer vollständig aus dem Bereich der Schiebetüren gezogen werden. Meistens reicht es, das Flugzeug noch zwei Meter weiter zu schieben oder zu ziehen. <a href="news-hangarierung.html">Zur Meldung</a></p></div>
       </div>
     </div>
   </div>

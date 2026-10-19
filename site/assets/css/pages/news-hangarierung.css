@@ -62,3 +62,9 @@
 /* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
 .page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
 .page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }
+
+/* Heller Modus: Vorplatz und Hangar in der Skizze vom weissen Panel absetzen */
+[data-theme="light"] .door-check__stage { box-shadow: inset 0 0 0 1px var(--line); }
+[data-theme="light"] .door-check__apron { fill: #f0ece3; }
+[data-theme="light"] .door-check__hangar { fill: #ddd5c4; }
+[data-theme="light"] .door-check__label:not(.door-check__label--zone) { fill: var(--text-2); }

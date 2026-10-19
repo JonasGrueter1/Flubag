@@ -57,7 +57,7 @@
 .gift-pick input:checked + .gift-pick__card { box-shadow: 0 0 0 2px var(--brand-hi), 0 14px 34px -16px var(--brand-glow); }
 .gift-pick input:checked + .gift-pick__card img { filter: none; }
 .gift-pick input:focus-visible + .gift-pick__card { outline: 2px solid var(--sky); outline-offset: 3px; }
-.gift-pick__check { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--brand); color: #fff; transform: scale(0); transition: transform 0.35s var(--ease-spring); }
+.gift-pick__check { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--brand-fill); color: #fff; transform: scale(0); transition: transform 0.35s var(--ease-spring); }
 .gift-pick__check .icon { width: 15px; height: 15px; stroke-width: 3; }
 .gift-pick input:checked + .gift-pick__card .gift-pick__check { transform: scale(1); }
 .gift-pick__meta { font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: #ffc1a6; }
@@ -93,7 +93,7 @@
 }
 .gift-amounts span .icon { width: 15px; height: 15px; }
 .gift-amounts label:hover span { border-color: var(--text-3); transform: translateY(-2px); }
-.gift-amounts input:checked + span { background: var(--brand); border-color: var(--brand); color: #fff; }
+.gift-amounts input:checked + span { background: var(--brand-fill); border-color: var(--brand-fill); color: #fff; }
 .gift-amounts input:focus-visible + span { outline: 2px solid var(--sky); outline-offset: 2px; }
 .gift-own__input { position: relative; max-width: 280px; }
 .gift-own__prefix { position: absolute; left: 16px; top: 50%; translate: 0 -50%; font-size: 0.85rem; color: var(--text-3); pointer-events: none; }
@@ -145,7 +145,7 @@
 .gift-pass__end--to { justify-items: end; text-align: right; }
 .gift-pass .pass__code { font-size: clamp(2.1rem, 1.5rem + 1.4vw, 2.7rem); letter-spacing: -0.01em; }
 .gift-pass__dest { display: inline-block; white-space: nowrap; color: var(--brand); }
-.gift-pass__place { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #6a7588; white-space: nowrap; }
+.gift-pass__place { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5a6680; white-space: nowrap; }
 .gift-pass .pass__line { margin-top: 1.3rem; }
 .gift-pass.is-departing .pass__line .icon { animation: gift-fly 1s var(--ease-out); }
 @keyframes gift-fly { 0% { left: 4%; opacity: 0; } 25% { opacity: 1; } 100% { left: 50%; opacity: 1; } }
@@ -165,7 +165,7 @@
 .gift-pass .pass__price.is-long { font-size: clamp(1.25rem, 1.05rem + 0.5vw, 1.45rem); }
 .gift-pass__barcode { color: #0b1426; height: 52px; }
 .gift-pass__barcode svg { display: block; width: 100%; height: 100%; }
-.gift-pass__nr { margin-top: 6px; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6a7588; }
+.gift-pass__nr { margin-top: 6px; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: #5a6680; }
 
 /* Übergänge beim Wechsel */
 .gift-pass .is-swap { animation: gift-swap 0.55s var(--ease-out) both; }
@@ -305,7 +305,7 @@ body.gift-config-on .to-top { opacity: 0; transform: translateY(20px) scale(0.8)
 .gift-how__list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.8vw, 24px); }
 .gift-how__card { display: grid; gap: 12px; align-content: start; padding: clamp(18px, 2vw, 26px); border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--line); }
 .gift-how__head { display: flex; align-items: center; gap: 12px; }
-.gift-how__num { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--brand); color: #fff; font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; }
+.gift-how__num { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--brand-fill); color: #fff; font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; }
 .gift-how__title { font-size: 1.12rem; font-family: var(--font-display); font-weight: 750; line-height: 1.25; }
 .gift-how__card p { color: var(--text-2); font-size: 0.96rem; }
 .gift-how__card a { color: var(--brand-text); }
@@ -349,7 +349,7 @@ body.gift-config-on .to-top { opacity: 0; transform: translateY(20px) scale(0.8)
 .gift-option__price { font-family: var(--font-display); font-weight: 800; font-size: 1.06rem; color: var(--text); }
 .gift-card__amounts { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .gift-amount { display: inline-block; padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); font-family: var(--font-display); font-weight: 750; font-size: 0.9rem; text-decoration: none; transition: border-color 0.25s, background-color 0.25s, color 0.25s; }
-.gift-amount:hover { border-color: var(--brand); background: var(--brand); color: #fff; }
+.gift-amount:hover { border-color: var(--brand-fill); background: var(--brand-fill); color: #fff; }
 .gift-amount--own { font-family: var(--font-body); font-weight: 600; font-size: 0.82rem; border-style: dashed; }
 .gift-card--wide { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
 .gift-card--wide .gift-card__media { aspect-ratio: auto; min-height: 220px; }

@@ -32,7 +32,7 @@
 .sp-doc__sign i { display: block; width: 58%; height: 22px; border-bottom: 1.5px solid #8b93a3; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 24'%3E%3Cpath d='M4 18c10-14 16-14 14-2s10-12 16-6-4 10 6 4 12-10 18-4 8 4 16-2 14-4 24 0' fill='none' stroke='%231d3a7a' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") left bottom / auto 100% no-repeat; }
 .sp-doc__sign small { font-size: 0.6rem; color: #6b7486; }
 .sp-doc__foot { display: flex; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid #e3ddd1; font: 600 0.58rem/1 var(--font-mono); color: #6b7486; }
-.sp-doc__badge { position: absolute; right: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-pill); background: var(--brand); color: #fff; font-weight: 700; font-size: 0.9rem; box-shadow: 0 12px 30px -10px rgba(230, 50, 1, 0.7); transition: transform 0.4s var(--ease-spring); }
+.sp-doc__badge { position: absolute; right: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-pill); background: var(--brand-fill); color: #fff; font-weight: 700; font-size: 0.9rem; box-shadow: 0 12px 30px -10px rgba(230, 50, 1, 0.7); transition: transform 0.4s var(--ease-spring); }
 .sp-doc__badge .icon { width: 18px; height: 18px; }
 .sp-doc:hover .sp-doc__badge { transform: translateY(-3px) scale(1.04); }
 @media (max-width: 640px) {
@@ -72,7 +72,7 @@
 .sp-ask { display: grid; gap: 12px; padding: 0; margin-left: 0; margin-right: 0; border: 0; min-width: 0; }
 .sp-ask legend { padding: 0; margin-bottom: 12px; font-size: 1rem; line-height: 1.4; }
 .sp-flow { display: grid; gap: 18px; padding: clamp(18px, 3vw, 30px); border-radius: var(--radius-l); border: 1px solid var(--line); background: var(--surface); }
-.sp-flow__start { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: var(--radius); background: var(--brand); color: #fff; font-size: 1.15rem; }
+.sp-flow__start { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: var(--radius); background: var(--brand-fill); color: #fff; font-size: 1.15rem; }
 .sp-flow__start .icon { width: 22px; height: 22px; }
 .sp-flow__cols { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 14px; }
 .sp-flow__branch { position: relative; display: grid; grid-template-rows: auto 1fr; gap: 14px; transition: opacity 0.4s, filter 0.4s; }
@@ -139,7 +139,17 @@
 .sp-acc .acc__body p + p { margin-top: 10px; }
 
 .sp-cta { display: grid; gap: 14px; padding: clamp(24px, 3vw, 36px); }
-.sp-cta__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: var(--brand); color: #fff; box-shadow: 0 16px 40px -14px rgba(230, 50, 1, 0.7); }
+.sp-cta__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: var(--brand-fill); color: #fff; box-shadow: 0 16px 40px -14px rgba(230, 50, 1, 0.7); }
 .sp-cta__icon .icon { width: 32px; height: 32px; }
 .sp-cta h3 { font-size: var(--fs-h3); line-height: 1.1; }
 .sp-cta__btns { display: grid; gap: 10px; margin-top: 6px; }
+
+/* Handy: Dokument-Illustration weglassen (PDF-Knopf steht direkt darunter), Zitatkarten kompakter */
+@media (max-width: 640px) {
+  .sp-doc { display: none; }
+  .sp-quote { display: grid; grid-template-columns: 36px minmax(0, 1fr); align-items: center; gap: 10px 12px; padding: 18px; }
+  .sp-quote__icon { width: 36px; height: 36px; border-radius: 10px; }
+  .sp-quote__icon .icon { width: 18px; height: 18px; }
+  .sp-quote blockquote { grid-column: 1 / -1; font-size: 0.98rem; }
+  .sp-quotes { gap: 10px; }
+}

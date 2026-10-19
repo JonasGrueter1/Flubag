@@ -580,8 +580,10 @@
   function hashRoute() { var id = decodeURIComponent((location.hash || '').slice(1)); return byId[id] ? id : null; }
   var params = new URLSearchParams(location.search);
   var pre = byId[params.get('route')] ? params.get('route') : hashRoute();
-  activate(pre || ROUTES[0].id);
-  current = byId[pre || ROUTES[0].id];
+  // ohne Vorauswahl die Route aus dem Hero-Bild zeigen (Eiger, Mönch & Jungfrau)
+  var startRoute = pre || (byId['eiger-moench-jungfrau'] ? 'eiger-moench-jungfrau' : ROUTES[0].id);
+  activate(startRoute);
+  current = byId[startRoute];
   renderHud(current);
   if (pre && form) F.ready(function () { if (!formRoute()) preselect(pre); });
 

@@ -147,41 +147,22 @@
 
 <section class="section section--alt section--chart" id="ablauf" aria-labelledby="ablauf-title">
   <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack">
+    <div class="sb-flow">
+      <div class="stack sb-flow__intro">
         <p class="eyebrow" data-reveal>Ablauf des Sprungbetriebs</p>
         <h2 id="ablauf-title" data-split>Zehn Minuten bis zum Absprung.</h2>
-      </div>
-      <div class="stack">
         <p data-reveal>Der Para-Sprungdienstleiter (SDL) führt täglich einen Radiocheck mit seinem Funkgerät durch, sowohl am Boden (mit der Flugdienstleitung Flubag) wie auch mit dem sich in der Luft befindlichen Absetzflugzeug, um die Reichweite des Funkgerätes vom Boden zu den Flugzeugen zu überprüfen.</p>
         <p class="muted" data-reveal>Da das gleichzeitige Landen und Starten von Flugzeugen sowie das Landen von Fallschirmspringern aufgrund der engen Platzverhältnisse in Beromünster nicht möglich ist und somit eine Pistensperrung während der Zeit, in der Fallschirmspringer in der Luft sind, unerlässlich ist, sind Massnahmen zur Reduzierung dieser Sperrzeiten notwendig. Nebst internen Betriebsregelungen beim Paraclub Beromünster sind folgende Regelungen von den Motorflugpiloten und dem Paraclub zu beachten und zu befolgen.</p>
       </div>
-    </div>
-
-    <div class="sb-flow">
-      <aside class="sb-sim instrument hud-corners" data-sb-sim aria-label="Simulation des Absetzvorgangs">
-        <div class="sb-sim__top">
-          <span class="readout__label">Absetzvorgang</span>
-          <button class="btn btn--primary btn--sm sb-play" type="button" data-sb-play aria-pressed="false"><x-icon name="play" class="sb-play__on"></x-icon><x-icon name="pause" class="sb-play__off"></x-icon><span data-sb-play-text>Ablauf abspielen</span></button>
-        </div>
-        <div class="sb-sim__clock"><span class="readout__label">Zeit bis Absetzen</span><strong class="mono" data-sb-clock>T−10:00</strong></div>
-        <div class="sb-sim__state">
-          <div class="sb-sim__lamp" data-sb-lamp><span class="sb-sim__bulb"></span><span><small class="readout__label">Signallampe</small><b data-sb-lamp-text>AUS</b></span></div>
-          <div class="sb-sim__rwy" data-sb-rwy><x-icon name="runway"></x-icon><span><small class="readout__label">Piste 15/33</small><b data-sb-rwy-text>Frei</b></span></div>
-        </div>
-        <div class="sb-sim__track" aria-hidden="true"><span class="sb-sim__fill" data-sb-fill></span><span class="sb-sim__dots" data-sb-dots></span></div>
-        <p class="sb-sim__phase" data-sb-phase aria-live="polite">Steigflug des Absetzflugzeugs. Ansage 10 Minuten vor dem Absetzen.</p>
-      </aside>
-
       <ol class="steps sb-steps" data-steps>
-        <li class="step" data-sb-step="0" data-clock="T−10:00" data-lamp="off" data-rwy="Frei" data-phase="Ansage 10 Minuten vor dem Absetzen auf 122.455.">
+        <li class="step">
           <span class="step__num">−10</span>
           <div class="step__body">
             <h3 class="step__title">Ansage 10 Minuten vorher</h3>
             <p>Der Pilot des Absetzflugzeugs kündigt den Absetzvorgang der Springer 10, 5 und 2 Minuten im Voraus auf 122.455 an (z.B. <strong>"Beromünster TSA, paradropping in 5 minutes"</strong>).</p>
           </div>
         </li>
-        <li class="step" data-sb-step="1" data-clock="T−05:00" data-lamp="off" data-rwy="Frei" data-phase="Ansage 5 Minuten vorher. Der SDL bezieht Position beim Signalplatz.">
+        <li class="step">
           <span class="step__num">−5</span>
           <div class="step__body">
             <h3 class="step__title">Ansage 5 Minuten vorher, SDL auf Position</h3>
@@ -189,15 +170,14 @@
             <p>Der SDL resp. Bediener des Bodenfunkgeräts nimmt spätestens ab der Meldung des Absetzflugzeuges <strong>"dropping in 5 minutes"</strong> eine Position in der Nähe des Signalplatzes ein, von wo er die Luftraum- und Bodenüberwachung (Abstellplatz, Rollweg, Piste) uneingeschränkt wahrnehmen kann.</p>
           </div>
         </li>
-        <li class="step" data-sb-step="2" data-clock="T−02:00" data-lamp="off" data-rwy="Frei" data-phase="Ansage 2 Minuten vorher. Der SDL sucht den Freifallbereich nach Flugverkehr ab.">
+        <li class="step">
           <span class="step__num">−2</span>
           <div class="step__body">
             <h3 class="step__title">Ansage 2 Minuten vorher, Luftraumbeobachtung</h3>
             <p>Der SDL beginnt 2 Minuten bevor das Absetzflugzeug die Fallschirmspringer absetzt, den Freifallbereich auf Flugverkehr abzusuchen.</p>
-            <p class="sb-scan" aria-hidden="true"><span></span></p>
           </div>
         </li>
-        <li class="step sb-step--key" data-sb-step="3" data-clock="T−01:00" data-lamp="on" data-rwy="Gesperrt" data-phase="Luftraum frei: Freigabe zum Absetzen, Funkspruch und Signallampe EIN.">
+        <li class="step sb-step--key">
           <span class="step__num">−1</span>
           <div class="step__body">
             <h3 class="step__title">Eine Minute vorher frei: Freigabe und Signallampe EIN</h3>
@@ -206,14 +186,14 @@
             <p class="sb-lampon"><span class="sb-lampon__bulb" aria-hidden="true"></span><strong>Gleichzeitig schaltet er die Signallampe ein.</strong></p>
           </div>
         </li>
-        <li class="step" data-sb-step="4" data-clock="T±00:00" data-lamp="on" data-rwy="Gesperrt" data-phase="Absetzen: Springer verlassen das Flugzeug. Keine Starts und Landungen.">
+        <li class="step">
           <span class="step__num">0</span>
           <div class="step__body">
             <h3 class="step__title">Absetzen</h3>
             <p>Die Springer verlassen das Absetzflugzeug. Motorflugzeuge dürfen nicht mehr landen oder starten. Flugzeuge, welche sich beim Einschalten der Signallampe im Final befinden, können noch landen.</p>
           </div>
         </li>
-        <li class="step" data-sb-step="5" data-clock="nach dem Absetzen" data-lamp="on" data-rwy="Gesperrt" data-phase="Das Absetzflugzeug meldet: dropping completed. Springer sind noch in der Luft.">
+        <li class="step">
           <span class="step__num"><x-icon name="check"></x-icon></span>
           <div class="step__body">
             <h3 class="step__title">Dropping completed</h3>
@@ -221,7 +201,7 @@
             <div class="sb-call sb-call--tsa"><span class="sb-call__who"><x-icon name="plane"></x-icon>Absetzflugzeug · 122.455</span><p class="sb-call__msg">"Beromünster TSA, dropping completed"</p></div>
           </div>
         </li>
-        <li class="step sb-step--end" data-sb-step="6" data-clock="alle am Boden" data-lamp="off" data-rwy="Frei" data-phase="Der letzte Springer ist gelandet. Piste wieder frei.">
+        <li class="step sb-step--end">
           <span class="step__num"><x-icon name="flag"></x-icon></span>
           <div class="step__body">
             <h3 class="step__title">Alle Springer am Boden</h3>
@@ -231,7 +211,6 @@
         </li>
       </ol>
     </div>
-    <p class="subtle sb-flow__note" data-reveal>Die Simulation zeigt den Ablauf vereinfacht, die Zeiten sind Richtwerte.</p>
   </div>
 </section>
 

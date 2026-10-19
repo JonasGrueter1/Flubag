@@ -156,3 +156,29 @@
 /* Heller Modus: Status-Chips im (immer dunklen) Hero lesbar halten */
 .page-hero .chip--ok, [data-theme="light"] .page-hero .chip--ok { color: #6ee7b7; }
 .page-hero .chip--warn, [data-theme="light"] .page-hero .chip--warn { color: #fcd34d; border-color: rgba(252, 211, 77, 0.55); background: rgba(252, 211, 77, 0.1); }
+
+/* ---------- Kompakter auf dem Handy (Inhalt bleibt vollständig) ---------- */
+.legal-acc .acc > summary { font-family: var(--font-display); }
+@media (max-width: 640px) {
+  .legal-hero { min-height: 0; }
+  .page-datenschutz .section { padding-block: 64px; }
+  .page-datenschutz .section-head { margin-bottom: 28px; }
+  .legal-row { padding-block: 28px; }
+  /* Überblick: Symbol links neben Titel und Text */
+  .legal-glance { gap: 10px; }
+  .legal-glance .card { grid-template-columns: 40px minmax(0, 1fr); gap: 4px 14px; padding: 16px 18px; }
+  .legal-glance .card__icon { grid-row: span 2; width: 40px; height: 40px; padding: 9px; border-radius: 12px; }
+  .legal-glance .card__title { font-size: 1.05rem; }
+  /* Externe Dienste: Symbol neben dem Namen statt darüber */
+  .service-list { gap: 10px; }
+  .service { grid-template-columns: 36px minmax(0, 1fr); gap: 10px 12px; padding: 18px; border-radius: var(--radius); }
+  .service__icon { width: 36px; height: 36px; padding: 8px; border-radius: 10px; }
+  .service__body { display: contents; }
+  .service__top { grid-column: 2; align-self: center; }
+  .service__body > :not(.service__top) { grid-column: 1 / -1; }
+  /* Rechte: schlanke Liste */
+  .rights { gap: 8px; }
+  .rights li { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 12px 14px; }
+  .rights li > .icon { width: 32px; height: 32px; padding: 7px; border-radius: 10px; }
+  .legal-cookies { gap: 24px; }
+}

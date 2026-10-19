@@ -2,6 +2,7 @@
 
 Projekt: `/home/user/flubag`. Statische Website (HTML, CSS, JS ohne Framework), gebaut mit `tools/build.mjs` nach `site/`.
 Referenzseiten, die du dir zuerst anschauen musst: `src/pages/index.html` (Startseite) und `src/pages/schnupperflug.html` (Unterseite mit Formular). Daran orientierst du Aufbau, Klassen und Qualität.
+Beispiele für Live-Widgets (Platzstatus `data-airfield-status`, Seitenwind `data-xwind`) stehen in `src/pages/piloten.html` und `webcams.html`, für die Bordkarte (`pass`) in `gutscheine.html`, für die horizontale Zeitleiste (`htimeline`, `data-hscroll`) in `geschichte.html`.
 
 ## Befehle
 
@@ -85,6 +86,7 @@ Der grosse CTA "Dein Platz im Cockpit ist frei" und der Footer kommen automatisc
 
 ## CSS Bausteine (siehe `src/css/04-components.css`, `03-layout.css`)
 
+Farben: Flächen in Markenfarbe mit weisser Schrift (Buttons, aktive Chips, Nummern) immer mit `var(--brand-fill)` füllen, nicht mit `var(--brand)` (sonst Kontrast unter 4.5:1). Orange Schrift auf hellem Grund: `var(--brand-text)`.
 Gemeinsam nutzbar: `.scroll-cue` (Maus-Scrollhinweis im Hero: `<a class="scroll-cue" href="#start"><span></span></a>`). `.media-frame > img[data-parallax]` ist automatisch übergross, damit beim Parallax keine Ränder sichtbar werden. `.sticky` rutscht automatisch unter eine `.subnav`.
 Layout: `container`, `container--narrow`, `section`, `section--alt`, `section--chart`, `section--glow`, `section--tight`, `section-head` (+ `--center`, `--split`), `grid grid-2|grid-3|grid-4|grid-auto`, `split` (+ `--wide-left`, `--wide-right`, `--top`), `stack`, `stack-l`, `row`, `sticky`, `subnav` (Sprungmarken für lange Seiten: `<nav class="subnav" data-subnav><div class="container"><ul class="subnav__list"><li><a href="#abschnitt">..</a></li></ul></div></nav>`).
 Typo: `eyebrow`, `display`, `h1|h2|h3`, `lead`, `muted`, `subtle`, `mono`, `brand-text`, `prose` (für Fliesstext mit Listen, Regeln).

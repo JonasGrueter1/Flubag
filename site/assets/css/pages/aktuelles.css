@@ -13,7 +13,7 @@
 .top-story__podium strong { display: block; font-family: var(--font-display); font-size: 1.15rem; font-weight: 750; line-height: 1.25; }
 .top-story__podium small { color: var(--text-3); font-size: 0.82rem; }
 .top-story__rank { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); font-weight: 700; color: var(--text-2); }
-.top-story__podium li:first-child .top-story__rank { background: var(--brand); border-color: var(--brand); color: #fff; box-shadow: 0 8px 24px -8px var(--brand-glow); }
+.top-story__podium li:first-child .top-story__rank { background: var(--brand-fill, var(--brand)); border-color: var(--brand-fill, var(--brand)); color: #fff; box-shadow: 0 8px 24px -8px var(--brand-glow); }
 
 /* ---------- Filter ---------- */
 .news-filter { display: flex; flex-wrap: wrap; gap: 8px; align-self: end; }
@@ -25,10 +25,10 @@
 }
 .news-filter__btn .icon { width: 16px; height: 16px; }
 .news-filter__btn:hover { border-color: var(--brand); color: var(--text); transform: translateY(-2px); }
-.news-filter__btn[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: #fff; box-shadow: 0 10px 26px -12px var(--brand-glow); }
+.news-filter__btn[aria-pressed="true"] { background: var(--brand-fill, var(--brand)); border-color: var(--brand-fill, var(--brand)); color: #fff; box-shadow: 0 10px 26px -12px var(--brand-glow); }
 .news-filter__btn:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
 .news-filter__count { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: var(--radius-pill); background: rgba(127, 150, 190, 0.16); font-family: var(--font-mono); font-size: 0.72rem; }
-.news-filter__btn[aria-pressed="true"] .news-filter__count { background: rgba(255, 255, 255, 0.22); }
+.news-filter__btn[aria-pressed="true"] .news-filter__count { background: rgba(6, 11, 22, 0.2); }
 
 /* ---------- Editoriale Liste ---------- */
 .news-list { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
@@ -43,6 +43,7 @@
 .news-row__num { align-self: start; padding-top: 6px; font-size: 0.85rem; color: var(--text-3); transition: color 0.3s; }
 .news-row__body { display: grid; gap: 12px; justify-items: start; }
 .news-row__meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+[data-theme="light"] .news-row__meta .chip--brand { color: #a82500; }
 .news-row__title { font-family: var(--font-display); font-weight: 800; font-stretch: 108%; font-size: clamp(1.5rem, 1.05rem + 1.7vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; transition: color 0.3s; }
 .news-row__teaser { color: var(--text-2); max-width: 60ch; }
 .news-row__more { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--brand-text); }
@@ -135,7 +136,7 @@
 }
 
 /* Dunkle Instrument-Panels dieser Seiten (Aktuelles, News, Kontakt) im hellen Modus satt statt halbtransparent */
-[data-theme="light"] :is(.pilot-news, .zlk-facts, .spot-game, .hangar-rule, .contact-arrival).instrument { background: linear-gradient(180deg, #101b2f, #080e1b); }
+[data-theme="light"] :is(.pilot-news, .hangar-rule, .contact-arrival).instrument { background: linear-gradient(180deg, #101b2f, #080e1b); }
 
 /* Hero: auf dem Handy liegt der gelbe Flügel hinter Eyebrow und Lead, darum dunklere Abdeckung */
 @media (max-width: 640px) {

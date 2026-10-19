@@ -1,4 +1,4 @@
-/* 404 "Go around!": angeforderte Adresse zeigen, Animation steuern,
+/* 404 "Go around!": Animation steuern, Link-Meldung vorbereiten,
    alte Adressen der früheren Website (z.B. /de/node/137) der neuen Seite zuordnen. */
 (function () {
   'use strict';
@@ -8,10 +8,6 @@
   var root = me ? me.replace(/assets\/js\/pages\/404\.js.*$/, '') : location.origin + '/';
 
   var path = location.pathname || '/';
-  var shown = path + location.search;
-  try { shown = decodeURI(shown); } catch (e) { /* ungültige Kodierung */ }
-  if (shown.length > 90) shown = shown.slice(0, 87) + '...';
-  F.$$('[data-ga-path]').forEach(function (el) { el.textContent = shown; });
 
   // Fehlerhaften Link melden: Adresse und Herkunft gleich mitschicken
   F.$$('[data-ga-report]').forEach(function (a) {
@@ -27,27 +23,13 @@
     });
   });
 
-  // Animation: SMIL (Flugzeug) und CSS (Spur) gemeinsam neu starten
+  // Animation: bei reduzierter Bewegung das Flugzeug im Steigflug anhalten
   var scene = F.$('[data-ga-scene]');
   var svg = scene && F.$('svg', scene);
-  function restart() {
-    if (!svg || !svg.setCurrentTime) return;
-    scene.classList.add('is-restart');
-    void scene.offsetWidth;
-    svg.setCurrentTime(0);
-    scene.classList.remove('is-restart');
-    if (svg.unpauseAnimations) svg.unpauseAnimations();
-  }
   if (svg && F.reducedMotion && svg.pauseAnimations) {
     svg.pauseAnimations();
     try { svg.setCurrentTime(5); } catch (e) { /* älterer Browser */ }
   }
-  F.$$('[data-ga-replay]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      restart();
-      if (F.reducedMotion && svg && svg.pauseAnimations) setTimeout(function () { svg.pauseAnimations(); }, 5600);
-    });
-  });
 
   // Alte Adressen (Drupal) auf neue Seiten abbilden
   var NODES = {

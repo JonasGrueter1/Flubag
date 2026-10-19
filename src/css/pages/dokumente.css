@@ -26,8 +26,8 @@ body:has(.site-header.is-hidden) .dk-toolbar { top: 12px; }
 .dk-chip .icon { width: 15px; height: 15px; }
 .dk-chip:hover { border-color: var(--text-3); color: var(--text); }
 .dk-chip__n { font-family: var(--font-mono); font-size: 0.7rem; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--surface-3); color: var(--text-2); }
-.dk-chip[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
-.dk-chip[aria-pressed="true"] .dk-chip__n { background: rgba(255, 255, 255, 0.22); color: #fff; }
+.dk-chip[aria-pressed="true"] { background: var(--brand-fill); border-color: var(--brand-fill); color: #fff; }
+.dk-chip[aria-pressed="true"] .dk-chip__n { background: rgba(0, 0, 0, 0.2); color: #fff; }
 .dk-chip.is-zero:not([aria-pressed="true"]) { opacity: 0.45; }
 .dk-chip--sub b { font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.04em; }
 .dk-chip--sub small { font-size: 0.75rem; font-weight: 500; opacity: 0.75; }

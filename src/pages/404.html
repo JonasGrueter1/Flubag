@@ -69,7 +69,6 @@
     <div class="row ga-hero__actions">
       <a class="btn btn--primary btn--lg" href="index.html" data-magnetic><x-icon name="house"></x-icon>Zur Startseite</a>
       <button class="btn btn--ghost btn--lg" type="button" data-ga-back><x-icon name="arrow-left"></x-icon>Zurück</button>
-      <button class="btn btn--text" type="button" data-ga-replay><x-icon name="refresh-cw"></x-icon>Nochmals durchstarten</button>
     </div>
   </div>
 </section>
@@ -91,21 +90,9 @@
           <h2 id="ziel-title" data-split>Neuer Anflug, neues Ziel.</h2>
           <p class="lead" data-reveal>Vielleicht hat sich die Adresse geändert, denn die Website ist neu. Wähle dein Ziel aus der Liste oder ruf uns an.</p>
         </div>
-        <div class="ga-panel instrument hud-corners force-dark" data-reveal>
-          <div class="readout"><span class="readout__label">Status</span><span class="readout__value ga-panel__bad">404</span></div>
-          <div class="readout"><span class="readout__label">Piste</span><span class="readout__value readout__value--text">nicht frei</span></div>
-          <div class="readout ga-panel__wide"><span class="readout__label">Angefordert</span><span class="readout__value ga-panel__path mono" data-ga-path>/</span></div>
-          <div class="readout ga-panel__wide"><span class="readout__label">Empfehlung</span><span class="readout__value readout__value--text">Durchstarten und neu anfliegen</span></div>
-        </div>
-        <div class="ga-checklist" data-reveal>
-          <p class="ga-checklist__title mono">Go-around-Checkliste</p>
-          <ol class="ga-checklist__list">
-            <li><span>Leistung</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>Vollgas</strong></li>
-            <li><span>Fluglage</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>Steigflug</strong></li>
-            <li><span>Klappen</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>schrittweise ein</strong></li>
-            <li><span>Neues Ziel</span><span class="ga-checklist__dots" aria-hidden="true"></span><strong>wählen</strong></li>
-          </ol>
-          <p class="ga-checklist__note">Nur zur Unterhaltung. Im Cockpit gilt die Checkliste aus dem Flughandbuch.</p>
+        <div class="row ga-contact" data-reveal>
+          <a class="btn btn--ghost" href="tel:{{site.phoneHref}}"><x-icon name="phone"></x-icon>{{site.phone}}</a>
+          <a class="btn btn--ghost" href="mailto:{{site.email}}"><x-icon name="mail"></x-icon>{{site.email}}</a>
         </div>
       </div>
 

@@ -127,6 +127,7 @@
 .about__frame { aspect-ratio: 5 / 4; }
 .about__badge { position: absolute; right: -18px; bottom: 32px; display: grid; gap: 4px; padding: 16px 20px; }
 .about__badge-value { font-family: var(--font-display); font-weight: 900; font-stretch: 125%; font-size: 2.3rem; line-height: 1; color: var(--brand-hi); }
+[data-theme="light"] .about__badge:not(.force-dark) .about__badge-value { color: var(--brand); }
 .about__stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .about__stats .stat { padding: 16px 18px; gap: 6px; }
 .about__stats .stat__value { font-size: clamp(1.5rem, 1.1rem + 1vw, 2.1rem); }
@@ -183,7 +184,7 @@
 .news-item__text { color: var(--text-2); font-size: 0.92rem; line-height: 1.45; }
 .news-item__go { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-strong); color: var(--text-2); transition: background-color 0.3s, border-color 0.3s, color 0.3s; }
 .news-item__go .icon { width: 16px; height: 16px; }
-.news-item:hover .news-item__go { background: var(--brand); border-color: var(--brand); color: #fff; }
+.news-item:hover .news-item__go { background: var(--brand-fill); border-color: var(--brand-fill); color: #fff; }
 @media (max-width: 960px) { .news__list { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 560px) {
   .news-item { grid-template-columns: 100px minmax(0, 1fr); align-items: start; gap: 14px; padding: 10px; }

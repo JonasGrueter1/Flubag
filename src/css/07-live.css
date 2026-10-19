@@ -44,9 +44,6 @@
 .live-off-status .split:has(> [data-live="status"]) { grid-template-columns: minmax(0, 1fr); }
 .live-off-weather .split:has(> [data-live="weather"]) > :not([data-live]),
 .live-off-status .split:has(> [data-live="status"]) > :not([data-live]) { max-width: var(--container-narrow); }
-.live-off-weather.live-off-status .live__grid { grid-template-columns: minmax(0, 1fr); max-width: var(--container-narrow); margin-inline: auto; }
-.live-off-weather.live-off-status .live__cam { grid-row: auto; }
-.live-off-weather.live-off-status .live__cam .card__media { aspect-ratio: 4 / 3; min-height: 0; }
 .live-off-weather .pl-card-week { grid-column: auto; }
 .live-off-weather .bl-brief { grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 721px) { .live-off-weather .bl-side { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }

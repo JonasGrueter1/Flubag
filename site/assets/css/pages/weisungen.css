@@ -39,7 +39,7 @@
 .wz-lane__name { display: grid; gap: 4px; line-height: 1.3; }
 .wz-lane__name strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 750; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .wz-lane__name > span { font-size: 0.8rem; opacity: 0.7; font-family: var(--font-mono); }
-.wz-today { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--brand); color: #fff; font-weight: 700; }
+.wz-today { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--brand-fill); color: #fff; font-weight: 700; }
 .wz-lane__track { position: relative; height: 38px; border-radius: 12px; background: rgba(127, 150, 190, 0.14); background-image: repeating-linear-gradient(90deg, rgba(127, 150, 190, 0.18) 0 1px, transparent 1px 6.6667%); }
 .wz-seg { position: absolute; top: 0; bottom: 0; border-radius: 10px; transform-origin: left center; transition: transform 1s var(--ease-out); }
 .wz-seg em { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 2px 6px; border-radius: 6px; background: rgba(6, 11, 22, 0.82); color: #fde68a; font-style: normal; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; white-space: nowrap; }
@@ -97,6 +97,7 @@
 .wz-week .hours-day__bar { background: rgba(127, 150, 190, 0.16); }
 .wz-week .hours-day__name, .wz-week .hours-day__text, .wz-week .hours-axis { color: inherit; opacity: 0.75; }
 .wz-week .hours-day.is-today .hours-day__name { color: var(--brand-hi); opacity: 1; }
+[data-theme="light"] .wz-week .hours-day.is-today .hours-day__name { color: var(--brand-text); }
 .wz-week__foot { font-size: 0.78rem; opacity: 0.6; }
 
 /* Feiertage */
@@ -197,4 +198,10 @@
   .wz-week .hours-day, .wz-week .hours-axis { grid-template-columns: 66px minmax(0, 1fr); }
   .wz-week .hours-day__name { white-space: nowrap; font-size: 0.74rem; }
   .wz-num li { padding: 14px; gap: 12px; }
+  /* Weiterführende Links zweispaltig und ohne Icon */
+  .page-weisungen .pl-related { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .page-weisungen .pl-link { grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 12px; }
+  .page-weisungen .pl-link__icon { display: none; }
+  .page-weisungen .pl-link__title { font-size: 0.95rem; }
+  .page-weisungen .pl-link__text { font-size: 0.8rem; }
 }

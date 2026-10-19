@@ -8,6 +8,7 @@
   --brand-hi: #ff5a26;
   --brand-lo: #b82800;
   --brand-glow: rgba(255, 90, 38, 0.35);
+  --brand-fill: #d42f00; /* Fläche mit weisser Schrift (5.0:1, AA) */
   --sky: #7cc4ff;
   --sky-2: #3ba4f6;
   --ok: #34d399;
@@ -60,6 +61,7 @@
   --text-3: #8592aa;
   --focus: #7cc4ff;
   --brand-text: #ff6a3d;
+  --chip-brand: #ff6a3d;
   --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.75);
   --shadow-s: 0 10px 30px -14px rgba(0, 0, 0, 0.6);
   --glass: rgba(9, 15, 29, 0.72);
@@ -85,6 +87,7 @@
   --text-3: #5a6680;
   --focus: #0b5cc4;
   --brand-text: #c42c00;
+  --chip-brand: #a82500; /* Chip-Schrift auf getöntem Grund, auch auf bg-2 mind. 4.5:1 */
   --shadow: 0 30px 60px -30px rgba(20, 30, 50, 0.3);
   --shadow-s: 0 10px 24px -14px rgba(20, 30, 50, 0.3);
   --glass: rgba(250, 248, 243, 0.8);

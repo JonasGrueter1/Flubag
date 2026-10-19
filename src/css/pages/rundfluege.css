@@ -56,7 +56,7 @@
 .rf-tab__meta { grid-area: meta; justify-self: end; font-size: 0.7rem; color: var(--text-3); white-space: nowrap; }
 .rf-tab__name { grid-area: name; font-family: var(--font-display); font-weight: 750; font-size: 1.02rem; line-height: 1.2; }
 .rf-tab[aria-selected="true"] { border-color: var(--brand); background: linear-gradient(180deg, rgba(230, 50, 1, 0.12), rgba(230, 50, 1, 0.03)), var(--surface); box-shadow: 0 0 0 3px rgba(230, 50, 1, 0.12); }
-.rf-tab[aria-selected="true"] .rf-tab__num { background: var(--brand); border-color: transparent; color: #fff; }
+.rf-tab[aria-selected="true"] .rf-tab__num { background: var(--brand-fill); border-color: transparent; color: #fff; }
 .rf-tab[aria-selected="true"] .rf-tab__meta { color: var(--text-2); }
 
 .rf-stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: 28px; align-items: start; }
@@ -141,7 +141,7 @@ html:not(.js) .rf-panels { gap: 56px; }
 .rf-wp .wp-marker { display: block; }
 .rf-wp .wp-marker.is-named { background: var(--brand); border-color: #fff; }
 .leaflet-tooltip.rf-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; padding: 3px 7px; }
-.leaflet-tooltip.rf-label--home { background: var(--brand); font-weight: 700; }
+.leaflet-tooltip.rf-label--home { background: var(--brand-fill); font-weight: 700; }
 
 /* Flugzeug */
 .rf-plane { pointer-events: none; }
